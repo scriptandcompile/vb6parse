@@ -1485,22 +1485,22 @@ cst:
                                             text: Is
                                   - kind: Whitespace
                                     text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Label
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
+                          - kind: CallStatement
                             children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: Label
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ArgumentList
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: ThenKeyword
-                                        text: Then
-                          - kind: Newline
-                            text: "\r\n"
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: ThenKeyword
+                                            text: Then
+                              - kind: Newline
+                                text: "\r\n"
                       - kind: Whitespace
                         text: "            "
                       - kind: AssignmentStatement

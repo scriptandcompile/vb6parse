@@ -4791,12 +4791,12 @@ cst:
                                     text: )
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: EndOfLineComment
-                            text: "'Green"
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Green"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -4913,12 +4913,12 @@ cst:
                                     text: )
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: EndOfLineComment
-                            text: "'Blue"
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Blue"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -5035,12 +5035,12 @@ cst:
                                     text: )
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: EndOfLineComment
-                            text: "'Luminance"
-                          - kind: Newline
-                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: EndOfLineComment
+                        text: "'Luminance"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -5157,75 +5157,73 @@ cst:
                                     text: )
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: NextKeyword
-                            text: Next
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: x
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'When all has been completed, off we go to draw the histogram.  Yay."
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'We'll always draw the luminance histogram first; if the user has already looked"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'at a particular histogram, remember which one and display it instead."
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: DrawHistogram
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
                             children:
                               - kind: Identifier
-                                text: x
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'When all has been completed, off we go to draw the histogram.  Yay."
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'We'll always draw the luminance histogram first; if the user has already looked"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'at a particular histogram, remember which one and display it instead."
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: DrawHistogram
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: lastHistSource
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: lastHistMethod
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Unknown
-                        text: End
+                                text: lastHistSource
+                      - kind: Comma
+                        text: ","
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: lastHistMethod
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"

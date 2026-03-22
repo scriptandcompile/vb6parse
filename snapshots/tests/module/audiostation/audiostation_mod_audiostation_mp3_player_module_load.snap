@@ -929,10 +929,10 @@ cst:
                                         text: "1"
                                   - kind: Newline
                                     text: "\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: Newline
-                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
                           - kind: Whitespace
                             text: "    "
                           - kind: DimStatement
@@ -1279,10 +1279,10 @@ cst:
                                         text: )
                                   - kind: Newline
                                     text: "\n"
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: Newline
-                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
                           - kind: CallStatement
                             children:
                               - kind: Whitespace

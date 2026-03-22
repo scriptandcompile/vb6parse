@@ -773,48 +773,194 @@ cst:
                                     text: "1023"
                               - kind: Newline
                                 text: "\n"
-                          - kind: IfStatement
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: IfKeyword
-                                text: If
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ParenthesizedExpression
-                                children:
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: b1
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: LessThanOrEqualOperator
-                                        text: "<="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: b0
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ThenKeyword
-                                text: Then
-                              - kind: Whitespace
-                                text: " "
-                              - kind: AssignmentStatement
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
                                 children:
                                   - kind: IdentifierExpression
                                     children:
                                       - kind: Identifier
                                         text: b1
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LessThanOrEqualOperator
+                                    text: "<="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: b0
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: b1
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: b0
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EndOfLineComment
+                            text: "' make sure it uses at least 1 FFT bin"
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "10"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: b1
+                              - kind: Whitespace
+                                text: " "
+                              - kind: SubtractionOperator
+                                text: "-"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: b0
+                          - kind: Newline
+                            text: "\n"
+                      - kind: DoStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: DoKeyword
+                            text: Do
+                          - kind: Newline
+                            text: "\n"
+                          - kind: StatementList
+                            children:
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: sum
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: sum
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: fft
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "1"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: AdditionOperator
+                                                        text: +
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: b0
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "        "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: b0
                                   - kind: Whitespace
                                     text: " "
                                   - kind: EqualityOperator
@@ -837,278 +983,132 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "1"
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: Whitespace
-                                text: " "
+                                text: "        "
+                              - kind: Newline
+                                text: "\n"
+                              - kind: Whitespace
+                                text: "        "
                               - kind: EndOfLineComment
-                                text: "' make sure it uses at least 1 FFT bin"
+                                text: "' Countdown from 13 to make sure we start at the bottom of the spectrum"
                               - kind: Newline
                                 text: "\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: sc
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "10"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: b1
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: b0
-                              - kind: Newline
-                                text: "\n"
-                          - kind: DoStatement
-                            children:
-                              - kind: Whitespace
-                                text: "    "
-                              - kind: DoKeyword
-                                text: Do
-                              - kind: Newline
-                                text: "\n"
-                              - kind: StatementList
+                              - kind: CallStatement
                                 children:
                                   - kind: Whitespace
                                     text: "        "
-                                  - kind: AssignmentStatement
+                                  - kind: CallKeyword
+                                    text: Call
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: SetSpectrumBar
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Argument
                                         children:
-                                          - kind: Identifier
-                                            text: sum
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: IdentifierExpression
+                                          - kind: BinaryExpression
                                             children:
-                                              - kind: Identifier
-                                                text: sum
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: AdditionOperator
-                                            text: +
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: CallExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: fft
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: Argument
+                                                  - kind: IntegerLiteral
+                                                    text: "13"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Round
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: BinaryExpression
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: ParenthesizedExpression
+                                                            children:
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: sum
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: MultiplicationOperator
+                                                                    text: "*"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: NumericLiteralExpression
+                                                                    children:
+                                                                      - kind: IntegerLiteral
+                                                                        text: "14"
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
                                                         children:
                                                           - kind: NumericLiteralExpression
                                                             children:
                                                               - kind: IntegerLiteral
-                                                                text: "1"
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: AdditionOperator
-                                                            text: +
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: b0
-                                              - kind: RightParenthesis
-                                                text: )
-                                      - kind: Newline
-                                        text: "\n"
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: b0
+                                                                text: "0"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: BinaryExpression
+                                      - kind: Argument
                                         children:
                                           - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: b0
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: AdditionOperator
-                                            text: +
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "1"
-                                      - kind: Newline
-                                        text: "\n"
-                                  - kind: Whitespace
-                                    text: "        "
+                                                text: X
+                                  - kind: RightParenthesis
+                                    text: )
                                   - kind: Newline
                                     text: "\n"
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: EndOfLineComment
-                                    text: "' Countdown from 13 to make sure we start at the bottom of the spectrum"
-                                  - kind: Newline
-                                    text: "\n"
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Whitespace
-                                        text: "        "
-                                      - kind: CallKeyword
-                                        text: Call
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: SetSpectrumBar
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: BinaryExpression
-                                                children:
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "13"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: SubtractionOperator
-                                                    text: "-"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: CallExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Round
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
-                                                        children:
-                                                          - kind: Argument
-                                                            children:
-                                                              - kind: ParenthesizedExpression
-                                                                children:
-                                                                  - kind: LeftParenthesis
-                                                                    text: (
-                                                                  - kind: BinaryExpression
-                                                                    children:
-                                                                      - kind: IdentifierExpression
-                                                                        children:
-                                                                          - kind: Identifier
-                                                                            text: sum
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: MultiplicationOperator
-                                                                        text: "*"
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: NumericLiteralExpression
-                                                                        children:
-                                                                          - kind: IntegerLiteral
-                                                                            text: "14"
-                                                                  - kind: RightParenthesis
-                                                                    text: )
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Argument
-                                                            children:
-                                                              - kind: NumericLiteralExpression
-                                                                children:
-                                                                  - kind: IntegerLiteral
-                                                                    text: "0"
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: X
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Newline
-                                        text: "\n"
-                                  - kind: Whitespace
-                                    text: "    "
-                              - kind: LoopKeyword
-                                text: Loop
                               - kind: Whitespace
-                                text: " "
-                              - kind: WhileKeyword
-                                text: While
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
+                                text: "    "
+                          - kind: LoopKeyword
+                            text: Loop
+                          - kind: Whitespace
+                            text: " "
+                          - kind: WhileKeyword
+                            text: While
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: b0
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: LessThanOperator
-                                    text: "<"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: b1
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: Identifier
+                                    text: b0
+                              - kind: Whitespace
+                                text: " "
+                              - kind: LessThanOperator
+                                text: "<"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: b1
+                          - kind: Newline
+                            text: "\n"
                   - kind: NextKeyword
                     text: Next
                   - kind: Whitespace

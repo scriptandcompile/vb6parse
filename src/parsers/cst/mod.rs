@@ -2763,6 +2763,8 @@ impl<'a> Parser<'a> {
                             break;
                         }
 
+                        let pos_before = self.pos;
+
                         // Parse a statement
                         let parsed_statement = if self.is_control_flow_keyword() {
                             self.parse_control_flow_statement();
@@ -2813,31 +2815,17 @@ impl<'a> Parser<'a> {
                             }
                         };
 
-                        // After parsing a statement, check if we should continue
-                        if parsed_statement {
-                            // Check what token we're at now
-                            match self.current_token() {
-                                // These tokens indicate we should continue the loop
-                                Some(
-                                    Token::Whitespace
-                                    | Token::ColonOperator
-                                    | Token::EndOfLineComment
-                                    | Token::RemComment,
-                                ) => {
-                                    // Continue - loop will handle these tokens
-                                }
-                                // These tokens indicate end of Then clause
-                                Some(Token::ElseKeyword | Token::Newline) | None => {
-                                    // Stop parsing Then clause
-                                    break;
-                                }
-                                // Any other token means the statement consumed the newline
-                                // (e.g., Exit Sub consumes its newline, leaving us at the next line's first token)
-                                _ => {
-                                    // Statement consumed beyond the line, stop
-                                    break;
-                                }
-                            }
+                        // After parsing a statement, check if it consumed a newline.
+                        // Statement parsers (e.g. parse_assignment_statement) consume
+                        // the trailing newline. If that happened, we've reached the
+                        // end of this single line and must stop.
+                        if parsed_statement
+                            && self.pos > pos_before
+                            && self.tokens[pos_before..self.pos]
+                                .iter()
+                                .any(|(_, t)| *t == Token::Newline)
+                        {
+                            break;
                         }
                     }
 
@@ -2872,6 +2860,8 @@ impl<'a> Parser<'a> {
                                 break;
                             }
 
+                            let pos_before = self.pos;
+
                             // Parse one statement
                             if self.is_control_flow_keyword() {
                                 self.parse_control_flow_statement();
@@ -2899,27 +2889,14 @@ impl<'a> Parser<'a> {
                                 self.consume_token();
                             }
 
-                            // After parsing a statement, check if we should continue
-                            match self.current_token() {
-                                // These tokens indicate we should continue the loop
-                                Some(
-                                    Token::Whitespace
-                                    | Token::ColonOperator
-                                    | Token::EndOfLineComment
-                                    | Token::RemComment,
-                                ) => {
-                                    // Continue - loop will handle these tokens
-                                }
-                                // Newline or EOF indicates end of Else clause
-                                Some(Token::Newline) | None => {
-                                    // Stop parsing Else clause
-                                    break;
-                                }
-                                // Any other token means the statement consumed the newline
-                                _ => {
-                                    // Statement consumed beyond the line, stop
-                                    break;
-                                }
+                            // If the statement consumed a newline, we've reached
+                            // the end of this single line.
+                            if self.pos > pos_before
+                                && self.tokens[pos_before..self.pos]
+                                    .iter()
+                                    .any(|(_, t)| *t == Token::Newline)
+                            {
+                                break;
                             }
                         }
                     }

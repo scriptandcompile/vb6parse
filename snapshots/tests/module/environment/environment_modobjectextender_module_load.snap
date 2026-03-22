@@ -4259,12 +4259,12 @@ cst:
                                     text: hMem
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: EndOfLineComment
-                    text: "'If this.cRef = 0 Then CoTaskMemFree this.hMem"
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'If this.cRef = 0 Then CoTaskMemFree this.hMem"
+              - kind: Newline
+                text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

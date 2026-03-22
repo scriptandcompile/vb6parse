@@ -26075,10 +26075,10 @@ cst:
                                                 text: "0"
                                   - kind: Whitespace
                                     text: " "
-                      - kind: Unknown
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "            "
                       - kind: AssignmentStatement
@@ -26209,12 +26209,12 @@ cst:
                                     children:
                                       - kind: Ampersand
                                         text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HFF
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: CallStatement
+                            children:
+                              - kind: Identifier
+                                text: HFF
+                              - kind: Newline
+                                text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace

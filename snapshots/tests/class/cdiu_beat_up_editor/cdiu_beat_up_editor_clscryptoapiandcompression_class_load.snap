@@ -5158,10 +5158,10 @@ cst:
                                     text: "\"DLL error code shown above. Could not create a Hash Object (CryptCreateHash API)\""
                       - kind: Newline
                         text: "\n"
-                  - kind: EndOfLineComment
-                    text: "'can use CALG_MD5 to get a 128-bit hash.  CALG_SHA returns a 160-bit hash (more secure)."
-                  - kind: Newline
-                    text: "\n"
+              - kind: EndOfLineComment
+                text: "'can use CALG_MD5 to get a 128-bit hash.  CALG_SHA returns a 160-bit hash (more secure)."
+              - kind: Newline
+                text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: EndOfLineComment
@@ -5308,10 +5308,10 @@ cst:
                                     text: "\"DLL error code shown above. Could not calculate a Hash Value (CryptHashData API)\""
                       - kind: Newline
                         text: "\n"
-                  - kind: EndOfLineComment
-                    text: "'A hash is a 'fingerprint' of any string."
-                  - kind: Newline
-                    text: "\n"
+              - kind: EndOfLineComment
+                text: "'A hash is a 'fingerprint' of any string."
+              - kind: Newline
+                text: "\n"
               - kind: EndOfLineComment
                 text: "'Hashes are extremely useful for determining whether a"
               - kind: Newline

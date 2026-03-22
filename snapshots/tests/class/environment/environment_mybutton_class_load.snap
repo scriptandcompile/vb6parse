@@ -1235,12 +1235,12 @@ cst:
                                     text: Index
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'   End If"
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "'   End If"
+              - kind: Newline
+                text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

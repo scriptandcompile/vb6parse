@@ -2549,14 +2549,14 @@ cst:
                                         text: ucsSckStream
                           - kind: RightParenthesis
                             text: )
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\r\n"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "        "
               - kind: CallStatement
@@ -3305,14 +3305,14 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: ucsRdsUninitialized
-                              - kind: Unknown
-                                text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Unknown
-                                text: Then
-                              - kind: Newline
-                                text: "\r\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: GotoStatement
                                 children:
                                   - kind: Whitespace

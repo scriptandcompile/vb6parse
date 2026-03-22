@@ -7413,48 +7413,48 @@ cst:
                                     text: )
                       - kind: RightParenthesis
                         text: )
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: UBound
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: bGroupIconData
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: EqualityOperator
-                        text: "="
+                  - kind: Comma
+                    text: ","
                   - kind: Whitespace
                     text: " "
-                  - kind: BooleanLiteralExpression
+                  - kind: CallStatement
                     children:
-                      - kind: FalseKeyword
-                        text: "False"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\r\n"
+                      - kind: Identifier
+                        text: UBound
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: bGroupIconData
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: EqualityOperator
+                            text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BooleanLiteralExpression
+                        children:
+                          - kind: FalseKeyword
+                            text: "False"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "        "
               - kind: AssignmentStatement

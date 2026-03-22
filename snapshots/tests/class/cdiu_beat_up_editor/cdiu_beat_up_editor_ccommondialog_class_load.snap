@@ -10532,10 +10532,10 @@ cst:
                             text: "1"
                       - kind: Newline
                         text: "\n"
-                  - kind: Whitespace
-                    text: "   "
-                  - kind: Newline
-                    text: "\n"
+              - kind: Whitespace
+                text: "   "
+              - kind: Newline
+                text: "\n"
               - kind: IfStatement
                 children:
                   - kind: Whitespace

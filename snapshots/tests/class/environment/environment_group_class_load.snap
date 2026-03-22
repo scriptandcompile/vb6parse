@@ -872,42 +872,42 @@ cst:
                             text: "0"
                       - kind: Newline
                         text: "\r\n"
-                  - kind: ReDimStatement
-                    children:
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: ReDimKeyword
-                        text: ReDim
-                      - kind: Whitespace
-                        text: " "
-                      - kind: PreserveKeyword
-                        text: Preserve
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Fields
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: there
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AdditionOperator
-                        text: +
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IntegerLiteral
-                        text: "1"
-                      - kind: RightParenthesis
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+              - kind: ReDimStatement
+                children:
                   - kind: Whitespace
-                    text: "   "
-                  - kind: EndOfLineComment
-                    text: "' SwapStrings st$,"
+                    text: "    "
+                  - kind: ReDimKeyword
+                    text: ReDim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: PreserveKeyword
+                    text: Preserve
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: Fields
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: Identifier
+                    text: there
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AdditionOperator
+                    text: +
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerLiteral
+                    text: "1"
+                  - kind: RightParenthesis
+                    text: )
                   - kind: Newline
                     text: "\r\n"
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "' SwapStrings st$,"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -4414,10 +4414,10 @@ cst:
                                         text: Group
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: EndOfLineComment
-                                    text: "' If here$ <> \"\" And Not IamGlobal Then"
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: EndOfLineComment
+                                text: "' If here$ <> \"\" And Not IamGlobal Then"
+                              - kind: Newline
+                                text: "\r\n"
                               - kind: SetStatement
                                 children:
                                   - kind: Whitespace
@@ -6146,96 +6146,68 @@ cst:
                                         text: Group
                                       - kind: Newline
                                         text: "\r\n"
-                                  - kind: SetStatement
-                                    children:
-                                      - kind: Whitespace
-                                        text: "        "
-                                      - kind: SetKeyword
-                                        text: Set
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: vv
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Identifier
-                                        text: v
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: val
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: Split
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: s
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: IntegerLiteral
-                                        text: "1"
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: PrepareSoros1
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: Identifier
-                                        text: v
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: StringLiteral
-                                        text: "\"\""
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Newline
-                                        text: "\r\n"
+                              - kind: SetStatement
+                                children:
                                   - kind: Whitespace
                                     text: "        "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: AllSoros
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: MergeBottom
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: vv
-                                      - kind: Newline
-                                        text: "\r\n"
+                                  - kind: SetKeyword
+                                    text: Set
                                   - kind: Whitespace
-                                    text: "    "
-                                  - kind: ElseKeyword
-                                    text: Else
+                                    text: " "
+                                  - kind: Identifier
+                                    text: vv
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: v
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: val
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: Split
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: s
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: PrepareSoros1
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: Identifier
+                                    text: v
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteral
+                                    text: "\"\""
+                                  - kind: RightParenthesis
+                                    text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -6247,53 +6219,85 @@ cst:
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: DataStr
+                                    text: MergeBottom
                                   - kind: Whitespace
                                     text: " "
                                   - kind: ArgumentList
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: ParenthesizedExpression
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: CallExpression
+                                              - kind: Identifier
+                                                text: vv
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: ElseClause
+                            children:
+                              - kind: ElseKeyword
+                                text: Else
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "        "
+                                  - kind: CallStatement
+                                    children:
+                                      - kind: Identifier
+                                        text: AllSoros
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: DataStr
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: ParenthesizedExpression
                                                 children:
+                                                  - kind: LeftParenthesis
+                                                    text: (
                                                   - kind: CallExpression
                                                     children:
-                                                      - kind: Identifier
-                                                        text: Split
+                                                      - kind: CallExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: Split
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: s
+                                                          - kind: RightParenthesis
+                                                            text: )
                                                       - kind: LeftParenthesis
                                                         text: (
                                                       - kind: ArgumentList
                                                         children:
                                                           - kind: Argument
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: NumericLiteralExpression
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: s
+                                                                  - kind: IntegerLiteral
+                                                                    text: "0"
                                                       - kind: RightParenthesis
                                                         text: )
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: NumericLiteralExpression
-                                                            children:
-                                                              - kind: IntegerLiteral
-                                                                text: "0"
                                                   - kind: RightParenthesis
                                                     text: )
-                                              - kind: RightParenthesis
-                                                text: )
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: Whitespace
-                                text: "    "
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "    "
                           - kind: EndKeyword
                             text: End
                           - kind: Whitespace

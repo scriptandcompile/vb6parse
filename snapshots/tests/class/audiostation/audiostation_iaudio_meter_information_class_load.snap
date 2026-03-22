@@ -2782,32 +2782,32 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Release
-                          - kind: ArgumentList
+                          - kind: CallStatement
                             children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: Release
+                              - kind: ArgumentList
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: RightSquareBracket
-                                        text: "]"
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: NumericLiteralExpression
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -2878,32 +2878,32 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Release
-                          - kind: ArgumentList
+                          - kind: CallStatement
                             children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: Release
+                              - kind: ArgumentList
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: RightSquareBracket
-                                        text: "]"
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: NumericLiteralExpression
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -2974,32 +2974,32 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Release
-                          - kind: ArgumentList
+                          - kind: CallStatement
                             children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: Release
+                              - kind: ArgumentList
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: RightSquareBracket
-                                        text: "]"
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: NumericLiteralExpression
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightSquareBracket
+                                            text: "]"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -4288,10 +4288,10 @@ cst:
                                     text: "5"
                       - kind: Newline
                         text: "\n"
-                  - kind: Whitespace
-                    text: "  "
-                  - kind: Newline
-                    text: "\n"
+              - kind: Whitespace
+                text: "  "
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: AssignmentStatement

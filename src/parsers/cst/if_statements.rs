@@ -49,54 +49,62 @@ impl Parser<'_> {
         let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
         if is_single_line {
-            // Single-line If: parse inline statements
+            // Single-line If: parse inline statements.
+            // Statement parsers (e.g. parse_assignment_statement) consume the
+            // trailing newline. We must detect that and stop the loop, otherwise
+            // the single-line If would keep parsing onto subsequent lines.
             while !self.is_at_end() && !self.at_token(Token::Newline) {
                 if self.at_token(Token::ElseKeyword) {
                     break;
                 }
 
+                let pos_before = self.pos;
+
                 if self.is_control_flow_keyword() {
                     self.parse_control_flow_statement();
-                    continue;
-                }
-                if self.is_library_statement_keyword() {
+                } else if self.is_library_statement_keyword() {
                     self.parse_library_statement();
-                    continue;
-                }
-                if self.is_variable_declaration_keyword() {
+                } else if self.is_variable_declaration_keyword() {
                     self.parse_array_statement();
-                    continue;
-                }
-                if self.is_statement_keyword() {
+                } else if self.is_statement_keyword() {
                     self.parse_statement();
-                    continue;
-                }
-
-                match self.current_token() {
-                    Some(
-                        Token::Whitespace
-                        | Token::EndOfLineComment
-                        | Token::RemComment
-                        | Token::ColonOperator,
-                    ) => {
-                        self.consume_token();
-                    }
-                    _ => {
-                        if self.at_token(Token::LetKeyword) {
-                            self.parse_let_statement();
-                        } else if self.at_token(Token::PeriodOperator) {
-                            // Handle dot-prefixed member access in With blocks
-                            if self.is_at_with_member_assignment() {
-                                self.parse_assignment_statement();
-                            } else {
-                                self.parse_procedure_call();
-                            }
-                        } else if self.is_at_assignment() {
-                            self.parse_assignment_statement();
-                        } else {
+                } else {
+                    match self.current_token() {
+                        Some(
+                            Token::Whitespace
+                            | Token::EndOfLineComment
+                            | Token::RemComment
+                            | Token::ColonOperator,
+                        ) => {
                             self.consume_token();
                         }
+                        _ => {
+                            if self.at_token(Token::LetKeyword) {
+                                self.parse_let_statement();
+                            } else if self.at_token(Token::PeriodOperator) {
+                                // Handle dot-prefixed member access in With blocks
+                                if self.is_at_with_member_assignment() {
+                                    self.parse_assignment_statement();
+                                } else {
+                                    self.parse_procedure_call();
+                                }
+                            } else if self.is_at_assignment() {
+                                self.parse_assignment_statement();
+                            } else {
+                                self.consume_token();
+                            }
+                        }
                     }
+                }
+
+                // If a statement parser consumed a newline as part of the
+                // statement, we've reached the end of this single line.
+                if self.pos > pos_before
+                    && self.tokens[pos_before..self.pos]
+                        .iter()
+                        .any(|(_, t)| *t == Token::Newline)
+                {
+                    break;
                 }
             }
 
@@ -539,6 +547,39 @@ End Function
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens"
+        );
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    /// Tests that a single-line If inside a multi-line If does not consume
+    /// statements on subsequent lines or the outer End If / End Sub.
+    /// This is a regression test for the bug where parse_assignment_statement
+    /// consumes the trailing newline, causing the single-line If's loop to
+    /// continue past the end of the line, producing Unknown tokens for
+    /// End Sub / End Function.
+    #[test]
+    fn single_line_if_assignment_does_not_consume_next_line() {
+        let source = r"
+Sub Test()
+    If MaxLen > 0 Then
+        If MaxLen > InUse Then MaxLen = InUse
+        DeleteChars MaxLen
+    End If
+End Sub
+";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let text = format!("{:#?}", tree);
+        assert!(
+            !text.contains("Unknown"),
+            "Should not contain Unknown tokens: single-line If must not consume past end of line"
         );
 
         let mut settings = insta::Settings::clone_current();

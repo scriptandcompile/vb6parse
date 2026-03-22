@@ -4085,14 +4085,14 @@ cst:
                                 children:
                                   - kind: Identifier
                                     text: pi
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\r\n"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: EndOfLineComment
@@ -4635,9 +4635,21 @@ cst:
                                 text: If
                               - kind: Newline
                                 text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: GetCommandOutput
                           - kind: Whitespace
-                            text: "      "
-                          - kind: AssignmentStatement
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
@@ -4645,34 +4657,22 @@ cst:
                                     text: GetCommandOutput
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: Ampersand
+                                text: "&"
                               - kind: Whitespace
                                 text: " "
-                              - kind: BinaryExpression
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: GetCommandOutput
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: sNewOutput
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "      "
-                          - kind: EndOfLineComment
-                            text: "' If you are executing an application that outputs data during a long time,"
+                                  - kind: Identifier
+                                    text: sNewOutput
                           - kind: Newline
                             text: "\r\n"
+                      - kind: Whitespace
+                        text: "      "
+                      - kind: EndOfLineComment
+                        text: "' If you are executing an application that outputs data during a long time,"
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: Whitespace
                         text: "      "
                       - kind: EndOfLineComment

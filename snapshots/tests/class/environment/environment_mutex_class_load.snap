@@ -404,16 +404,16 @@ cst:
                                     text: ":"
                           - kind: Whitespace
                             text: " "
-              - kind: ExitStatement
-                children:
-                  - kind: ExitKeyword
-                    text: Exit
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-              - kind: Newline
-                text: "\r\n"
+                  - kind: ExitStatement
+                    children:
+                      - kind: ExitKeyword
+                        text: Exit
+                      - kind: Whitespace
+                        text: " "
+                      - kind: FunctionKeyword
+                        text: Function
+                  - kind: Newline
+                    text: "\r\n"
               - kind: DimStatement
                 children:
                   - kind: DimKeyword
@@ -894,16 +894,16 @@ cst:
                                     text: ":"
                           - kind: Whitespace
                             text: " "
-              - kind: ExitStatement
-                children:
-                  - kind: ExitKeyword
-                    text: Exit
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-              - kind: Newline
-                text: "\r\n"
+                  - kind: ExitStatement
+                    children:
+                      - kind: ExitKeyword
+                        text: Exit
+                      - kind: Whitespace
+                        text: " "
+                      - kind: SubKeyword
+                        text: Sub
+                  - kind: Newline
+                    text: "\r\n"
               - kind: CallStatement
                 children:
                   - kind: Identifier

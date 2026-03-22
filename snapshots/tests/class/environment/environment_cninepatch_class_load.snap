@@ -11074,22 +11074,22 @@ cst:
                                 children:
                                   - kind: Identifier
                                     text: uData
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "<>"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "0"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\r\n"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: InequalityOperator
+                    text: "<>"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IntegerLiteral
+                    text: "0"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: GotoStatement
                 children:
                   - kind: Whitespace
@@ -11140,36 +11140,36 @@ cst:
                             text: Width
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: AssignmentStatement
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
                     children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: m_lHeight
-                      - kind: Whitespace
-                        text: " "
-                      - kind: EqualityOperator
-                        text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: uData
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Height
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Identifier
+                        text: m_lHeight
                   - kind: Whitespace
-                    text: "    "
-                  - kind: EndOfLineComment
-                    text: "'--- top leftmost pixel"
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: uData
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Height
                   - kind: Newline
                     text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'--- top leftmost pixel"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement

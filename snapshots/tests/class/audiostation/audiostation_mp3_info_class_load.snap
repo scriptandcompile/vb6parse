@@ -10472,12 +10472,12 @@ cst:
                                 text: )
                       - kind: Newline
                         text: "\n"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'Read in variable bitrate header"
-                  - kind: Newline
-                    text: "\n"
+              - kind: Whitespace
+                text: " "
+              - kind: EndOfLineComment
+                text: "'Read in variable bitrate header"
+              - kind: Newline
+                text: "\n"
               - kind: IfStatement
                 children:
                   - kind: Whitespace
@@ -10944,26 +10944,26 @@ cst:
                                     children:
                                       - kind: Ampersand
                                         text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H1
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
+                  - kind: CallStatement
                     children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ThenKeyword
-                                text: Then
+                      - kind: Identifier
+                        text: H1
                       - kind: Whitespace
-                        text: "      "
-              - kind: EndOfLineComment
-                text: "'FRAMES_FLAG"
-              - kind: Newline
-                text: "\n"
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: ThenKeyword
+                                    text: Then
+                          - kind: Whitespace
+                            text: "      "
+                  - kind: EndOfLineComment
+                    text: "'FRAMES_FLAG"
+                  - kind: Newline
+                    text: "\n"
               - kind: ForStatement
                 children:
                   - kind: Whitespace
@@ -11490,92 +11490,96 @@ cst:
                         text: ":"
                       - kind: Newline
                         text: "\n"
-                  - kind: IfStatement
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: UnaryExpression
                     children:
+                      - kind: NotKeyword
+                        text: Not
                       - kind: Whitespace
                         text: " "
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Whitespace
-                        text: " "
-                      - kind: UnaryExpression
+                      - kind: IdentifierExpression
                         children:
-                          - kind: NotKeyword
-                            text: Not
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: m_ValidMP3
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: CallKeyword
-                            text: Call
-                          - kind: Whitespace
-                            text: " "
                           - kind: Identifier
-                            text: ClearInfo
-                          - kind: Newline
-                            text: "\n"
-                      - kind: EndKeyword
-                        text: End
+                            text: m_ValidMP3
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: CallKeyword
+                        text: Call
                       - kind: Whitespace
                         text: " "
-                      - kind: SubKeyword
-                        text: Sub
+                      - kind: Identifier
+                        text: ClearInfo
                       - kind: Newline
                         text: "\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: IsHeader
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: inArr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByteKeyword
-                    text: Byte
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BooleanKeyword
-                    text: Boolean
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'Tests for MPEG header sync information"
-                  - kind: Newline
-                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: IsHeader
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: inArr
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: ByteKeyword
+                text: Byte
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "'Tests for MPEG header sync information"
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -11744,68 +11748,72 @@ cst:
                                 text: )
                   - kind: Newline
                     text: "\n"
-              - kind: Unknown
-                text: End
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ValidHeader
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: inArr
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Function
-              - kind: Newline
-                text: "\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ValidHeader
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: inArr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByteKeyword
-                    text: Byte
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ReadPos
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BooleanKeyword
-                    text: Boolean
-                  - kind: Newline
-                    text: "\n"
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: ByteKeyword
+                text: Byte
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: ReadPos
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
               - kind: EndOfLineComment
                 text: "'if exit function occurs, this is not"
               - kind: Newline
@@ -13820,42 +13828,42 @@ cst:
                             text: Function
                       - kind: Newline
                         text: "\n"
+              - kind: Whitespace
+                text: " "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: m_ActSize
                   - kind: Whitespace
                     text: " "
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
                       - kind: IdentifierExpression
                         children:
                           - kind: Identifier
-                            text: m_ActSize
+                            text: m_FileSize
                       - kind: Whitespace
                         text: " "
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: SubtractionOperator
+                        text: "-"
                       - kind: Whitespace
                         text: " "
-                      - kind: BinaryExpression
+                      - kind: IdentifierExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: m_FileSize
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubtractionOperator
-                            text: "-"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: ReadPos
-                  - kind: Whitespace
-                    text: "           "
-                  - kind: EndOfLineComment
-                    text: "'- 'TagLen"
-                  - kind: Newline
-                    text: "\n"
+                          - kind: Identifier
+                            text: ReadPos
+              - kind: Whitespace
+                text: "           "
+              - kind: EndOfLineComment
+                text: "'- 'TagLen"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -15244,38 +15252,42 @@ cst:
                         text: "True"
                   - kind: Newline
                     text: "\n"
-              - kind: Unknown
-                text: End
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Function
-              - kind: Newline
-                text: "\n"
-              - kind: Newline
-                text: "\n"
-              - kind: DimStatement
-                children:
-                  - kind: PrivateKeyword
-                    text: Private
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ClearInfo
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EndOfLineComment
-                    text: "'Clears out all current information"
-                  - kind: Newline
-                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ClearInfo
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: EndOfLineComment
+            text: "'Clears out all current information"
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -17476,26 +17488,26 @@ cst:
                                     children:
                                       - kind: Ampersand
                                         text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H1
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
+                  - kind: CallStatement
                     children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ThenKeyword
-                                text: Then
+                      - kind: Identifier
+                        text: H1
                       - kind: Whitespace
-                        text: "      "
-              - kind: EndOfLineComment
-                text: "'FRAMES_FLAG"
-              - kind: Newline
-                text: "\n"
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: ThenKeyword
+                                    text: Then
+                          - kind: Whitespace
+                            text: "      "
+                  - kind: EndOfLineComment
+                    text: "'FRAMES_FLAG"
+                  - kind: Newline
+                    text: "\n"
               - kind: ForStatement
                 children:
                   - kind: Whitespace

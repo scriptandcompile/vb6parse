@@ -3430,14 +3430,14 @@ cst:
                                 children:
                                   - kind: IntegerLiteral
                                     text: "0"
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\r\n"
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "            "
               - kind: AssignmentStatement
@@ -3820,14 +3820,14 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Then
-                      - kind: Newline
-                        text: "\r\n"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: AssignmentStatement

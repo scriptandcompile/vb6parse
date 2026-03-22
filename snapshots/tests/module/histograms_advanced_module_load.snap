@@ -1009,154 +1009,140 @@ cst:
                                 text: VR
                       - kind: Newline
                         text: "\r\n"
-                  - kind: IfStatement
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: IfKeyword
-                        text: If
-                      - kind: Whitespace
-                        text: " "
-                      - kind: BinaryExpression
+                      - kind: IdentifierExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: G2
-                          - kind: Whitespace
-                            text: " "
-                          - kind: LessThanOperator
-                            text: "<"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: g
+                          - kind: Identifier
+                            text: G2
                       - kind: Whitespace
                         text: " "
-                      - kind: ThenKeyword
-                        text: Then
+                      - kind: LessThanOperator
+                        text: "<"
                       - kind: Whitespace
                         text: " "
-                      - kind: AssignmentStatement
+                      - kind: IdentifierExpression
                         children:
+                          - kind: Identifier
+                            text: g
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: VG
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: UnaryExpression
+                        children:
+                          - kind: SubtractionOperator
+                            text: "-"
                           - kind: IdentifierExpression
                             children:
                               - kind: Identifier
                                 text: VG
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: UnaryExpression
-                            children:
-                              - kind: SubtractionOperator
-                                text: "-"
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: VG
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: IfStatement
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: B2
-                              - kind: Whitespace
-                                text: " "
-                              - kind: LessThanOperator
-                                text: "<"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: b
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: VB
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: UnaryExpression
-                                children:
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: VB
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: EndOfLineComment
-                            text: "'Last, run a loop through the width of the picture box, incrementing the color as"
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'we go (thus creating a gradient effect)"
                       - kind: Newline
                         text: "\r\n"
+              - kind: IfStatement
+                children:
                   - kind: Whitespace
                     text: "    "
-                  - kind: CallStatement
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: DimKeyword
-                        text: Dim
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: B2
                       - kind: Whitespace
                         text: " "
-                      - kind: ArgumentList
+                      - kind: LessThanOperator
+                        text: "<"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
                         children:
-                          - kind: Argument
+                          - kind: Identifier
+                            text: b
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: VB
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: UnaryExpression
+                        children:
+                          - kind: SubtractionOperator
+                            text: "-"
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: x
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
+                              - kind: Identifier
+                                text: VB
+                      - kind: Newline
+                        text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Last, run a loop through the width of the picture box, incrementing the color as"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'we go (thus creating a gradient effect)"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
                 children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: x
+                  - kind: Whitespace
+                    text: " "
                   - kind: AsKeyword
                     text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: LongKeyword
-                                text: Long
+                  - kind: LongKeyword
+                    text: Long
                   - kind: Newline
                     text: "\r\n"
               - kind: ForStatement

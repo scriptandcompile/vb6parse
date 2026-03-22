@@ -25849,10 +25849,10 @@ cst:
                                     text: "&"
                           - kind: Whitespace
                             text: " "
-              - kind: Unknown
-                text: Then
-              - kind: Newline
-                text: "\n"
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement

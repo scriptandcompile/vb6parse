@@ -89,18 +89,18 @@ root:
                       text: DoEvents
                     - kind: Newline
                       text: "\n"
-                - kind: Whitespace
-                  text: "    "
-                - kind: CallStatement
-                  children:
-                    - kind: Identifier
-                      text: rs
-                    - kind: PeriodOperator
-                      text: "."
-                    - kind: Identifier
-                      text: MoveNext
-                    - kind: Newline
-                      text: "\n"
+            - kind: Whitespace
+              text: "    "
+            - kind: CallStatement
+              children:
+                - kind: Identifier
+                  text: rs
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: MoveNext
+                - kind: Newline
+                  text: "\n"
         - kind: LoopKeyword
           text: Loop
         - kind: Newline

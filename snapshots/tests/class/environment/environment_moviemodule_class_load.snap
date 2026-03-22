@@ -7012,12 +7012,12 @@ cst:
                             text: "1"
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: EndOfLineComment
-                    text: "'Let the mci device decide which driver to use"
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Let the mci device decide which driver to use"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: EndOfLineComment
@@ -7562,34 +7562,38 @@ cst:
                             text: "1"
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: EndKeyword
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: DimStatement
-                children:
-                  - kind: PublicKeyword
-                    text: Public
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: minimizeMovie
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\r\n"
+      - kind: FunctionStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: minimizeMovie
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: "    "
               - kind: EndOfLineComment
@@ -21188,38 +21192,24 @@ cst:
                                     text: part1
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: CallStatement
-                            children:
-                              - kind: DimKeyword
-                                text: Dim
-                              - kind: Whitespace
-                                text: " "
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: A
-                                  - kind: Whitespace
-                                    text: " "
-                      - kind: CallStatement
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: DimStatement
                         children:
+                          - kind: DimKeyword
+                            text: Dim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: A
+                          - kind: Whitespace
+                            text: " "
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: DoubleKeyword
-                                        text: Double
+                          - kind: DoubleKeyword
+                            text: Double
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

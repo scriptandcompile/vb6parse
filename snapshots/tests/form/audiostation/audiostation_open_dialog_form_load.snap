@@ -1070,499 +1070,507 @@ cst:
                                                                 text: "1"
                                                   - kind: Newline
                                                     text: "\n"
-                                              - kind: Whitespace
-                                                text: "        "
-                                              - kind: EndKeyword
-                                                text: End
-                                              - kind: IfStatement
-                                                children:
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IfKeyword
-                                                    text: If
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                  - kind: Whitespace
-                                                    text: "    "
-                                                  - kind: EndKeyword
-                                                    text: End
-                                                  - kind: IfStatement
-                                                    children:
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: IfKeyword
-                                                        text: If
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Newline
-                                                            text: "\n"
-                                                      - kind: NextKeyword
-                                                        text: Next
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                  - kind: Newline
-                                                    text: "\n"
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: CurrentRowIndex
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: RowIndex
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Unknown
-                                            text: End
                                           - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: Sub
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: DimStatement
-                                            children:
-                                              - kind: PrivateKeyword
-                                                text: Private
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubKeyword
-                                                text: Sub
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: Button_Cancel_Click
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: UnloadStatement
-                                            children:
-                                              - kind: UnloadKeyword
-                                                text: Unload
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: MeKeyword
-                                                text: Me
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Unknown
-                                            text: End
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: Sub
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: DimStatement
-                                            children:
-                                              - kind: PrivateKeyword
-                                                text: Private
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubKeyword
-                                                text: Sub
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: Button_Open_Click
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: AudioStaStreamer
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: NameKeyword
-                                                    text: Name
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: MemberAccessExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Listview_Streams
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: SelectedItem
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: TextKeyword
-                                                    text: Text
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: AudioStaStreamer
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Url
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: MemberAccessExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Listview_Streams
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: SelectedItem
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Tag
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: UnloadStatement
-                                            children:
-                                              - kind: UnloadKeyword
-                                                text: Unload
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: MeKeyword
-                                                text: Me
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Unknown
-                                            text: End
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: Sub
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: DimStatement
-                                            children:
-                                              - kind: PrivateKeyword
-                                                text: Private
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubKeyword
-                                                text: Sub
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: Form_Load
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: CurrentRowIndex
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: NumericLiteralExpression
-                                                children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: AssignmentStatement
-                                            children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Button_Open
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Enabled
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: EqualityOperator
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BooleanLiteralExpression
-                                                children:
-                                                  - kind: FalseKeyword
-                                                    text: "False"
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: CallKeyword
-                                                text: Call
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: OpenStreamDatabase
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: CurrentRowIndex
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Unknown
-                                            text: End
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: Sub
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: DimStatement
-                                            children:
-                                              - kind: PrivateKeyword
-                                                text: Private
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: SubKeyword
-                                                text: Sub
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Identifier
-                                                text: Listview_Streams_DblClick
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: RightParenthesis
-                                                text: )
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: IfStatement
-                                            children:
-                                              - kind: IfKeyword
-                                                text: If
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: BinaryExpression
-                                                children:
-                                                  - kind: MemberAccessExpression
-                                                    children:
-                                                      - kind: MemberAccessExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: Listview_Streams
-                                                          - kind: PeriodOperator
-                                                            text: "."
-                                                          - kind: Identifier
-                                                            text: SelectedItem
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: SmallIcon
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: EqualityOperator
-                                                    text: "="
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "1"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: ThenKeyword
-                                                text: Then
-                                              - kind: Newline
-                                                text: "\n"
-                                              - kind: StatementList
-                                                children:
-                                                  - kind: CallStatement
-                                                    children:
-                                                      - kind: Whitespace
-                                                        text: "    "
-                                                      - kind: CallKeyword
-                                                        text: Call
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Identifier
-                                                        text: OpenStreamDatabase
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
-                                                        children:
-                                                          - kind: Argument
-                                                            children:
-                                                              - kind: BinaryExpression
-                                                                children:
-                                                                  - kind: IdentifierExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: CurrentRowIndex
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: AdditionOperator
-                                                                    text: +
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: NumericLiteralExpression
-                                                                    children:
-                                                                      - kind: IntegerLiteral
-                                                                        text: "1"
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                                      - kind: Newline
-                                                        text: "\n"
-                                              - kind: ElseClause
-                                                children:
-                                                  - kind: ElseKeyword
-                                                    text: Else
-                                                  - kind: Newline
-                                                    text: "\n"
-                                                  - kind: StatementList
-                                                    children:
-                                                      - kind: Whitespace
-                                                        text: "    "
-                                                      - kind: AssignmentStatement
-                                                        children:
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: AudioStaStreamer
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: NameKeyword
-                                                                text: Name
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: MemberAccessExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: Listview_Streams
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: SelectedItem
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: TextKeyword
-                                                                text: Text
-                                                          - kind: Newline
-                                                            text: "\n"
-                                                      - kind: Whitespace
-                                                        text: "    "
-                                                      - kind: AssignmentStatement
-                                                        children:
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: AudioStaStreamer
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Url
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: MemberAccessExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: Listview_Streams
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: SelectedItem
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Tag
-                                                          - kind: Newline
-                                                            text: "\n"
-                                                      - kind: Whitespace
-                                                        text: "    "
-                                                      - kind: Newline
-                                                        text: "\n"
-                                                      - kind: UnloadStatement
-                                                        children:
-                                                          - kind: Whitespace
-                                                            text: "    "
-                                                          - kind: UnloadKeyword
-                                                            text: Unload
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: MeKeyword
-                                                            text: Me
-                                                          - kind: Newline
-                                                            text: "\n"
-                                              - kind: EndKeyword
-                                                text: End
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IfKeyword
-                                                text: If
-                                              - kind: Newline
-                                                text: "\n"
-                                          - kind: Unknown
-                                            text: End
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: Sub
-                                          - kind: Newline
-                                            text: "\n"
-                                          - kind: Newline
-                                            text: "\n"
+                                            text: "        "
+                                  - kind: EndKeyword
+                                    text: End
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IfKeyword
+                                    text: If
+                                  - kind: Newline
+                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\n"
+                  - kind: NextKeyword
+                    text: Next
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: CurrentRowIndex
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RowIndex
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Button_Cancel_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: UnloadStatement
+                children:
+                  - kind: UnloadKeyword
+                    text: Unload
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MeKeyword
+                    text: Me
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Button_Open_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: AudioStaStreamer
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: NameKeyword
+                        text: Name
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Listview_Streams
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: SelectedItem
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: TextKeyword
+                        text: Text
+                  - kind: Newline
+                    text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: AudioStaStreamer
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Url
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Listview_Streams
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: SelectedItem
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Tag
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: UnloadStatement
+                children:
+                  - kind: UnloadKeyword
+                    text: Unload
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MeKeyword
+                    text: Me
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Form_Load
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: CurrentRowIndex
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "0"
+                  - kind: Newline
+                    text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: Button_Open
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Enabled
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: FalseKeyword
+                        text: "False"
+                  - kind: Newline
+                    text: "\n"
+              - kind: Newline
+                text: "\n"
+              - kind: CallStatement
+                children:
+                  - kind: CallKeyword
+                    text: Call
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: OpenStreamDatabase
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: CurrentRowIndex
+                  - kind: RightParenthesis
+                    text: )
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Listview_Streams_DblClick
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: IfStatement
+                children:
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: Listview_Streams
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: SelectedItem
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: SmallIcon
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\n"
+                  - kind: StatementList
+                    children:
+                      - kind: CallStatement
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallKeyword
+                            text: Call
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: OpenStreamDatabase
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CurrentRowIndex
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: AudioStaStreamer
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: NameKeyword
+                                    text: Name
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Listview_Streams
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: SelectedItem
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: TextKeyword
+                                    text: Text
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: AudioStaStreamer
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Url
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Listview_Streams
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: SelectedItem
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Tag
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Newline
+                            text: "\n"
+                          - kind: UnloadStatement
+                            children:
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: UnloadKeyword
+                                text: Unload
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MeKeyword
+                                text: Me
+                              - kind: Newline
+                                text: "\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"

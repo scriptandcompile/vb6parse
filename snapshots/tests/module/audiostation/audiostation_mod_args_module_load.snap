@@ -669,82 +669,82 @@ cst:
                                         text: "\"\\\""
                               - kind: Newline
                                 text: "\n"
-                          - kind: Whitespace
-                            text: "  "
-                          - kind: AssignmentStatement
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: CallExpression
                             children:
-                              - kind: CallExpression
+                              - kind: Identifier
+                                text: argv
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Identifier
-                                    text: argv
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: LongLiteral
-                                                text: 0&
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
+                                          - kind: LongLiteral
+                                            text: 0&
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
                               - kind: BinaryExpression
                                 children:
-                                  - kind: BinaryExpression
+                                  - kind: CallExpression
                                     children:
-                                      - kind: CallExpression
+                                      - kind: Identifier
+                                        text: argv
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: Identifier
-                                            text: argv
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: Argument
                                             children:
-                                              - kind: Argument
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: LongLiteral
-                                                        text: 0&
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Ampersand
-                                        text: "&"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: MemberAccessExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: App
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: exeName
+                                                  - kind: LongLiteral
+                                                    text: 0&
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Ampersand
                                     text: "&"
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: StringLiteralExpression
+                                  - kind: MemberAccessExpression
                                     children:
-                                      - kind: StringLiteral
-                                        text: "\".exe\""
-                              - kind: Newline
-                                text: "\n"
-                          - kind: Whitespace
-                            text: "  "
+                                      - kind: Identifier
+                                        text: App
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: exeName
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\".exe\""
                           - kind: Newline
                             text: "\n"
+                      - kind: Whitespace
+                        text: "  "
+                      - kind: Newline
+                        text: "\n"
                   - kind: ElseClause
                     children:
                       - kind: ElseKeyword
@@ -1171,10 +1171,10 @@ cst:
                                                 text: 2&
                                       - kind: Newline
                                         text: "\n"
-                                  - kind: Whitespace
-                                    text: "    "
-                                  - kind: Newline
-                                    text: "\n"
+                              - kind: Whitespace
+                                text: "    "
+                              - kind: Newline
+                                text: "\n"
                               - kind: Whitespace
                                 text: "    "
                               - kind: EndOfLineComment
@@ -3077,10 +3077,10 @@ cst:
                                                     text: Switch
                                           - kind: Whitespace
                                             text: " "
-                              - kind: Unknown
-                                text: Then
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: Whitespace
                                 text: "      "
                               - kind: EndOfLineComment
@@ -3683,10 +3683,10 @@ cst:
                                                                             text: Switch
                                                                   - kind: Whitespace
                                                                     text: " "
-                                                      - kind: Unknown
-                                                        text: Then
-                                                      - kind: Newline
-                                                        text: "\n"
+                                                          - kind: ThenKeyword
+                                                            text: Then
+                                                          - kind: Newline
+                                                            text: "\n"
                                                       - kind: Whitespace
                                                         text: "      "
                                                       - kind: EndOfLineComment

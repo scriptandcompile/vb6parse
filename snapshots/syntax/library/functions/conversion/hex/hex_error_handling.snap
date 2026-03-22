@@ -121,26 +121,26 @@ root:
                       text: Clear
                     - kind: Newline
                       text: "\n"
-                - kind: OnErrorStatement
-                  children:
-                    - kind: Whitespace
-                      text: "    "
-                    - kind: OnKeyword
-                      text: "On"
-                    - kind: Whitespace
-                      text: " "
-                    - kind: ErrorKeyword
-                      text: Error
-                    - kind: Whitespace
-                      text: " "
-                    - kind: GotoKeyword
-                      text: GoTo
-                    - kind: Whitespace
-                      text: " "
-                    - kind: IntegerLiteral
-                      text: "0"
-                    - kind: Newline
-                      text: "\n"
+            - kind: OnErrorStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: OnKeyword
+                  text: "On"
+                - kind: Whitespace
+                  text: " "
+                - kind: ErrorKeyword
+                  text: Error
+                - kind: Whitespace
+                  text: " "
+                - kind: GotoKeyword
+                  text: GoTo
+                - kind: Whitespace
+                  text: " "
+                - kind: IntegerLiteral
+                  text: "0"
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace
