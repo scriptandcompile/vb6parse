@@ -14297,16 +14297,16 @@ cst:
                                     text: " "
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: ByValKeyword
+                                        text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: ByValKeyword
-                                            text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: Unknown
-                            text: "0"
-                          - kind: Newline
-                            text: "\r\n"
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                   - kind: EndKeyword

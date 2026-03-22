@@ -11326,36 +11326,32 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
-                              - kind: CallExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: ByValKeyword
-                                    text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: ArgumentList
+                                  - kind: CallExpression
                                     children:
-                                      - kind: Argument
+                                      - kind: Identifier
+                                        text: ObjPtr
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: CallExpression
+                                          - kind: Argument
                                             children:
-                                              - kind: Identifier
-                                                text: ObjPtr
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: ArgumentList
+                                              - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: obj
-                                              - kind: RightParenthesis
-                                                text: )
+                                                  - kind: Identifier
+                                                    text: obj
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: RightParenthesis
                                     text: )
                               - kind: Whitespace

@@ -208,6 +208,11 @@ impl Parser<'_> {
             // Check if this is an empty argument (comma or closing paren immediately following)
             // Empty arguments are valid in VB6: Err.Raise 1, , "error message"
             if !self.at_token(Token::Comma) && !self.at_token(Token::RightParenthesis) {
+                // Check for ByVal/ByRef keyword (VB6 allows overriding passing mode at call site)
+                if self.at_token(Token::ByValKeyword) || self.at_token(Token::ByRefKeyword) {
+                    self.consume_token();
+                    self.consume_whitespace();
+                }
                 // Parse the argument expression
                 self.parse_expression();
             }
@@ -249,6 +254,11 @@ impl Parser<'_> {
             // Check if this is an empty argument (comma or newline immediately following)
             // Empty arguments are valid in VB6: Err.Raise 1, , "error message"
             if !self.at_token(Token::Comma) && !self.at_token(Token::Newline) {
+                // Check for ByVal/ByRef keyword (VB6 allows overriding passing mode at call site)
+                if self.at_token(Token::ByValKeyword) || self.at_token(Token::ByRefKeyword) {
+                    self.consume_token();
+                    self.consume_whitespace();
+                }
                 // Parse the argument expression
                 self.parse_expression();
             }
@@ -467,6 +477,36 @@ mod tests {
     #[test]
     fn call_statement_with_string_arguments() {
         let source = "Call ShowMessage(\"Hello, World!\")\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_with_byval_arguments() {
+        let source = "RtlMoveMemory vtbl, ByVal pEnumerator, 4\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn call_statement_with_byval_arguments() {
+        let source = "Call RtlMoveMemory(vtbl, ByVal pEnumerator, 4)\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 

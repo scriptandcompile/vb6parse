@@ -1448,28 +1448,26 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ByValKeyword
-                                text: ByVal
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: StrPtr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
                             children:
                               - kind: Identifier
-                                text: NewValue
-                  - kind: RightParenthesis
-                    text: )
+                                text: StrPtr
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: NewValue
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1732,28 +1730,26 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ByValKeyword
-                                text: ByVal
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: StrPtr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
                             children:
                               - kind: Identifier
-                                text: NewValue
-                  - kind: RightParenthesis
-                    text: )
+                                text: StrPtr
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: NewValue
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

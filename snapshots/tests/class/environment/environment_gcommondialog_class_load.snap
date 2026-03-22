@@ -8456,20 +8456,14 @@ cst:
                                             text: " "
                                           - kind: Argument
                                             children:
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                              - kind: Whitespace
+                                                text: " "
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: ByValKeyword
-                                                    text: ByVal
-                                          - kind: Whitespace
-                                            text: " "
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lParam
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children: []
+                                                  - kind: Identifier
+                                                    text: lParam
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -20318,20 +20312,14 @@ cst:
                                     text: " "
                                   - kind: Argument
                                     children:
+                                      - kind: ByValKeyword
+                                        text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: IdentifierExpression
                                         children:
-                                          - kind: ByValKeyword
-                                            text: ByVal
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: pDevMode
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children: []
+                                          - kind: Identifier
+                                            text: pDevMode
                                   - kind: Comma
                                     text: ","
                                   - kind: Whitespace
@@ -22922,20 +22910,14 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: pDevMode
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: Identifier
+                                        text: pDevMode
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace

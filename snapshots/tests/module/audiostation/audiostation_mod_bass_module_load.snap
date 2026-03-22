@@ -23565,20 +23565,14 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: plug
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: Identifier
+                                        text: plug
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace
@@ -23601,10 +23595,10 @@ cst:
                                                     text: pinfo
                                       - kind: RightParenthesis
                                         text: )
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -23873,20 +23867,14 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: plug
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: Identifier
+                                        text: plug
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace
@@ -23909,10 +23897,10 @@ cst:
                                                     text: pform
                                       - kind: RightParenthesis
                                         text: )
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -26307,20 +26295,14 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: lpStr
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: Identifier
+                                        text: lpStr
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace
@@ -26331,10 +26313,10 @@ cst:
                                     children:
                                       - kind: Identifier
                                         text: cChars
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\n"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace

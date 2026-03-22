@@ -18567,16 +18567,20 @@ cst:
                                         text: " "
                                       - kind: Argument
                                         children:
+                                          - kind: ByValKeyword
+                                            text: ByVal
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: ByValKeyword
-                                                text: ByVal
+                                              - kind: Identifier
+                                                text: tHandle
                                       - kind: Whitespace
                                         text: " "
                               - kind: CallStatement
                                 children:
-                                  - kind: Identifier
-                                    text: tHandle
+                                  - kind: AsKeyword
+                                    text: As
                                   - kind: Whitespace
                                     text: " "
                                   - kind: ArgumentList
@@ -18585,20 +18589,24 @@ cst:
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: AsKeyword
-                                                text: As
+                                              - kind: VariantKeyword
+                                                text: Variant
+                                      - kind: Comma
+                                        text: ","
                                       - kind: Whitespace
                                         text: " "
-                              - kind: Unknown
-                                text: Variant
-                              - kind: Unknown
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: p
+                                      - kind: Whitespace
+                                        text: " "
                               - kind: CallStatement
                                 children:
-                                  - kind: Identifier
-                                    text: p
+                                  - kind: AsKeyword
+                                    text: As
                                   - kind: Whitespace
                                     text: " "
                                   - kind: ArgumentList
@@ -18607,12 +18615,8 @@ cst:
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: AsKeyword
-                                                text: As
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: Unknown
-                                text: Variant
+                                              - kind: VariantKeyword
+                                                text: Variant
                               - kind: Unknown
                                 text: )
                               - kind: Newline

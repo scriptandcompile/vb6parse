@@ -1815,20 +1815,14 @@ cst:
                                                         text: " "
                                                       - kind: Argument
                                                         children:
+                                                          - kind: ByValKeyword
+                                                            text: ByVal
+                                                          - kind: Whitespace
+                                                            text: " "
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: ByValKeyword
-                                                                text: ByVal
-                                                      - kind: Whitespace
-                                                        text: " "
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: pAdapt
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children: []
+                                                              - kind: Identifier
+                                                                text: pAdapt
                                                       - kind: Comma
                                                         text: ","
                                                       - kind: Whitespace

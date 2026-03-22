@@ -6656,16 +6656,20 @@ cst:
                             children:
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
+                                      - kind: Identifier
+                                        text: aa
                               - kind: Whitespace
                                 text: " "
                       - kind: CallStatement
                         children:
-                          - kind: Identifier
-                            text: aa
+                          - kind: AsKeyword
+                            text: As
                           - kind: Whitespace
                             text: " "
                           - kind: ArgumentList
@@ -6674,24 +6678,12 @@ cst:
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: AsKeyword
-                                        text: As
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: LongKeyword
-                            text: Long
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: RightParenthesis
-                                        text: )
-                              - kind: Whitespace
-                                text: " "
+                                      - kind: LongKeyword
+                                        text: Long
+                      - kind: Unknown
+                        text: )
+                      - kind: Whitespace
+                        text: " "
                       - kind: CallStatement
                         children:
                           - kind: AsKeyword

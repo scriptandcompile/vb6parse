@@ -1778,20 +1778,14 @@ cst:
                                         text: " "
                                       - kind: Argument
                                         children:
+                                          - kind: ByValKeyword
+                                            text: ByVal
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: ByValKeyword
-                                                text: ByVal
-                                      - kind: Whitespace
-                                        text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: Pointer
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
+                                              - kind: Identifier
+                                                text: Pointer
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -1802,10 +1796,10 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: Size
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: ForStatement
                                 children:
                                   - kind: Whitespace

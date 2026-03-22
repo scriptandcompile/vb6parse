@@ -10144,32 +10144,34 @@ cst:
                                                                                                 text: " "
                                                                                               - kind: Argument
                                                                                                 children:
-                                                                                                  - kind: IdentifierExpression
+                                                                                                  - kind: ByValKeyword
+                                                                                                    text: ByVal
+                                                                                                  - kind: Whitespace
+                                                                                                    text: " "
+                                                                                                  - kind: NumericLiteralExpression
                                                                                                     children:
-                                                                                                      - kind: ByValKeyword
-                                                                                                        text: ByVal
+                                                                                                      - kind: IntegerLiteral
+                                                                                                        text: "0"
+                                                                                              - kind: Comma
+                                                                                                text: ","
                                                                                               - kind: Whitespace
                                                                                                 text: " "
-                                                                                      - kind: Unknown
-                                                                                        text: "0"
-                                                                                      - kind: Unknown
-                                                                                        text: ","
-                                                                                      - kind: Whitespace
-                                                                                        text: " "
-                                                                                      - kind: Unknown
-                                                                                        text: "0"
-                                                                                      - kind: Unknown
-                                                                                        text: ","
-                                                                                      - kind: Whitespace
-                                                                                        text: " "
-                                                                                      - kind: CallStatement
-                                                                                        children:
-                                                                                          - kind: Identifier
-                                                                                            text: m_hTlsContext
-                                                                                          - kind: ArgumentList
-                                                                                            children:
                                                                                               - kind: Argument
-                                                                                                children: []
+                                                                                                children:
+                                                                                                  - kind: NumericLiteralExpression
+                                                                                                    children:
+                                                                                                      - kind: IntegerLiteral
+                                                                                                        text: "0"
+                                                                                              - kind: Comma
+                                                                                                text: ","
+                                                                                              - kind: Whitespace
+                                                                                                text: " "
+                                                                                              - kind: Argument
+                                                                                                children:
+                                                                                                  - kind: IdentifierExpression
+                                                                                                    children:
+                                                                                                      - kind: Identifier
+                                                                                                        text: m_hTlsContext
                                                                                               - kind: Comma
                                                                                                 text: ","
                                                                                               - kind: Whitespace
@@ -12786,12 +12788,12 @@ cst:
                                                                                                                                             text: " "
                                                                                                                                           - kind: Argument
                                                                                                                                             children:
-                                                                                                                                              - kind: MemberAccessExpression
+                                                                                                                                              - kind: ByValKeyword
+                                                                                                                                                text: ByVal
+                                                                                                                                              - kind: Whitespace
+                                                                                                                                                text: " "
+                                                                                                                                              - kind: IdentifierExpression
                                                                                                                                                 children:
-                                                                                                                                                  - kind: ByValKeyword
-                                                                                                                                                    text: ByVal
-                                                                                                                                                  - kind: Whitespace
-                                                                                                                                                    text: " "
                                                                                                                                                   - kind: PeriodOperator
                                                                                                                                                     text: "."
                                                                                                                                                   - kind: Identifier
@@ -14592,32 +14594,34 @@ cst:
                                                                                                                     text: " "
                                                                                                                   - kind: Argument
                                                                                                                     children:
-                                                                                                                      - kind: IdentifierExpression
+                                                                                                                      - kind: ByValKeyword
+                                                                                                                        text: ByVal
+                                                                                                                      - kind: Whitespace
+                                                                                                                        text: " "
+                                                                                                                      - kind: NumericLiteralExpression
                                                                                                                         children:
-                                                                                                                          - kind: ByValKeyword
-                                                                                                                            text: ByVal
+                                                                                                                          - kind: IntegerLiteral
+                                                                                                                            text: "0"
+                                                                                                                  - kind: Comma
+                                                                                                                    text: ","
                                                                                                                   - kind: Whitespace
                                                                                                                     text: " "
-                                                                                                          - kind: Unknown
-                                                                                                            text: "0"
-                                                                                                          - kind: Unknown
-                                                                                                            text: ","
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                          - kind: Unknown
-                                                                                                            text: "0"
-                                                                                                          - kind: Unknown
-                                                                                                            text: ","
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                          - kind: CallStatement
-                                                                                                            children:
-                                                                                                              - kind: Identifier
-                                                                                                                text: m_hTlsContext
-                                                                                                              - kind: ArgumentList
-                                                                                                                children:
                                                                                                                   - kind: Argument
-                                                                                                                    children: []
+                                                                                                                    children:
+                                                                                                                      - kind: NumericLiteralExpression
+                                                                                                                        children:
+                                                                                                                          - kind: IntegerLiteral
+                                                                                                                            text: "0"
+                                                                                                                  - kind: Comma
+                                                                                                                    text: ","
+                                                                                                                  - kind: Whitespace
+                                                                                                                    text: " "
+                                                                                                                  - kind: Argument
+                                                                                                                    children:
+                                                                                                                      - kind: IdentifierExpression
+                                                                                                                        children:
+                                                                                                                          - kind: Identifier
+                                                                                                                            text: m_hTlsContext
                                                                                                                   - kind: Comma
                                                                                                                     text: ","
                                                                                                                   - kind: Whitespace
@@ -16194,12 +16198,12 @@ cst:
                                                                                                                                                                                                 text: " "
                                                                                                                                                                                               - kind: Argument
                                                                                                                                                                                                 children:
-                                                                                                                                                                                                  - kind: MemberAccessExpression
+                                                                                                                                                                                                  - kind: ByValKeyword
+                                                                                                                                                                                                    text: ByVal
+                                                                                                                                                                                                  - kind: Whitespace
+                                                                                                                                                                                                    text: " "
+                                                                                                                                                                                                  - kind: IdentifierExpression
                                                                                                                                                                                                     children:
-                                                                                                                                                                                                      - kind: ByValKeyword
-                                                                                                                                                                                                        text: ByVal
-                                                                                                                                                                                                      - kind: Whitespace
-                                                                                                                                                                                                        text: " "
                                                                                                                                                                                                       - kind: PeriodOperator
                                                                                                                                                                                                         text: "."
                                                                                                                                                                                                       - kind: Identifier
@@ -16364,12 +16368,12 @@ cst:
                                                                                                                                                                                                 text: " "
                                                                                                                                                                                               - kind: Argument
                                                                                                                                                                                                 children:
-                                                                                                                                                                                                  - kind: MemberAccessExpression
+                                                                                                                                                                                                  - kind: ByValKeyword
+                                                                                                                                                                                                    text: ByVal
+                                                                                                                                                                                                  - kind: Whitespace
+                                                                                                                                                                                                    text: " "
+                                                                                                                                                                                                  - kind: IdentifierExpression
                                                                                                                                                                                                     children:
-                                                                                                                                                                                                      - kind: ByValKeyword
-                                                                                                                                                                                                        text: ByVal
-                                                                                                                                                                                                      - kind: Whitespace
-                                                                                                                                                                                                        text: " "
                                                                                                                                                                                                       - kind: PeriodOperator
                                                                                                                                                                                                         text: "."
                                                                                                                                                                                                       - kind: Identifier
@@ -19584,48 +19588,50 @@ cst:
                                                                                                                                                                                 text: " "
                                                                                                                                                                               - kind: Argument
                                                                                                                                                                                 children:
-                                                                                                                                                                                  - kind: IdentifierExpression
-                                                                                                                                                                                    children:
-                                                                                                                                                                                      - kind: ByValKeyword
-                                                                                                                                                                                        text: ByVal
-                                                                                                                                                                              - kind: Whitespace
-                                                                                                                                                                                text: " "
-                                                                                                                                                                      - kind: CallStatement
-                                                                                                                                                                        children:
-                                                                                                                                                                          - kind: Identifier
-                                                                                                                                                                            text: UnsignedAdd
-                                                                                                                                                                          - kind: LeftParenthesis
-                                                                                                                                                                            text: (
-                                                                                                                                                                          - kind: ArgumentList
-                                                                                                                                                                            children:
-                                                                                                                                                                              - kind: Argument
-                                                                                                                                                                                children:
-                                                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                                                  - kind: ByValKeyword
+                                                                                                                                                                                    text: ByVal
+                                                                                                                                                                                  - kind: Whitespace
+                                                                                                                                                                                    text: " "
+                                                                                                                                                                                  - kind: CallExpression
                                                                                                                                                                                     children:
                                                                                                                                                                                       - kind: Identifier
-                                                                                                                                                                                        text: lPtr
+                                                                                                                                                                                        text: UnsignedAdd
+                                                                                                                                                                                      - kind: LeftParenthesis
+                                                                                                                                                                                        text: (
+                                                                                                                                                                                      - kind: ArgumentList
+                                                                                                                                                                                        children:
+                                                                                                                                                                                          - kind: Argument
+                                                                                                                                                                                            children:
+                                                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                                                children:
+                                                                                                                                                                                                  - kind: Identifier
+                                                                                                                                                                                                    text: lPtr
+                                                                                                                                                                                          - kind: Comma
+                                                                                                                                                                                            text: ","
+                                                                                                                                                                                          - kind: Whitespace
+                                                                                                                                                                                            text: " "
+                                                                                                                                                                                          - kind: Argument
+                                                                                                                                                                                            children:
+                                                                                                                                                                                              - kind: IdentifierExpression
+                                                                                                                                                                                                children:
+                                                                                                                                                                                                  - kind: Identifier
+                                                                                                                                                                                                    text: lIdx
+                                                                                                                                                                                      - kind: RightParenthesis
+                                                                                                                                                                                        text: )
                                                                                                                                                                               - kind: Comma
                                                                                                                                                                                 text: ","
                                                                                                                                                                               - kind: Whitespace
                                                                                                                                                                                 text: " "
                                                                                                                                                                               - kind: Argument
                                                                                                                                                                                 children:
-                                                                                                                                                                                  - kind: IdentifierExpression
+                                                                                                                                                                                  - kind: NumericLiteralExpression
                                                                                                                                                                                     children:
-                                                                                                                                                                                      - kind: Identifier
-                                                                                                                                                                                        text: lIdx
+                                                                                                                                                                                      - kind: IntegerLiteral
+                                                                                                                                                                                        text: "1"
                                                                                                                                                                           - kind: RightParenthesis
                                                                                                                                                                             text: )
-                                                                                                                                                                      - kind: Unknown
-                                                                                                                                                                        text: ","
-                                                                                                                                                                      - kind: Whitespace
-                                                                                                                                                                        text: " "
-                                                                                                                                                                      - kind: Unknown
-                                                                                                                                                                        text: "1"
-                                                                                                                                                                      - kind: Unknown
-                                                                                                                                                                        text: )
-                                                                                                                                                                      - kind: Newline
-                                                                                                                                                                        text: "\r\n"
+                                                                                                                                                                          - kind: Newline
+                                                                                                                                                                            text: "\r\n"
                                                                                                                                                                       - kind: Whitespace
                                                                                                                                                                         text: "                "
                                                                                                                                                                       - kind: AssignmentStatement

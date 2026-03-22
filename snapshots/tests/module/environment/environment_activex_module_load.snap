@@ -2547,36 +2547,34 @@ cst:
                     children:
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ByValKeyword
-                                text: ByVal
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: pAttr
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: AdditionOperator
-                                    text: +
+                                  - kind: Identifier
+                                    text: pAttr
                               - kind: Whitespace
                                 text: " "
-                              - kind: Ampersand
-                                text: "&"
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: Identifier
-                                    text: H28
+                                  - kind: Ampersand
+                                    text: "&"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: H28
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children: []
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -2643,20 +2641,14 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: ByValKeyword
-                                        text: ByVal
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: pAttr
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: Identifier
+                                        text: pAttr
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace

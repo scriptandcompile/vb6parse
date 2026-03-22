@@ -2995,16 +2995,20 @@ cst:
                                                         text: " "
                                                       - kind: Argument
                                                         children:
+                                                          - kind: ByValKeyword
+                                                            text: ByVal
+                                                          - kind: Whitespace
+                                                            text: " "
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: ByValKeyword
-                                                                text: ByVal
+                                                              - kind: Identifier
+                                                                text: m
                                                       - kind: Whitespace
                                                         text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: m
+                                                  - kind: AsKeyword
+                                                    text: As
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: ArgumentList
@@ -3013,24 +3017,18 @@ cst:
                                                         children:
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: AsKeyword
-                                                                text: As
+                                                              - kind: VariantKeyword
+                                                                text: Variant
+                                                      - kind: Comma
+                                                        text: ","
                                                       - kind: Whitespace
                                                         text: " "
-                                              - kind: Unknown
-                                                text: Variant
-                                              - kind: Unknown
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: a
-                                                  - kind: ArgumentList
-                                                    children:
                                                       - kind: Argument
-                                                        children: []
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: a
                                                       - kind: Comma
                                                         text: ","
                                                       - kind: Whitespace
@@ -3047,16 +3045,20 @@ cst:
                                                         text: " "
                                                       - kind: Argument
                                                         children:
+                                                          - kind: ByValKeyword
+                                                            text: ByVal
+                                                          - kind: Whitespace
+                                                            text: " "
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: ByValKeyword
-                                                                text: ByVal
+                                                              - kind: Identifier
+                                                                text: msg
                                                       - kind: Whitespace
                                                         text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: msg
+                                                  - kind: AsKeyword
+                                                    text: As
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: ArgumentList
@@ -3065,12 +3067,8 @@ cst:
                                                         children:
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: AsKeyword
-                                                                text: As
-                                                      - kind: Whitespace
-                                                        text: " "
-                                              - kind: Unknown
-                                                text: String
+                                                              - kind: StringKeyword
+                                                                text: String
                                               - kind: Unknown
                                                 text: )
                                               - kind: Whitespace

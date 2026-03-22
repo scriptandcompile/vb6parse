@@ -25826,28 +25826,34 @@ cst:
                                                                                                         children:
                                                                                                           - kind: Argument
                                                                                                             children:
+                                                                                                              - kind: ByValKeyword
+                                                                                                                text: ByVal
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: ByValKeyword
-                                                                                                                    text: ByVal
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                  - kind: NameStatement
-                                                                                                    children:
-                                                                                                      - kind: NameKeyword
-                                                                                                        text: Name
-                                                                                                      - kind: DollarSign
-                                                                                                        text: $
+                                                                                                                  - kind: NameKeyword
+                                                                                                                    text: Name
+                                                                                                                  - kind: DollarSign
+                                                                                                                    text: $
                                                                                                       - kind: RightParenthesis
                                                                                                         text: )
-                                                                                                      - kind: Whitespace
-                                                                                                        text: " "
+                                                                                                  - kind: Whitespace
+                                                                                                    text: " "
+                                                                                                  - kind: CallStatement
+                                                                                                    children:
                                                                                                       - kind: AsKeyword
                                                                                                         text: As
                                                                                                       - kind: Whitespace
                                                                                                         text: " "
-                                                                                                      - kind: StringKeyword
-                                                                                                        text: String
+                                                                                                      - kind: ArgumentList
+                                                                                                        children:
+                                                                                                          - kind: Argument
+                                                                                                            children:
+                                                                                                              - kind: IdentifierExpression
+                                                                                                                children:
+                                                                                                                  - kind: StringKeyword
+                                                                                                                    text: String
                                                                                                       - kind: Newline
                                                                                                         text: "\r\n"
                                                                                                   - kind: NameStatement
@@ -26382,22 +26388,14 @@ cst:
                                                                                                         children:
                                                                                                           - kind: Argument
                                                                                                             children:
+                                                                                                              - kind: ByValKeyword
+                                                                                                                text: ByVal
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: ByValKeyword
-                                                                                                                    text: ByVal
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                  - kind: CallStatement
-                                                                                                    children:
-                                                                                                      - kind: Identifier
-                                                                                                        text: a
-                                                                                                      - kind: ArgumentList
-                                                                                                        children:
-                                                                                                          - kind: Argument
-                                                                                                            children:
-                                                                                                              - kind: IdentifierExpression
-                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: a
                                                                                                                   - kind: DollarSign
                                                                                                                     text: $
                                                                                                           - kind: Comma
@@ -26406,26 +26404,18 @@ cst:
                                                                                                             text: " "
                                                                                                           - kind: Argument
                                                                                                             children:
+                                                                                                              - kind: ByValKeyword
+                                                                                                                text: ByVal
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: ByValKeyword
-                                                                                                                    text: ByVal
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                  - kind: CallStatement
-                                                                                                    children:
-                                                                                                      - kind: Identifier
-                                                                                                        text: b
-                                                                                                      - kind: ArgumentList
-                                                                                                        children:
-                                                                                                          - kind: Argument
-                                                                                                            children:
-                                                                                                              - kind: IdentifierExpression
-                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: b
                                                                                                                   - kind: DollarSign
                                                                                                                     text: $
-                                                                                                  - kind: Unknown
-                                                                                                    text: )
+                                                                                                      - kind: RightParenthesis
+                                                                                                        text: )
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
                                                                                                   - kind: CallStatement
@@ -30082,22 +30072,14 @@ cst:
                                                                                                         children:
                                                                                                           - kind: Argument
                                                                                                             children:
+                                                                                                              - kind: ByValKeyword
+                                                                                                                text: ByVal
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: ByValKeyword
-                                                                                                                    text: ByVal
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                  - kind: CallStatement
-                                                                                                    children:
-                                                                                                      - kind: Identifier
-                                                                                                        text: a
-                                                                                                      - kind: ArgumentList
-                                                                                                        children:
-                                                                                                          - kind: Argument
-                                                                                                            children:
-                                                                                                              - kind: IdentifierExpression
-                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: a
                                                                                                                   - kind: DollarSign
                                                                                                                     text: $
                                                                                                           - kind: Comma
@@ -30106,26 +30088,18 @@ cst:
                                                                                                             text: " "
                                                                                                           - kind: Argument
                                                                                                             children:
+                                                                                                              - kind: ByValKeyword
+                                                                                                                text: ByVal
+                                                                                                              - kind: Whitespace
+                                                                                                                text: " "
                                                                                                               - kind: IdentifierExpression
                                                                                                                 children:
-                                                                                                                  - kind: ByValKeyword
-                                                                                                                    text: ByVal
-                                                                                                          - kind: Whitespace
-                                                                                                            text: " "
-                                                                                                  - kind: CallStatement
-                                                                                                    children:
-                                                                                                      - kind: Identifier
-                                                                                                        text: b
-                                                                                                      - kind: ArgumentList
-                                                                                                        children:
-                                                                                                          - kind: Argument
-                                                                                                            children:
-                                                                                                              - kind: IdentifierExpression
-                                                                                                                children:
+                                                                                                                  - kind: Identifier
+                                                                                                                    text: b
                                                                                                                   - kind: DollarSign
                                                                                                                     text: $
-                                                                                                  - kind: Unknown
-                                                                                                    text: )
+                                                                                                      - kind: RightParenthesis
+                                                                                                        text: )
                                                                                                   - kind: Whitespace
                                                                                                     text: " "
                                                                                                   - kind: CallStatement
