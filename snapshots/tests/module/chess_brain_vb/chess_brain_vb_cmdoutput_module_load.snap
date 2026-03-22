@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/module/chess_brain_vb.rs
-assertion_line: 155
 expression: module
 ---
 name: basCmdOutput

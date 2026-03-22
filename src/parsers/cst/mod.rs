@@ -2139,6 +2139,9 @@ impl<'a> Parser<'a> {
                     // Check if this looks like a procedure call (identifier without assignment)
                     } else if self.is_at_procedure_call() {
                         self.parse_procedure_call();
+                    // Standalone End statement (terminates program execution)
+                    } else if self.is_standalone_end() {
+                        self.parse_end_statement();
                     } else if self.is_identifier() || self.at_keyword() {
                         self.consume_token();
                     } else {
@@ -2661,6 +2664,9 @@ impl<'a> Parser<'a> {
                             // Check if this looks like a procedure call (identifier without assignment)
                             } else if self.is_at_procedure_call() {
                                 self.parse_procedure_call();
+                            // Standalone End statement (terminates program execution)
+                            } else if self.is_standalone_end() {
+                                self.parse_end_statement();
                             } else {
                                 self.consume_token_as_unknown();
                             }

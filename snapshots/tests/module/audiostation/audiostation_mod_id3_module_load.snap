@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/module/audiostation.rs
-assertion_line: 284
 expression: module_file
 ---
 name: modID3

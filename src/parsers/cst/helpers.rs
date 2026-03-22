@@ -24,6 +24,27 @@ impl Parser<'_> {
         self.current_token() == Some(&token)
     }
 
+    /// Check if the current token is `End` and it is a standalone End statement
+    /// (not part of a compound like `End Sub`, `End Function`, `End If`, etc.).
+    pub(crate) fn is_standalone_end(&self) -> bool {
+        if !self.at_token(Token::EndKeyword) {
+            return false;
+        }
+        !matches!(
+            self.peek_next_keyword(),
+            Some(
+                Token::SubKeyword
+                    | Token::FunctionKeyword
+                    | Token::PropertyKeyword
+                    | Token::IfKeyword
+                    | Token::SelectKeyword
+                    | Token::TypeKeyword
+                    | Token::EnumKeyword
+                    | Token::WithKeyword
+            )
+        )
+    }
+
     /// Peek ahead to get the next keyword (non-whitespace token).
     pub(crate) fn peek_next_keyword(&self) -> Option<Token> {
         self.peek_next_count_keywords(NonZeroUsize::new(1).unwrap())

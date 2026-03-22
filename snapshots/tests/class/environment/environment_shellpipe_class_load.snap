@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/environment.rs
-assertion_line: 2581
 expression: class
 ---
 header:

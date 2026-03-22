@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/vb6_code.rs
-assertion_line: 148
 expression: class
 ---
 header:

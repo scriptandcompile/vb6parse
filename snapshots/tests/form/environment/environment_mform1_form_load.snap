@@ -3094,8 +3094,10 @@ cst:
                             text: Nothing
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Unknown
-                        text: End
+                      - kind: EndStatement
+                        children:
+                          - kind: EndKeyword
+                            text: End
                       - kind: Newline
                         text: "\r\n"
                       - kind: ExitStatement

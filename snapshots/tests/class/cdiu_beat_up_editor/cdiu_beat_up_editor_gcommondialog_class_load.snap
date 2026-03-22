@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/cdiu_beat_up_editor.rs
-assertion_line: 90
 expression: class
 ---
 header:

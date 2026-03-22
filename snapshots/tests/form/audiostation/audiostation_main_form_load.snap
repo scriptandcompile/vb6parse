@@ -17904,8 +17904,10 @@ cst:
                         text: "False"
                   - kind: Newline
                     text: "\n"
-              - kind: Unknown
-                text: End
+              - kind: EndStatement
+                children:
+                  - kind: EndKeyword
+                    text: End
               - kind: Newline
                 text: "\n"
           - kind: EndKeyword

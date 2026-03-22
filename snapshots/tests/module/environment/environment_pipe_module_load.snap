@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/module/environment.rs
-assertion_line: 843
 expression: module
 ---
 name: Module4

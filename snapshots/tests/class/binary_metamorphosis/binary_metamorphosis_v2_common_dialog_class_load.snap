@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/binary_metamorphosis.rs
-assertion_line: 64
 expression: class
 ---
 header:

@@ -43,8 +43,10 @@ root:
           text: Long
         - kind: Newline
           text: "\n"
-    - kind: EndKeyword
-      text: End
+    - kind: EndStatement
+      children:
+        - kind: EndKeyword
+          text: End
     - kind: Whitespace
       text: " "
     - kind: CallStatement

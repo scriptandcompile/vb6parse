@@ -96,6 +96,8 @@ pub enum SyntaxKind {
     ResumeStatement,
     /// Exit statement
     ExitStatement,
+    /// End statement (standalone - terminates program execution)
+    EndStatement,
     /// On Error statement
     OnErrorStatement,
     /// On `GoTo` statement

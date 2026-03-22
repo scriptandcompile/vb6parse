@@ -997,8 +997,10 @@ cst:
                         children:
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
-                            text: End
+                          - kind: EndStatement
+                            children:
+                              - kind: EndKeyword
+                                text: End
                           - kind: Newline
                             text: "\n"
                   - kind: EndKeyword
