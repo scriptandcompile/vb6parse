@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/class/audiostation.rs
+assertion_line: 374
 expression: class
 ---
 header:
@@ -14194,26 +14195,34 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: StringKeyword
-                        text: String
-              - kind: Unknown
-                text: $
-              - kind: Unknown
-                text: (
-              - kind: Unknown
-                text: "1024"
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\" \""
-              - kind: Unknown
-                text: )
-              - kind: Newline
-                text: "\n"
+                      - kind: Identifier
+                        text: String$
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1024"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\" \""
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
               - kind: Whitespace
                 text: "   "
               - kind: AssignmentStatement
@@ -14338,42 +14347,46 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: StringKeyword
-                                text: String
-                      - kind: Unknown
-                        text: $
-                      - kind: Unknown
-                        text: (
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: lRet
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: String$
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: Unknown
-                        text: "1"
-                      - kind: Unknown
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: "\" \""
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: lRet
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\" \""
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
                       - kind: Whitespace
                         text: "   "
                       - kind: AssignmentStatement
@@ -14944,36 +14957,34 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: StringKeyword
-                                text: String
-                      - kind: Unknown
-                        text: $
-                      - kind: Unknown
-                        text: (
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: lLenUNC
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
+                              - kind: Identifier
+                                text: String$
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: NumericLiteralExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\n"
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lLenUNC
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: AssignmentStatement

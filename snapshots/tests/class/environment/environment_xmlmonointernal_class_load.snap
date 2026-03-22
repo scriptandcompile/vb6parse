@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/class/environment.rs
+assertion_line: 2881
 expression: class
 ---
 header:
@@ -18282,12 +18283,20 @@ cst:
                                     text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: Unknown
-                            text: String
-                          - kind: Unknown
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: CallStatement
+                            children:
+                              - kind: StringKeyword
+                                text: String
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: IfStatement
                             children:
                               - kind: Whitespace
@@ -18768,12 +18777,20 @@ cst:
                                             text: As
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: String
-                          - kind: Unknown
-                            text: )
-                          - kind: Whitespace
-                            text: " "
+                          - kind: CallStatement
+                            children:
+                              - kind: StringKeyword
+                                text: String
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
                           - kind: CallStatement
                             children:
                               - kind: AsKeyword
@@ -19202,12 +19219,20 @@ cst:
                                             text: As
                                   - kind: Whitespace
                                     text: " "
-                          - kind: Unknown
-                            text: String
-                          - kind: Unknown
-                            text: )
-                          - kind: Whitespace
-                            text: " "
+                          - kind: CallStatement
+                            children:
+                              - kind: StringKeyword
+                                text: String
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
                           - kind: CallStatement
                             children:
                               - kind: AsKeyword

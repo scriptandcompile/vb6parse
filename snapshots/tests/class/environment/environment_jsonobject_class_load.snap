@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/class/environment.rs
+assertion_line: 1711
 expression: class
 ---
 header:
@@ -17546,16 +17547,16 @@ cst:
                 text: As
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: String
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: StringKeyword
+                        text: String
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: StringLiteralExpression
@@ -20200,16 +20201,16 @@ cst:
                 text: As
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: String
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: StringKeyword
+                        text: String
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: StringLiteralExpression
@@ -32256,26 +32257,34 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: StringKeyword
-                                text: String
-                      - kind: Unknown
-                        text: $
-                      - kind: Unknown
-                        text: (
-                      - kind: Unknown
-                        text: "514"
-                      - kind: Unknown
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: "0"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                              - kind: Identifier
+                                text: String$
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "514"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: AssignmentStatement

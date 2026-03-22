@@ -1,5 +1,6 @@
 ---
 source: vb6parse/src/syntax/library/functions/conversion/hex_dollar.rs
+assertion_line: 764
 expression: tree
 ---
 root:
@@ -109,56 +110,68 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: StringKeyword
-                      text: String
-            - kind: Unknown
-              text: $
-            - kind: Unknown
-              text: (
-            - kind: Unknown
-              text: "8"
-            - kind: Whitespace
-              text: " "
-            - kind: Unknown
-              text: "-"
-            - kind: Whitespace
-              text: " "
-            - kind: CallStatement
-              children:
-                - kind: LenKeyword
-                  text: Len
-                - kind: LeftParenthesis
-                  text: (
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
+                    - kind: CallExpression
                       children:
-                        - kind: IdentifierExpression
+                        - kind: Identifier
+                          text: String$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
                           children:
-                            - kind: Identifier
-                              text: hexStr
-                - kind: RightParenthesis
-                  text: )
-            - kind: Unknown
-              text: ","
-            - kind: Whitespace
-              text: " "
-            - kind: Unknown
-              text: "\"0\""
-            - kind: Unknown
-              text: )
-            - kind: Whitespace
-              text: " "
-            - kind: Unknown
-              text: "&"
-            - kind: Whitespace
-              text: " "
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: hexStr
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "8"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: SubtractionOperator
+                                      text: "-"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: CallExpression
+                                      children:
+                                        - kind: LenKeyword
+                                          text: Len
+                                        - kind: LeftParenthesis
+                                          text: (
+                                        - kind: ArgumentList
+                                          children:
+                                            - kind: Argument
+                                              children:
+                                                - kind: IdentifierExpression
+                                                  children:
+                                                    - kind: Identifier
+                                                      text: hexStr
+                                        - kind: RightParenthesis
+                                          text: )
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"0\""
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: IdentifierExpression
+                      children:
+                        - kind: Identifier
+                          text: hexStr
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

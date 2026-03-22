@@ -789,4 +789,22 @@ database = "mydb.mdb"
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
     }
+
+    #[test]
+    fn string_dollar_function_call_assignment() {
+        // Test that String$(number, character) is correctly parsed as a call expression
+        // on the RHS of an assignment. String$ is a VB6 built-in function that returns
+        // a string of repeated characters. The parser must merge StringKeyword + DollarSign
+        // into a single identifier "String$".
+        let source = "Sub Test()\n    x = String$(5, \"a\")\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/assignment");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
 }

@@ -1320,6 +1320,7 @@ impl Token {
                 | Token::MeKeyword
                 | Token::NullKeyword
                 | Token::ParamArrayKeyword
+                | Token::StringKeyword
                 | Token::VersionKeyword
         )
     }

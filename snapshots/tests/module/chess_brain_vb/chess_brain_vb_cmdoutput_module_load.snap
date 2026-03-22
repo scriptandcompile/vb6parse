@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/module/chess_brain_vb.rs
+assertion_line: 155
 expression: module
 ---
 name: basCmdOutput
@@ -4453,36 +4454,34 @@ cst:
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: CallExpression
                                         children:
-                                          - kind: StringKeyword
-                                            text: String
-                                  - kind: Unknown
-                                    text: $
-                                  - kind: Unknown
-                                    text: (
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: lBytesRead
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children: []
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Argument
+                                          - kind: Identifier
+                                            text: String$
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: NumericLiteralExpression
+                                              - kind: Argument
                                                 children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
-                                  - kind: Unknown
-                                    text: )
-                                  - kind: Newline
-                                    text: "\r\n"
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: lBytesRead
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Newline
+                                        text: "\r\n"
                                   - kind: CallStatement
                                     children:
                                       - kind: Whitespace

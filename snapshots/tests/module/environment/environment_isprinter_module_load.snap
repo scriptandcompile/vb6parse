@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/module/environment.rs
+assertion_line: 330
 expression: module
 ---
 name: AnyPrinter
@@ -879,48 +880,58 @@ cst:
                         text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: StringKeyword
-                        text: String
-              - kind: Unknown
-                text: $
-              - kind: Unknown
-                text: (
-              - kind: Unknown
-                text: "8192"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: /
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "2"
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Chr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                      - kind: Identifier
+                        text: String$
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
                         children:
-                          - kind: NumericLiteralExpression
+                          - kind: Argument
                             children:
-                              - kind: IntegerLiteral
-                                text: "0"
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: )
-              - kind: Newline
-                text: "\r\n"
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "8192"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: DivisionOperator
+                                    text: /
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "2"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Chr
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "0"
+                                  - kind: RightParenthesis
+                                    text: )
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement

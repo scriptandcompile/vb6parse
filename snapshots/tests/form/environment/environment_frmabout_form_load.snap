@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/form/environment.rs
+assertion_line: 188
 expression: form_file
 ---
 form:
@@ -2582,24 +2583,32 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: StringKeyword
-                        text: String
-              - kind: Unknown
-                text: $
-              - kind: Unknown
-                text: (
-              - kind: Unknown
-                text: "1024"
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "0"
-              - kind: Unknown
-                text: )
+                      - kind: Identifier
+                        text: String$
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1024"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                      - kind: RightParenthesis
+                        text: )
               - kind: Whitespace
                 text: "                             "
               - kind: EndOfLineComment

@@ -1,5 +1,6 @@
 ---
-source: src/syntax/library/functions/string/chr_dollar.rs
+source: vb6parse/src/syntax/library/functions/string/chr_dollar.rs
+assertion_line: 659
 expression: tree
 ---
 root:
@@ -77,60 +78,92 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: StringKeyword
-                      text: String
-            - kind: Unknown
-              text: $
-            - kind: Unknown
-              text: (
-            - kind: WidthStatement
-              children:
-                - kind: WidthKeyword
-                  text: width
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Chr$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "45"
-                - kind: RightParenthesis
-                  text: )
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Chr$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "13"
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: Ampersand
-                  text: "&"
-                - kind: Whitespace
-                  text: " "
-                - kind: Identifier
-                  text: Chr$
-                - kind: LeftParenthesis
-                  text: (
-                - kind: IntegerLiteral
-                  text: "10"
-                - kind: RightParenthesis
-                  text: )
+                    - kind: BinaryExpression
+                      children:
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: String$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: WidthKeyword
+                                          text: width
+                                - kind: Comma
+                                  text: ","
+                                - kind: Whitespace
+                                  text: " "
+                                - kind: Argument
+                                  children:
+                                    - kind: CallExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: Chr$
+                                        - kind: LeftParenthesis
+                                          text: (
+                                        - kind: ArgumentList
+                                          children:
+                                            - kind: Argument
+                                              children:
+                                                - kind: NumericLiteralExpression
+                                                  children:
+                                                    - kind: IntegerLiteral
+                                                      text: "45"
+                                        - kind: RightParenthesis
+                                          text: )
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Ampersand
+                          text: "&"
+                        - kind: Whitespace
+                          text: " "
+                        - kind: CallExpression
+                          children:
+                            - kind: Identifier
+                              text: Chr$
+                            - kind: LeftParenthesis
+                              text: (
+                            - kind: ArgumentList
+                              children:
+                                - kind: Argument
+                                  children:
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "13"
+                            - kind: RightParenthesis
+                              text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Ampersand
+                      text: "&"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: Identifier
+                          text: Chr$
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "10"
+                        - kind: RightParenthesis
+                          text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

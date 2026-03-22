@@ -1,5 +1,6 @@
 ---
 source: vb6parse/tests/class/environment.rs
+assertion_line: 420
 expression: class
 ---
 header:
@@ -16627,32 +16628,32 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: StringKeyword
-                        text: String
-              - kind: Unknown
-                text: $
-              - kind: Unknown
-                text: (
-              - kind: Unknown
-                text: "1000"
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: vbNullChar
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                      - kind: Identifier
+                        text: String$
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
                         children:
-                          - kind: IdentifierExpression
+                          - kind: Argument
                             children:
-                              - kind: RightParenthesis
-                                text: )
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1000"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: vbNullChar
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -17295,48 +17296,46 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: StringKeyword
-                                text: String
-                      - kind: Unknown
-                        text: $
-                      - kind: Unknown
-                        text: (
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: cdata
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
+                              - kind: Identifier
+                                text: String$
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: UnaryExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: SubtractionOperator
-                                        text: "-"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: LongLiteral
-                                            text: 1&
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: cdata
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: LongLiteral
+                                                text: 1&
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
-                                      - kind: Identifier
-                                        text: vbNullChar
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: vbNullChar
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: CallStatement
@@ -22759,40 +22758,44 @@ cst:
                                                                                             text: "="
                                                                                           - kind: Whitespace
                                                                                             text: " "
-                                                                                          - kind: IdentifierExpression
+                                                                                          - kind: CallExpression
                                                                                             children:
-                                                                                              - kind: StringKeyword
-                                                                                                text: String
-                                                                                      - kind: Unknown
-                                                                                        text: $
-                                                                                      - kind: Unknown
-                                                                                        text: (
-                                                                                      - kind: CallStatement
-                                                                                        children:
-                                                                                          - kind: Identifier
-                                                                                            text: dwSize
-                                                                                          - kind: Whitespace
-                                                                                            text: " "
-                                                                                          - kind: ArgumentList
-                                                                                            children:
-                                                                                              - kind: Argument
+                                                                                              - kind: Identifier
+                                                                                                text: String$
+                                                                                              - kind: LeftParenthesis
+                                                                                                text: (
+                                                                                              - kind: ArgumentList
                                                                                                 children:
-                                                                                                  - kind: IdentifierExpression
+                                                                                                  - kind: Argument
                                                                                                     children:
-                                                                                                      - kind: AdditionOperator
-                                                                                                        text: +
-                                                                                              - kind: Whitespace
-                                                                                                text: " "
-                                                                                      - kind: Unknown
-                                                                                        text: "1"
-                                                                                      - kind: Unknown
-                                                                                        text: ","
-                                                                                      - kind: Whitespace
-                                                                                        text: " "
-                                                                                      - kind: Unknown
-                                                                                        text: "0"
-                                                                                      - kind: Unknown
-                                                                                        text: )
+                                                                                                      - kind: BinaryExpression
+                                                                                                        children:
+                                                                                                          - kind: IdentifierExpression
+                                                                                                            children:
+                                                                                                              - kind: Identifier
+                                                                                                                text: dwSize
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: AdditionOperator
+                                                                                                            text: +
+                                                                                                          - kind: Whitespace
+                                                                                                            text: " "
+                                                                                                          - kind: NumericLiteralExpression
+                                                                                                            children:
+                                                                                                              - kind: IntegerLiteral
+                                                                                                                text: "1"
+                                                                                                  - kind: Comma
+                                                                                                    text: ","
+                                                                                                  - kind: Whitespace
+                                                                                                    text: " "
+                                                                                                  - kind: Argument
+                                                                                                    children:
+                                                                                                      - kind: NumericLiteralExpression
+                                                                                                        children:
+                                                                                                          - kind: IntegerLiteral
+                                                                                                            text: "0"
+                                                                                              - kind: RightParenthesis
+                                                                                                text: )
                                                                                       - kind: Whitespace
                                                                                         text: "   "
                                                                                       - kind: EndOfLineComment
@@ -35601,36 +35604,34 @@ cst:
                                                     text: "="
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: CallExpression
                                                     children:
-                                                      - kind: StringKeyword
-                                                        text: String
-                                              - kind: Unknown
-                                                text: $
-                                              - kind: Unknown
-                                                text: (
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: MAX_PATH
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children: []
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Argument
+                                                      - kind: Identifier
+                                                        text: String$
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
                                                         children:
-                                                          - kind: IdentifierExpression
+                                                          - kind: Argument
                                                             children:
-                                                              - kind: Identifier
-                                                                text: vbNullChar
-                                              - kind: Unknown
-                                                text: )
-                                              - kind: Newline
-                                                text: "\r\n"
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MAX_PATH
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbNullChar
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: IfStatement
                                                 children:
                                                   - kind: Whitespace
@@ -35857,36 +35858,34 @@ cst:
                                                     text: "="
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: CallExpression
                                                     children:
-                                                      - kind: StringKeyword
-                                                        text: String
-                                              - kind: Unknown
-                                                text: $
-                                              - kind: Unknown
-                                                text: (
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: MAX_PATH
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children: []
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Argument
+                                                      - kind: Identifier
+                                                        text: String$
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
                                                         children:
-                                                          - kind: IdentifierExpression
+                                                          - kind: Argument
                                                             children:
-                                                              - kind: Identifier
-                                                                text: vbNullChar
-                                              - kind: Unknown
-                                                text: )
-                                              - kind: Newline
-                                                text: "\r\n"
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: MAX_PATH
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: vbNullChar
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: IfStatement
                                                 children:
                                                   - kind: Whitespace
