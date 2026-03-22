@@ -204,6 +204,7 @@ mod for_statements;
 mod function_statements;
 mod helpers;
 mod if_statements;
+mod label_statements;
 mod loop_statements;
 mod navigation;
 mod option_statements;
@@ -2747,7 +2748,7 @@ impl<'a> Parser<'a> {
                 }
                 self.consume_whitespace();
 
-                // Check if single-line or multi-line
+                //  Check if single-line or multi-line
                 let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
                 if is_single_line {
@@ -2841,7 +2842,11 @@ impl<'a> Parser<'a> {
                     }
 
                     // Handle Else clause in single-line If
-                    if self.at_token(Token::ElseKeyword) {
+                    // Only parse Else if we haven't consumed a newline yet
+                    // (Else must be on the same line for single-line If)
+                    let found_newline_in_then = self.at_token(Token::Newline);
+
+                    if !found_newline_in_then && self.at_token(Token::ElseKeyword) {
                         self.consume_token(); // Else
                         self.consume_whitespace();
 

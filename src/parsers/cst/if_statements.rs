@@ -447,6 +447,52 @@ End Sub
         insta::assert_yaml_snapshot!(tree);
     }
 
+    /// Tests that a single-line If inside a multi-line If/Else block
+    /// does not incorrectly consume the outer Else keyword.
+    /// Previously, if the Then body statement consumed the newline,
+    /// the parser would see the next line's Else and try to parse it
+    /// as part of the single-line If, producing Unknown tokens.
+    #[test]
+    fn inline_if_exit_sub_followed_by_else() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then
+        If errorOccurred Then Exit Sub
+    Else
+        Debug.Print "negative"
+    End If
+End Sub
+"#;
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    /// Tests single-line If with Else on the same line (legitimate single-line If/Else).
+    #[test]
+    fn inline_if_then_else_same_line() {
+        let source = r#"
+Sub Test()
+    If x > 0 Then result = "positive" Else result = "non-positive"
+End Sub
+"#;
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
     #[allow(clippy::too_many_lines)]
     #[test]
     fn nested_if_elseif_else() {
@@ -464,6 +510,36 @@ End Sub
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn nested_if_with_end_if() {
+        let source = r"
+Function TestFunc() As Double
+    Dim xx As Double
+    If numdec = 0 Then
+        xx = 1
+    Else
+        xx = 2
+    End If
+    TestFunc = xx
+End Function
+";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let text = format!("{:#?}", tree);
+        assert!(
+            !text.contains("Unknown"),
+            "Should not contain Unknown tokens"
+        );
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
