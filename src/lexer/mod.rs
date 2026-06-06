@@ -1338,16 +1338,13 @@ pub fn take_matching_text<'a>(
     }
 
     if let Some(peek_text) = input.peek(len + 1) {
-        match peek_text.chars().last() {
-            None => return None,
-            Some(last) => {
-                if last.is_alphanumeric() || last == '_' && last != ' ' {
-                    return None;
-                }
+        let last = peek_text.chars().last()?;
 
-                return input.take(keyword_match_text, Comparator::CaseInsensitive);
-            }
+        if last.is_alphanumeric() || last == '_' && last != ' ' {
+            return None;
         }
+
+        return input.take(keyword_match_text, Comparator::CaseInsensitive);
     }
 
     None
