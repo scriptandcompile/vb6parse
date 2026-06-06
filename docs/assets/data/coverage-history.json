@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-16T09:43:51Z",
+  "last_updated": "2026-06-01T00:31:00Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -33,40 +33,6 @@
           "covered": 149215,
           "total": 156141,
           "percent": 95.56
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-12T23:54:35Z",
-      "commit_sha": "328f76eaeeea9669f432b05189405d25a2579bbe",
-      "commit_message": "updated cargo dependencies.",
-      "coverage": {
-        "line_coverage": 95.46,
-        "function_coverage": 93.61,
-        "region_coverage": 95.52
-      },
-      "tests": {
-        "total": 5676,
-        "lib_tests": 5478,
-        "doc_tests": 103,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93557,
-          "total": 98011,
-          "percent": 95.46
-        },
-        "functions": {
-          "covered": 6032,
-          "total": 6444,
-          "percent": 93.61
-        },
-        "regions": {
-          "covered": 149335,
-          "total": 156332,
-          "percent": 95.52
         }
       }
     },
@@ -105,142 +71,6 @@
       }
     },
     {
-      "timestamp": "2026-02-16T00:12:10Z",
-      "commit_sha": "05876a868acc69b4d81139a7c65d51b73adda667",
-      "commit_message": "Updated readme/changelog/contributing to be in line with the getting-started.html changes.",
-      "coverage": {
-        "line_coverage": 95.46,
-        "function_coverage": 93.61,
-        "region_coverage": 95.52
-      },
-      "tests": {
-        "total": 5676,
-        "lib_tests": 5478,
-        "doc_tests": 103,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93557,
-          "total": 98011,
-          "percent": 95.46
-        },
-        "functions": {
-          "covered": 6032,
-          "total": 6444,
-          "percent": 93.61
-        },
-        "regions": {
-          "covered": 149335,
-          "total": 156332,
-          "percent": 95.52
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-16T23:05:51Z",
-      "commit_sha": "ecc056f1ddad8b08831e70119dac08808770b7cd",
-      "commit_message": "Merge pull request #17 from scriptandcompile/error_update",
-      "coverage": {
-        "line_coverage": 95.22,
-        "function_coverage": 93.04,
-        "region_coverage": 95.46
-      },
-      "tests": {
-        "total": 5685,
-        "lib_tests": 5480,
-        "doc_tests": 110,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93672,
-          "total": 98374,
-          "percent": 95.22
-        },
-        "functions": {
-          "covered": 6046,
-          "total": 6498,
-          "percent": 93.04
-        },
-        "regions": {
-          "covered": 149641,
-          "total": 156764,
-          "percent": 95.46
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-17T02:25:38Z",
-      "commit_sha": "3ef36ef604f6fae11d67412b402aad6cf2b3041c",
-      "commit_message": "update to 1.0!",
-      "coverage": {
-        "line_coverage": 95.22,
-        "function_coverage": 93.04,
-        "region_coverage": 95.46
-      },
-      "tests": {
-        "total": 5685,
-        "lib_tests": 5480,
-        "doc_tests": 110,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 93672,
-          "total": 98374,
-          "percent": 95.22
-        },
-        "functions": {
-          "covered": 6046,
-          "total": 6498,
-          "percent": 93.04
-        },
-        "regions": {
-          "covered": 149641,
-          "total": 156764,
-          "percent": 95.46
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-20T06:03:45Z",
-      "commit_sha": "f1a15df340f491708e22552a6a03327cff7523e7",
-      "commit_message": "Properly reporting, with a pretty message, when the property name value is missing the '=' delimiter.",
-      "coverage": {
-        "line_coverage": 95.19,
-        "function_coverage": 93.05,
-        "region_coverage": 95.46
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94192,
-          "total": 98955,
-          "percent": 95.19
-        },
-        "functions": {
-          "covered": 6067,
-          "total": 6520,
-          "percent": 93.05
-        },
-        "regions": {
-          "covered": 150497,
-          "total": 157652,
-          "percent": 95.46
-        }
-      }
-    },
-    {
       "timestamp": "2026-02-20T21:02:14Z",
       "commit_sha": "5419c3e2e0719a38404fb51069d188e379695ae3",
       "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
@@ -275,142 +105,6 @@
       }
     },
     {
-      "timestamp": "2026-02-23T00:11:11Z",
-      "commit_sha": "2fa0c03ea162ea5740e9cd4b3042034210b256ba",
-      "commit_message": "Update benchmark data [skip ci]",
-      "coverage": {
-        "line_coverage": 95.19,
-        "function_coverage": 93.05,
-        "region_coverage": 95.46
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94192,
-          "total": 98955,
-          "percent": 95.19
-        },
-        "functions": {
-          "covered": 6067,
-          "total": 6520,
-          "percent": 93.05
-        },
-        "regions": {
-          "covered": 150495,
-          "total": 157650,
-          "percent": 95.46
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-23T22:36:12Z",
-      "commit_sha": "94864f74dfcc9fc305cd357dd59f3438fae47544",
-      "commit_message": "Merge pull request #18 from scriptandcompile/font_support",
-      "coverage": {
-        "line_coverage": 95.14,
-        "function_coverage": 92.94,
-        "region_coverage": 95.39
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94331,
-          "total": 99151,
-          "percent": 95.14
-        },
-        "functions": {
-          "covered": 6080,
-          "total": 6542,
-          "percent": 92.94
-        },
-        "regions": {
-          "covered": 150707,
-          "total": 157992,
-          "percent": 95.39
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-24T08:05:36Z",
-      "commit_sha": "c9354ae33bfbac8f23fd38ef53efd66627b1925d",
-      "commit_message": "Fixed clippy warning about using vec instead of slice when it isn't consumed.",
-      "coverage": {
-        "line_coverage": 95.14,
-        "function_coverage": 92.94,
-        "region_coverage": 95.39
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94331,
-          "total": 99151,
-          "percent": 95.14
-        },
-        "functions": {
-          "covered": 6080,
-          "total": 6542,
-          "percent": 92.94
-        },
-        "regions": {
-          "covered": 150707,
-          "total": 157992,
-          "percent": 95.39
-        }
-      }
-    },
-    {
-      "timestamp": "2026-02-26T10:48:15Z",
-      "commit_sha": "fe71f6aa6eb67c1bc539d5ed4e5a394ed4de6618",
-      "commit_message": "Merge pull request #19 from scriptandcompile/unwrap_to_expect_or_unpack",
-      "coverage": {
-        "line_coverage": 95.13,
-        "function_coverage": 92.94,
-        "region_coverage": 95.39
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94452,
-          "total": 99284,
-          "percent": 95.13
-        },
-        "functions": {
-          "covered": 6079,
-          "total": 6541,
-          "percent": 92.94
-        },
-        "regions": {
-          "covered": 150946,
-          "total": 158249,
-          "percent": 95.39
-        }
-      }
-    },
-    {
       "timestamp": "2026-02-28T02:50:44Z",
       "commit_sha": "9482a1cd77eb6cbf4c0ca0f9829e8e15c07618d5",
       "commit_message": "updated to new rust, updated clippy, now including inner if in match arm.",
@@ -441,176 +135,6 @@
           "covered": 150948,
           "total": 158245,
           "percent": 95.39
-        }
-      }
-    },
-    {
-      "timestamp": "2026-03-02T00:10:32Z",
-      "commit_sha": "dc04b7e4f2195df0de8df5d5fd4500182ec6f16f",
-      "commit_message": "Update benchmark data [skip ci]",
-      "coverage": {
-        "line_coverage": 95.13,
-        "function_coverage": 92.94,
-        "region_coverage": 95.39
-      },
-      "tests": {
-        "total": 5697,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 95,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 94452,
-          "total": 99283,
-          "percent": 95.13
-        },
-        "functions": {
-          "covered": 6079,
-          "total": 6541,
-          "percent": 92.94
-        },
-        "regions": {
-          "covered": 150948,
-          "total": 158245,
-          "percent": 95.39
-        }
-      }
-    },
-    {
-      "timestamp": "2026-03-03T10:18:39Z",
-      "commit_sha": "c42170de724e5b07a97176b72f072b3c0e7b2009",
-      "commit_message": "Cargo fmt",
-      "coverage": {
-        "line_coverage": 95.81,
-        "function_coverage": 93.36,
-        "region_coverage": 96.05
-      },
-      "tests": {
-        "total": 6108,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 506,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 95177,
-          "total": 99339,
-          "percent": 95.81
-        },
-        "functions": {
-          "covered": 6107,
-          "total": 6541,
-          "percent": 93.36
-        },
-        "regions": {
-          "covered": 152107,
-          "total": 158359,
-          "percent": 96.05
-        }
-      }
-    },
-    {
-      "timestamp": "2026-03-04T02:42:10Z",
-      "commit_sha": "c29443b0b02866570d544d68ae759da3110a69e2",
-      "commit_message": "Added invalid syntax tests for projects.",
-      "coverage": {
-        "line_coverage": 95.93,
-        "function_coverage": 93.4,
-        "region_coverage": 96.17
-      },
-      "tests": {
-        "total": 6137,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 535,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 95297,
-          "total": 99339,
-          "percent": 95.93
-        },
-        "functions": {
-          "covered": 6109,
-          "total": 6541,
-          "percent": 93.4
-        },
-        "regions": {
-          "covered": 152289,
-          "total": 158359,
-          "percent": 96.17
-        }
-      }
-    },
-    {
-      "timestamp": "2026-03-04T06:42:34Z",
-      "commit_sha": "7ac0dcdb5b1d3f2c7cf7e9a5a29c1cf5cf812a90",
-      "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
-      "coverage": {
-        "line_coverage": 95.93,
-        "function_coverage": 93.4,
-        "region_coverage": 96.17
-      },
-      "tests": {
-        "total": 6137,
-        "lib_tests": 5491,
-        "doc_tests": 111,
-        "integration_tests": 535,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 95297,
-          "total": 99339,
-          "percent": 95.93
-        },
-        "functions": {
-          "covered": 6109,
-          "total": 6541,
-          "percent": 93.4
-        },
-        "regions": {
-          "covered": 152289,
-          "total": 158359,
-          "percent": 96.17
-        }
-      }
-    },
-    {
-      "timestamp": "2026-03-04T22:56:59Z",
-      "commit_sha": "5841ac88b263de872990fd52916f026d7830a2eb",
-      "commit_message": "Merge pull request #20 from scriptandcompile/fix/high-priority-todos",
-      "coverage": {
-        "line_coverage": 95.85,
-        "function_coverage": 92.87,
-        "region_coverage": 96.05
-      },
-      "tests": {
-        "total": 6150,
-        "lib_tests": 5496,
-        "doc_tests": 119,
-        "integration_tests": 535,
-        "fuzz_targets": 9
-      },
-      "details": {
-        "lines": {
-          "covered": 95428,
-          "total": 99555,
-          "percent": 95.85
-        },
-        "functions": {
-          "covered": 6135,
-          "total": 6606,
-          "percent": 92.87
-        },
-        "regions": {
-          "covered": 152526,
-          "total": 158799,
-          "percent": 96.05
         }
       }
     },
@@ -683,43 +207,111 @@
       }
     },
     {
-      "timestamp": "2026-03-16T00:15:57Z",
-      "commit_sha": "f01779ce82e97e0e56bb7477cc133806d041a692",
-      "commit_message": "Update benchmark data [skip ci]",
+      "timestamp": "2026-03-16T09:43:51Z",
+      "commit_sha": "48a1e03d4b44dc08961aabf9cfbd752e3422c53c",
+      "commit_message": "Finally fixed the last statement and expression parsing.",
       "coverage": {
-        "line_coverage": 95.85,
-        "function_coverage": 92.87,
-        "region_coverage": 96.05
+        "line_coverage": 95.88,
+        "function_coverage": 92.89,
+        "region_coverage": 96.07
       },
       "tests": {
-        "total": 6150,
+        "total": 6162,
         "lib_tests": 5496,
         "doc_tests": 119,
-        "integration_tests": 535,
+        "integration_tests": 547,
         "fuzz_targets": 9
       },
       "details": {
         "lines": {
-          "covered": 95428,
-          "total": 99555,
-          "percent": 95.85
+          "covered": 95594,
+          "total": 99706,
+          "percent": 95.88
         },
         "functions": {
-          "covered": 6135,
-          "total": 6606,
-          "percent": 92.87
+          "covered": 6137,
+          "total": 6607,
+          "percent": 92.89
         },
         "regions": {
-          "covered": 152526,
-          "total": 158799,
-          "percent": 96.05
+          "covered": 152783,
+          "total": 159035,
+          "percent": 96.07
         }
       }
     },
     {
-      "timestamp": "2026-03-16T09:43:51Z",
-      "commit_sha": "48a1e03d4b44dc08961aabf9cfbd752e3422c53c",
-      "commit_message": "Finally fixed the last statement and expression parsing.",
+      "timestamp": "2026-04-27T00:20:50Z",
+      "commit_sha": "b97a7ea4c30a0bf6eff05b72a5db790b863113ec",
+      "commit_message": "Update benchmark data [skip ci]",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.89,
+        "region_coverage": 96.07
+      },
+      "tests": {
+        "total": 6162,
+        "lib_tests": 5496,
+        "doc_tests": 119,
+        "integration_tests": 547,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95594,
+          "total": 99706,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6137,
+          "total": 6607,
+          "percent": 92.89
+        },
+        "regions": {
+          "covered": 152783,
+          "total": 159035,
+          "percent": 96.07
+        }
+      }
+    },
+    {
+      "timestamp": "2026-05-04T00:23:58Z",
+      "commit_sha": "7061794e085b8db7f52d3f1a09ff0b7dba69cd60",
+      "commit_message": "Update benchmark data [skip ci]",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.89,
+        "region_coverage": 96.07
+      },
+      "tests": {
+        "total": 6162,
+        "lib_tests": 5496,
+        "doc_tests": 119,
+        "integration_tests": 547,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 95594,
+          "total": 99706,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6137,
+          "total": 6607,
+          "percent": 92.89
+        },
+        "regions": {
+          "covered": 152783,
+          "total": 159035,
+          "percent": 96.07
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T00:31:00Z",
+      "commit_sha": "83295f4f55cd0a03c1eed0e7bad557d5f3aa97c0",
+      "commit_message": "Update benchmark data [skip ci]",
       "coverage": {
         "line_coverage": 95.88,
         "function_coverage": 92.89,
@@ -755,32 +347,32 @@
     "line_coverage": {
       "latest": 95.88,
       "trend": "stable",
-      "change_percent": 0.03,
-      "best": 95.93,
+      "change_percent": 0.0,
+      "best": 95.88,
       "worst": 95.13,
-      "average": 95.48
+      "average": 95.65
     },
     "function_coverage": {
       "latest": 92.89,
       "trend": "stable",
-      "change_percent": 0.02,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.14
+      "average": 93.07
     },
     "region_coverage": {
       "latest": 96.07,
       "trend": "stable",
-      "change_percent": 0.02,
-      "best": 96.17,
+      "change_percent": 0.0,
+      "best": 96.07,
       "worst": 95.39,
-      "average": 95.68
+      "average": 95.83
     },
     "test_count": {
       "latest": 6162,
-      "trend": "growing",
-      "change_count": 12,
-      "growth_rate": 0.2
+      "trend": "stable",
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
