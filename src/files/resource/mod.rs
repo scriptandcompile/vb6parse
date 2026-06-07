@@ -392,6 +392,75 @@ impl FormResourceFile {
         entries
     }
 
+    fn process_record_12_byte_header(
+        buffer: &[u8],
+        offset: usize,
+    ) -> Result<ResourceEntryMetadata, ErrorKind> {
+        let size_buffer_1 = buffer[offset..offset + 4]
+            .try_into()
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
+        let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
+        let size_buffer_2 = buffer[offset + 8..offset + 12]
+            .try_into()
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
+        let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
+
+        if buffer_size_1 == 8 && buffer_size_2 == 0 {
+            return Ok(ResourceEntryMetadata {
+                offset,
+                total_size: 12,
+                entry_type: ResourceEntryType::Empty,
+            });
+        }
+
+        let total_size = 12 + buffer_size_2;
+
+        Ok(ResourceEntryMetadata {
+            offset,
+            total_size,
+            entry_type: ResourceEntryType::Record12ByteHeader,
+        })
+    }
+
+    fn process_record_3_byte_header(
+        buffer: &[u8],
+        offset: usize,
+    ) -> Result<ResourceEntryMetadata, ErrorKind> {
+        let size_buffer = buffer[offset + 1..offset + 3]
+            .try_into()
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
+        let mut record_size = u16::from_le_bytes(size_buffer) as usize;
+
+        if offset + 3 + record_size > buffer.len() {
+            record_size -= 1;
+        }
+
+        let total_size = 3 + record_size;
+
+        Ok(ResourceEntryMetadata {
+            offset,
+            total_size,
+            entry_type: ResourceEntryType::Record3ByteHeader,
+        })
+    }
+
+    fn process_record_4_byte_header(
+        buffer: &[u8],
+        offset: usize,
+    ) -> Result<ResourceEntryMetadata, ErrorKind> {
+        let size_buffer = buffer[offset..offset + 4]
+            .try_into()
+            .map_err(|_| ErrorKind::Resource(ResourceError::BufferConversionError { offset }))?;
+        let record_size = u32::from_le_bytes(size_buffer) as usize;
+        let total_size = 4 + record_size;
+
+        Ok(ResourceEntryMetadata {
+            offset,
+            total_size,
+            entry_type: ResourceEntryType::Record4ByteHeader,
+        })
+    }
+
     /// Identifies the type and size of an entry at the given offset.
     ///
     /// Detects the entry type based on header signatures and calculates
@@ -406,52 +475,12 @@ impl FormResourceFile {
 
         // Check for Record12ByteHeader (12-byte header with "lt\0\0" signature)
         if offset + 12 <= buffer.len() && &buffer[offset + 4..offset + 8] == b"lt\0\0" {
-            let size_buffer_1 = buffer[offset..offset + 4].try_into().map_err(|_| {
-                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
-            })?;
-            let buffer_size_1 = u32::from_le_bytes(size_buffer_1) as usize;
-
-            let size_buffer_2 = buffer[offset + 8..offset + 12].try_into().map_err(|_| {
-                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
-            })?;
-            let buffer_size_2 = u32::from_le_bytes(size_buffer_2) as usize;
-
-            // Check for empty record special case
-            if buffer_size_1 == 8 && buffer_size_2 == 0 {
-                return Ok(ResourceEntryMetadata {
-                    offset,
-                    total_size: 12,
-                    entry_type: ResourceEntryType::Empty,
-                });
-            }
-
-            // Regular binary blob
-            let total_size = 12 + buffer_size_2;
-            return Ok(ResourceEntryMetadata {
-                offset,
-                total_size,
-                entry_type: ResourceEntryType::Record12ByteHeader,
-            });
+            return Self::process_record_12_byte_header(buffer, offset);
         }
 
         // Check for Record3ByteHeader (0xFF header)
         if buffer[offset] == 0xFF && offset + 3 <= buffer.len() {
-            let size_buffer = buffer[offset + 1..offset + 3].try_into().map_err(|_| {
-                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
-            })?;
-            let mut record_size = u16::from_le_bytes(size_buffer) as usize;
-
-            // Handle VB6 IDE off-by-one bug
-            if offset + 3 + record_size > buffer.len() {
-                record_size -= 1;
-            }
-
-            let total_size = 3 + record_size;
-            return Ok(ResourceEntryMetadata {
-                offset,
-                total_size,
-                entry_type: ResourceEntryType::Record3ByteHeader,
-            });
+            return Self::process_record_3_byte_header(buffer, offset);
         }
 
         // Check for ListItems (signature [0x03, 0x00] or [0x07, 0x00] at offset+2)
@@ -503,17 +532,7 @@ impl FormResourceFile {
 
         // Check for Record4ByteHeader (4-byte header with null bytes)
         if offset + 4 <= buffer.len() && buffer[offset..offset + 4].contains(&0u8) {
-            let size_buffer = buffer[offset..offset + 4].try_into().map_err(|_| {
-                ErrorKind::Resource(ResourceError::BufferConversionError { offset })
-            })?;
-            let record_size = u32::from_le_bytes(size_buffer) as usize;
-
-            let total_size = 4 + record_size;
-            return Ok(ResourceEntryMetadata {
-                offset,
-                total_size,
-                entry_type: ResourceEntryType::Record4ByteHeader,
-            });
+            return Self::process_record_4_byte_header(buffer, offset);
         }
 
         // Default: Record1ByteHeader (single-byte header)
