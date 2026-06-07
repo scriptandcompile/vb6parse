@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{FormFile, SourceFile};
 
 fn main() {
     let form_content = r#"VERSION 5.00

@@ -681,14 +681,14 @@ mod tests {
             }
         }
 
-        let source = r#"Sub Test()
+        let source = r"Sub Test()
 If x > 0 Then
     For i = 1 To 10
         If i < 5 Then
         End If
     Next i
 End If
-End Sub"#;
+End Sub";
 
         let (cst_opt, _) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("Failed to parse");

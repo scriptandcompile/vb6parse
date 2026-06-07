@@ -26,7 +26,7 @@ Exit Sub
 
     insta::assert_yaml_snapshot!("exit_sub_outside_sub_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("exit_sub_outside_sub_failures", failure_messages);
 }
 
@@ -58,7 +58,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("exit_function_outside_function_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("exit_function_outside_function_failures", failure_messages);
 }
 
@@ -91,7 +91,7 @@ End Function
 
     insta::assert_yaml_snapshot!("exit_property_outside_property_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("exit_property_outside_property_failures", failure_messages);
 }
 
@@ -125,7 +125,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("exit_for_outside_loop_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("exit_for_outside_loop_failures", failure_messages);
 }
 
@@ -159,11 +159,11 @@ End Sub
 
     insta::assert_yaml_snapshot!("exit_do_outside_loop_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("exit_do_outside_loop_failures", failure_messages);
 }
 
-/// Test GoTo with missing label
+/// Test `GoTo` with missing label
 #[test]
 fn goto_missing_label() {
     let source = r#"
@@ -192,11 +192,11 @@ End Sub
 
     insta::assert_yaml_snapshot!("goto_missing_label_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("goto_missing_label_failures", failure_messages);
 }
 
-/// Test GoSub with missing label
+/// Test `GoSub` with missing label
 #[test]
 fn gosub_missing_label() {
     let source = r"
@@ -227,11 +227,11 @@ End Sub
 
     insta::assert_yaml_snapshot!("gosub_missing_label_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("gosub_missing_label_failures", failure_messages);
 }
 
-/// Test On Error with missing destination
+/// Test `On Error` with missing destination
 #[test]
 fn on_error_missing_destination() {
     let source = r"
@@ -260,7 +260,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("on_error_missing_destination_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("on_error_missing_destination_failures", failure_messages);
 }
 
@@ -292,7 +292,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("resume_without_on_error_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("resume_without_on_error_failures", failure_messages);
 }
 
@@ -328,7 +328,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("nested_exit_wrong_context_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("nested_exit_wrong_context_failures", failure_messages);
 }
 
@@ -360,11 +360,11 @@ End Sub
 
     insta::assert_yaml_snapshot!("return_in_module_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("return_in_module_failures", failure_messages);
 }
 
-/// Test On Error GoTo with missing line number/label
+/// Test `On Error GoTo` with missing line number/label
 #[test]
 fn on_error_goto_missing_target() {
     let source = r"
@@ -393,7 +393,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("on_error_goto_missing_target_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("on_error_goto_missing_target_failures", failure_messages);
 }
 
@@ -425,7 +425,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("stop_with_arguments_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("stop_with_arguments_failures", failure_messages);
 }
 
@@ -457,6 +457,6 @@ End Sub
 
     insta::assert_yaml_snapshot!("resume_invalid_combination_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("resume_invalid_combination_failures", failure_messages);
 }

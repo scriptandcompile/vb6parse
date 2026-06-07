@@ -19,11 +19,11 @@ Sub Test()
     End With
 End Sub
 ";
-    let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+    let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
     let _cst = cst_opt.expect("CST should be parsed");
 
     // Just verify parsing succeeds and no failures
-    assert!(_failures.is_empty(), "Expected no parse failures");
+    assert!(failures.is_empty(), "Expected no parse failures");
 }
 
 #[test]
@@ -35,11 +35,11 @@ Sub Test()
     End With
 End Sub
 "#;
-    let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+    let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
     let _cst = cst_opt.expect("CST should be parsed");
 
     // Just verify parsing succeeds and no failures
-    assert!(_failures.is_empty(), "Expected no parse failures");
+    assert!(failures.is_empty(), "Expected no parse failures");
 }
 
 #[test]
@@ -54,11 +54,11 @@ Sub Test()
     End With
 End Sub
 ";
-    let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+    let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
     let _cst = cst_opt.expect("CST should be parsed");
 
     // Just verify parsing succeeds and no failures
-    assert!(_failures.is_empty(), "Expected no parse failures");
+    assert!(failures.is_empty(), "Expected no parse failures");
 }
 
 /// Test that With block member access in If conditions is parsed correctly.
@@ -82,7 +82,7 @@ End Sub
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     // Verify that there are no Unknown tokens
     assert!(
@@ -124,7 +124,7 @@ End Sub
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     // Verify that there are no Unknown tokens
     assert!(
@@ -150,7 +150,7 @@ End Sub
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     assert!(
         !tree_str.contains("Unknown"),

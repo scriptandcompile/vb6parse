@@ -109,7 +109,7 @@ impl Visitor for StructurePrinter {
 
                 // Manually traverse children to maintain depth tracking
                 for child in node.children() {
-                    self.visit_node(&child);
+                    self.visit_node(child);
                 }
 
                 self.depth -= 1;

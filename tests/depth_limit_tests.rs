@@ -2,6 +2,8 @@
 
 use vb6parse::{ConcreteSyntaxTree, FormFile, SourceFile};
 
+use std::fmt::Write;
+
 /// Test that deeply nested controls don't cause stack overflow
 #[test]
 fn deeply_nested_controls() {
@@ -10,7 +12,7 @@ fn deeply_nested_controls() {
     let depth = 100; // Test with 100 levels of nesting
 
     for i in 0..depth {
-        form.push_str(&format!("  Begin VB.Frame Frame{}\n", i));
+        let _ = writeln!(form, "  Begin VB.Frame Frame{i}");
     }
 
     for _ in 0..depth {
@@ -36,7 +38,7 @@ fn extremely_nested_controls_depth_limit() {
     let depth = 1100;
 
     for i in 0..depth {
-        form.push_str(&format!("  Begin VB.Frame Frame{}\n", i));
+        let _ = writeln!(form, "  Begin VB.Frame Frame{i}");
     }
 
     for _ in 0..depth {
@@ -115,7 +117,7 @@ fn deeply_nested_if_statements() {
     let depth = 50; // Test with 50 levels of nesting
 
     for i in 0..depth {
-        code.push_str(&format!("  If x{} Then\n", i));
+        let _ = writeln!(code, "  If x{i} Then");
     }
 
     code.push_str("    y = 1\n");
@@ -138,16 +140,16 @@ fn deeply_nested_for_loops() {
     let depth = 50; // Test with 50 levels of nesting
 
     for i in 0..depth {
-        code.push_str(&format!("  For i{} = 1 To 10\n", i));
+        let _ = writeln!(code, "  For i{i} = 1 To 10");
     }
 
-    code.push_str("    x = 1\n");
+    let _ = writeln!(code, "    x = 1");
 
     for i in (0..depth).rev() {
-        code.push_str(&format!("  Next i{}\n", i));
+        let _ = writeln!(code, "  Next i{i}");
     }
 
-    code.push_str("End Sub\n");
+    let _ = writeln!(code, "End Sub");
 
     // Should parse without crashing
     let (result, _errors) = ConcreteSyntaxTree::from_text("test.bas", &code).unpack();
@@ -163,16 +165,16 @@ fn nested_property_groups() {
     // Create nested property groups
     let depth = 10;
     for i in 0..depth {
-        form.push_str(&format!("    BeginProperty PropGroup{}\n", i));
-        form.push_str("      Name = \"Test\"\n");
+        let _ = writeln!(form, "    BeginProperty PropGroup{i}");
+        let _ = writeln!(form, "      Name = \"Test\"");
     }
 
     for _ in 0..depth {
-        form.push_str("    EndProperty\n");
+        let _ = writeln!(form, "    EndProperty");
     }
 
-    form.push_str("  End\n");
-    form.push_str("End\n");
+    let _ = writeln!(form, "  End");
+    let _ = writeln!(form, "End");
 
     // Should parse without crashing
     let source = SourceFile::from_string("test.frm", form);
@@ -189,16 +191,16 @@ fn extremely_nested_property_groups() {
     // Create extremely nested property groups
     let depth = 150;
     for i in 0..depth {
-        form.push_str(&format!("    BeginProperty PropGroup{}\n", i));
-        form.push_str("      Name = \"Test\"\n");
+        let _ = writeln!(form, "    BeginProperty PropGroup{i}");
+        let _ = writeln!(form, "      Name = \"Test\"");
     }
 
     for _ in 0..depth {
-        form.push_str("    EndProperty\n");
+        let _ = writeln!(form, "    EndProperty");
     }
 
-    form.push_str("  End\n");
-    form.push_str("End\n");
+    let _ = writeln!(form, "  End");
+    let _ = writeln!(form, "End");
 
     // Should parse without crashing thanks to Phase 2 iterative parsing
     let source = SourceFile::from_string("test.frm", form);

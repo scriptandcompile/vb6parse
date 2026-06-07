@@ -23,11 +23,11 @@ End Sub
 
     // Verify the CST structure contains a CallStatement for the Line method
     let serializable = cst.to_serializable();
-    let text = format!("{:#?}", serializable);
+    let text = format!("{serializable:#?}");
 
     if !text.contains("CallStatement") {
         println!("DEBUG: CST does not contain CallStatement");
-        println!("{}", text);
+        println!("{text}");
     }
 
     assert!(

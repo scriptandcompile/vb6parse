@@ -1232,9 +1232,9 @@ mod tests {
 
         // first_non_whitespace_child should work for roots that start with whitespace
         let source_with_leading_ws = "  \nSub Test()\nEnd Sub\n";
-        let (cst2_opt, _failures) =
+        let (second_cst_opt, _failures) =
             ConcreteSyntaxTree::from_text("test.bas", source_with_leading_ws).unpack();
-        let cst2 = cst2_opt.expect("Failed to parse source");
+        let cst2 = second_cst_opt.expect("Failed to parse source");
         let first_non_ws = cst2.first_non_whitespace_child();
 
         if let Some(node) = first_non_ws {

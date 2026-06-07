@@ -3778,7 +3778,7 @@ mod tests {
 
         let parser = Parser::new_direct_extraction(tokens_vec, 0);
         assert_eq!(parser.tokens.len(), token_count);
-        assert!(parser.tokens[0].1 == Token::VersionKeyword);
+        assert_eq!(parser.tokens[0].1, Token::VersionKeyword);
     }
 
     #[test]

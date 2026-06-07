@@ -200,7 +200,7 @@ mod tests {
         if !failures.is_empty() {
             eprintln!("Tokenization failures:");
             for failure in failures {
-                eprintln!("  - {:?}", failure);
+                eprintln!("  - {failure:?}");
             }
         }
 
@@ -224,7 +224,7 @@ mod tests {
         if !failures.is_empty() {
             eprintln!("Tokenization failures:");
             for failure in failures {
-                eprintln!("  - {:?}", failure);
+                eprintln!("  - {failure:?}");
             }
         }
 
@@ -248,7 +248,7 @@ mod tests {
         if !failures.is_empty() {
             eprintln!("Tokenization failures:");
             for failure in failures {
-                eprintln!("  - {:?}", failure);
+                eprintln!("  - {failure:?}");
             }
         }
 
@@ -275,7 +275,7 @@ End
         if !failures.is_empty() {
             eprintln!("Tokenization failures:");
             for failure in failures {
-                eprintln!("  - {:?}", failure);
+                eprintln!("  - {failure:?}");
             }
         }
 

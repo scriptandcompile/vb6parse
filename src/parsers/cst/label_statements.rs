@@ -21,11 +21,10 @@ End Function
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
-            "Should not contain Unknown tokens, but found:\n{}",
-            text
+            "Should not contain Unknown tokens, but found:\n{text}"
         );
 
         let mut settings = insta::Settings::clone_current();
@@ -47,7 +46,7 @@ End Sub
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens"
@@ -73,7 +72,7 @@ End Property
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens"
@@ -103,7 +102,7 @@ End Function
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens"

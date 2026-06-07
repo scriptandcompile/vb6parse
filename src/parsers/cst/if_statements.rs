@@ -543,7 +543,7 @@ End Function
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens"
@@ -558,7 +558,7 @@ End Function
 
     /// Tests that a single-line If inside a multi-line If does not consume
     /// statements on subsequent lines or the outer End If / End Sub.
-    /// This is a regression test for the bug where parse_assignment_statement
+    /// This is a regression test for the bug where `parse_assignment_statement()`
     /// consumes the trailing newline, causing the single-line If's loop to
     /// continue past the end of the line, producing Unknown tokens for
     /// End Sub / End Function.
@@ -576,7 +576,7 @@ End Sub
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
-        let text = format!("{:#?}", tree);
+        let text = format!("{tree:#?}");
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens: single-line If must not consume past end of line"

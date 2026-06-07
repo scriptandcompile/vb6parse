@@ -24,7 +24,7 @@ End Enum
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     // Verify that there are no Unknown tokens
     assert!(
@@ -60,7 +60,7 @@ End Enum
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     // Verify that there are no Unknown tokens
     assert!(
@@ -83,7 +83,7 @@ End Enum
     let cst = cst_opt.expect("CST should parse successfully");
 
     let tree = cst.to_serializable();
-    let tree_str = format!("{:?}", tree);
+    let tree_str = format!("{tree:?}");
 
     assert!(
         !tree_str.contains("Unknown"),

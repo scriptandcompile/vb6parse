@@ -1,12 +1,12 @@
 use vb6parse::parsers::SyntaxKind;
-use vb6parse::*;
+use vb6parse::ConcreteSyntaxTree;
 
 fn main() {
-    let code = r#"Sub Calculate()
+    let code = r"Sub Calculate()
     Dim result As Double
     result = 10 * 5 + 3
     MsgBox result
-End Sub"#;
+End Sub";
 
     let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", code).unpack();
     let cst = cst_opt.expect("Failed to parse the input code.");

@@ -28,7 +28,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("dim_missing_identifier_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("dim_missing_identifier_failures", failure_messages);
 }
 
@@ -60,7 +60,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("dim_missing_type_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("dim_missing_type_failures", failure_messages);
 }
 
@@ -92,7 +92,7 @@ End Function
 
     insta::assert_yaml_snapshot!("function_missing_return_type_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("function_missing_return_type_failures", failure_messages);
 }
 
@@ -124,7 +124,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("sub_missing_name_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("sub_missing_name_failures", failure_messages);
 }
 
@@ -156,7 +156,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("duplicate_public_modifier_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("duplicate_public_modifier_failures", failure_messages);
 }
 
@@ -188,7 +188,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("conflicting_visibility_modifiers_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!(
         "conflicting_visibility_modifiers_failures",
         failure_messages
@@ -223,7 +223,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("array_missing_bounds_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("array_missing_bounds_failures", failure_messages);
 }
 
@@ -255,7 +255,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("const_missing_value_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("const_missing_value_failures", failure_messages);
 }
 
@@ -288,7 +288,7 @@ End Type
 
     insta::assert_yaml_snapshot!("type_missing_member_name_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("type_missing_member_name_failures", failure_messages);
 }
 
@@ -320,7 +320,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("parameter_missing_name_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("parameter_missing_name_failures", failure_messages);
 }
 
@@ -352,7 +352,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("optional_parameter_missing_default_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!(
         "optional_parameter_missing_default_failures",
         failure_messages
@@ -388,7 +388,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("duplicate_static_modifier_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("duplicate_static_modifier_failures", failure_messages);
 }
 
@@ -422,6 +422,6 @@ End Enum
 
     insta::assert_yaml_snapshot!("enum_missing_member_value_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("enum_missing_member_value_failures", failure_messages);
 }

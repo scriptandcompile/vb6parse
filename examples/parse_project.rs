@@ -88,7 +88,7 @@ AutoRefresh=1
                 println!("Reference - Compiled: {uuid} {unknown1} {unknown2} {path} {description}");
             }
             ProjectReference::SubProject { path } => {
-                println!("Reference - SubProject: {path}",);
+                println!("Reference - SubProject: {path}");
             }
         }
     }

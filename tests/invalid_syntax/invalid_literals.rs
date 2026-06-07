@@ -29,7 +29,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("unclosed_string_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("unclosed_string_failures", failure_messages);
 }
 
@@ -62,7 +62,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("incomplete_quote_escape_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("incomplete_quote_escape_failures", failure_messages);
 }
 
@@ -95,7 +95,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("multiple_decimal_points_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("multiple_decimal_points_failures", failure_messages);
 }
 
@@ -128,7 +128,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("invalid_hex_literal_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("invalid_hex_literal_failures", failure_messages);
 }
 
@@ -161,7 +161,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("invalid_octal_literal_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("invalid_octal_literal_failures", failure_messages);
 }
 
@@ -194,7 +194,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("invalid_date_month_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("invalid_date_month_failures", failure_messages);
 }
 
@@ -227,7 +227,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("unclosed_date_literal_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("unclosed_date_literal_failures", failure_messages);
 }
 
@@ -260,7 +260,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("invalid_scientific_notation_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("invalid_scientific_notation_failures", failure_messages);
 }
 
@@ -293,7 +293,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("invalid_number_suffix_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("invalid_number_suffix_failures", failure_messages);
 }
 
@@ -326,6 +326,6 @@ End Sub
 
     insta::assert_yaml_snapshot!("number_with_leading_zeros_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("number_with_leading_zeros_failures", failure_messages);
 }

@@ -1,7 +1,7 @@
-//! Test for proper ArgumentList parsing in procedure calls.
+//! Test for proper `ArgumentList` parsing in procedure calls.
 //!
-//! This test verifies that procedure calls create proper ArgumentList nodes
-//! with structured Argument children, rather than flat token streams.
+//! This test verifies that procedure calls create proper `ArgumentList` nodes
+//! with structured `Argument` children, rather than flat token streams.
 
 use vb6parse::*;
 

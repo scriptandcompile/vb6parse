@@ -29,7 +29,7 @@ End Function
 
     insta::assert_yaml_snapshot!("sub_with_end_function_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("sub_with_end_function_failures", failure_messages);
 }
 
@@ -61,7 +61,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("function_with_end_sub_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("function_with_end_sub_failures", failure_messages);
 }
 
@@ -93,7 +93,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("property_get_with_end_sub_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("property_get_with_end_sub_failures", failure_messages);
 }
 
@@ -125,7 +125,7 @@ End Function
 
     insta::assert_yaml_snapshot!("property_let_with_end_function_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("property_let_with_end_function_failures", failure_messages);
 }
 
@@ -159,7 +159,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("if_with_end_select_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("if_with_end_select_failures", failure_messages);
 }
 
@@ -196,7 +196,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("select_case_with_end_if_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("select_case_with_end_if_failures", failure_messages);
 }
 
@@ -230,7 +230,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("for_with_wend_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("for_with_wend_failures", failure_messages);
 }
 
@@ -264,7 +264,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("do_while_with_next_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("do_while_with_next_failures", failure_messages);
 }
 
@@ -298,7 +298,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("while_with_loop_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("while_with_loop_failures", failure_messages);
 }
 
@@ -331,6 +331,6 @@ End Enum
 
     insta::assert_yaml_snapshot!("type_with_end_enum_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("type_with_end_enum_failures", failure_messages);
 }

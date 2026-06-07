@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{tokenize, SourceStream};
 
 fn main() {
     let code = "Dim x As Integer ' Declare a variable";
@@ -9,7 +9,7 @@ fn main() {
     if let Some(tokens) = token_stream {
         println!("Tokens found: {}", tokens.len());
 
-        for (text, token) in tokens.tokens().iter() {
+        for (text, token) in tokens.tokens() {
             println!("  {token:?}: '{text}'");
         }
     }

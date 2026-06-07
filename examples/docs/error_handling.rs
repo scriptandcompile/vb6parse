@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{ModuleFile, SourceFile};
 
 fn main() {
     // Malformed VB6 code (missing End Sub, invalid syntax)

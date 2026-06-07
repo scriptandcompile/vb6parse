@@ -1,7 +1,9 @@
 use vb6parse::parsers::cst::ConcreteSyntaxTree;
 
+use std::fmt::Write;
+
 /// Test deeply nested If statements
-/// This tests indirect recursion through parse_statement_list() and parse_if_statement()
+/// This tests indirect recursion through `parse_statement_list()` and `parse_if_statement()`.
 ///
 /// Note: This test currently uses a moderate depth (50) to test parser behavior.
 /// Once recursion depth limits are implemented (see recursion.md, Strategy 5),
@@ -14,25 +16,22 @@ fn deeply_nested_if_statements() {
 
     // Generate deeply nested If statements
     for i in 0..DEPTH {
-        source.push_str(&format!("{}If x{} Then\n", "    ".repeat(i + 1), i));
+        let _ = writeln!(source, "{}If x{} Then", "    ".repeat(i + 1), i);
     }
 
     // Add innermost statement
-    source.push_str(&format!("{}y = 1\n", "    ".repeat(DEPTH + 1)));
+    let _ = writeln!(source, "{}y = 1", "    ".repeat(DEPTH + 1));
 
     // Close all If statements
     for i in (0..DEPTH).rev() {
-        source.push_str(&format!("{}End If\n", "    ".repeat(i + 1)));
+        let _ = writeln!(source, "{}End If", "    ".repeat(i + 1));
     }
 
-    source.push_str("End Sub\n");
+    let _ = writeln!(source, "End Sub");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for deeply_nested_if_statements (depth={}) ===",
-        DEPTH
-    );
+    eprintln!("=== Failures for deeply_nested_if_statements (depth={DEPTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -49,15 +48,15 @@ fn deeply_nested_if_statements() {
 
     insta::assert_yaml_snapshot!("deeply_nested_if_statements_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("deeply_nested_if_statements_failures", failure_messages);
 }
 
 /// Test deeply nested For loops
-/// This tests indirect recursion through parse_statement_list() and parse_for_statement()
+/// This tests indirect recursion through `parse_statement_list()` and `parse_for_statement()`.
 ///
 /// Note: Uses moderate depth (30) for testing. Once recursion limits are implemented,
-/// this should verify proper error handling at MAX_STATEMENT_DEPTH.
+/// this should verify proper error handling at `MAX_STATEMENT_DEPTH`.
 #[test]
 fn deeply_nested_for_loops() {
     const DEPTH: usize = 30;
@@ -66,25 +65,22 @@ fn deeply_nested_for_loops() {
 
     // Generate deeply nested For loops
     for i in 0..DEPTH {
-        source.push_str(&format!("{}For i{} = 1 To 10\n", "    ".repeat(i + 1), i));
+        let _ = writeln!(source, "{}For i{i} = 1 To 10", "    ".repeat(i + 1));
     }
 
     // Add innermost statement
-    source.push_str(&format!("{}x = x + 1\n", "    ".repeat(DEPTH + 1)));
+    let _ = writeln!(source, "{}x = x + 1", "    ".repeat(DEPTH + 1));
 
     // Close all For loops
     for i in (0..DEPTH).rev() {
-        source.push_str(&format!("{}Next i{}\n", "    ".repeat(i + 1), i));
+        let _ = writeln!(source, "{}Next i{i}", "    ".repeat(i + 1));
     }
 
-    source.push_str("End Sub\n");
+    let _ = writeln!(source, "End Sub");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for deeply_nested_for_loops (depth={}) ===",
-        DEPTH
-    );
+    eprintln!("=== Failures for deeply_nested_for_loops (depth={DEPTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -101,15 +97,15 @@ fn deeply_nested_for_loops() {
 
     insta::assert_yaml_snapshot!("deeply_nested_for_loops_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("deeply_nested_for_loops_failures", failure_messages);
 }
 
 /// Test deeply nested parenthesized expressions
-/// This tests direct recursion in parse_expression_with_binding_power()
+/// This tests direct recursion in `parse_expression_with_binding_power()`.
 ///
 /// Note: Uses moderate depth (100) for testing. Once recursion limits are implemented
-/// (Strategy 5, MAX_EXPRESSION_DEPTH = 500), this should verify proper error handling.
+/// (Strategy 5, `MAX_EXPRESSION_DEPTH` = 500), this should verify proper error handling.
 #[test]
 fn deeply_nested_parentheses() {
     const DEPTH: usize = 100;
@@ -121,20 +117,19 @@ fn deeply_nested_parentheses() {
         source.push('(');
     }
 
-    source.push_str("x");
+    source.push('x');
 
     for _ in 0..DEPTH {
         source.push(')');
     }
 
-    source.push_str("\nEnd Sub\n");
+    let _ = writeln!(source);
+
+    let _ = writeln!(source, "End Sub");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for deeply_nested_parentheses (depth={}) ===",
-        DEPTH
-    );
+    eprintln!("=== Failures for deeply_nested_parentheses (depth={DEPTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -151,7 +146,7 @@ fn deeply_nested_parentheses() {
 
     insta::assert_yaml_snapshot!("deeply_nested_parentheses_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("deeply_nested_parentheses_failures", failure_messages);
 }
 
@@ -171,17 +166,14 @@ fn long_binary_operation_chain() {
         if i > 0 {
             source.push_str(" + ");
         }
-        source.push_str(&format!("x{}", i));
+        let _ = write!(source, "x{i}");
     }
 
     source.push_str("\nEnd Sub\n");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for long_binary_operation_chain (length={}) ===",
-        LENGTH
-    );
+    eprintln!("=== Failures for long_binary_operation_chain (length={LENGTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -198,7 +190,7 @@ fn long_binary_operation_chain() {
 
     insta::assert_yaml_snapshot!("long_binary_operation_chain_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("long_binary_operation_chain_failures", failure_messages);
 }
 
@@ -209,7 +201,7 @@ fn long_binary_operation_chain() {
 /// are implemented, verify proper handling of complex nested control flow.
 #[test]
 fn mixed_nested_control_flow() {
-    let source = r#"
+    let source = r"
 Sub Test()
     If a Then
         For i = 1 To 10
@@ -242,7 +234,7 @@ Sub Test()
         Next i
     End If
 End Sub
-"#;
+";
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
@@ -263,7 +255,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("mixed_nested_control_flow_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("mixed_nested_control_flow_failures", failure_messages);
 }
 
@@ -274,7 +266,7 @@ End Sub
 /// of complex boolean expressions.
 #[test]
 fn complex_nested_boolean_expression() {
-    let source = r#"
+    let source = r"
 Sub Test()
     result = ((a And b) Or (c And d)) And _
              ((e Or f) And (g Or h)) Or _
@@ -282,7 +274,7 @@ Sub Test()
               ((m Or n) And (o Or p))) And _
              ((q And r) Or ((s And t) And (u Or v)))
 End Sub
-"#;
+";
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
@@ -303,7 +295,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("complex_nested_boolean_expression_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!(
         "complex_nested_boolean_expression_failures",
         failure_messages
@@ -323,26 +315,23 @@ fn deeply_nested_select_case() {
 
     // Generate deeply nested Select Case statements
     for i in 0..DEPTH {
-        source.push_str(&format!("{}Select Case x{}\n", "    ".repeat(i + 1), i));
-        source.push_str(&format!("{}Case 1\n", "    ".repeat(i + 2)));
+        let _ = writeln!(source, "{}Select Case x{i}", "    ".repeat(i + 1));
+        let _ = writeln!(source, "{}Case 1", "    ".repeat(i + 2));
     }
 
     // Add innermost statement
-    source.push_str(&format!("{}y = 1\n", "    ".repeat(DEPTH + 2)));
+    let _ = writeln!(source, "{}y = 1", "    ".repeat(DEPTH + 2));
 
     // Close all Select Case statements
     for i in (0..DEPTH).rev() {
-        source.push_str(&format!("{}End Select\n", "    ".repeat(i + 1)));
+        let _ = writeln!(source, "{}End Select", "    ".repeat(i + 1));
     }
 
     source.push_str("End Sub\n");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for deeply_nested_select_case (depth={}) ===",
-        DEPTH
-    );
+    eprintln!("=== Failures for deeply_nested_select_case (depth={DEPTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -359,7 +348,7 @@ fn deeply_nested_select_case() {
 
     insta::assert_yaml_snapshot!("deeply_nested_select_case_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("deeply_nested_select_case_failures", failure_messages);
 }
 
@@ -376,25 +365,22 @@ fn deeply_nested_with_blocks() {
 
     // Generate deeply nested With blocks
     for i in 0..DEPTH {
-        source.push_str(&format!("{}With obj{}\n", "    ".repeat(i + 1), i));
+        let _ = writeln!(source, "{}With obj{i}", "    ".repeat(i + 1));
     }
 
     // Add innermost statement
-    source.push_str(&format!("{}.Property = 1\n", "    ".repeat(DEPTH + 1)));
+    let _ = writeln!(source, "{}.Property = 1", "    ".repeat(DEPTH + 1));
 
     // Close all With blocks
     for i in (0..DEPTH).rev() {
-        source.push_str(&format!("{}End With\n", "    ".repeat(i + 1)));
+        let _ = writeln!(source, "{}End With", "    ".repeat(i + 1));
     }
 
-    source.push_str("End Sub\n");
+    let _ = writeln!(source, "End Sub");
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", &source).unpack();
 
-    eprintln!(
-        "=== Failures for deeply_nested_with_blocks (depth={}) ===",
-        DEPTH
-    );
+    eprintln!("=== Failures for deeply_nested_with_blocks (depth={DEPTH}) ===");
     eprintln!("Number of failures: {}", failures.len());
     for failure in &failures {
         failure.eprint();
@@ -411,7 +397,7 @@ fn deeply_nested_with_blocks() {
 
     insta::assert_yaml_snapshot!("deeply_nested_with_blocks_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("deeply_nested_with_blocks_failures", failure_messages);
 }
 
@@ -422,7 +408,7 @@ fn deeply_nested_with_blocks() {
 /// are implemented, verify both expression and statement depth tracking work correctly.
 #[test]
 fn combined_expression_and_statement_nesting() {
-    let source = r#"
+    let source = r"
 Sub Test()
     If ((a + b) * (c + d)) > ((e - f) / (g - h)) Then
         For i = (x * y) To ((z + w) * 2)
@@ -437,7 +423,7 @@ Sub Test()
         Next i
     End If
 End Sub
-"#;
+";
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
@@ -458,7 +444,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("combined_expression_and_statement_nesting_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!(
         "combined_expression_and_statement_nesting_failures",
         failure_messages

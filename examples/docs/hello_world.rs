@@ -1,4 +1,4 @@
-use vb6parse::*;
+use vb6parse::{ModuleFile, SourceFile};
 
 fn main() {
     // VB6 code to parse

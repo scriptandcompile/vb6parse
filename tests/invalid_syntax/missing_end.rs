@@ -35,7 +35,7 @@ Sub TestSub()
     insta::assert_yaml_snapshot!("missing_end_sub_cst", tree);
 
     // Snapshot the failures to document current error reporting behavior
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_sub_failures", failure_messages);
 }
 
@@ -66,7 +66,7 @@ Function Calculate(x As Integer) As Integer
 
     insta::assert_yaml_snapshot!("missing_end_function_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_function_failures", failure_messages);
 }
 
@@ -97,7 +97,7 @@ Property Get Name() As String
 
     insta::assert_yaml_snapshot!("missing_end_property_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_property_failures", failure_messages);
 }
 
@@ -130,7 +130,7 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_end_if_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_if_failures", failure_messages);
 }
 
@@ -162,7 +162,7 @@ Type Point
 
     insta::assert_yaml_snapshot!("missing_end_type_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_type_failures", failure_messages);
 }
 
@@ -198,20 +198,20 @@ End Sub
 
     insta::assert_yaml_snapshot!("missing_end_select_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("missing_end_select_failures", failure_messages);
 }
 
 /// Test nested missing End statements
 #[test]
 fn nested_missing_ends() {
-    let source = r#"
+    let source = r"
 Sub Test()
     If x > 0 Then
         For i = 1 To 10
             Debug.Print i
     ' Missing Next, End If, and End Sub
-"#;
+";
 
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
@@ -232,6 +232,6 @@ Sub Test()
 
     insta::assert_yaml_snapshot!("nested_missing_ends_cst", tree);
 
-    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{:?}", f)).collect();
+    let failure_messages: Vec<String> = failures.iter().map(|f| format!("{f:?}")).collect();
     insta::assert_yaml_snapshot!("nested_missing_ends_failures", failure_messages);
 }
