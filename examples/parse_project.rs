@@ -7,8 +7,7 @@ use vb6parse::{
     files::common::ObjectReference, files::project::ProjectReference, ProjectFile, SourceFile,
 };
 
-fn main() {
-    let input = r#"Type=Exe
+const INPUT: &str = r#"Type=Exe
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation
 Object={00020430-0000-0000-C000-000000000046}#2.0#0; stdole2.tlb
 Module=Module1; Module1.bas
@@ -62,11 +61,12 @@ Title="Project1"
 AutoRefresh=1
 "#;
 
+fn main() {
     // Decode the source file from the byte array.
     // The filename is provided for reference in error messages.
     // In a real application, use the actual filename.
     // Decode with replacement to handle any invalid characters gracefully.
-    let source_file = SourceFile::decode_with_replacement("Project1.vbp", input.as_bytes())
+    let source_file = SourceFile::decode_with_replacement("Project1.vbp", INPUT.as_bytes())
         .expect("Unable to decode the sourcefile with replacements.");
 
     // Parse the project file from the decoded source file.
