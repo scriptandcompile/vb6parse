@@ -8,6 +8,8 @@
 
 pub mod properties;
 
+use crate::syntax::CstNode;
+
 use std::fmt::Display;
 
 use crate::{
@@ -159,6 +161,13 @@ impl ClassFile {
     }
 }
 
+fn find_property_block_nodes(cst: &ConcreteSyntaxTree) -> Vec<CstNode> {
+    cst.children()
+        .into_iter()
+        .filter(|c| c.kind() == SyntaxKind::PropertiesBlock)
+        .collect()
+}
+
 /// Extract `VB6ClassProperties` from `PropertiesBlock` nodes in the CST
 fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
     let mut multi_use = FileUsage::MultiUse;
@@ -168,11 +177,7 @@ fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
     // Find the PropertiesBlock node
-    let properties_blocks: Vec<_> = cst
-        .children()
-        .into_iter()
-        .filter(|c| c.kind() == SyntaxKind::PropertiesBlock)
-        .collect();
+    let properties_blocks = find_property_block_nodes(cst);
 
     if properties_blocks.is_empty() {
         return ClassProperties::default();
