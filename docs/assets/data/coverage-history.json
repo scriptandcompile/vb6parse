@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-01T00:31:00Z",
+  "last_updated": "2026-06-07T02:57:51Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -341,16 +341,50 @@
           "percent": 96.07
         }
       }
+    },
+    {
+      "timestamp": "2026-06-07T02:57:51Z",
+      "commit_sha": "819922631860991a4081d3aa65a95696b25e077f",
+      "commit_message": "Lots and lots and lots of clippy fixes.",
+      "coverage": {
+        "line_coverage": 95.79,
+        "function_coverage": 92.89,
+        "region_coverage": 95.98
+      },
+      "tests": {
+        "total": 6202,
+        "lib_tests": 5509,
+        "doc_tests": 119,
+        "integration_tests": 574,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96596,
+          "total": 100844,
+          "percent": 95.79
+        },
+        "functions": {
+          "covered": 6162,
+          "total": 6634,
+          "percent": 92.89
+        },
+        "regions": {
+          "covered": 154268,
+          "total": 160734,
+          "percent": 95.98
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.88,
+      "latest": 95.79,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.09,
       "best": 95.88,
       "worst": 95.13,
-      "average": 95.65
+      "average": 95.66
     },
     "function_coverage": {
       "latest": 92.89,
@@ -358,21 +392,21 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.07
+      "average": 93.05
     },
     "region_coverage": {
-      "latest": 96.07,
+      "latest": 95.98,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.09,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.83
+      "average": 95.84
     },
     "test_count": {
-      "latest": 6162,
-      "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "latest": 6202,
+      "trend": "growing",
+      "change_count": 40,
+      "growth_rate": 0.65
     }
   }
 }
