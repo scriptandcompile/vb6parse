@@ -785,52 +785,61 @@ impl Parser<'_> {
 
         // If we didn't push frames and this was a bare identifier, wrap it
         if !pushed_frames && is_identifier {
-            // Check if we'll have postfix operators (peek ahead)
-            let saved_pos = self.pos;
+            self.parse_bare_identifier(checkpoint);
+        }
 
-            // Skip whitespace to check for postfix
-            loop {
-                match self.current_token() {
-                    Some(Token::Whitespace) => self.pos += 1,
-                    Some(Token::Underscore) => {
-                        // Check for line continuation
-                        let mut lookahead = 1;
-                        let mut is_continuation = false;
-                        while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                            if *token == Token::Whitespace {
-                                lookahead += 1;
-                            } else if *token == Token::Newline {
-                                is_continuation = true;
-                                break;
-                            } else {
-                                break;
-                            }
-                        }
-                        if is_continuation {
-                            self.pos += lookahead + 1;
+        (pushed_frames, checkpoint)
+    }
+
+    /// If we parsed an identifier but it doesn't have any postfix operators, wrap it in an `IdentifierExpression`.
+    ///
+    /// This ensures that simple identifiers are represented as `IdentifierExpression` nodes, while identifiers
+    /// that are part of member access or calls are wrapped in the appropriate nodes (`MemberAccessExpression`, `CallExpression`)
+    /// without an extra `IdentifierExpression` layer.
+    fn parse_bare_identifier(&mut self, checkpoint: Checkpoint) {
+        // Check if we'll have postfix operators (peek ahead)
+        let saved_pos = self.pos;
+
+        // Skip whitespace to check for postfix
+        loop {
+            match self.current_token() {
+                Some(Token::Whitespace) => self.pos += 1,
+                Some(Token::Underscore) => {
+                    // Check for line continuation
+                    let mut lookahead = 1;
+                    let mut is_continuation = false;
+                    while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                        if *token == Token::Whitespace {
+                            lookahead += 1;
+                        } else if *token == Token::Newline {
+                            is_continuation = true;
+                            break;
                         } else {
                             break;
                         }
                     }
-                    _ => break,
+                    if is_continuation {
+                        self.pos += lookahead + 1;
+                    } else {
+                        break;
+                    }
                 }
-            }
-
-            let has_postfix = matches!(
-                self.current_token(),
-                Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
-            );
-            self.pos = saved_pos;
-
-            if !has_postfix {
-                // Wrap bare identifier in IdentifierExpression using the prefix checkpoint
-                self.builder
-                    .start_node_at(checkpoint, SyntaxKind::IdentifierExpression.to_raw());
-                self.builder.finish_node();
+                _ => break,
             }
         }
 
-        (pushed_frames, checkpoint)
+        let has_postfix = matches!(
+            self.current_token(),
+            Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
+        );
+        self.pos = saved_pos;
+
+        if !has_postfix {
+            // Wrap bare identifier in IdentifierExpression using the prefix checkpoint
+            self.builder
+                .start_node_at(checkpoint, SyntaxKind::IdentifierExpression.to_raw());
+            self.builder.finish_node();
+        }
     }
 
     /// Parse an identifier or a function/method call expression.
