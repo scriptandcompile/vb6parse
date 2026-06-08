@@ -488,17 +488,7 @@ pub fn tokenize_without_whitespaces<'a>(
 fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
     input.peek_text("'", crate::io::Comparator::CaseInsensitive)?;
 
-    match input.take_until_newline() {
-        None => None,
-        Some((comment, newline_optional)) => {
-            let comment_tuple = (comment, Token::EndOfLineComment);
-
-            match newline_optional {
-                None => Some((comment_tuple, None)),
-                Some(newline) => Some((comment_tuple, Some((newline, Token::Newline)))),
-            }
-        }
-    }
+    take_line_comment_with_token(input, Token::EndOfLineComment)
 }
 
 /// Parses a VB6 REM-to-end-of-the-line comment.
@@ -524,10 +514,17 @@ fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTupl
 fn take_rem_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
     input.peek_text("REM", crate::io::Comparator::CaseInsensitive)?;
 
+    take_line_comment_with_token(input, Token::RemComment)
+}
+
+fn take_line_comment_with_token<'a>(
+    input: &mut SourceStream<'a>,
+    token: Token,
+) -> Option<LineCommentTuple<'a>> {
     match input.take_until_newline() {
         None => None,
         Some((comment, newline_optional)) => {
-            let comment_tuple = (comment, Token::RemComment);
+            let comment_tuple = (comment, token);
 
             match newline_optional {
                 None => Some((comment_tuple, None)),
@@ -801,6 +798,138 @@ fn check_minute_or_second_digits(input: &mut SourceStream) -> Option<u8> {
     None
 }
 
+fn reset_and_fail<T>(input: &mut SourceStream<'_>, start_offset: usize) -> Option<T> {
+    input.offset = start_offset;
+    None
+}
+
+fn take_case_insensitive_or_reset(
+    input: &mut SourceStream<'_>,
+    text: &str,
+    start_offset: usize,
+) -> Option<()> {
+    if input.take(text, Comparator::CaseInsensitive).is_some() {
+        Some(())
+    } else {
+        reset_and_fail(input, start_offset)
+    }
+}
+
+fn take_date_components(input: &mut SourceStream<'_>, start_offset: usize) -> Option<()> {
+    let month = match check_month_digits(input) {
+        Some(month) => {
+            if month >= 10 {
+                let _ = input.take_count(2);
+            } else {
+                let _ = input.take_count(1);
+            }
+            month
+        }
+        None => return reset_and_fail(input, start_offset),
+    };
+
+    let _ = month;
+    take_case_insensitive_or_reset(input, "/", start_offset)?;
+
+    let day = match check_day_digits(input) {
+        Some(day) => {
+            if day >= 10 {
+                let _ = input.take_count(2);
+            } else {
+                let _ = input.take_count(1);
+            }
+            day
+        }
+        None => return reset_and_fail(input, start_offset),
+    };
+
+    let _ = day;
+    take_case_insensitive_or_reset(input, "/", start_offset)?;
+
+    match check_year_digits(input) {
+        Some(year) => {
+            if year < 100 {
+                return reset_and_fail(input, start_offset);
+            }
+
+            if (100..=999).contains(&year) {
+                let _ = input.take_count(3);
+            } else if (1000..=9999).contains(&year) {
+                let _ = input.take_count(4);
+            }
+        }
+        None => return reset_and_fail(input, start_offset),
+    }
+
+    Some(())
+}
+
+fn take_time_components_with_meridiem(
+    input: &mut SourceStream<'_>,
+    start_offset: usize,
+) -> Option<()> {
+    let hour = match check_hour_digits(input) {
+        Some(hour) if (1..=12).contains(&hour) => {
+            if (10..=12).contains(&hour) {
+                let _ = input.take_count(2);
+            } else {
+                let _ = input.take_count(1);
+            }
+            hour
+        }
+        _ => return reset_and_fail(input, start_offset),
+    };
+
+    let _ = hour;
+    take_case_insensitive_or_reset(input, ":", start_offset)?;
+
+    let minute = match check_minute_or_second_digits(input) {
+        Some(minute) if minute <= 59 => {
+            let _ = input.take_count(2);
+            minute
+        }
+        _ => return reset_and_fail(input, start_offset),
+    };
+
+    let _ = minute;
+    take_case_insensitive_or_reset(input, ":", start_offset)?;
+
+    let second = match check_minute_or_second_digits(input) {
+        Some(second) if second <= 59 => {
+            let _ = input.take_count(2);
+            second
+        }
+        _ => return reset_and_fail(input, start_offset),
+    };
+
+    let _ = second;
+
+    let Some(meridiem_and_end) = input.peek(4) else {
+        return reset_and_fail(input, start_offset);
+    };
+
+    if meridiem_and_end != " PM#" && meridiem_and_end != " AM#" {
+        return reset_and_fail(input, start_offset);
+    }
+
+    if input.take_count(4).is_none() {
+        return reset_and_fail(input, start_offset);
+    }
+
+    Some(())
+}
+
+fn date_time_literal_tuple<'a>(
+    input: &SourceStream<'a>,
+    start_offset: usize,
+) -> TextTokenTuple<'a> {
+    let end_offset = input.offset;
+    (
+        &input.contents[start_offset..end_offset],
+        Token::DateTimeLiteral,
+    )
+}
+
 /// Parses a VB6 date literal from the input stream.
 ///
 /// Date literals are enclosed in # characters, e.g., `#1/1/2000#`, `#1/1/2000 12:30:00 PM#`
@@ -835,235 +964,31 @@ fn take_date_time_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenT
     // #H:mm::yyyy AM#
 
     // Must start with #
-    let Some(_) = input.take("#", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    let _month = match check_month_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(month) => {
-            // grab the single or double digit(s) of month
-            if month >= 10 {
-                let _ = input.take_count(2);
-            } else {
-                let _ = input.take_count(1);
-            }
-            month
-        }
-    };
-
-    // take the day divider.
-    let Some(_) = input.take("/", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    let _day = match check_day_digits(input) {
-        None => {
-            //reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(day) => {
-            // grab the single or double digit(s) of the day
-            if day >= 10 {
-                let _ = input.take_count(2);
-            } else {
-                let _ = input.take_count(1);
-            }
-            day
-        }
-    };
-
-    // take the year divider.
-    let Some(_) = input.take("/", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    let _year = match check_year_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(year) => {
-            if year < 100 {
-                // I don't think it's possible to get a year less than 100
-                // but it's not that hard to check against it so we should.
-                // reset and return since we failed the parse.
-                input.offset = start_offset;
-                return None;
-            } else if (100..=999).contains(&year) {
-                let _ = input.take_count(3);
-            } else if (1000..=9999).contains(&year) {
-                let _ = input.take_count(4);
-            }
-
-            year
-        }
-    };
+    take_case_insensitive_or_reset(input, "#", start_offset)?;
+    take_date_components(input, start_offset)?;
 
     let Some(end_year_divider_peek) = input.peek(1) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
+        return reset_and_fail(input, start_offset);
     };
+
     if end_year_divider_peek == "#" {
         // looks like it's just a date not a date/time literal.
         let _ = input.take_count(1);
-
-        let end_offset = input.offset;
-        let date_text = &input.contents[start_offset..end_offset];
-
-        return Some((date_text, Token::DateTimeLiteral));
+        return Some(date_time_literal_tuple(input, start_offset));
     }
 
     if end_year_divider_peek != " " {
         // This needs to be a space since it's a date & time literal.
         // Since we have something besides a " " or "#" it's not a date/time literal.
-
-        input.offset = start_offset;
-        return None;
+        return reset_and_fail(input, start_offset);
     }
 
     // looks like this is a date time literal with a time section.
     // grab the space character and move on to handle the hours.
-    let Some(_) = input.take(" ", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
+    take_case_insensitive_or_reset(input, " ", start_offset)?;
+    take_time_components_with_meridiem(input, start_offset)?;
 
-    // Grab the hours.
-    let _hour = match check_hour_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(hour) => {
-            if hour > 12 || hour == 0 {
-                // shouldn't be possible to get an hour outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            } else if (10..=12).contains(&hour) {
-                let _ = input.take_count(2);
-            } else if (1..9).contains(&hour) {
-                let _ = input.take_count(1);
-            }
-
-            hour
-        }
-    };
-
-    let Some(end_hour_divider_peek) = input.peek(1) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_hour_divider_peek != ":" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the ":"
-    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    // Grab the minutes.
-    let _minute = match check_minute_or_second_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(minute) => {
-            if minute > 59 {
-                // shouldn't be possible to get a minute outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            }
-
-            let _ = input.take_count(2);
-            minute
-        }
-    };
-
-    let Some(end_minute_divider_peek) = input.peek(1) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_minute_divider_peek != ":" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the ":"
-    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    // Grab the seconds.
-    let _seconds = match check_minute_or_second_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(seconds) => {
-            if seconds > 59 {
-                // shouldn't be possible to get a second outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            }
-
-            let _ = input.take_count(2);
-            seconds
-        }
-    };
-
-    let Some(end_second_divider_peek) = input.peek(4) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_second_divider_peek != " PM#" && end_second_divider_peek != " AM#" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the " *M#"
-    let Some(_) = input.take_count(4) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    let end_offset = input.offset;
-    let date_text = &input.contents[start_offset..end_offset];
-
-    Some((date_text, Token::DateTimeLiteral))
+    Some(date_time_literal_tuple(input, start_offset))
 }
 
 /// Parses a VB6 date/time literal with only a time component from the input stream.
@@ -1088,133 +1013,10 @@ fn take_time_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<
     // #H:mm::yyyy AM#
 
     // Must start with #
-    let Some(_) = input.take("#", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
+    take_case_insensitive_or_reset(input, "#", start_offset)?;
+    take_time_components_with_meridiem(input, start_offset)?;
 
-    // Grab the hours.
-    let _hour = match check_hour_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(hour) => {
-            if hour > 12 || hour == 0 {
-                // shouldn't be possible to get an hour outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            } else if (10..=12).contains(&hour) {
-                let _ = input.take_count(2);
-            } else if (1..9).contains(&hour) {
-                let _ = input.take_count(1);
-            }
-
-            hour
-        }
-    };
-
-    let Some(end_hour_divider_peek) = input.peek(1) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_hour_divider_peek != ":" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the ":"
-    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    // Grab the minutes.
-    let _minute = match check_minute_or_second_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(minute) => {
-            if minute > 59 {
-                // shouldn't be possible to get a minute outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            }
-
-            let _ = input.take_count(2);
-            minute
-        }
-    };
-
-    let Some(end_minute_divider_peek) = input.peek(1) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_minute_divider_peek != ":" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the ":"
-    let Some(_) = input.take(":", Comparator::CaseInsensitive) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    // Grab the seconds.
-    let _seconds = match check_minute_or_second_digits(input) {
-        None => {
-            // reset and return since we failed the parse.
-            input.offset = start_offset;
-            return None;
-        }
-        Some(seconds) => {
-            if seconds > 59 {
-                // shouldn't be possible to get a second outside the range,
-                // but checking won't cause us any issue either.
-                input.offset = start_offset;
-                return None;
-            }
-
-            let _ = input.take_count(2);
-            seconds
-        }
-    };
-
-    let Some(end_second_divider_peek) = input.peek(4) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-    if end_second_divider_peek != " PM#" && end_second_divider_peek != " AM#" {
-        // looks like it's not a date / time parse for the hour.
-        input.offset = start_offset;
-        return None;
-    }
-
-    // eat the " *M#"
-    let Some(_) = input.take_count(4) else {
-        // reset and return since we failed the parse.
-        input.offset = start_offset;
-        return None;
-    };
-
-    let end_offset = input.offset;
-    let date_text = &input.contents[start_offset..end_offset];
-
-    Some((date_text, Token::DateTimeLiteral))
+    Some(date_time_literal_tuple(input, start_offset))
 }
 
 /// Parses a VB6 string literal from the input stream.
