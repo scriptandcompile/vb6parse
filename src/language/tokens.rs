@@ -1198,6 +1198,7 @@ impl Token {
 
     /// Returns true if the token is a VB6 keyword.
     #[must_use]
+    #[allow(clippy::too_many_lines)]
     pub fn is_keyword(&self) -> bool {
         matches!(
             self,
