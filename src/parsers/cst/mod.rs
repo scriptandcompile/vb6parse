@@ -3207,69 +3207,7 @@ impl<'a> Parser<'a> {
                 true // Continue processing
             }
 
-            SelectPhase::CaseClause => {
-                // Consume any whitespace/newlines before checking for Case
-                while self.at_token(Token::Whitespace) || self.at_token(Token::Newline) {
-                    self.consume_token();
-                }
-
-                // Check if we're at a Case keyword
-                if self.at_token(Token::CaseKeyword) {
-                    // Check for Case Else
-                    let is_case_else = self.peek_next_keyword() == Some(Token::ElseKeyword);
-
-                    if is_case_else {
-                        // Parse Case Else
-                        self.builder.start_node(SyntaxKind::CaseElseClause.to_raw());
-                        self.consume_token(); // Case
-                        self.consume_whitespace();
-                        self.consume_token(); // Else
-                        self.consume_until_after(Token::Newline);
-
-                        // Update phase to CaseElseBody before pushing nested frame
-                        if let Some(ControlFlowFrame::SelectCase { phase, .. }) =
-                            frame_stack.last_mut()
-                        {
-                            *phase = SelectPhase::CaseElseBody;
-                        }
-
-                        // Push statement list frame for Case Else body
-                        frame_stack.push(ControlFlowFrame::StatementList {
-                            depth,
-                            context: StatementListContext::SelectCaseBody,
-                            started: false,
-                        });
-                        true // Continue processing
-                    } else {
-                        // Parse regular Case
-                        self.builder.start_node(SyntaxKind::CaseClause.to_raw());
-                        self.consume_token(); // Case
-                        self.consume_until_after(Token::Newline);
-
-                        // Update phase to CaseBody before pushing nested frame
-                        if let Some(ControlFlowFrame::SelectCase { phase, .. }) =
-                            frame_stack.last_mut()
-                        {
-                            *phase = SelectPhase::CaseBody;
-                        }
-
-                        // Push statement list frame for Case body
-                        frame_stack.push(ControlFlowFrame::StatementList {
-                            depth,
-                            context: StatementListContext::SelectCaseBody,
-                            started: false,
-                        });
-                        true // Continue processing
-                    }
-                } else {
-                    // No more Case clauses, move to Finish
-                    if let Some(ControlFlowFrame::SelectCase { phase, .. }) = frame_stack.last_mut()
-                    {
-                        *phase = SelectPhase::Finish;
-                    }
-                    true
-                }
-            }
+            SelectPhase::CaseClause => self.parse_case_clause(frame_stack, depth),
 
             SelectPhase::CaseBody => {
                 // Case body statement list just finished, close the CaseClause node
@@ -3345,6 +3283,65 @@ impl<'a> Parser<'a> {
                 self.builder.finish_node();
                 false // Pop this frame (Select Case complete)
             }
+        }
+    }
+
+    fn parse_case_clause(&mut self, frame_stack: &mut Vec<ControlFlowFrame>, depth: usize) -> bool {
+        // Consume any whitespace/newlines before checking for Case
+        while self.at_token(Token::Whitespace) || self.at_token(Token::Newline) {
+            self.consume_token();
+        }
+
+        // Check if we're at a Case keyword
+        if self.at_token(Token::CaseKeyword) {
+            // Check for Case Else
+            let is_case_else = self.peek_next_keyword() == Some(Token::ElseKeyword);
+
+            if is_case_else {
+                // Parse Case Else
+                self.builder.start_node(SyntaxKind::CaseElseClause.to_raw());
+                self.consume_token(); // Case
+                self.consume_whitespace();
+                self.consume_token(); // Else
+                self.consume_until_after(Token::Newline);
+
+                // Update phase to CaseElseBody before pushing nested frame
+                if let Some(ControlFlowFrame::SelectCase { phase, .. }) = frame_stack.last_mut() {
+                    *phase = SelectPhase::CaseElseBody;
+                }
+
+                // Push statement list frame for Case Else body
+                frame_stack.push(ControlFlowFrame::StatementList {
+                    depth,
+                    context: StatementListContext::SelectCaseBody,
+                    started: false,
+                });
+                true // Continue processing
+            } else {
+                // Parse regular Case
+                self.builder.start_node(SyntaxKind::CaseClause.to_raw());
+                self.consume_token(); // Case
+                self.consume_until_after(Token::Newline);
+
+                // Update phase to CaseBody before pushing nested frame
+                if let Some(ControlFlowFrame::SelectCase { phase, .. }) = frame_stack.last_mut() {
+                    *phase = SelectPhase::CaseBody;
+                }
+
+                // Push statement list frame for Case body
+                frame_stack.push(ControlFlowFrame::StatementList {
+                    depth,
+                    context: StatementListContext::SelectCaseBody,
+                    started: false,
+                });
+                true // Continue processing
+            }
+        } else {
+            // No more Case clauses, move to Finish
+            if let Some(ControlFlowFrame::SelectCase { phase, .. }) = frame_stack.last_mut() {
+                *phase = SelectPhase::Finish;
+            }
+            true
         }
     }
 
