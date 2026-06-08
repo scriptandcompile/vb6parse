@@ -4,7 +4,7 @@
 //! as well as line-based operations and error handling.
 //!
 
-use vb6parse::io::{Comparator, SourceStream};
+use vb6parse::io::SourceStream;
 
 // Sample VB6 code content
 const VB6_CODE: &str = r#"Private Sub Form_Load()
@@ -36,30 +36,32 @@ fn main() {
     println!("Initial offset: {}\n", stream.offset());
     println!();
 
-    println!("=== Basic Navigation Example ===");
+    println!("=== Bounds and Error Handling ===");
 
-    // Peek at the first 7 characters
-    if let Some(peek_text) = stream.peek(7) {
-        println!("Peeking at first 7 characters: '{peek_text}'");
+    // Try to peek beyond the end of the stream
+    let beyond_end = stream.peek(stream.contents.len() + 10);
+    println!("Peeking beyond end result: {beyond_end:?}");
+
+    // Move to near the end
+    let original_len = stream.contents.len();
+    stream.forward(original_len - 10);
+
+    println!("Moved to near end, offset: {}", stream.offset());
+    println!("Is empty: {}", stream.is_empty());
+
+    // Try to take more characters than available
+    if let Some(remaining) = stream.peek(20) {
+        println!("Last characters: '{remaining}'");
+    } else {
+        println!("Cannot peek 20 characters from current position");
     }
 
-    // Check if we can find "Private" at the current position (case-sensitive)
-    if let Some(private_text) = stream.peek_text("Private", Comparator::CaseSensitive) {
-        println!("Found 'Private' at current position: '{private_text}'");
-        stream.forward(7); // Move past "Private"
+    // Take the remaining characters
+    let remaining_count = stream.contents.len() - stream.offset();
+    if let Some(final_chars) = stream.take_count(remaining_count) {
+        println!("Final {remaining_count} characters: '{final_chars:?}'");
     }
 
-    println!("Offset after moving past 'Private': {}", stream.offset());
-
-    // Take a space
-    if let Some(whitespace) = stream.take_ascii_whitespaces() {
-        println!("Consumed whitespace: '{whitespace:?}'");
-    }
-
-    // Take the word "Sub"
-    if let Some(sub_keyword) = stream.take_ascii_alphabetics() {
-        println!("Found keyword: '{sub_keyword}'");
-    }
-
-    println!();
+    println!("Stream is empty: {}", stream.is_empty());
+    println!("Final offset: {}", stream.offset());
 }
