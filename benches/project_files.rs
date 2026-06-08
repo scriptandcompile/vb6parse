@@ -49,8 +49,9 @@ impl ProjectBenchmark {
     }
 }
 
-fn project_benchmarks(criterion: &mut Criterion) {
-    let projects = vec![
+#[allow(clippy::too_many_lines)]
+fn initialize_project_benchmarks() -> Vec<ProjectBenchmark> {
+    vec![
         ProjectBenchmark::new(
             "Artificial Life.vbp",
             include_bytes!("../tests/data/vb6-code/Artificial-life/Artificial Life.vbp"),
@@ -177,7 +178,11 @@ fn project_benchmarks(criterion: &mut Criterion) {
             "Transparency.vbp",
             include_bytes!("../tests/data/vb6-code/Transparency-2D/Transparency.vbp"),
         ),
-    ];
+    ]
+}
+
+fn project_benchmarks(criterion: &mut Criterion) {
+    let projects = initialize_project_benchmarks();
 
     let mut group = criterion.benchmark_group("project_files");
 
