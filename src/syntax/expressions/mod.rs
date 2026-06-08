@@ -441,117 +441,11 @@ impl Parser<'_> {
                     min_bp,
                     lhs_checkpoint,
                 } => {
-                    // Check for postfix operators: ., (, !
-                    // Save position for lookahead
-                    let saved_pos = self.pos;
-
-                    // Skip whitespace and line continuations to check for postfix operators
-                    loop {
-                        match self.current_token() {
-                            Some(Token::Whitespace) => self.pos += 1,
-                            Some(Token::Underscore) => {
-                                // Check for line continuation
-                                let mut lookahead = 1;
-                                let mut is_continuation = false;
-                                while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                                    if *token == Token::Whitespace {
-                                        lookahead += 1;
-                                    } else if *token == Token::Newline {
-                                        is_continuation = true;
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                if is_continuation {
-                                    self.pos += lookahead + 1; // +1 for newline
-                                } else {
-                                    break;
-                                }
-                            }
-                            _ => break,
-                        }
-                    }
-
-                    let found_postfix = matches!(
-                        self.current_token(),
-                        Some(
-                            Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark
-                        )
+                    self.parse_postfix_expression_with_binding_power(
+                        &mut frame_stack,
+                        min_bp,
+                        lhs_checkpoint,
                     );
-
-                    // Restore position
-                    self.pos = saved_pos;
-
-                    if found_postfix {
-                        // Found postfix operator - consume whitespace and handle it
-                        self.consume_whitespace();
-
-                        match self.current_token() {
-                            Some(Token::PeriodOperator) => {
-                                // Member access: .property or .method
-                                self.builder.start_node_at(
-                                    lhs_checkpoint,
-                                    SyntaxKind::MemberAccessExpression.to_raw(),
-                                );
-
-                                self.parse_member_access_content();
-                                self.builder.finish_node();
-
-                                // Check for more postfix operators
-                                frame_stack.push(ExprParseFrame::ParsePostfix {
-                                    min_bp,
-                                    lhs_checkpoint,
-                                });
-                            }
-                            Some(Token::LeftParenthesis) => {
-                                // Function call or array indexing
-                                // Wrap in CallExpression and start parsing arguments
-                                self.builder.start_node_at(
-                                    lhs_checkpoint,
-                                    SyntaxKind::CallExpression.to_raw(),
-                                );
-
-                                // Consume '('
-                                self.consume_token();
-
-                                // Push frames to handle argument list
-                                frame_stack.push(ExprParseFrame::StartArgumentList {
-                                    min_bp,
-                                    call_checkpoint: lhs_checkpoint,
-                                });
-                            }
-                            Some(Token::ExclamationMark) => {
-                                // Dictionary access: collection!key
-                                self.builder.start_node_at(
-                                    lhs_checkpoint,
-                                    SyntaxKind::MemberAccessExpression.to_raw(),
-                                );
-
-                                self.parse_dictionary_access_content();
-                                self.builder.finish_node();
-
-                                // Check for more postfix operators
-                                frame_stack.push(ExprParseFrame::ParsePostfix {
-                                    min_bp,
-                                    lhs_checkpoint,
-                                });
-                            }
-                            _ => {
-                                // Shouldn't happen since we checked above
-                                frame_stack.push(ExprParseFrame::InfixLoop {
-                                    min_bp,
-                                    lhs_checkpoint,
-                                });
-                            }
-                        }
-                    } else {
-                        // No postfix operator - continue to infix loop
-                        frame_stack.push(ExprParseFrame::InfixLoop {
-                            min_bp,
-                            lhs_checkpoint,
-                        });
-                    }
                 }
                 ExprParseFrame::StartArgumentList {
                     min_bp,
@@ -656,6 +550,117 @@ impl Parser<'_> {
                     }
                 }
             }
+        }
+    }
+
+    fn parse_postfix_expression_with_binding_power(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        // Check for postfix operators: ., (, !
+        // Save position for lookahead
+        let saved_pos = self.pos;
+
+        // Skip whitespace and line continuations to check for postfix operators
+        loop {
+            match self.current_token() {
+                Some(Token::Whitespace) => self.pos += 1,
+                Some(Token::Underscore) => {
+                    // Check for line continuation
+                    let mut lookahead = 1;
+                    let mut is_continuation = false;
+                    while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
+                        if *token == Token::Whitespace {
+                            lookahead += 1;
+                        } else if *token == Token::Newline {
+                            is_continuation = true;
+                            break;
+                        } else {
+                            break;
+                        }
+                    }
+                    if is_continuation {
+                        self.pos += lookahead + 1; // +1 for newline
+                    } else {
+                        break;
+                    }
+                }
+                _ => break,
+            }
+        }
+
+        let found_postfix = matches!(
+            self.current_token(),
+            Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
+        );
+
+        // Restore position
+        self.pos = saved_pos;
+
+        if found_postfix {
+            // Found postfix operator - consume whitespace and handle it
+            self.consume_whitespace();
+
+            match self.current_token() {
+                Some(Token::PeriodOperator) => {
+                    // Member access: .property or .method
+                    self.builder
+                        .start_node_at(lhs_checkpoint, SyntaxKind::MemberAccessExpression.to_raw());
+
+                    self.parse_member_access_content();
+                    self.builder.finish_node();
+
+                    // Check for more postfix operators
+                    frame_stack.push(ExprParseFrame::ParsePostfix {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                }
+                Some(Token::LeftParenthesis) => {
+                    // Function call or array indexing
+                    // Wrap in CallExpression and start parsing arguments
+                    self.builder
+                        .start_node_at(lhs_checkpoint, SyntaxKind::CallExpression.to_raw());
+
+                    // Consume '('
+                    self.consume_token();
+
+                    // Push frames to handle argument list
+                    frame_stack.push(ExprParseFrame::StartArgumentList {
+                        min_bp,
+                        call_checkpoint: lhs_checkpoint,
+                    });
+                }
+                Some(Token::ExclamationMark) => {
+                    // Dictionary access: collection!key
+                    self.builder
+                        .start_node_at(lhs_checkpoint, SyntaxKind::MemberAccessExpression.to_raw());
+
+                    self.parse_dictionary_access_content();
+                    self.builder.finish_node();
+
+                    // Check for more postfix operators
+                    frame_stack.push(ExprParseFrame::ParsePostfix {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                }
+                _ => {
+                    // Shouldn't happen since we checked above
+                    frame_stack.push(ExprParseFrame::InfixLoop {
+                        min_bp,
+                        lhs_checkpoint,
+                    });
+                }
+            }
+        } else {
+            // No postfix operator - continue to infix loop
+            frame_stack.push(ExprParseFrame::InfixLoop {
+                min_bp,
+                lhs_checkpoint,
+            });
         }
     }
 
