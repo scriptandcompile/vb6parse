@@ -49,143 +49,155 @@ impl Parser<'_> {
         let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
         if is_single_line {
-            // Single-line If: parse inline statements.
-            // Statement parsers (e.g. parse_assignment_statement) consume the
-            // trailing newline. We must detect that and stop the loop, otherwise
-            // the single-line If would keep parsing onto subsequent lines.
-            while !self.is_at_end() && !self.at_token(Token::Newline) {
-                if self.at_token(Token::ElseKeyword) {
-                    break;
+            self.parse_single_line_if_statement();
+            return;
+        }
+
+        // Multi-line If: parse body and ElseIf/Else clauses
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
+
+        // Parse If body - the recursive call here is now safe because
+        // parse_statement_list handles control flow iteratively
+        self.parse_statement_list(|parser| {
+            (parser.at_token(Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(Token::IfKeyword))
+                || parser.at_token(Token::ElseIfKeyword)
+                || parser.at_token(Token::ElseKeyword)
+        });
+
+        // Handle ElseIf and Else clauses
+        while !self.is_at_end() {
+            if self.at_token(Token::ElseIfKeyword) {
+                self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
+                self.consume_token(); // ElseIf
+                self.consume_whitespace();
+                self.parse_expression();
+                self.consume_whitespace();
+
+                if self.at_token(Token::ThenKeyword) {
+                    self.consume_token();
+                }
+                self.consume_whitespace();
+
+                if self.at_token(Token::Newline) {
+                    self.consume_token();
                 }
 
-                let pos_before = self.pos;
+                // Parse ElseIf body
+                self.parse_statement_list(|parser| {
+                    parser.at_token(Token::ElseIfKeyword)
+                        || parser.at_token(Token::ElseKeyword)
+                        || (parser.at_token(Token::EndKeyword)
+                            && parser.peek_next_keyword() == Some(Token::IfKeyword))
+                });
 
-                if self.is_control_flow_keyword() {
-                    self.parse_control_flow_statement();
-                } else if self.is_library_statement_keyword() {
-                    self.parse_library_statement();
-                } else if self.is_variable_declaration_keyword() {
-                    self.parse_array_statement();
-                } else if self.is_statement_keyword() {
-                    self.parse_statement();
-                } else {
-                    match self.current_token() {
-                        Some(
-                            Token::Whitespace
-                            | Token::EndOfLineComment
-                            | Token::RemComment
-                            | Token::ColonOperator,
-                        ) => {
-                            self.consume_token();
-                        }
-                        _ => {
-                            if self.at_token(Token::LetKeyword) {
-                                self.parse_let_statement();
-                            } else if self.at_token(Token::PeriodOperator) {
-                                // Handle dot-prefixed member access in With blocks
-                                if self.is_at_with_member_assignment() {
-                                    self.parse_assignment_statement();
-                                } else {
-                                    self.parse_procedure_call();
-                                }
-                            } else if self.is_at_assignment() {
+                self.builder.finish_node(); // ElseIfClause
+            } else if self.at_token(Token::ElseKeyword) {
+                self.builder.start_node(SyntaxKind::ElseClause.to_raw());
+                self.consume_token(); // Else
+                self.consume_whitespace();
+
+                if self.at_token(Token::Newline) {
+                    self.consume_token();
+                }
+
+                // Parse Else body
+                self.parse_statement_list(|parser| {
+                    parser.at_token(Token::EndKeyword)
+                        && parser.peek_next_keyword() == Some(Token::IfKeyword)
+                });
+
+                self.builder.finish_node(); // ElseClause
+            } else {
+                break;
+            }
+        }
+
+        // Consume "End If"
+        if self.at_token(Token::EndKeyword) {
+            self.consume_token();
+            self.consume_whitespace();
+            self.consume_token(); // If
+            self.consume_until_after(Token::Newline);
+        }
+
+        self.builder.finish_node(); // IfStatement
+    }
+
+    /// Parse a single-line If statement.
+    ///
+    /// Single-line If statements have the form:
+    /// `If` condition `Then` statement [ `Else` statement ]
+    /// The statement(s) can be any valid VB6 statement, including procedure calls,
+    /// assignments, and even another single-line If.
+    fn parse_single_line_if_statement(&mut self) {
+        // Single-line If: parse inline statements.
+        // Statement parsers (e.g. parse_assignment_statement) consume the
+        // trailing newline. We must detect that and stop the loop, otherwise
+        // the single-line If would keep parsing onto subsequent lines.
+        while !self.is_at_end() && !self.at_token(Token::Newline) {
+            if self.at_token(Token::ElseKeyword) {
+                break;
+            }
+
+            let pos_before = self.pos;
+
+            if self.is_control_flow_keyword() {
+                self.parse_control_flow_statement();
+            } else if self.is_library_statement_keyword() {
+                self.parse_library_statement();
+            } else if self.is_variable_declaration_keyword() {
+                self.parse_array_statement();
+            } else if self.is_statement_keyword() {
+                self.parse_statement();
+            } else {
+                match self.current_token() {
+                    Some(
+                        Token::Whitespace
+                        | Token::EndOfLineComment
+                        | Token::RemComment
+                        | Token::ColonOperator,
+                    ) => {
+                        self.consume_token();
+                    }
+                    _ => {
+                        if self.at_token(Token::LetKeyword) {
+                            self.parse_let_statement();
+                        } else if self.at_token(Token::PeriodOperator) {
+                            // Handle dot-prefixed member access in With blocks
+                            if self.is_at_with_member_assignment() {
                                 self.parse_assignment_statement();
                             } else {
-                                self.consume_token();
+                                self.parse_procedure_call();
                             }
+                        } else if self.is_at_assignment() {
+                            self.parse_assignment_statement();
+                        } else {
+                            self.consume_token();
                         }
                     }
                 }
-
-                // If a statement parser consumed a newline as part of the
-                // statement, we've reached the end of this single line.
-                if self.pos > pos_before
-                    && self.tokens[pos_before..self.pos]
-                        .iter()
-                        .any(|(_, t)| *t == Token::Newline)
-                {
-                    break;
-                }
             }
 
-            if self.at_token(Token::Newline) {
-                self.consume_token();
+            // If a statement parser consumed a newline as part of the
+            // statement, we've reached the end of this single line.
+            if self.pos > pos_before
+                && self.tokens[pos_before..self.pos]
+                    .iter()
+                    .any(|(_, t)| *t == Token::Newline)
+            {
+                break;
             }
-
-            self.builder.finish_node(); // IfStatement
-        } else {
-            // Multi-line If: parse body and ElseIf/Else clauses
-            if self.at_token(Token::Newline) {
-                self.consume_token();
-            }
-
-            // Parse If body - the recursive call here is now safe because
-            // parse_statement_list handles control flow iteratively
-            self.parse_statement_list(|parser| {
-                (parser.at_token(Token::EndKeyword)
-                    && parser.peek_next_keyword() == Some(Token::IfKeyword))
-                    || parser.at_token(Token::ElseIfKeyword)
-                    || parser.at_token(Token::ElseKeyword)
-            });
-
-            // Handle ElseIf and Else clauses
-            while !self.is_at_end() {
-                if self.at_token(Token::ElseIfKeyword) {
-                    self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
-                    self.consume_token(); // ElseIf
-                    self.consume_whitespace();
-                    self.parse_expression();
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::ThenKeyword) {
-                        self.consume_token();
-                    }
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Parse ElseIf body
-                    self.parse_statement_list(|parser| {
-                        parser.at_token(Token::ElseIfKeyword)
-                            || parser.at_token(Token::ElseKeyword)
-                            || (parser.at_token(Token::EndKeyword)
-                                && parser.peek_next_keyword() == Some(Token::IfKeyword))
-                    });
-
-                    self.builder.finish_node(); // ElseIfClause
-                } else if self.at_token(Token::ElseKeyword) {
-                    self.builder.start_node(SyntaxKind::ElseClause.to_raw());
-                    self.consume_token(); // Else
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Parse Else body
-                    self.parse_statement_list(|parser| {
-                        parser.at_token(Token::EndKeyword)
-                            && parser.peek_next_keyword() == Some(Token::IfKeyword)
-                    });
-
-                    self.builder.finish_node(); // ElseClause
-                } else {
-                    break;
-                }
-            }
-
-            // Consume "End If"
-            if self.at_token(Token::EndKeyword) {
-                self.consume_token();
-                self.consume_whitespace();
-                self.consume_token(); // If
-                self.consume_until_after(Token::Newline);
-            }
-
-            self.builder.finish_node(); // IfStatement
         }
+
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node();
+        // IfStatement
     }
 }
 
