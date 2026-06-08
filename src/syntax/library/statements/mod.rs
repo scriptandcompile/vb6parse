@@ -117,6 +117,7 @@ impl Parser<'_> {
     }
 
     /// Start of dispatch library statement parsing to the appropriate parser.
+    #[allow(clippy::too_many_lines)]
     pub(crate) fn parse_library_statement(&mut self) {
         let token = if self.at_token(Token::Whitespace) {
             self.peek_next_keyword()
