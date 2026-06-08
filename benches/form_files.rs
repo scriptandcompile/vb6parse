@@ -49,6 +49,7 @@ impl FormBenchmark {
     }
 }
 
+#[allow(clippy::too_many_lines)]
 fn form_benchmarks(criterion: &mut Criterion) {
     let forms = vec![
         FormBenchmark::new(
