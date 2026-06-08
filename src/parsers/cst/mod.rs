@@ -1983,16 +1983,8 @@ impl<'a> Parser<'a> {
                     self.parse_attribute_statement();
                 }
                 Some(Token::OptionKeyword) => {
-                    // Peek ahead to check if this is Option Base, Option Compare, or Option Private
-                    if let Some(Token::BaseKeyword) = self.peek_next_keyword() {
-                        self.parse_option_base_statement();
-                    } else if let Some(Token::CompareKeyword) = self.peek_next_keyword() {
-                        self.parse_option_compare_statement();
-                    } else if let Some(Token::PrivateKeyword) = self.peek_next_keyword() {
-                        self.parse_option_private_statement();
-                    } else {
-                        self.parse_option_statement();
-                    }
+                    // Peek ahead to check if this is Option Base, Option Compare, Option On/Off, or Option Private
+                    self.parse_one_of_option_statement();
                 }
                 // DefType statements: DefInt, DefLng, DefStr, etc.
                 Some(
@@ -2153,6 +2145,19 @@ impl<'a> Parser<'a> {
                     }
                 }
             }
+        }
+    }
+
+    /// Check if the current position is at an Option statement (Base, Compare, or Private).
+    fn parse_one_of_option_statement(&mut self) {
+        if let Some(Token::BaseKeyword) = self.peek_next_keyword() {
+            self.parse_option_base_statement();
+        } else if let Some(Token::CompareKeyword) = self.peek_next_keyword() {
+            self.parse_option_compare_statement();
+        } else if let Some(Token::PrivateKeyword) = self.peek_next_keyword() {
+            self.parse_option_private_statement();
+        } else {
+            self.parse_option_statement();
         }
     }
 
