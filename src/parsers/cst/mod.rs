@@ -1520,6 +1520,7 @@ impl<'a> Parser<'a> {
     ///
     /// Note: This function rejects `VB.Form` and `VB.MDIForm` as they are now
     /// top-level types only and cannot be child controls.
+    #[allow(clippy::too_many_lines)]
     fn build_control_kind(
         control_type: &str,
         properties: Properties,
