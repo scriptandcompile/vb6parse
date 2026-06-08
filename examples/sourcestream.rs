@@ -6,23 +6,23 @@
 
 use vb6parse::io::{Comparator, SourceStream};
 
-fn main() {
-    // Sample VB6 code content
-    let vb6_code = r#"Private Sub Form_Load()
-    Dim x As Integer
-    Dim message As String
-    x = 42
-    message = "Hello, World!"
-    MsgBox message
+// Sample VB6 code content
+const VB6_CODE: &str = r#"Private Sub Form_Load()
+Dim x As Integer
+Dim message As String
+x = 42
+message = "Hello, World!"
+MsgBox message
 End Sub
 
 ' This is a comment
 Public Function Calculate(a As Integer, b As Integer) As Integer
-    Calculate = a + b
+Calculate = a + b
 End Function"#;
 
+fn main() {
     // Create a SourceStream
-    let mut stream = SourceStream::new("example.bas", vb6_code);
+    let mut stream = SourceStream::new("example.bas", VB6_CODE);
 
     println!("=== SourceStream Example ===");
     println!("File: {}", stream.file_name());
