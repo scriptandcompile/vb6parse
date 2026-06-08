@@ -1961,6 +1961,7 @@ impl<'a> Parser<'a> {
         ConcreteSyntaxTree::new(root)
     }
 
+    #[allow(clippy::too_many_lines)]
     fn parse_module_body(&mut self) {
         while !self.is_at_end() {
             // For a CST, we need to consume ALL tokens, including whitespace and comments
