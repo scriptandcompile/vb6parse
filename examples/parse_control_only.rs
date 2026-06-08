@@ -10,9 +10,8 @@
 
 use vb6parse::{tokenize, FormFile, SourceFile};
 
-fn main() {
-    // Example Form file content
-    let form_content = br#"VERSION 5.00
+// Example Form file content
+const FORM_CONTENT: &[u8] = br#"VERSION 5.00
 Begin VB.Form Form1
    Caption         =   "Example Form"
    ClientHeight    =   3195
@@ -58,10 +57,11 @@ Private Sub Command1_Click()
 End Sub
 "#;
 
+fn main() {
     println!("=== Control-Only Form Parsing Example ===\n");
 
     // Decode the file with Windows-1252 encoding
-    let source_file = match SourceFile::decode_with_replacement("example.frm", form_content) {
+    let source_file = match SourceFile::decode_with_replacement("example.frm", FORM_CONTENT) {
         Ok(sf) => sf,
         Err(e) => {
             eprintln!("Failed to decode source file: {e:?}");
