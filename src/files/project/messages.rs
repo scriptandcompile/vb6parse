@@ -89,6 +89,7 @@ pub enum ParameterErrorKind<'a, T> {
 ///
 /// This consolidated function replaces multiple similar error reporting functions
 /// by using an enum to determine which specific error to report.
+#[allow(clippy::too_many_lines)]
 pub fn report_parameter_error<'a, T>(
     ctx: &mut ParserContext<'a>,
     input: &SourceStream<'a>,
