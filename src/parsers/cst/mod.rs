@@ -2737,337 +2737,261 @@ impl<'a> Parser<'a> {
     /// Handle If statement state transitions.
     /// Returns true if processing should continue, false if frame should be popped.
     fn handle_if_statement_frame(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
-        // Get the current phase - need to extract it carefully to avoid borrow issues
-        let current_phase =
-            if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last() {
-                *phase
-            } else {
-                return false; // Invalid state, pop frame
-            };
+        let Some(current_phase) = Self::current_if_phase(frame_stack) else {
+            return false;
+        };
 
         match current_phase {
-            IfPhase::Start => {
-                // Parse If condition and Then keyword
-                self.parsing_header = false;
-                self.builder.start_node(SyntaxKind::IfStatement.to_raw());
-                self.consume_whitespace();
-                self.consume_token(); // If
-                self.consume_whitespace();
-                self.parse_expression();
-                self.consume_whitespace();
+            IfPhase::Start => self.handle_if_phase_start(frame_stack),
+            IfPhase::ThenBody => Self::handle_if_phase_then_body(frame_stack),
+            IfPhase::CheckElseIf => self.handle_if_phase_check_elseif(frame_stack),
+            IfPhase::ElseIfBody => self.handle_if_phase_elseif_body(frame_stack),
+            IfPhase::CheckElse => self.handle_if_phase_check_else(frame_stack),
+            IfPhase::ElseBody => self.handle_if_phase_else_body(frame_stack),
+            IfPhase::Finish => self.handle_if_phase_finish(),
+        }
+    }
 
-                if self.at_token(Token::ThenKeyword) {
-                    self.consume_token();
-                }
-                self.consume_whitespace();
+    fn current_if_phase(frame_stack: &[ControlFlowFrame]) -> Option<IfPhase> {
+        if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last() {
+            Some(*phase)
+        } else {
+            None
+        }
+    }
 
-                //  Check if single-line or multi-line
-                let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
+    fn set_if_phase(frame_stack: &mut [ControlFlowFrame], new_phase: IfPhase) {
+        if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last_mut() {
+            *phase = new_phase;
+        }
+    }
 
-                if is_single_line {
-                    // Single-line If: parse inline statements
-                    loop {
-                        // Check termination conditions
-                        if self.is_at_end() || self.at_token(Token::Newline) {
-                            break;
-                        }
+    fn if_frame_depth(frame_stack: &[ControlFlowFrame]) -> Option<usize> {
+        if let Some(ControlFlowFrame::IfStatement { depth, .. }) = frame_stack.last() {
+            Some(*depth)
+        } else {
+            None
+        }
+    }
 
-                        if self.at_token(Token::ElseKeyword) {
-                            break;
-                        }
+    fn push_if_body_statement_list(
+        frame_stack: &mut Vec<ControlFlowFrame>,
+        context: StatementListContext,
+    ) {
+        if let Some(current_depth) = Self::if_frame_depth(frame_stack) {
+            frame_stack.push(ControlFlowFrame::StatementList {
+                depth: current_depth,
+                context,
+                started: false,
+            });
+        }
+    }
 
-                        let pos_before = self.pos;
+    fn handle_if_phase_start(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
+        self.parsing_header = false;
+        self.builder.start_node(SyntaxKind::IfStatement.to_raw());
+        self.consume_whitespace();
+        self.consume_token(); // If
+        self.consume_whitespace();
+        self.parse_expression();
+        self.consume_whitespace();
 
-                        // Parse a statement
-                        let parsed_statement = if self.is_control_flow_keyword() {
-                            self.parse_control_flow_statement();
-                            true
-                        } else if self.is_library_statement_keyword() {
-                            self.parse_library_statement();
-                            true
-                        } else if self.is_variable_declaration_keyword() {
-                            self.parse_array_statement();
-                            true
-                        } else if self.is_statement_keyword() {
-                            self.parse_statement();
-                            true
-                        } else {
-                            match self.current_token() {
-                                Some(
-                                    Token::Whitespace
-                                    | Token::EndOfLineComment
-                                    | Token::RemComment
-                                    | Token::ColonOperator,
-                                ) => {
-                                    self.consume_token();
-                                    false // Not a full statement, continue
-                                }
-                                _ => {
-                                    if self.at_token(Token::LetKeyword) {
-                                        self.parse_let_statement();
-                                        true
-                                    } else if self.at_token(Token::PeriodOperator) {
-                                        // Handle dot-prefixed member access in With blocks
-                                        if self.is_at_with_member_assignment() {
-                                            self.parse_assignment_statement();
-                                        } else {
-                                            self.parse_procedure_call();
-                                        }
-                                        true
-                                    } else if self.is_at_assignment() {
-                                        self.parse_assignment_statement();
-                                        true
-                                    } else if self.is_at_procedure_call() {
-                                        self.parse_procedure_call();
-                                        true
-                                    } else {
-                                        self.consume_token();
-                                        false
-                                    }
-                                }
-                            }
-                        };
+        if self.at_token(Token::ThenKeyword) {
+            self.consume_token();
+        }
+        self.consume_whitespace();
 
-                        // After parsing a statement, check if it consumed a newline.
-                        // Statement parsers (e.g. parse_assignment_statement) consume
-                        // the trailing newline. If that happened, we've reached the
-                        // end of this single line and must stop.
-                        if parsed_statement
-                            && self.pos > pos_before
-                            && self.tokens[pos_before..self.pos]
-                                .iter()
-                                .any(|(_, t)| *t == Token::Newline)
-                        {
-                            break;
-                        }
-                    }
+        let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
-                    // Handle Else clause in single-line If
-                    // Only parse Else if we haven't consumed a newline yet
-                    // (Else must be on the same line for single-line If)
-                    let found_newline_in_then = self.at_token(Token::Newline);
+        if is_single_line {
+            self.handle_single_line_if_phase_start();
+            return false;
+        }
 
-                    if !found_newline_in_then && self.at_token(Token::ElseKeyword) {
-                        self.consume_token(); // Else
-                        self.consume_whitespace();
+        self.transition_if_to_then_body(frame_stack);
+        true
+    }
 
-                        // Parse Else body statements with same logic as Then body
-                        loop {
-                            // Check termination conditions first
-                            if self.is_at_end() {
-                                break;
-                            }
+    fn handle_single_line_if_phase_start(&mut self) {
+        self.parse_single_line_if_body_segment(true);
 
-                            // Handle whitespace, comments, and colons
-                            if self.at_token(Token::Whitespace)
-                                || self.at_token(Token::EndOfLineComment)
-                                || self.at_token(Token::RemComment)
-                                || self.at_token(Token::ColonOperator)
-                            {
-                                self.consume_token();
-                                continue;
-                            }
+        // Else must be on the same physical line for single-line If.
+        if !self.at_token(Token::Newline) && self.at_token(Token::ElseKeyword) {
+            self.consume_token(); // Else
+            self.consume_whitespace();
+            self.parse_single_line_if_body_segment(false);
+        }
 
-                            // Check for Newline
-                            if self.at_token(Token::Newline) {
-                                break;
-                            }
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
 
-                            let pos_before = self.pos;
+        self.builder.finish_node(); // IfStatement
+    }
 
-                            // Parse one statement
-                            if self.is_control_flow_keyword() {
-                                self.parse_control_flow_statement();
-                            } else if self.is_library_statement_keyword() {
-                                self.parse_library_statement();
-                            } else if self.is_variable_declaration_keyword() {
-                                self.parse_array_statement();
-                            } else if self.is_statement_keyword() {
-                                self.parse_statement();
-                            } else if self.at_token(Token::LetKeyword) {
-                                self.parse_let_statement();
-                            } else if self.at_token(Token::PeriodOperator) {
-                                // Handle dot-prefixed member access in With blocks
-                                if self.is_at_with_member_assignment() {
-                                    self.parse_assignment_statement();
-                                } else {
-                                    self.parse_procedure_call();
-                                }
-                            } else if self.is_at_assignment() {
-                                self.parse_assignment_statement();
-                            } else if self.is_at_procedure_call() {
-                                self.parse_procedure_call();
-                            } else {
-                                // Unknown token, consume it
-                                self.consume_token();
-                            }
-
-                            // If the statement consumed a newline, we've reached
-                            // the end of this single line.
-                            if self.pos > pos_before
-                                && self.tokens[pos_before..self.pos]
-                                    .iter()
-                                    .any(|(_, t)| *t == Token::Newline)
-                            {
-                                break;
-                            }
-                        }
-                    }
-
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    self.builder.finish_node(); // `IfStatement`
-                    false // Pop this frame - single-line `If` is complete
-                } else {
-                    // Multi-line If: transition to ThenBody phase
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Update phase to ThenBody
-                    if let Some(ControlFlowFrame::IfStatement { phase, depth }) =
-                        frame_stack.last_mut()
-                    {
-                        *phase = IfPhase::ThenBody;
-                        let current_depth = *depth;
-
-                        // Push statement list frame for Then body
-                        frame_stack.push(ControlFlowFrame::StatementList {
-                            depth: current_depth,
-                            context: StatementListContext::IfThenBody,
-                            started: false,
-                        });
-                    }
-                    true // Continue processing
-                }
+    fn parse_single_line_if_body_segment(&mut self, stop_at_else: bool) {
+        loop {
+            if self.is_at_end() || self.at_token(Token::Newline) {
+                break;
             }
 
-            IfPhase::ThenBody => {
-                // Statement list for Then body just finished
-                // Update phase to check for ElseIf
-                if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last_mut() {
-                    *phase = IfPhase::CheckElseIf;
-                }
-                true
+            if stop_at_else && self.at_token(Token::ElseKeyword) {
+                break;
             }
 
-            IfPhase::CheckElseIf => {
-                // Check for ElseIf or move to next phase
-                if self.at_token(Token::ElseIfKeyword) {
-                    // Start ElseIf clause
-                    self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
-                    self.consume_token(); // ElseIf
-                    self.consume_whitespace();
-                    self.parse_expression();
-                    self.consume_whitespace();
+            let pos_before = self.pos;
+            let parsed_statement = self.parse_single_line_if_statement_item();
 
-                    if self.at_token(Token::ThenKeyword) {
-                        self.consume_token();
-                    }
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Update phase and push statement list for ElseIf body
-                    if let Some(ControlFlowFrame::IfStatement { phase, depth }) =
-                        frame_stack.last_mut()
-                    {
-                        *phase = IfPhase::ElseIfBody;
-                        let current_depth = *depth;
-
-                        frame_stack.push(ControlFlowFrame::StatementList {
-                            depth: current_depth,
-                            context: StatementListContext::ElseIfBody,
-                            started: false,
-                        });
-                    }
-                } else {
-                    // No ElseIf, check for Else
-                    if let Some(ControlFlowFrame::IfStatement { phase, .. }) =
-                        frame_stack.last_mut()
-                    {
-                        *phase = IfPhase::CheckElse;
-                    }
-                }
-                true
-            }
-
-            IfPhase::ElseIfBody => {
-                // ElseIf body finished
-                self.builder.finish_node(); // ElseIfClause
-
-                // Go back to check for more ElseIf clauses
-                if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last_mut() {
-                    *phase = IfPhase::CheckElseIf;
-                }
-                true
-            }
-
-            IfPhase::CheckElse => {
-                // Check for Else clause
-                if self.at_token(Token::ElseKeyword) {
-                    self.builder.start_node(SyntaxKind::ElseClause.to_raw());
-                    self.consume_token(); // Else
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::Newline) {
-                        self.consume_token();
-                    }
-
-                    // Update phase and push statement list for Else body
-                    if let Some(ControlFlowFrame::IfStatement { phase, depth }) =
-                        frame_stack.last_mut()
-                    {
-                        *phase = IfPhase::ElseBody;
-                        let current_depth = *depth;
-
-                        frame_stack.push(ControlFlowFrame::StatementList {
-                            depth: current_depth,
-                            context: StatementListContext::ElseBody,
-                            started: false,
-                        });
-                    }
-                } else {
-                    // No Else, finish the If statement
-                    if let Some(ControlFlowFrame::IfStatement { phase, .. }) =
-                        frame_stack.last_mut()
-                    {
-                        *phase = IfPhase::Finish;
-                    }
-                }
-                true
-            }
-
-            IfPhase::ElseBody => {
-                // Else body finished
-                self.builder.finish_node(); // ElseClause
-
-                // Move to Finish phase
-                if let Some(ControlFlowFrame::IfStatement { phase, .. }) = frame_stack.last_mut() {
-                    *phase = IfPhase::Finish;
-                }
-                true
-            }
-
-            IfPhase::Finish => {
-                // Consume "End If"
-                if self.at_token(Token::EndKeyword) {
-                    self.consume_token();
-                    self.consume_whitespace();
-                    if self.at_token(Token::IfKeyword) {
-                        self.consume_token();
-                    }
-                    self.consume_until_after(Token::Newline);
-                }
-
-                self.builder.finish_node(); // IfStatement
-                false // Pop this frame
+            // If a parsed statement consumed a newline, the single-line segment is done.
+            if parsed_statement && self.consumed_newline_in_range(pos_before, self.pos) {
+                break;
             }
         }
+    }
+
+    fn parse_single_line_if_statement_item(&mut self) -> bool {
+        if self.is_control_flow_keyword() {
+            self.parse_control_flow_statement();
+            return true;
+        }
+        if self.is_library_statement_keyword() {
+            self.parse_library_statement();
+            return true;
+        }
+        if self.is_variable_declaration_keyword() {
+            self.parse_array_statement();
+            return true;
+        }
+        if self.is_statement_keyword() {
+            self.parse_statement();
+            return true;
+        }
+
+        match self.current_token() {
+            Some(
+                Token::Whitespace
+                | Token::EndOfLineComment
+                | Token::RemComment
+                | Token::ColonOperator,
+            ) => {
+                self.consume_token();
+                false
+            }
+            _ => {
+                if self.at_token(Token::LetKeyword) {
+                    self.parse_let_statement();
+                    true
+                } else if self.at_token(Token::PeriodOperator) {
+                    if self.is_at_with_member_assignment() {
+                        self.parse_assignment_statement();
+                    } else {
+                        self.parse_procedure_call();
+                    }
+                    true
+                } else if self.is_at_assignment() {
+                    self.parse_assignment_statement();
+                    true
+                } else if self.is_at_procedure_call() {
+                    self.parse_procedure_call();
+                    true
+                } else {
+                    self.consume_token();
+                    false
+                }
+            }
+        }
+    }
+
+    fn consumed_newline_in_range(&self, start_pos: usize, end_pos: usize) -> bool {
+        start_pos < end_pos
+            && self.tokens[start_pos..end_pos]
+                .iter()
+                .any(|(_, t)| *t == Token::Newline)
+    }
+
+    fn transition_if_to_then_body(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) {
+        if self.at_token(Token::Newline) {
+            self.consume_token();
+        }
+
+        Self::set_if_phase(frame_stack, IfPhase::ThenBody);
+        Self::push_if_body_statement_list(frame_stack, StatementListContext::IfThenBody);
+    }
+
+    fn handle_if_phase_then_body(frame_stack: &mut [ControlFlowFrame]) -> bool {
+        Self::set_if_phase(frame_stack, IfPhase::CheckElseIf);
+        true
+    }
+
+    fn handle_if_phase_check_elseif(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
+        if self.at_token(Token::ElseIfKeyword) {
+            self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
+            self.consume_token(); // ElseIf
+            self.consume_whitespace();
+            self.parse_expression();
+            self.consume_whitespace();
+
+            if self.at_token(Token::ThenKeyword) {
+                self.consume_token();
+            }
+            self.consume_whitespace();
+
+            if self.at_token(Token::Newline) {
+                self.consume_token();
+            }
+
+            Self::set_if_phase(frame_stack, IfPhase::ElseIfBody);
+            Self::push_if_body_statement_list(frame_stack, StatementListContext::ElseIfBody);
+        } else {
+            Self::set_if_phase(frame_stack, IfPhase::CheckElse);
+        }
+
+        true
+    }
+
+    fn handle_if_phase_elseif_body(&mut self, frame_stack: &mut [ControlFlowFrame]) -> bool {
+        self.builder.finish_node(); // ElseIfClause
+        Self::set_if_phase(frame_stack, IfPhase::CheckElseIf);
+        true
+    }
+
+    fn handle_if_phase_check_else(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
+        if self.at_token(Token::ElseKeyword) {
+            self.builder.start_node(SyntaxKind::ElseClause.to_raw());
+            self.consume_token(); // Else
+            self.consume_whitespace();
+
+            if self.at_token(Token::Newline) {
+                self.consume_token();
+            }
+
+            Self::set_if_phase(frame_stack, IfPhase::ElseBody);
+            Self::push_if_body_statement_list(frame_stack, StatementListContext::ElseBody);
+        } else {
+            Self::set_if_phase(frame_stack, IfPhase::Finish);
+        }
+
+        true
+    }
+
+    fn handle_if_phase_else_body(&mut self, frame_stack: &mut [ControlFlowFrame]) -> bool {
+        self.builder.finish_node(); // ElseClause
+        Self::set_if_phase(frame_stack, IfPhase::Finish);
+        true
+    }
+
+    fn handle_if_phase_finish(&mut self) -> bool {
+        if self.at_token(Token::EndKeyword) {
+            self.consume_token();
+            self.consume_whitespace();
+            if self.at_token(Token::IfKeyword) {
+                self.consume_token();
+            }
+            self.consume_until_after(Token::Newline);
+        }
+
+        self.builder.finish_node(); // IfStatement
+        false
     }
 
     /// Handle For statement state transitions.
