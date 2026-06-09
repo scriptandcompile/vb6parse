@@ -79,7 +79,7 @@ use rowan::Checkpoint;
 
 /// Frame for iterative expression parsing.
 /// Tracks the state of expression parsing to eliminate recursion.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 enum ExprParseFrame {
     /// Parse a prefix expression and start the infix loop
     ParsePrefix {
@@ -250,323 +250,312 @@ impl Parser<'_> {
         });
 
         while let Some(frame) = frame_stack.pop() {
-            match frame {
-                ExprParseFrame::ParsePrefix {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    // Parse a prefix expression (simplified non-recursive version)
-                    let (pushes_frames, prefix_checkpoint) = self
-                        .parse_prefix_expression_nonrecursive(
-                            &mut frame_stack,
-                            min_bp,
-                            lhs_checkpoint,
-                        );
-
-                    // Only push postfix/infix if no frames were pushed
-                    // If frames were pushed, those frames will handle the continuation
-                    if !pushes_frames {
-                        // First handle postfix operators (., (, !) then infix
-                        frame_stack.push(ExprParseFrame::ParsePostfix {
-                            min_bp,
-                            lhs_checkpoint: prefix_checkpoint,
-                        });
-                    }
-                }
-                ExprParseFrame::InfixLoop {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    // Try to parse infix operators iteratively
-                    // Save position for lookahead
-                    let saved_pos = self.pos;
-
-                    // Skip whitespace to check for operators
-                    loop {
-                        match self.current_token() {
-                            Some(Token::Whitespace) => {
-                                self.pos += 1;
-                            }
-                            Some(Token::Underscore) => {
-                                // Check for line continuation
-                                let mut lookahead = 1;
-                                let mut is_continuation = false;
-                                while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                                    if *token == Token::Whitespace {
-                                        lookahead += 1;
-                                    } else if *token == Token::Newline {
-                                        is_continuation = true;
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-
-                                if is_continuation {
-                                    self.pos += lookahead + 1;
-                                } else {
-                                    break;
-                                }
-                            }
-                            _ => break,
-                        }
-                    }
-
-                    // Check if we're at the end or at a delimiter
-                    if self.is_at_end() || self.is_at_expression_delimiter() {
-                        self.pos = saved_pos;
-                        continue; // Continue to next frame, don't break entire loop
-                    }
-
-                    // Get the binding power of the next operator
-                    let binding_power = self.get_infix_binding_power();
-                    self.pos = saved_pos;
-
-                    let Some((left_bp, right_bp)) = binding_power else {
-                        continue; // Continue to next frame, don't break entire loop
-                    };
-
-                    // If the operator doesn't bind tightly enough, stop
-                    if left_bp < min_bp {
-                        continue; // Continue to next frame, don't break entire loop
-                    }
-
-                    // Now actually consume the whitespace
-                    self.consume_whitespace();
-
-                    // Wrap the left-hand side in a BinaryExpression
-                    self.builder
-                        .start_node_at(lhs_checkpoint, SyntaxKind::BinaryExpression.to_raw());
-
-                    // Consume the operator
-                    self.consume_token();
-
-                    // Skip whitespace after operator
-                    self.consume_whitespace();
-
-                    // Parse the right-hand side - push frames instead of recursing
-                    let rhs_checkpoint = self.builder.checkpoint();
-
-                    // After parsing RHS, we need to finish binary, then continue infix loop
-                    frame_stack.push(ExprParseFrame::FinishBinary {
-                        min_bp,
-                        lhs_checkpoint,
-                    });
-                    frame_stack.push(ExprParseFrame::ParsePrefix {
-                        min_bp: right_bp,
-                        lhs_checkpoint: rhs_checkpoint,
-                    });
-                }
-                ExprParseFrame::FinishBinary {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    // Finish the binary expression node
-                    self.builder.finish_node();
-
-                    // Continue with infix loop to check for more operators
-                    frame_stack.push(ExprParseFrame::InfixLoop {
-                        min_bp,
-                        lhs_checkpoint,
-                    });
-                }
-                ExprParseFrame::FinishUnary {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    self.builder.finish_node();
-
-                    // After finishing unary expression, continue with outer infix loop
-                    frame_stack.push(ExprParseFrame::InfixLoop {
-                        min_bp,
-                        lhs_checkpoint,
-                    });
-                }
-                ExprParseFrame::FinishParenthesized {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    // Check for comma - in VB6, parentheses can contain comma-separated expressions
-                    // This is used in graphics methods like Line: Picture1.Line (x1, y1)-(x2, y2)
-                    self.consume_whitespace();
-
-                    if self.at_token(Token::Comma) {
-                        // Consume comma and any whitespace
-                        self.consume_token();
-                        self.consume_whitespace();
-
-                        // Check if there's another expression or if we hit the closing paren
-                        if !self.at_token(Token::RightParenthesis) && !self.is_at_end() {
-                            // Parse the next expression in the comma-separated list
-                            // Push this frame again to handle more commas after the next expression
-                            frame_stack.push(ExprParseFrame::FinishParenthesized {
-                                min_bp,
-                                lhs_checkpoint,
-                            });
-
-                            // Parse the next expression
-                            let inner_checkpoint = self.builder.checkpoint();
-                            frame_stack.push(ExprParseFrame::ParsePrefix {
-                                min_bp: BindingPower::NONE,
-                                lhs_checkpoint: inner_checkpoint,
-                            });
-                        } else {
-                            // Trailing comma before closing paren - just finish
-                            if self.at_token(Token::RightParenthesis) {
-                                self.consume_token();
-                            }
-                            self.builder.finish_node();
-
-                            // Continue with postfix then infix
-                            frame_stack.push(ExprParseFrame::ParsePostfix {
-                                min_bp,
-                                lhs_checkpoint,
-                            });
-                        }
-                    } else {
-                        //No comma - just finish the parenthesized expression
-                        if self.at_token(Token::RightParenthesis) {
-                            self.consume_token();
-                        }
-                        self.builder.finish_node();
-
-                        // After finishing parenthesized expression, continue with postfix then infix
-                        frame_stack.push(ExprParseFrame::ParsePostfix {
-                            min_bp,
-                            lhs_checkpoint,
-                        });
-                    }
-                }
-                ExprParseFrame::ParsePostfix {
-                    min_bp,
-                    lhs_checkpoint,
-                } => {
-                    self.parse_postfix_expression_with_binding_power(
-                        &mut frame_stack,
-                        min_bp,
-                        lhs_checkpoint,
-                    );
-                }
-                ExprParseFrame::StartArgumentList {
-                    min_bp,
-                    call_checkpoint,
-                } => {
-                    // Start the ArgumentList node
-                    self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
-
-                    // Skip whitespace after opening paren
-                    self.consume_whitespace();
-
-                    // Check if argument list is empty
-                    if self.at_token(Token::RightParenthesis) {
-                        // Empty argument list - finish nodes and continue
-                        self.builder.finish_node(); // ArgumentList
-                        self.consume_token(); // )
-                        self.builder.finish_node(); // CallExpression
-
-                        // Check for more postfix operators
-                        frame_stack.push(ExprParseFrame::ParsePostfix {
-                            min_bp,
-                            lhs_checkpoint: call_checkpoint,
-                        });
-                    } else {
-                        // Parse first argument
-                        self.builder.start_node(SyntaxKind::Argument.to_raw());
-
-                        // After finishing this argument, check for more
-                        frame_stack.push(ExprParseFrame::NextArgument {
-                            min_bp,
-                            call_checkpoint,
-                        });
-
-                        // Parse the argument expression
-                        let arg_checkpoint = self.builder.checkpoint();
-                        frame_stack.push(ExprParseFrame::ParsePrefix {
-                            min_bp: BindingPower::NONE,
-                            lhs_checkpoint: arg_checkpoint,
-                        });
-                    }
-                }
-                ExprParseFrame::NextArgument {
-                    min_bp,
-                    call_checkpoint,
-                } => {
-                    // Finish the Argument node
-                    self.builder.finish_node();
-
-                    // Skip whitespace
-                    self.consume_whitespace();
-
-                    // Check if there's a comma for next argument
-                    if self.at_token(Token::Comma) {
-                        self.consume_token();
-                        self.consume_whitespace();
-
-                        // Check if there's actually another argument
-                        if self.at_token(Token::RightParenthesis) {
-                            // Trailing comma but no argument - just finish
-                            self.builder.finish_node(); // ArgumentList
-                            self.consume_token(); // )
-                            self.builder.finish_node(); // CallExpression
-
-                            // Check for more postfix operators
-                            frame_stack.push(ExprParseFrame::ParsePostfix {
-                                min_bp,
-                                lhs_checkpoint: call_checkpoint,
-                            });
-                        } else {
-                            // Parse next argument
-                            self.builder.start_node(SyntaxKind::Argument.to_raw());
-
-                            // After finishing, check for more arguments
-                            frame_stack.push(ExprParseFrame::NextArgument {
-                                min_bp,
-                                call_checkpoint,
-                            });
-
-                            // Parse the argument expression
-                            let arg_checkpoint = self.builder.checkpoint();
-                            frame_stack.push(ExprParseFrame::ParsePrefix {
-                                min_bp: BindingPower::NONE,
-                                lhs_checkpoint: arg_checkpoint,
-                            });
-                        }
-                    } else {
-                        // No more arguments - finish nodes
-                        self.builder.finish_node(); // ArgumentList
-
-                        // Consume closing paren if present
-                        if self.at_token(Token::RightParenthesis) {
-                            self.consume_token();
-                        }
-
-                        self.builder.finish_node(); // CallExpression
-
-                        // Check for more postfix operators
-                        frame_stack.push(ExprParseFrame::ParsePostfix {
-                            min_bp,
-                            lhs_checkpoint: call_checkpoint,
-                        });
-                    }
-                }
-            }
+            self.dispatch_expression_frame(frame, &mut frame_stack);
         }
     }
 
-    fn parse_postfix_expression_with_binding_power(
+    fn dispatch_expression_frame(
+        &mut self,
+        frame: ExprParseFrame,
+        frame_stack: &mut Vec<ExprParseFrame>,
+    ) {
+        match frame {
+            ExprParseFrame::ParsePrefix {
+                min_bp,
+                lhs_checkpoint,
+            } => self.handle_parse_prefix_frame(frame_stack, min_bp, lhs_checkpoint),
+            ExprParseFrame::InfixLoop {
+                min_bp,
+                lhs_checkpoint,
+            } => self.handle_infix_loop_frame(frame_stack, min_bp, lhs_checkpoint),
+            ExprParseFrame::FinishBinary {
+                min_bp,
+                lhs_checkpoint,
+            } => self.handle_finish_binary_frame(frame_stack, min_bp, lhs_checkpoint),
+            ExprParseFrame::FinishUnary {
+                min_bp,
+                lhs_checkpoint,
+            } => self.handle_finish_unary_frame(frame_stack, min_bp, lhs_checkpoint),
+            ExprParseFrame::FinishParenthesized {
+                min_bp,
+                lhs_checkpoint,
+            } => self.handle_finish_parenthesized_frame(frame_stack, min_bp, lhs_checkpoint),
+            ExprParseFrame::ParsePostfix {
+                min_bp,
+                lhs_checkpoint,
+            } => self.parse_postfix_expression_with_binding_power(
+                frame_stack,
+                min_bp,
+                lhs_checkpoint,
+            ),
+            ExprParseFrame::StartArgumentList {
+                min_bp,
+                call_checkpoint,
+            } => self.handle_start_argument_list_frame(frame_stack, min_bp, call_checkpoint),
+            ExprParseFrame::NextArgument {
+                min_bp,
+                call_checkpoint,
+            } => self.handle_next_argument_frame(frame_stack, min_bp, call_checkpoint),
+        }
+    }
+
+    fn handle_parse_prefix_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
         lhs_checkpoint: Checkpoint,
     ) {
-        // Check for postfix operators: ., (, !
-        // Save position for lookahead
-        let saved_pos = self.pos;
+        // Parse a prefix expression (simplified non-recursive version)
+        let (pushes_frames, prefix_checkpoint) =
+            self.parse_prefix_expression_nonrecursive(frame_stack, min_bp, lhs_checkpoint);
 
-        // Skip whitespace and line continuations to check for postfix operators
+        // Only push postfix/infix if no frames were pushed
+        // If frames were pushed, those frames will handle the continuation
+        if !pushes_frames {
+            // First handle postfix operators (., (, !) then infix
+            frame_stack.push(ExprParseFrame::ParsePostfix {
+                min_bp,
+                lhs_checkpoint: prefix_checkpoint,
+            });
+        }
+    }
+
+    fn handle_infix_loop_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        let Some((left_bp, right_bp)) = self.peek_infix_binding_power_after_trivia() else {
+            return;
+        };
+
+        // If the operator doesn't bind tightly enough, stop
+        if left_bp < min_bp {
+            return;
+        }
+
+        // Now actually consume the whitespace
+        self.consume_whitespace();
+
+        // Wrap the left-hand side in a BinaryExpression
+        self.builder
+            .start_node_at(lhs_checkpoint, SyntaxKind::BinaryExpression.to_raw());
+
+        // Consume the operator
+        self.consume_token();
+
+        // Skip whitespace after operator
+        self.consume_whitespace();
+
+        // Parse the right-hand side - push frames instead of recursing
+        let rhs_checkpoint = self.builder.checkpoint();
+
+        // After parsing RHS, we need to finish binary, then continue infix loop
+        frame_stack.push(ExprParseFrame::FinishBinary {
+            min_bp,
+            lhs_checkpoint,
+        });
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp: right_bp,
+            lhs_checkpoint: rhs_checkpoint,
+        });
+    }
+
+    fn handle_finish_binary_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        self.builder.finish_node();
+
+        // Continue with infix loop to check for more operators
+        frame_stack.push(ExprParseFrame::InfixLoop {
+            min_bp,
+            lhs_checkpoint,
+        });
+    }
+
+    fn handle_finish_unary_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        self.builder.finish_node();
+
+        // After finishing unary expression, continue with outer infix loop
+        frame_stack.push(ExprParseFrame::InfixLoop {
+            min_bp,
+            lhs_checkpoint,
+        });
+    }
+
+    fn handle_finish_parenthesized_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        // Check for comma - in VB6, parentheses can contain comma-separated expressions
+        // This is used in graphics methods like Line: Picture1.Line (x1, y1)-(x2, y2)
+        self.consume_whitespace();
+
+        if self.at_token(Token::Comma) {
+            // Consume comma and any whitespace
+            self.consume_token();
+            self.consume_whitespace();
+
+            // Check if there's another expression or if we hit the closing paren
+            if !self.at_token(Token::RightParenthesis) && !self.is_at_end() {
+                // Parse the next expression in the comma-separated list
+                // Push this frame again to handle more commas after the next expression
+                frame_stack.push(ExprParseFrame::FinishParenthesized {
+                    min_bp,
+                    lhs_checkpoint,
+                });
+
+                // Parse the next expression
+                let inner_checkpoint = self.builder.checkpoint();
+                frame_stack.push(ExprParseFrame::ParsePrefix {
+                    min_bp: BindingPower::NONE,
+                    lhs_checkpoint: inner_checkpoint,
+                });
+                return;
+            }
+        }
+
+        // Trailing comma before closing paren or no comma - just finish
+        if self.at_token(Token::RightParenthesis) {
+            self.consume_token();
+        }
+        self.builder.finish_node();
+
+        // After finishing parenthesized expression, continue with postfix then infix
+        frame_stack.push(ExprParseFrame::ParsePostfix {
+            min_bp,
+            lhs_checkpoint,
+        });
+    }
+
+    fn handle_start_argument_list_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        call_checkpoint: Checkpoint,
+    ) {
+        // Start the ArgumentList node
+        self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
+
+        // Skip whitespace after opening paren
+        self.consume_whitespace();
+
+        // Check if argument list is empty
+        if self.at_token(Token::RightParenthesis) {
+            // Empty argument list - finish nodes and continue
+            self.builder.finish_node(); // ArgumentList
+            self.consume_token(); // )
+            self.builder.finish_node(); // CallExpression
+
+            // Check for more postfix operators
+            frame_stack.push(ExprParseFrame::ParsePostfix {
+                min_bp,
+                lhs_checkpoint: call_checkpoint,
+            });
+            return;
+        }
+
+        // Parse first argument
+        self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+        // After finishing this argument, check for more
+        frame_stack.push(ExprParseFrame::NextArgument {
+            min_bp,
+            call_checkpoint,
+        });
+
+        // Parse the argument expression
+        let arg_checkpoint = self.builder.checkpoint();
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp: BindingPower::NONE,
+            lhs_checkpoint: arg_checkpoint,
+        });
+    }
+
+    fn handle_next_argument_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        call_checkpoint: Checkpoint,
+    ) {
+        // Finish the Argument node
+        self.builder.finish_node();
+
+        // Skip whitespace
+        self.consume_whitespace();
+
+        // Check if there's a comma for next argument
+        if self.at_token(Token::Comma) {
+            self.consume_token();
+            self.consume_whitespace();
+
+            // Check if there's actually another argument
+            if self.at_token(Token::RightParenthesis) {
+                // Trailing comma but no argument - just finish
+                self.builder.finish_node(); // ArgumentList
+                self.consume_token(); // )
+                self.builder.finish_node(); // CallExpression
+
+                // Check for more postfix operators
+                frame_stack.push(ExprParseFrame::ParsePostfix {
+                    min_bp,
+                    lhs_checkpoint: call_checkpoint,
+                });
+                return;
+            }
+
+            // Parse next argument
+            self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+            // After finishing, check for more arguments
+            frame_stack.push(ExprParseFrame::NextArgument {
+                min_bp,
+                call_checkpoint,
+            });
+
+            // Parse the argument expression
+            let arg_checkpoint = self.builder.checkpoint();
+            frame_stack.push(ExprParseFrame::ParsePrefix {
+                min_bp: BindingPower::NONE,
+                lhs_checkpoint: arg_checkpoint,
+            });
+            return;
+        }
+
+        // No more arguments - finish nodes
+        self.builder.finish_node(); // ArgumentList
+
+        // Consume closing paren if present
+        if self.at_token(Token::RightParenthesis) {
+            self.consume_token();
+        }
+
+        self.builder.finish_node(); // CallExpression
+
+        // Check for more postfix operators
+        frame_stack.push(ExprParseFrame::ParsePostfix {
+            min_bp,
+            lhs_checkpoint: call_checkpoint,
+        });
+    }
+
+    fn skip_expression_trivia(&mut self) {
         loop {
             match self.current_token() {
-                Some(Token::Whitespace) => self.pos += 1,
+                Some(Token::Whitespace) => {
+                    self.pos += 1;
+                }
                 Some(Token::Underscore) => {
                     // Check for line continuation
                     let mut lookahead = 1;
@@ -581,8 +570,9 @@ impl Parser<'_> {
                             break;
                         }
                     }
+
                     if is_continuation {
-                        self.pos += lookahead + 1; // +1 for newline
+                        self.pos += lookahead + 1;
                     } else {
                         break;
                     }
@@ -590,14 +580,43 @@ impl Parser<'_> {
                 _ => break,
             }
         }
+    }
+
+    fn has_postfix_operator_ahead(&mut self) -> bool {
+        let saved_pos = self.pos;
+        self.skip_expression_trivia();
 
         let found_postfix = matches!(
             self.current_token(),
             Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
         );
 
-        // Restore position
         self.pos = saved_pos;
+        found_postfix
+    }
+
+    fn peek_infix_binding_power_after_trivia(&mut self) -> Option<(BindingPower, BindingPower)> {
+        let saved_pos = self.pos;
+        self.skip_expression_trivia();
+
+        if self.is_at_end() || self.is_at_expression_delimiter() {
+            self.pos = saved_pos;
+            return None;
+        }
+
+        let binding_power = self.get_infix_binding_power();
+        self.pos = saved_pos;
+        binding_power
+    }
+
+    fn parse_postfix_expression_with_binding_power(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        // Check for postfix operators: ., (, !
+        let found_postfix = self.has_postfix_operator_ahead();
 
         if found_postfix {
             // Found postfix operator - consume whitespace and handle it
@@ -803,41 +822,7 @@ impl Parser<'_> {
     /// without an extra `IdentifierExpression` layer.
     fn parse_bare_identifier(&mut self, checkpoint: Checkpoint) {
         // Check if we'll have postfix operators (peek ahead)
-        let saved_pos = self.pos;
-
-        // Skip whitespace to check for postfix
-        loop {
-            match self.current_token() {
-                Some(Token::Whitespace) => self.pos += 1,
-                Some(Token::Underscore) => {
-                    // Check for line continuation
-                    let mut lookahead = 1;
-                    let mut is_continuation = false;
-                    while let Some((_, token)) = self.tokens.get(self.pos + lookahead) {
-                        if *token == Token::Whitespace {
-                            lookahead += 1;
-                        } else if *token == Token::Newline {
-                            is_continuation = true;
-                            break;
-                        } else {
-                            break;
-                        }
-                    }
-                    if is_continuation {
-                        self.pos += lookahead + 1;
-                    } else {
-                        break;
-                    }
-                }
-                _ => break,
-            }
-        }
-
-        let has_postfix = matches!(
-            self.current_token(),
-            Some(Token::PeriodOperator | Token::LeftParenthesis | Token::ExclamationMark)
-        );
-        self.pos = saved_pos;
+        let has_postfix = self.has_postfix_operator_ahead();
 
         if !has_postfix {
             // Wrap bare identifier in IdentifierExpression using the prefix checkpoint
@@ -1356,6 +1341,20 @@ mod tests {
     #[test]
     fn operator_precedence_multiplication_before_addition() {
         let source = "x = 2 + 3 * 4\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/syntax/expressions");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn operator_precedence_with_line_continuation() {
+        let source = "x = 2 + _\n    3 * 4\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
