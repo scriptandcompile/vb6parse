@@ -661,6 +661,7 @@ impl Display for SyntaxKind {
 }
 
 impl From<Token> for SyntaxKind {
+    #[allow(clippy::too_many_lines)]
     fn from(token: Token) -> Self {
         match token {
             Token::Whitespace => SyntaxKind::Whitespace,
