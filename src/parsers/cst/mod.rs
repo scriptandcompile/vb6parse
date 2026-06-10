@@ -2448,287 +2448,288 @@ impl<'a> Parser<'a> {
 
         // Note: start_node will be called when this frame is first processed
 
-        loop {
-            // Check depth limit
-            if frame_stack.len() > MAX_STATEMENT_DEPTH {
-                // TODO: Record error when we have error tracking in CST parser
-                // For now, just break to prevent stack overflow
-                eprintln!(
-                    "Warning: Control flow nesting depth ({}) exceeds maximum ({})",
-                    frame_stack.len(),
-                    MAX_STATEMENT_DEPTH
-                );
-                break;
-            }
-
-            // Get the frame type using the helper method
-            let frame_type = frame_stack.last().map(ControlFlowFrame::frame_type);
-
-            let Some(frame_kind) = frame_type else {
-                // No more frames, we're done
+        while Self::statement_stack_within_limit(&frame_stack) {
+            let Some(frame_kind) = Self::current_frame_kind(&frame_stack) else {
                 break;
             };
 
             match frame_kind {
                 ControlFlowFrameType::StatementList => {
-                    // StatementList
-                    let (current_depth, context, started) =
-                        if let Some(ControlFlowFrame::StatementList {
-                            depth,
-                            context,
-                            started,
-                        }) = frame_stack.last()
-                        {
-                            (*depth, *context, *started)
-                        } else {
-                            unreachable!()
-                        };
-
-                    // Start node if not already started
-                    if !started {
-                        self.builder.start_node(SyntaxKind::StatementList.to_raw());
-                        if let Some(ControlFlowFrame::StatementList { started, .. }) =
-                            frame_stack.last_mut()
-                        {
-                            *started = true;
-                        }
-                    }
-                    // Check context-specific stop conditions
-                    let should_stop = match context {
-                        StatementListContext::TopLevel => stop_conditions(self) || self.is_at_end(),
-                        StatementListContext::IfThenBody | StatementListContext::ElseIfBody => {
-                            self.at_token(Token::ElseIfKeyword)
-                                || self.at_token(Token::ElseKeyword)
-                                || (self.at_token(Token::EndKeyword)
-                                    && self.peek_next_keyword() == Some(Token::IfKeyword))
-                                || self.is_at_end()
-                        }
-                        StatementListContext::ElseBody => {
-                            (self.at_token(Token::EndKeyword)
-                                && self.peek_next_keyword() == Some(Token::IfKeyword))
-                                || self.is_at_end()
-                        }
-                        StatementListContext::ForBody => {
-                            self.at_token(Token::NextKeyword) || self.is_at_end()
-                        }
-                        StatementListContext::SelectCaseBody => {
-                            self.at_token(Token::CaseKeyword)
-                                || (self.at_token(Token::EndKeyword)
-                                    && self.peek_next_keyword() == Some(Token::SelectKeyword))
-                                || self.is_at_end()
-                        }
-                        StatementListContext::WhileBody => {
-                            self.at_token(Token::WendKeyword) || self.is_at_end()
-                        }
-                        StatementListContext::DoBody => {
-                            self.at_token(Token::LoopKeyword) || self.is_at_end()
-                        }
-                        StatementListContext::WithBody => {
-                            (self.at_token(Token::EndKeyword)
-                                && self.peek_next_keyword() == Some(Token::WithKeyword))
-                                || self.is_at_end()
-                        }
-                    };
-
-                    if should_stop {
-                        frame_stack.pop();
-                        self.builder.finish_node(); // StatementList
-                        continue;
-                    }
-
-                    // Detect and start control flow statements
-                    if self.is_control_flow_keyword() {
-                        // Get the actual keyword, accounting for whitespace
-                        let keyword = if self.at_token(Token::Whitespace) {
-                            self.peek_next_keyword()
-                        } else {
-                            self.current_token().copied()
-                        };
-
-                        match keyword {
-                            Some(Token::IfKeyword) => {
-                                frame_stack.push(ControlFlowFrame::IfStatement {
-                                    phase: IfPhase::Start,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            Some(Token::ForKeyword) => {
-                                // Check if For Each - need to peek ahead accounting for whitespace
-                                let is_for_each = if self.at_token(Token::Whitespace) {
-                                    // At whitespace before "For", peek two keywords ahead to check for "Each"
-                                    self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
-                                        .nth(1)
-                                        == Some(Token::EachKeyword)
-                                } else {
-                                    // Already at "For", peek once for "Each"
-                                    self.peek_next_keyword() == Some(Token::EachKeyword)
-                                };
-
-                                frame_stack.push(ControlFlowFrame::ForStatement {
-                                    phase: ForPhase::Start,
-                                    is_for_each,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            Some(Token::SelectKeyword) => {
-                                frame_stack.push(ControlFlowFrame::SelectCase {
-                                    phase: SelectPhase::Start,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            Some(Token::WhileKeyword) => {
-                                frame_stack.push(ControlFlowFrame::WhileStatement {
-                                    phase: WhilePhase::Start,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            Some(Token::DoKeyword) => {
-                                frame_stack.push(ControlFlowFrame::DoStatement {
-                                    phase: DoPhase::Start,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            Some(Token::WithKeyword) => {
-                                frame_stack.push(ControlFlowFrame::WithStatement {
-                                    phase: WithPhase::Start,
-                                    depth: current_depth + 1,
-                                });
-                                continue;
-                            }
-                            // Other control flow statements that don't nest deeply
-                            _ => {
-                                self.parse_control_flow_statement();
-                                continue;
-                            }
-                        }
-                    }
-
-                    // Try built-in library statements
-                    if self.is_library_statement_keyword() {
-                        self.parse_library_statement();
-                        continue;
-                    }
-
-                    // Try array statements
-                    if self.is_variable_declaration_keyword() {
-                        self.parse_array_statement();
-                        continue;
-                    }
-
-                    // Try to parse a statement using the centralized dispatcher
-                    if self.is_statement_keyword() {
-                        self.parse_statement();
-                        continue;
-                    }
-
-                    // Handle other constructs that aren't in parse_statement
-                    match self.current_token() {
-                        // Whitespace, newlines, and comments - consume directly FIRST
-                        Some(
-                            Token::Whitespace
-                            | Token::Newline
-                            | Token::EndOfLineComment
-                            | Token::RemComment,
-                        ) => {
-                            self.consume_token();
-                        }
-                        // Variable declarations: Dim/Private/Public/Const/Static
-                        Some(
-                            Token::DimKeyword
-                            | Token::PrivateKeyword
-                            | Token::PublicKeyword
-                            | Token::ConstKeyword
-                            | Token::StaticKeyword,
-                        ) => {
-                            self.parse_dim();
-                        }
-                        // Anything else - check if it's a label, assignment, procedure call, or unknown
-                        _ => {
-                            // Check if this is a label (identifier followed by colon)
-                            if self.is_at_label() {
-                                self.parse_label_statement();
-                            // Check for Let statement (optional assignment keyword)
-                            } else if self.at_token(Token::LetKeyword)
-                                || (self.at_token(Token::Whitespace)
-                                    && self.peek_next_keyword() == Some(Token::LetKeyword))
-                            {
-                                self.parse_let_statement();
-                            // Check for dot-prefixed member access in With blocks
-                            } else if self.at_token(Token::PeriodOperator) {
-                                if self.is_at_with_member_assignment() {
-                                    self.parse_assignment_statement();
-                                } else {
-                                    self.parse_procedure_call();
-                                }
-                            // Check if this looks like an assignment statement (identifier = expression)
-                            } else if self.is_at_assignment() {
-                                self.parse_assignment_statement();
-                            // Check if this looks like a procedure call (identifier without assignment)
-                            } else if self.is_at_procedure_call() {
-                                self.parse_procedure_call();
-                            // Standalone End statement (terminates program execution)
-                            } else if self.is_standalone_end() {
-                                self.parse_end_statement();
-                            } else {
-                                self.consume_token_as_unknown();
-                            }
-                        }
-                    }
+                    self.handle_statement_list_frame(&mut frame_stack, &stop_conditions);
                 }
-
-                ControlFlowFrameType::IfStatement => {
-                    // IfStatement
-                    let should_continue = self.handle_if_statement_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
-
-                ControlFlowFrameType::ForStatement => {
-                    // ForStatement (both regular For and For Each)
-                    let should_continue = self.handle_for_statement_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
-
-                ControlFlowFrameType::SelectCase => {
-                    // SelectCase
-                    let should_continue = self.handle_select_case_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
-
-                ControlFlowFrameType::WhileStatement => {
-                    // WhileStatement
-                    let should_continue = self.handle_while_statement_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
-
-                ControlFlowFrameType::DoStatement => {
-                    // DoStatement
-                    let should_continue = self.handle_do_statement_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
-
-                ControlFlowFrameType::WithStatement => {
-                    // WithStatement
-                    let should_continue = self.handle_with_statement_frame(&mut frame_stack);
-                    if !should_continue {
-                        frame_stack.pop();
-                    }
-                }
+                _ => self.handle_non_statement_list_frame(frame_kind, &mut frame_stack),
             }
+        }
+    }
+
+    fn statement_stack_within_limit(frame_stack: &[ControlFlowFrame]) -> bool {
+        if frame_stack.len() <= MAX_STATEMENT_DEPTH {
+            return true;
+        }
+
+        // TODO: Record error when we have error tracking in CST parser.
+        // For now, stop to prevent stack overflow.
+        eprintln!(
+            "Warning: Control flow nesting depth ({}) exceeds maximum ({})",
+            frame_stack.len(),
+            MAX_STATEMENT_DEPTH
+        );
+        false
+    }
+
+    fn current_frame_kind(frame_stack: &[ControlFlowFrame]) -> Option<ControlFlowFrameType> {
+        frame_stack.last().map(ControlFlowFrame::frame_type)
+    }
+
+    fn handle_statement_list_frame<F>(
+        &mut self,
+        frame_stack: &mut Vec<ControlFlowFrame>,
+        stop_conditions: &F,
+    ) where
+        F: Fn(&Parser) -> bool,
+    {
+        let Some((current_depth, context, started)) = Self::statement_list_frame_state(frame_stack)
+        else {
+            return;
+        };
+
+        if !started {
+            self.builder.start_node(SyntaxKind::StatementList.to_raw());
+            Self::mark_statement_list_started(frame_stack);
+        }
+
+        if self.should_stop_statement_list(context, stop_conditions) {
+            frame_stack.pop();
+            self.builder.finish_node(); // StatementList
+            return;
+        }
+
+        if self.try_handle_statement_list_control_flow(frame_stack, current_depth) {
+            return;
+        }
+
+        if self.try_parse_statement_list_keyword_dispatch() {
+            return;
+        }
+
+        self.parse_statement_list_fallback_item();
+    }
+
+    fn statement_list_frame_state(
+        frame_stack: &[ControlFlowFrame],
+    ) -> Option<(usize, StatementListContext, bool)> {
+        if let Some(ControlFlowFrame::StatementList {
+            depth,
+            context,
+            started,
+        }) = frame_stack.last()
+        {
+            Some((*depth, *context, *started))
+        } else {
+            None
+        }
+    }
+
+    fn mark_statement_list_started(frame_stack: &mut [ControlFlowFrame]) {
+        if let Some(ControlFlowFrame::StatementList { started, .. }) = frame_stack.last_mut() {
+            *started = true;
+        }
+    }
+
+    fn should_stop_statement_list<F>(
+        &self,
+        context: StatementListContext,
+        stop_conditions: &F,
+    ) -> bool
+    where
+        F: Fn(&Parser) -> bool,
+    {
+        match context {
+            StatementListContext::TopLevel => stop_conditions(self) || self.is_at_end(),
+            StatementListContext::IfThenBody | StatementListContext::ElseIfBody => {
+                self.at_token(Token::ElseIfKeyword)
+                    || self.at_token(Token::ElseKeyword)
+                    || (self.at_token(Token::EndKeyword)
+                        && self.peek_next_keyword() == Some(Token::IfKeyword))
+                    || self.is_at_end()
+            }
+            StatementListContext::ElseBody => {
+                (self.at_token(Token::EndKeyword)
+                    && self.peek_next_keyword() == Some(Token::IfKeyword))
+                    || self.is_at_end()
+            }
+            StatementListContext::ForBody => self.at_token(Token::NextKeyword) || self.is_at_end(),
+            StatementListContext::SelectCaseBody => {
+                self.at_token(Token::CaseKeyword)
+                    || (self.at_token(Token::EndKeyword)
+                        && self.peek_next_keyword() == Some(Token::SelectKeyword))
+                    || self.is_at_end()
+            }
+            StatementListContext::WhileBody => {
+                self.at_token(Token::WendKeyword) || self.is_at_end()
+            }
+            StatementListContext::DoBody => self.at_token(Token::LoopKeyword) || self.is_at_end(),
+            StatementListContext::WithBody => {
+                (self.at_token(Token::EndKeyword)
+                    && self.peek_next_keyword() == Some(Token::WithKeyword))
+                    || self.is_at_end()
+            }
+        }
+    }
+
+    fn try_handle_statement_list_control_flow(
+        &mut self,
+        frame_stack: &mut Vec<ControlFlowFrame>,
+        current_depth: usize,
+    ) -> bool {
+        if !self.is_control_flow_keyword() {
+            return false;
+        }
+
+        let keyword = if self.at_token(Token::Whitespace) {
+            self.peek_next_keyword()
+        } else {
+            self.current_token().copied()
+        };
+
+        match keyword {
+            Some(Token::IfKeyword) => {
+                frame_stack.push(ControlFlowFrame::IfStatement {
+                    phase: IfPhase::Start,
+                    depth: current_depth + 1,
+                });
+            }
+            Some(Token::ForKeyword) => {
+                let is_for_each = if self.at_token(Token::Whitespace) {
+                    self.peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
+                        .nth(1)
+                        == Some(Token::EachKeyword)
+                } else {
+                    self.peek_next_keyword() == Some(Token::EachKeyword)
+                };
+
+                frame_stack.push(ControlFlowFrame::ForStatement {
+                    phase: ForPhase::Start,
+                    is_for_each,
+                    depth: current_depth + 1,
+                });
+            }
+            Some(Token::SelectKeyword) => {
+                frame_stack.push(ControlFlowFrame::SelectCase {
+                    phase: SelectPhase::Start,
+                    depth: current_depth + 1,
+                });
+            }
+            Some(Token::WhileKeyword) => {
+                frame_stack.push(ControlFlowFrame::WhileStatement {
+                    phase: WhilePhase::Start,
+                    depth: current_depth + 1,
+                });
+            }
+            Some(Token::DoKeyword) => {
+                frame_stack.push(ControlFlowFrame::DoStatement {
+                    phase: DoPhase::Start,
+                    depth: current_depth + 1,
+                });
+            }
+            Some(Token::WithKeyword) => {
+                frame_stack.push(ControlFlowFrame::WithStatement {
+                    phase: WithPhase::Start,
+                    depth: current_depth + 1,
+                });
+            }
+            _ => {
+                // Other control flow statements that don't nest deeply.
+                self.parse_control_flow_statement();
+            }
+        }
+
+        true
+    }
+
+    fn try_parse_statement_list_keyword_dispatch(&mut self) -> bool {
+        if self.is_library_statement_keyword() {
+            self.parse_library_statement();
+            return true;
+        }
+
+        if self.is_variable_declaration_keyword() {
+            self.parse_array_statement();
+            return true;
+        }
+
+        if self.is_statement_keyword() {
+            self.parse_statement();
+            return true;
+        }
+
+        false
+    }
+
+    fn parse_statement_list_fallback_item(&mut self) {
+        match self.current_token() {
+            // Whitespace, newlines, and comments - consume directly FIRST.
+            Some(
+                Token::Whitespace | Token::Newline | Token::EndOfLineComment | Token::RemComment,
+            ) => {
+                self.consume_token();
+            }
+            // Variable declarations: Dim/Private/Public/Const/Static.
+            Some(
+                Token::DimKeyword
+                | Token::PrivateKeyword
+                | Token::PublicKeyword
+                | Token::ConstKeyword
+                | Token::StaticKeyword,
+            ) => {
+                self.parse_dim();
+            }
+            _ => self.parse_statement_list_fallback_non_keyword(),
+        }
+    }
+
+    fn parse_statement_list_fallback_non_keyword(&mut self) {
+        if self.is_at_label() {
+            self.parse_label_statement();
+        } else if self.at_token(Token::LetKeyword)
+            || (self.at_token(Token::Whitespace)
+                && self.peek_next_keyword() == Some(Token::LetKeyword))
+        {
+            self.parse_let_statement();
+        } else if self.at_token(Token::PeriodOperator) {
+            if self.is_at_with_member_assignment() {
+                self.parse_assignment_statement();
+            } else {
+                self.parse_procedure_call();
+            }
+        } else if self.is_at_assignment() {
+            self.parse_assignment_statement();
+        } else if self.is_at_procedure_call() {
+            self.parse_procedure_call();
+        } else if self.is_standalone_end() {
+            self.parse_end_statement();
+        } else {
+            self.consume_token_as_unknown();
+        }
+    }
+
+    fn handle_non_statement_list_frame(
+        &mut self,
+        frame_kind: ControlFlowFrameType,
+        frame_stack: &mut Vec<ControlFlowFrame>,
+    ) {
+        let should_continue = match frame_kind {
+            ControlFlowFrameType::IfStatement => self.handle_if_statement_frame(frame_stack),
+            ControlFlowFrameType::ForStatement => self.handle_for_statement_frame(frame_stack),
+            ControlFlowFrameType::SelectCase => self.handle_select_case_frame(frame_stack),
+            ControlFlowFrameType::WhileStatement => self.handle_while_statement_frame(frame_stack),
+            ControlFlowFrameType::DoStatement => self.handle_do_statement_frame(frame_stack),
+            ControlFlowFrameType::WithStatement => self.handle_with_statement_frame(frame_stack),
+            ControlFlowFrameType::StatementList => return,
+        };
+
+        if !should_continue {
+            frame_stack.pop();
         }
     }
 
