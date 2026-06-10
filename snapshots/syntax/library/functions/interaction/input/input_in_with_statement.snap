@@ -77,7 +77,7 @@ root:
                                   text: " "
                                 - kind: Argument
                                   children:
-                                    - kind: MemberAccessExpression
+                                    - kind: IdentifierExpression
                                       children:
                                         - kind: Octothorpe
                                           text: "#"

@@ -59,22 +59,30 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: Octothorpe
-                      text: "#"
-            - kind: Unknown
-              text: "12"
-            - kind: Unknown
-              text: /
-            - kind: Unknown
-              text: "25"
-            - kind: Unknown
-              text: /
-            - kind: Unknown
-              text: "2000"
-            - kind: Newline
-              text: "\n"
+                    - kind: BinaryExpression
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Octothorpe
+                              text: "#"
+                            - kind: IntegerLiteral
+                              text: "12"
+                        - kind: DivisionOperator
+                          text: /
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "25"
+                    - kind: DivisionOperator
+                      text: /
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "2000"
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

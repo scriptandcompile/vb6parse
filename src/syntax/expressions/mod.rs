@@ -794,6 +794,11 @@ impl Parser<'_> {
             Some(Token::DateTimeLiteral) => {
                 self.parse_date_literal();
             }
+            // File number reference in expressions (for example: #1, #fileNum, #.FileNum)
+            Some(Token::Octothorpe) => {
+                self.parse_file_number_reference();
+                is_identifier = true;
+            }
             // Period operator at start of expression (With block member access)
             // In a With block, ".Property" is shorthand for accessing the With object's property
             Some(Token::PeriodOperator) => {
@@ -871,6 +876,31 @@ impl Parser<'_> {
         }
 
         // Don't wrap in a node here - let parse_postfix_operators handle it
+    }
+
+    /// Parse a VB6 file-number reference used in expressions.
+    ///
+    /// Examples: `#1`, `#fileNum`, `#.FileNum`
+    fn parse_file_number_reference(&mut self) {
+        // Consume the octothorpe prefix.
+        self.consume_token();
+        self.consume_whitespace();
+
+        // Allow with-block member style references, such as #.FileNum
+        if self.at_token(Token::PeriodOperator) {
+            self.parse_with_member_expression();
+            return;
+        }
+
+        // Normal file number references: #1 or #fileNum
+        if self.is_number() {
+            self.consume_token();
+            return;
+        }
+
+        if self.is_identifier() || self.at_keyword() {
+            self.consume_token_as_identifier();
+        }
     }
 
     /// Parse an `AddressOf` expression.
@@ -1271,6 +1301,20 @@ mod tests {
     #[test]
     fn identifier_expression() {
         let source = "x = myVariable\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/syntax/expressions");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn octothorpe_file_number_reference() {
+        let source = "x = #1\n";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();

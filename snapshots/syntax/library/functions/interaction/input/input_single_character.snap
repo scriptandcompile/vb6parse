@@ -63,18 +63,10 @@ root:
                               children:
                                 - kind: Octothorpe
                                   text: "#"
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: fileNum
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
-                          children:
-                            - kind: RightParenthesis
-                              text: )
+                                - kind: Identifier
+                                  text: fileNum
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
         - kind: EndKeyword

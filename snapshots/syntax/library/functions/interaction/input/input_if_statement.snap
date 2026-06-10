@@ -33,101 +33,103 @@ root:
                   text: If
                 - kind: Whitespace
                   text: " "
-                - kind: CallExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: LenKeyword
-                      text: Len
-                    - kind: LeftParenthesis
-                      text: (
-                    - kind: ArgumentList
+                    - kind: CallExpression
                       children:
-                        - kind: Argument
+                        - kind: LenKeyword
+                          text: Len
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
                           children:
-                            - kind: CallExpression
+                            - kind: Argument
                               children:
-                                - kind: InputKeyword
-                                  text: Input
-                                - kind: LeftParenthesis
-                                  text: (
-                                - kind: ArgumentList
+                                - kind: CallExpression
                                   children:
-                                    - kind: Argument
+                                    - kind: InputKeyword
+                                      text: Input
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
                                       children:
-                                        - kind: NumericLiteralExpression
+                                        - kind: Argument
                                           children:
-                                            - kind: IntegerLiteral
-                                              text: "10"
-                                    - kind: Comma
-                                      text: ","
-                                    - kind: Whitespace
-                                      text: " "
-                                    - kind: Argument
-                                      children:
-                                        - kind: IdentifierExpression
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "10"
+                                        - kind: Comma
+                                          text: ","
+                                        - kind: Whitespace
+                                          text: " "
+                                        - kind: Argument
                                           children:
-                                            - kind: Octothorpe
-                                              text: "#"
-                - kind: IntegerLiteral
-                  text: "1"
-                - kind: RightParenthesis
-                  text: )
-                - kind: RightParenthesis
-                  text: )
-                - kind: Whitespace
-                  text: " "
-                - kind: GreaterThanOperator
-                  text: ">"
-                - kind: Whitespace
-                  text: " "
-                - kind: IntegerLiteral
-                  text: "0"
+                                            - kind: IdentifierExpression
+                                              children:
+                                                - kind: Octothorpe
+                                                  text: "#"
+                                                - kind: IntegerLiteral
+                                                  text: "1"
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOperator
+                      text: ">"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
                 - kind: Whitespace
                   text: " "
                 - kind: ThenKeyword
                   text: Then
                 - kind: Newline
                   text: "\n"
-            - kind: Whitespace
-              text: "        "
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: Debug
-                - kind: PeriodOperator
-                  text: "."
-                - kind: PrintKeyword
-                  text: Print
-                - kind: Whitespace
-                  text: " "
-                - kind: ArgumentList
+                - kind: StatementList
                   children:
-                    - kind: Argument
+                    - kind: Whitespace
+                      text: "        "
+                    - kind: CallStatement
                       children:
-                        - kind: StringLiteralExpression
+                        - kind: Identifier
+                          text: Debug
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: PrintKeyword
+                          text: Print
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ArgumentList
                           children:
-                            - kind: StringLiteral
-                              text: "\"Data read\""
-                - kind: Newline
-                  text: "\n"
-            - kind: Whitespace
-              text: "    "
-            - kind: Unknown
-              text: End
-            - kind: IfStatement
-              children:
-                - kind: Whitespace
-                  text: " "
-                - kind: IfKeyword
-                  text: If
-                - kind: IdentifierExpression
-                  children:
-                    - kind: Newline
-                      text: "\n"
+                            - kind: Argument
+                              children:
+                                - kind: StringLiteralExpression
+                                  children:
+                                    - kind: StringLiteral
+                                      text: "\"Data read\""
+                        - kind: Newline
+                          text: "\n"
+                    - kind: Whitespace
+                      text: "    "
                 - kind: EndKeyword
                   text: End
                 - kind: Whitespace
                   text: " "
-                - kind: SubKeyword
-                  text: Sub
+                - kind: IfKeyword
+                  text: If
                 - kind: Newline
                   text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

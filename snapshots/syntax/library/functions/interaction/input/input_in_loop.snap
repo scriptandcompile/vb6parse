@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/input.rs
+source: vb6parse/src/syntax/library/functions/interaction/input.rs
 expression: tree
 ---
 root:
@@ -101,12 +101,12 @@ root:
                                       children:
                                         - kind: Octothorpe
                                           text: "#"
-                    - kind: Unknown
-                      text: "1"
-                    - kind: Unknown
-                      text: )
-                    - kind: Newline
-                      text: "\n"
+                                        - kind: IntegerLiteral
+                                          text: "1"
+                            - kind: RightParenthesis
+                              text: )
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: LoopKeyword
