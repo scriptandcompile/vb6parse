@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-08T00:32:31Z",
+  "last_updated": "2026-06-10T21:11:44Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -409,38 +409,72 @@
           "percent": 95.98
         }
       }
+    },
+    {
+      "timestamp": "2026-06-10T21:11:44Z",
+      "commit_sha": "0f1768c53d1c7e5fd3a6aa7c3bf2c6f4fb47accf",
+      "commit_message": "Broke up parse_statement_list into frame processing parsers to fix clippy line count limit.",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.94,
+        "region_coverage": 96.02
+      },
+      "tests": {
+        "total": 6203,
+        "lib_tests": 5510,
+        "doc_tests": 119,
+        "integration_tests": 574,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96683,
+          "total": 100840,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6215,
+          "total": 6687,
+          "percent": 92.94
+        },
+        "regions": {
+          "covered": 154395,
+          "total": 160791,
+          "percent": 96.02
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.79,
+      "latest": 95.88,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.09,
       "best": 95.88,
       "worst": 95.13,
-      "average": 95.67
+      "average": 95.69
     },
     "function_coverage": {
-      "latest": 92.89,
+      "latest": 92.94,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.05,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.04
+      "average": 93.03
     },
     "region_coverage": {
-      "latest": 95.98,
+      "latest": 96.02,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.04,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.86
+      "average": 95.87
     },
     "test_count": {
-      "latest": 6202,
+      "latest": 6203,
       "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "change_count": 1,
+      "growth_rate": 0.02
     }
   }
 }
