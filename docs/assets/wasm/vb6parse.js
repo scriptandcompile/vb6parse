@@ -85,18 +85,18 @@ export function tokenize_vb6_code(code) {
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
-        __wbg_Error_ef53bc310eb298a0: function(arg0, arg1) {
+        __wbg_Error_9dc85fe1bc224456: function(arg0, arg1) {
             const ret = Error(getStringFromWasm0(arg0, arg1));
             return ret;
         },
-        __wbg___wbindgen_debug_string_0accd80f45e5faa2: function(arg0, arg1) {
+        __wbg___wbindgen_debug_string_56c147eb1a51f0c4: function(arg0, arg1) {
             const ret = debugString(arg1);
             const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
             const len1 = WASM_VECTOR_LEN;
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
-        __wbg___wbindgen_throw_1506f2235d1bdba0: function(arg0, arg1) {
+        __wbg___wbindgen_throw_bbadd78c1bac3a77: function(arg0, arg1) {
             throw new Error(getStringFromWasm0(arg0, arg1));
         },
         __wbg_error_a6fa202b58aa1cd3: function(arg0, arg1) {
@@ -110,22 +110,22 @@ function __wbg_get_imports() {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
         },
-        __wbg_new_227d7c05414eb861: function() {
-            const ret = new Error();
+        __wbg_new_0b303268aa395a38: function() {
+            const ret = new Array();
             return ret;
         },
-        __wbg_new_ce1ab61c1c2b300d: function() {
+        __wbg_new_20b778a4c5c691c3: function() {
             const ret = new Object();
             return ret;
         },
-        __wbg_new_d90091b82fdf5b91: function() {
-            const ret = new Array();
+        __wbg_new_227d7c05414eb861: function() {
+            const ret = new Error();
             return ret;
         },
         __wbg_set_6be42768c690e380: function(arg0, arg1, arg2) {
             arg0[arg1] = arg2;
         },
-        __wbg_set_dca99999bba88a9a: function(arg0, arg1, arg2) {
+        __wbg_set_da33c120a6584674: function(arg0, arg1, arg2) {
             arg0[arg1 >>> 0] = arg2;
         },
         __wbg_stack_3b0d974bbf31e44f: function(arg0, arg1) {
