@@ -2136,7 +2136,10 @@ impl<'a> Parser<'a> {
                     // Standalone End statement (terminates program execution)
                     } else if self.is_standalone_end() {
                         self.parse_end_statement();
-                    } else if self.is_identifier() || self.at_keyword() {
+                    } else if self.is_identifier()
+                        || self.at_keyword()
+                        || self.at_token(Token::Octothorpe)
+                    {
                         self.consume_token();
                     } else {
                         // This is purely being done this way to make it easier during development.
@@ -2708,6 +2711,8 @@ impl<'a> Parser<'a> {
             self.parse_procedure_call();
         } else if self.is_standalone_end() {
             self.parse_end_statement();
+        } else if self.at_token(Token::Octothorpe) {
+            self.consume_token();
         } else {
             self.consume_token_as_unknown();
         }

@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/vb6_code.rs
-assertion_line: 86
 expression: class2
 ---
 header:
@@ -1077,7 +1076,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -1521,7 +1520,7 @@ cst:
                     text: H200000
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: EndKeyword
             text: End

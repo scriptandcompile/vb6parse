@@ -120,7 +120,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: DimStatement
         children:
@@ -160,7 +160,7 @@ cst:
                 text: )
           - kind: Newline
             text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: DimStatement
         children:
@@ -2338,7 +2338,7 @@ cst:
             text: Long
           - kind: Newline
             text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -2432,7 +2432,7 @@ cst:
                     text: Long
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: EndKeyword
             text: End
@@ -6098,7 +6098,7 @@ cst:
                                         text: "\r\n"
                                       - kind: StatementList
                                         children:
-                                          - kind: Unknown
+                                          - kind: Octothorpe
                                             text: "#"
                                           - kind: IfStatement
                                             children:
@@ -6264,7 +6264,7 @@ cst:
                                                                     text: )
                                                       - kind: Newline
                                                         text: "\r\n"
-                                                  - kind: Unknown
+                                                  - kind: Octothorpe
                                                     text: "#"
                                               - kind: EndKeyword
                                                 text: End
@@ -7142,7 +7142,7 @@ cst:
                                                                     text: "\r\n"
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Unknown
+                                                                      - kind: Octothorpe
                                                                         text: "#"
                                                                       - kind: IfStatement
                                                                         children:
@@ -7308,7 +7308,7 @@ cst:
                                                                                                 text: )
                                                                                   - kind: Newline
                                                                                     text: "\r\n"
-                                                                              - kind: Unknown
+                                                                              - kind: Octothorpe
                                                                                 text: "#"
                                                                           - kind: EndKeyword
                                                                             text: End
@@ -8326,7 +8326,7 @@ cst:
                                                                             text: If
                                                                           - kind: Newline
                                                                             text: "\r\n"
-                                                                      - kind: Unknown
+                                                                      - kind: Octothorpe
                                                                         text: "#"
                                                                       - kind: IfStatement
                                                                         children:
@@ -8564,7 +8564,7 @@ cst:
                                                                                                 text: )
                                                                                   - kind: Newline
                                                                                     text: "\r\n"
-                                                                              - kind: Unknown
+                                                                              - kind: Octothorpe
                                                                                 text: "#"
                                                                           - kind: EndKeyword
                                                                             text: End
@@ -10830,7 +10830,7 @@ cst:
                                                                                                 text: If
                                                                                               - kind: Newline
                                                                                                 text: "\r\n"
-                                                                                          - kind: Unknown
+                                                                                          - kind: Octothorpe
                                                                                             text: "#"
                                                                                           - kind: IfStatement
                                                                                             children:
@@ -10996,7 +10996,7 @@ cst:
                                                                                                                     text: )
                                                                                                       - kind: Newline
                                                                                                         text: "\r\n"
-                                                                                                  - kind: Unknown
+                                                                                                  - kind: Octothorpe
                                                                                                     text: "#"
                                                                                               - kind: EndKeyword
                                                                                                 text: End
@@ -11910,7 +11910,7 @@ cst:
                                                                                                     text: "\r\n"
                                                                                                   - kind: StatementList
                                                                                                     children:
-                                                                                                      - kind: Unknown
+                                                                                                      - kind: Octothorpe
                                                                                                         text: "#"
                                                                                                       - kind: IfStatement
                                                                                                         children:
@@ -12014,7 +12014,7 @@ cst:
                                                                                                                                 text: )
                                                                                                                   - kind: Newline
                                                                                                                     text: "\r\n"
-                                                                                                              - kind: Unknown
+                                                                                                              - kind: Octothorpe
                                                                                                                 text: "#"
                                                                                                           - kind: EndKeyword
                                                                                                             text: End
@@ -12238,7 +12238,7 @@ cst:
                                                                                                 text: Then
                                                                                               - kind: Newline
                                                                                                 text: "\r\n"
-                                                                                              - kind: Unknown
+                                                                                              - kind: Octothorpe
                                                                                                 text: "#"
                                                                                               - kind: IfStatement
                                                                                                 children:
@@ -12342,7 +12342,7 @@ cst:
                                                                                                                         text: )
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
-                                                                                                      - kind: Unknown
+                                                                                                      - kind: Octothorpe
                                                                                                         text: "#"
                                                                                                   - kind: EndKeyword
                                                                                                     text: End
@@ -13010,7 +13010,7 @@ cst:
                                                                                             text: "'--- ToDo: GetNewClientCredentials"
                                                                                           - kind: Newline
                                                                                             text: "\r\n"
-                                                                                          - kind: Unknown
+                                                                                          - kind: Octothorpe
                                                                                             text: "#"
                                                                                           - kind: IfStatement
                                                                                             children:
@@ -13062,7 +13062,7 @@ cst:
                                                                                                                     text: Timer
                                                                                                       - kind: Newline
                                                                                                         text: "\r\n"
-                                                                                                  - kind: Unknown
+                                                                                                  - kind: Octothorpe
                                                                                                     text: "#"
                                                                                               - kind: EndKeyword
                                                                                                 text: End
@@ -14906,7 +14906,7 @@ cst:
                                                                                             text: "\r\n"
                                                                                           - kind: StatementList
                                                                                             children:
-                                                                                              - kind: Unknown
+                                                                                              - kind: Octothorpe
                                                                                                 text: "#"
                                                                                               - kind: IfStatement
                                                                                                 children:
@@ -15010,7 +15010,7 @@ cst:
                                                                                                                         text: )
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
-                                                                                                      - kind: Unknown
+                                                                                                      - kind: Octothorpe
                                                                                                         text: "#"
                                                                                                   - kind: EndKeyword
                                                                                                     text: End
@@ -19218,7 +19218,7 @@ cst:
                                                                                                     text: "\r\n"
                                                                                                   - kind: Newline
                                                                                                     text: "\r\n"
-                                                                                                  - kind: Unknown
+                                                                                                  - kind: Octothorpe
                                                                                                     text: "#"
                                                                                                   - kind: IfStatement
                                                                                                     children:
@@ -20438,7 +20438,7 @@ cst:
                                                                                                             text: Function
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
-                                                                                                          - kind: Unknown
+                                                                                                          - kind: Octothorpe
                                                                                                             text: "#"
                                                                                                       - kind: EndKeyword
                                                                                                         text: End

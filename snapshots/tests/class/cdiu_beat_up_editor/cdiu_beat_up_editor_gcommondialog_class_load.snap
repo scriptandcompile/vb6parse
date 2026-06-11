@@ -9630,7 +9630,7 @@ cst:
             text: "\n"
           - kind: StatementList
             children:
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
               - kind: IfStatement
                 children:
@@ -9658,7 +9658,7 @@ cst:
                             text: InitColors
                           - kind: Newline
                             text: "\n"
-                      - kind: Unknown
+                      - kind: Octothorpe
                         text: "#"
                   - kind: EndKeyword
                     text: End
@@ -18812,7 +18812,7 @@ cst:
             text: "\n"
       - kind: Newline
         text: "\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -19130,7 +19130,7 @@ cst:
                 text: Sub
               - kind: Newline
                 text: "\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: EndKeyword
             text: End

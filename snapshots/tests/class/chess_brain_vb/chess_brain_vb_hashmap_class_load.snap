@@ -376,7 +376,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -1362,7 +1362,7 @@ cst:
                     text: )
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: ElseClause
             children:
@@ -2286,7 +2286,7 @@ cst:
                         text: )
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Unknown
+                  - kind: Octothorpe
                     text: "#"
           - kind: EndKeyword
             text: End

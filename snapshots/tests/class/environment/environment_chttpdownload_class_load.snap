@@ -118,7 +118,7 @@ cst:
             text: "\"cHttpDownload\""
           - kind: Newline
             text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: DimStatement
         children:
@@ -140,7 +140,7 @@ cst:
                 text: "1"
           - kind: Newline
             text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: DimStatement
         children:
@@ -1290,7 +1290,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -1366,7 +1366,7 @@ cst:
                                 text: "1"
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: ElseClause
             children:
@@ -1432,7 +1432,7 @@ cst:
                                     text: "1"
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Unknown
+                  - kind: Octothorpe
                     text: "#"
           - kind: EndKeyword
             text: End
@@ -2450,7 +2450,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -2496,7 +2496,7 @@ cst:
                     text: cTlsSocket
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: ElseClause
             children:
@@ -2532,7 +2532,7 @@ cst:
                         text: cAsyncSocket
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Unknown
+                  - kind: Octothorpe
                     text: "#"
           - kind: EndKeyword
             text: End
@@ -4350,7 +4350,7 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
               - kind: IfStatement
                 children:
@@ -4396,7 +4396,7 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
+                      - kind: Octothorpe
                         text: "#"
                   - kind: ElseClause
                     children:
@@ -4432,7 +4432,7 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
+                          - kind: Octothorpe
                             text: "#"
                   - kind: EndKeyword
                     text: End
@@ -4710,7 +4710,7 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
+                          - kind: Octothorpe
                             text: "#"
                       - kind: ElseClause
                         children:
@@ -4784,7 +4784,7 @@ cst:
                                     children:
                                       - kind: Whitespace
                                         text: "    "
-                                      - kind: Unknown
+                                      - kind: Octothorpe
                                         text: "#"
                                   - kind: EndKeyword
                                     text: End
@@ -6480,7 +6480,7 @@ cst:
                                         children:
                                           - kind: Whitespace
                                             text: "                "
-                                          - kind: Unknown
+                                          - kind: Octothorpe
                                             text: "#"
                                           - kind: IfStatement
                                             children:
@@ -6576,7 +6576,7 @@ cst:
                                                     text: "\r\n"
                                                   - kind: Whitespace
                                                     text: "                "
-                                                  - kind: Unknown
+                                                  - kind: Octothorpe
                                                     text: "#"
                                               - kind: ElseClause
                                                 children:
@@ -6600,7 +6600,7 @@ cst:
                                                         text: "\r\n"
                                                       - kind: Whitespace
                                                         text: "                "
-                                                      - kind: Unknown
+                                                      - kind: Octothorpe
                                                         text: "#"
                                               - kind: EndKeyword
                                                 text: End
@@ -6932,7 +6932,7 @@ cst:
                                                     text: "\r\n"
                                               - kind: Whitespace
                                                 text: "            "
-                                              - kind: Unknown
+                                              - kind: Octothorpe
                                                 text: "#"
                                           - kind: ElseClause
                                             children:
@@ -7006,7 +7006,7 @@ cst:
                                                         children:
                                                           - kind: Whitespace
                                                             text: "            "
-                                                          - kind: Unknown
+                                                          - kind: Octothorpe
                                                             text: "#"
                                                       - kind: EndKeyword
                                                         text: End
@@ -12580,7 +12580,7 @@ cst:
             children:
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
               - kind: IfStatement
                 children:
@@ -12688,7 +12688,7 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
+                      - kind: Octothorpe
                         text: "#"
                   - kind: ElseClause
                     children:
@@ -12750,7 +12750,7 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
+                          - kind: Octothorpe
                             text: "#"
                   - kind: EndKeyword
                     text: End
@@ -17418,7 +17418,7 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
               - kind: IfStatement
                 children:
@@ -17556,7 +17556,7 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
+                      - kind: Octothorpe
                         text: "#"
                   - kind: ElseClause
                     children:
@@ -17688,7 +17688,7 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
+                          - kind: Octothorpe
                             text: "#"
                   - kind: EndKeyword
                     text: End

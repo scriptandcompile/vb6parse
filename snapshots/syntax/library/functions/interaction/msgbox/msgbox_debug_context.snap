@@ -7,7 +7,7 @@ root:
   children:
     - kind: Newline
       text: "\n"
-    - kind: Unknown
+    - kind: Octothorpe
       text: "#"
     - kind: IfStatement
       children:
@@ -57,7 +57,7 @@ root:
                                   text: x
                 - kind: Newline
                   text: "\n"
-            - kind: Unknown
+            - kind: Octothorpe
               text: "#"
         - kind: EndKeyword
           text: End

@@ -1167,7 +1167,7 @@ cst:
                 text: "\r\n"
               - kind: Whitespace
                 text: "   "
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
               - kind: IfStatement
                 children:
@@ -1939,7 +1939,7 @@ cst:
                                                 text: "\r\n"
                                               - kind: Whitespace
                                                 text: "   "
-                                              - kind: Unknown
+                                              - kind: Octothorpe
                                                 text: "#"
                                               - kind: Unknown
                                                 text: End

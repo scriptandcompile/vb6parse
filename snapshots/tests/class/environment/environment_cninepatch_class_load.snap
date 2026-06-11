@@ -108,7 +108,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: DimStatement
         children:
@@ -15052,7 +15052,7 @@ cst:
             text: "\r\n"
       - kind: Newline
         text: "\r\n"
-      - kind: Unknown
+      - kind: Octothorpe
         text: "#"
       - kind: IfStatement
         children:
@@ -15334,7 +15334,7 @@ cst:
                 text: Function
               - kind: Newline
                 text: "\r\n"
-              - kind: Unknown
+              - kind: Octothorpe
                 text: "#"
           - kind: EndKeyword
             text: End
