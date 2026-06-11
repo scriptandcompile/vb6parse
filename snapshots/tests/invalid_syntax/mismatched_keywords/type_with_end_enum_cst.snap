@@ -49,7 +49,7 @@ root:
           text: End
         - kind: Whitespace
           text: " "
-        - kind: Unknown
+        - kind: EnumKeyword
           text: Enum
         - kind: Newline
           text: "\n"

@@ -6723,12 +6723,20 @@ cst:
                                         text: As
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: Boolean
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: BooleanKeyword
+                            text: Boolean
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: RightParenthesis
+                                        text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: DimStatement
                         children:
                           - kind: DimKeyword

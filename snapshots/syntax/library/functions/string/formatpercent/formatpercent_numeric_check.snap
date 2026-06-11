@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatpercent.rs
+source: vb6parse/src/syntax/library/functions/string/formatpercent.rs
 expression: tree
 ---
 root:
@@ -49,45 +49,49 @@ root:
               text: Function
         - kind: Whitespace
           text: " "
-    - kind: Unknown
-      text: Else
-    - kind: Whitespace
-      text: " "
     - kind: AssignmentStatement
       children:
         - kind: IdentifierExpression
           children:
-            - kind: Identifier
-              text: result
+            - kind: ElseKeyword
+              text: Else
         - kind: Whitespace
           text: " "
-        - kind: EqualityOperator
-          text: "="
-        - kind: Whitespace
-          text: " "
-        - kind: CallExpression
+        - kind: BinaryExpression
           children:
-            - kind: Identifier
-              text: FormatPercent
-            - kind: LeftParenthesis
-              text: (
-            - kind: ArgumentList
+            - kind: IdentifierExpression
               children:
-                - kind: Argument
+                - kind: Identifier
+                  text: result
+            - kind: Whitespace
+              text: " "
+            - kind: EqualityOperator
+              text: "="
+            - kind: Whitespace
+              text: " "
+            - kind: CallExpression
+              children:
+                - kind: Identifier
+                  text: FormatPercent
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Argument
                       children:
-                        - kind: Identifier
-                          text: value
-                - kind: Comma
-                  text: ","
-                - kind: Whitespace
-                  text: " "
-                - kind: Argument
-                  children:
-                    - kind: NumericLiteralExpression
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: value
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
                       children:
-                        - kind: IntegerLiteral
-                          text: "2"
-            - kind: RightParenthesis
-              text: )
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "2"
+                - kind: RightParenthesis
+                  text: )

@@ -13856,38 +13856,42 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
-                text: ElseIf
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
-                  - kind: CallExpression
+                  - kind: IdentifierExpression
                     children:
-                      - kind: Identifier
-                        text: t
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: CallExpression
                         children:
-                          - kind: Argument
+                          - kind: Identifier
+                            text: t
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
                             children:
-                              - kind: NumericLiteralExpression
+                              - kind: Argument
                                 children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "12"
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "12"
               - kind: Whitespace
                 text: " "
               - kind: Unknown

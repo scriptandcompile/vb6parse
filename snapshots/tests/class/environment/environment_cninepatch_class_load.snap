@@ -15306,12 +15306,20 @@ cst:
                 text: )
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Xor
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
+              - kind: CallStatement
+                children:
+                  - kind: XorKeyword
+                    text: Xor
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Ampersand
+                                text: "&"
               - kind: CallStatement
                 children:
                   - kind: Identifier

@@ -804,4 +804,19 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
     }
+
+    #[test]
+    fn variant_variable_assignment_in_sub() {
+        // Regression: keyword tokens used as assignment lvalues should not become Unknown
+        let source = "Sub Test()\n    Variant = 5\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/declarations");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
 }

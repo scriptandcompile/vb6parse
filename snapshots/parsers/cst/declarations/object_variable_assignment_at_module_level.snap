@@ -1,20 +1,20 @@
 ---
-source: src/parsers/cst/declarations.rs
+source: vb6parse/src/parsers/cst/declarations.rs
 expression: tree
 ---
 root:
   kind: Root
   children:
-    - kind: Unknown
-      text: Object
-    - kind: Whitespace
-      text: " "
     - kind: AssignmentStatement
       children:
         - kind: IdentifierExpression
           children:
-            - kind: EqualityOperator
-              text: "="
+            - kind: ObjectKeyword
+              text: Object
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
         - kind: Whitespace
           text: " "
         - kind: NumericLiteralExpression

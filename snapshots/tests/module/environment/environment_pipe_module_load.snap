@@ -27289,26 +27289,30 @@ cst:
                         text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Unknown
-                        text: ElseIf
-                      - kind: Whitespace
-                        text: " "
                       - kind: AssignmentStatement
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Identifier
-                                text: iPad
+                              - kind: ElseIfKeyword
+                                text: ElseIf
                           - kind: Whitespace
                             text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: IntegerLiteral
-                                text: "2"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: iPad
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "2"
                       - kind: Whitespace
                         text: " "
                       - kind: Unknown
@@ -29733,26 +29737,30 @@ cst:
                                         text: "\r\n"
                                       - kind: Whitespace
                                         text: "    "
-                                      - kind: Unknown
-                                        text: ElseIf
-                                      - kind: Whitespace
-                                        text: " "
                                       - kind: AssignmentStatement
                                         children:
                                           - kind: IdentifierExpression
                                             children:
-                                              - kind: Identifier
-                                                text: iPad
+                                              - kind: ElseIfKeyword
+                                                text: ElseIf
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
+                                          - kind: BinaryExpression
                                             children:
-                                              - kind: IntegerLiteral
-                                                text: "2"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: iPad
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "2"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: Unknown

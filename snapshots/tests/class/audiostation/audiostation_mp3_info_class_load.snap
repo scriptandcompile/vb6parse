@@ -8864,16 +8864,16 @@ cst:
                     text: "\n"
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Base
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: BaseKeyword
+                        text: Base
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: BinaryExpression
@@ -15944,16 +15944,16 @@ cst:
                     text: "\n"
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Base
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: BaseKeyword
+                        text: Base
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: BinaryExpression

@@ -77,14 +77,10 @@ cst:
                 text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -93,10 +89,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -171,14 +171,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -187,10 +183,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -265,14 +265,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -281,10 +277,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -529,14 +529,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -545,10 +541,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -761,14 +761,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -777,10 +773,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -997,14 +997,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -1013,10 +1009,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: SubKeyword
-                                text: Sub
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Sub
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -1075,14 +1075,10 @@ cst:
                 text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -1091,10 +1087,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -1127,20 +1127,40 @@ cst:
                 text: "\r\n"
               - kind: Whitespace
                 text: "          "
-              - kind: Unknown
-                text: Alias
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GetPrivateProfileStringA\""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: (
               - kind: CallStatement
                 children:
-                  - kind: ByValKeyword
-                    text: ByVal
+                  - kind: AliasKeyword
+                    text: Alias
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GetPrivateProfileStringA\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: ByValKeyword
+                                            text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: lpApplicationName
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -1149,24 +1169,18 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Identifier
-                                text: lpApplicationName
+                              - kind: AsKeyword
+                                text: As
                       - kind: Whitespace
                         text: " "
               - kind: CallStatement
                 children:
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
+                  - kind: StringKeyword
+                    text: String
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: StringKeyword
-                                text: String
+                        children: []
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -1369,14 +1383,10 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "  "
-              - kind: Unknown
-                text: Declare
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: PtrSafe
+                  - kind: DeclareKeyword
+                    text: Declare
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -1385,10 +1395,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: FunctionKeyword
-                                text: Function
+                              - kind: Identifier
+                                text: PtrSafe
                       - kind: Whitespace
                         text: " "
+              - kind: Unknown
+                text: Function
+              - kind: Whitespace
+                text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -1421,20 +1435,40 @@ cst:
                 text: "\r\n"
               - kind: Whitespace
                 text: "          "
-              - kind: Unknown
-                text: Alias
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"WritePrivateProfileStringA\""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: (
               - kind: CallStatement
                 children:
-                  - kind: ByValKeyword
-                    text: ByVal
+                  - kind: AliasKeyword
+                    text: Alias
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"WritePrivateProfileStringA\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: ByValKeyword
+                                            text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: lpApplicationName
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -1443,24 +1477,18 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Identifier
-                                text: lpApplicationName
+                              - kind: AsKeyword
+                                text: As
                       - kind: Whitespace
                         text: " "
               - kind: CallStatement
                 children:
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
+                  - kind: StringKeyword
+                    text: String
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: StringKeyword
-                                text: String
+                        children: []
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -1693,14 +1721,22 @@ cst:
                 children:
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -1775,14 +1811,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -1857,14 +1901,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2109,14 +2161,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2329,14 +2389,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2553,14 +2621,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: SubKeyword
+                                    text: Sub
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2619,14 +2695,22 @@ cst:
                     text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2659,20 +2743,40 @@ cst:
                     text: "\r\n"
                   - kind: Whitespace
                     text: "          "
-                  - kind: Unknown
-                    text: Alias
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: "\"GetPrivateProfileStringA\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: (
                   - kind: CallStatement
                     children:
-                      - kind: ByValKeyword
-                        text: ByVal
+                      - kind: AliasKeyword
+                        text: Alias
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"GetPrivateProfileStringA\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: lpApplicationName
                       - kind: Whitespace
                         text: " "
                       - kind: ArgumentList
@@ -2681,24 +2785,18 @@ cst:
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: Identifier
-                                    text: lpApplicationName
+                                  - kind: AsKeyword
+                                    text: As
                           - kind: Whitespace
                             text: " "
                   - kind: CallStatement
                     children:
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
+                      - kind: StringKeyword
+                        text: String
                       - kind: ArgumentList
                         children:
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: StringKeyword
-                                    text: String
+                            children: []
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -2901,14 +2999,22 @@ cst:
                         text: "\r\n"
                   - kind: Whitespace
                     text: "  "
-                  - kind: Unknown
-                    text: Declare
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: Function
-                  - kind: Whitespace
-                    text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: DeclareKeyword
+                        text: Declare
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: FunctionKeyword
+                                    text: Function
+                          - kind: Whitespace
+                            text: " "
                   - kind: CallStatement
                     children:
                       - kind: Identifier
@@ -2941,20 +3047,40 @@ cst:
                     text: "\r\n"
                   - kind: Whitespace
                     text: "          "
-                  - kind: Unknown
-                    text: Alias
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: "\"WritePrivateProfileStringA\""
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Unknown
-                    text: (
                   - kind: CallStatement
                     children:
-                      - kind: ByValKeyword
-                        text: ByVal
+                      - kind: AliasKeyword
+                        text: Alias
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\"WritePrivateProfileStringA\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: ByValKeyword
+                                                text: ByVal
+                                      - kind: Whitespace
+                                        text: " "
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: lpApplicationName
                       - kind: Whitespace
                         text: " "
                       - kind: ArgumentList
@@ -2963,24 +3089,18 @@ cst:
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: Identifier
-                                    text: lpApplicationName
+                                  - kind: AsKeyword
+                                    text: As
                           - kind: Whitespace
                             text: " "
                   - kind: CallStatement
                     children:
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
+                      - kind: StringKeyword
+                        text: String
                       - kind: ArgumentList
                         children:
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: StringKeyword
-                                    text: String
+                            children: []
                           - kind: Comma
                             text: ","
                           - kind: Whitespace

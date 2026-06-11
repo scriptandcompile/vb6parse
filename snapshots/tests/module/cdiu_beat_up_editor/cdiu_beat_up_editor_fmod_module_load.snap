@@ -1767,7 +1767,7 @@ cst:
             text: FSOUND_16BITS
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -1775,7 +1775,7 @@ cst:
             text: FSOUND_SIGNED
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2799,7 +2799,7 @@ cst:
             text: FSOUND_REVERBFLAGS_DECAYTIMESCALE
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2807,7 +2807,7 @@ cst:
             text: FSOUND_REVERBFLAGS_REFLECTIONSSCALE
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2815,7 +2815,7 @@ cst:
             text: FSOUND_REVERBFLAGS_REFLECTIONSDELAYSCALE
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2823,7 +2823,7 @@ cst:
             text: FSOUND_REVERBFLAGS_REVERBSCALE
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2831,7 +2831,7 @@ cst:
             text: FSOUND_REVERBFLAGS_REVERBDELAYSCALE
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2839,7 +2839,7 @@ cst:
             text: FSOUND_REVERBFLAGS_DECAYHFLIMIT
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -2847,7 +2847,7 @@ cst:
             text: FSOUND_REVERB_FLAGS_CORE0
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -3333,7 +3333,7 @@ cst:
             text: FSOUND_REVERB_CHANNELFLAGS_DIRECTHFAUTO
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "
@@ -3341,7 +3341,7 @@ cst:
             text: FSOUND_REVERB_CHANNELFLAGS_ROOMAUTO
           - kind: Whitespace
             text: " "
-          - kind: Unknown
+          - kind: OrKeyword
             text: Or
           - kind: Whitespace
             text: " "

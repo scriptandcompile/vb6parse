@@ -11879,40 +11879,44 @@ cst:
                                                 text: )
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Unknown
-                                                text: Or
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: BitL_23
+                                                  - kind: OrKeyword
+                                                    text: Or
+                                                  - kind: Whitespace
+                                                    text: " "
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
                                                         children:
-                                                          - kind: BinaryExpression
+                                                          - kind: IdentifierExpression
                                                             children:
+                                                              - kind: Identifier
+                                                                text: BitL_23
+                                              - kind: Unknown
+                                                text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallStatement
+                                                children:
+                                                  - kind: AndKeyword
+                                                    text: And
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: UnaryExpression
+                                                            children:
+                                                              - kind: NotKeyword
+                                                                text: Not
+                                                              - kind: Whitespace
+                                                                text: " "
                                                               - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: RightParenthesis
-                                                                    text: )
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: AndKeyword
-                                                                text: And
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: UnaryExpression
-                                                                children:
-                                                                  - kind: NotKeyword
-                                                                    text: Not
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: IdentifierExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: RANK4_L
+                                                                  - kind: Identifier
+                                                                    text: RANK4_L
                                                       - kind: Whitespace
                                                         text: "   "
                                               - kind: EndOfLineComment
@@ -11987,24 +11991,26 @@ cst:
                                                     text: )
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Unknown
-                                                    text: And
-                                                  - kind: Whitespace
-                                                    text: " "
                                                   - kind: CallStatement
                                                     children:
-                                                      - kind: NotKeyword
-                                                        text: Not
+                                                      - kind: AndKeyword
+                                                        text: And
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: ArgumentList
                                                         children:
                                                           - kind: Argument
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: UnaryExpression
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: RANK4_L
+                                                                  - kind: NotKeyword
+                                                                    text: Not
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: RANK4_L
                                                       - kind: Newline
                                                         text: "\r\n"
                                                   - kind: Whitespace
@@ -12401,40 +12407,44 @@ cst:
                                                 text: )
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Unknown
-                                                text: Or
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: BitL_23
+                                                  - kind: OrKeyword
+                                                    text: Or
+                                                  - kind: Whitespace
+                                                    text: " "
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
                                                         children:
-                                                          - kind: BinaryExpression
+                                                          - kind: IdentifierExpression
                                                             children:
+                                                              - kind: Identifier
+                                                                text: BitL_23
+                                              - kind: Unknown
+                                                text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallStatement
+                                                children:
+                                                  - kind: AndKeyword
+                                                    text: And
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: UnaryExpression
+                                                            children:
+                                                              - kind: NotKeyword
+                                                                text: Not
+                                                              - kind: Whitespace
+                                                                text: " "
                                                               - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: RightParenthesis
-                                                                    text: )
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: AndKeyword
-                                                                text: And
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: UnaryExpression
-                                                                children:
-                                                                  - kind: NotKeyword
-                                                                    text: Not
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: IdentifierExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: RANK4_L
+                                                                  - kind: Identifier
+                                                                    text: RANK4_L
                                               - kind: Unknown
                                                 text: )
                                               - kind: Whitespace
@@ -12531,24 +12541,26 @@ cst:
                                                     text: )
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Unknown
-                                                    text: And
-                                                  - kind: Whitespace
-                                                    text: " "
                                                   - kind: CallStatement
                                                     children:
-                                                      - kind: NotKeyword
-                                                        text: Not
+                                                      - kind: AndKeyword
+                                                        text: And
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: ArgumentList
                                                         children:
                                                           - kind: Argument
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: UnaryExpression
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: RANK4_L
+                                                                  - kind: NotKeyword
+                                                                    text: Not
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: RANK4_L
                                                   - kind: Unknown
                                                     text: )
                                                   - kind: Newline
@@ -13059,14 +13071,20 @@ cst:
                                                 text: )
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Unknown
-                                                text: Or
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: BitL_31
+                                                  - kind: OrKeyword
+                                                    text: Or
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: BitL_31
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -14001,14 +14019,10 @@ cst:
                                                 text: )
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Unknown
-                                                text: Or
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: BitL_31
+                                                  - kind: OrKeyword
+                                                    text: Or
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: ArgumentList
@@ -14017,10 +14031,14 @@ cst:
                                                         children:
                                                           - kind: IdentifierExpression
                                                             children:
-                                                              - kind: EndOfLineComment
-                                                                text: "' move bit30 to bit31 else overflow"
-                                                  - kind: Newline
-                                                    text: "\r\n"
+                                                              - kind: Identifier
+                                                                text: BitL_31
+                                                      - kind: Whitespace
+                                                        text: " "
+                                              - kind: EndOfLineComment
+                                                text: "' move bit30 to bit31 else overflow"
+                                              - kind: Newline
+                                                text: "\r\n"
                                               - kind: Whitespace
                                                 text: "  "
                                           - kind: ElseClause
@@ -14239,14 +14257,20 @@ cst:
                                                 text: )
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: Unknown
-                                                text: Or
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: CallStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: BitL_31
+                                                  - kind: OrKeyword
+                                                    text: Or
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: BitL_31
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace

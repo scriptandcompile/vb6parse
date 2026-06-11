@@ -3114,12 +3114,20 @@ cst:
                 text: )
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Mod
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "256"
+              - kind: CallStatement
+                children:
+                  - kind: ModKeyword
+                    text: Mod
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "256"
               - kind: Unknown
                 text: )
               - kind: Whitespace

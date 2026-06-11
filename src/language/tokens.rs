@@ -1203,11 +1203,41 @@ impl Token {
         matches!(
             self,
             Token::AddressOfKeyword
+                | Token::AliasKeyword
+                | Token::AndKeyword
+                | Token::BaseKeyword
+                | Token::BooleanKeyword
+                | Token::ByRefKeyword
+                | Token::ByteKeyword
+                | Token::CompareKeyword
+                | Token::ConstKeyword
+                | Token::CurrencyKeyword
+                | Token::DeclareKeyword
+                | Token::DecimalKeyword
+                | Token::ElseIfKeyword
+                | Token::ElseKeyword
+                | Token::EnumKeyword
+                | Token::EqvKeyword
                 | Token::ImpKeyword
+                | Token::IfKeyword
+                | Token::IntegerKeyword
                 | Token::IsKeyword
                 | Token::LikeKeyword
+                | Token::LibKeyword
+                | Token::ModKeyword
                 | Token::NotKeyword
+                | Token::NothingKeyword
+                | Token::OptionalKeyword
+                | Token::OrKeyword
+                | Token::PreserveKeyword
+                | Token::ReDimKeyword
+                | Token::SingleKeyword
+                | Token::StaticKeyword
                 | Token::ThenKeyword
+                | Token::VariantKeyword
+                | Token::WithEventsKeyword
+                | Token::WithKeyword
+                | Token::XorKeyword
                 | Token::GotoKeyword
                 | Token::GoSubKeyword
                 | Token::ReturnKeyword
@@ -1320,6 +1350,7 @@ impl Token {
                 | Token::LenKeyword
                 | Token::MeKeyword
                 | Token::NullKeyword
+                | Token::ObjectKeyword
                 | Token::ParamArrayKeyword
                 | Token::StringKeyword
                 | Token::VersionKeyword

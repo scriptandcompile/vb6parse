@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/environment.rs
-assertion_line: 750
 expression: class
 ---
 header:
@@ -6456,24 +6455,30 @@ cst:
                         text: )
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Or
-                      - kind: Whitespace
-                        text: " "
                       - kind: CallStatement
                         children:
-                          - kind: Identifier
-                            text: Map
-                          - kind: LeftParenthesis
-                            text: (
+                          - kind: OrKeyword
+                            text: Or
+                          - kind: Whitespace
+                            text: " "
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: CallExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
+                                      - kind: Identifier
+                                        text: Map
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                       - kind: CallStatement
                         children:
                           - kind: Identifier
@@ -6522,24 +6527,30 @@ cst:
                         text: )
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: Or
-                      - kind: Whitespace
-                        text: " "
                       - kind: CallStatement
                         children:
-                          - kind: Identifier
-                            text: Map
-                          - kind: LeftParenthesis
-                            text: (
+                          - kind: OrKeyword
+                            text: Or
+                          - kind: Whitespace
+                            text: " "
                           - kind: ArgumentList
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: CallExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
+                                      - kind: Identifier
+                                        text: Map
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                       - kind: CallStatement
                         children:
                           - kind: Identifier

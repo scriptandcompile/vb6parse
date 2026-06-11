@@ -25417,12 +25417,20 @@ cst:
                         text: )
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: And
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: "&"
+                      - kind: CallStatement
+                        children:
+                          - kind: AndKeyword
+                            text: And
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Ampersand
+                                        text: "&"
                       - kind: CallStatement
                         children:
                           - kind: Identifier
@@ -25603,40 +25611,52 @@ cst:
                 text: )
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Or
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: (
-              - kind: Unknown
-                text: (
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: HiByte
+                  - kind: OrKeyword
+                    text: Or
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
                     children:
                       - kind: Argument
                         children:
-                          - kind: BinaryExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: AndKeyword
-                                    text: And
-                              - kind: Whitespace
-                                text: " "
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: HiByte
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AndKeyword
+                                        text: And
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Ampersand
+                                            text: "&"
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: HFF
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
                               - kind: Ampersand
                                 text: "&"
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: HFF
-                                  - kind: Ampersand
-                                    text: "&"
               - kind: Unknown
                 text: )
               - kind: Whitespace

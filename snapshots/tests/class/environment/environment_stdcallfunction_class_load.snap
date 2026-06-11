@@ -1788,12 +1788,14 @@ cst:
             text: Get
           - kind: Whitespace
             text: " "
-          - kind: LibKeyword
+          - kind: Identifier
             text: LIB
-          - kind: LeftParenthesis
-            text: (
-          - kind: RightParenthesis
-            text: )
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Whitespace
             text: " "
           - kind: AsKeyword
@@ -1806,16 +1808,16 @@ cst:
             text: "\r\n"
           - kind: StatementList
             children:
-              - kind: Unknown
-                text: LIB
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
                   - kind: IdentifierExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: LibKeyword
+                        text: LIB
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: IdentifierExpression

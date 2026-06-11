@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/interaction/doevents.rs
+source: vb6parse/src/syntax/library/functions/interaction/doevents.rs
 expression: tree
 ---
 root:
@@ -51,7 +51,7 @@ root:
           text: DoEvents
         - kind: Whitespace
           text: " "
-    - kind: Unknown
+    - kind: ElseKeyword
       text: Else
     - kind: Whitespace
       text: " "

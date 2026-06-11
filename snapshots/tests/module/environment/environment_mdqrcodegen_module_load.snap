@@ -663,10 +663,12 @@ cst:
                     text: End
                   - kind: Whitespace
                     text: " "
-                  - kind: Unknown
-                    text: Enum
-                  - kind: Newline
-                    text: "\r\n"
+                  - kind: CallStatement
+                    children:
+                      - kind: EnumKeyword
+                        text: Enum
+                      - kind: Newline
+                        text: "\r\n"
                   - kind: DimStatement
                     children:
                       - kind: PrivateKeyword

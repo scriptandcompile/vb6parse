@@ -1383,10 +1383,12 @@ cst:
                                 text: As
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: VariantKeyword
+                    text: Variant
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: RemComment
@@ -1411,14 +1413,22 @@ cst:
                                 text: As
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Boolean
-              - kind: Whitespace
-                text: " "
-              - kind: EndOfLineComment
-                text: "'In case state is lost"
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: BooleanKeyword
+                    text: Boolean
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: EndOfLineComment
+                                text: "'In case state is lost"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Unknown
                 text: End
               - kind: Whitespace
@@ -1581,10 +1591,12 @@ cst:
                                 text: As
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Integer
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -1603,10 +1615,12 @@ cst:
                                 text: As
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Integer
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: IntegerKeyword
+                    text: Integer
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -2219,14 +2233,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: memAddress
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -2235,26 +2245,32 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: memAddress
                       - kind: Whitespace
                         text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: LongPtr
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: Whitespace
-                    text: "                       "
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children: []
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: LongPtr
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                       "
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -4853,14 +4869,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: vt
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -4869,32 +4881,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: vt
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: _
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "                                 "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: memValue
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -4903,12 +4897,46 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: VariantKeyword
+                                text: Variant
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                                 "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: ByRefKeyword
+                            text: ByRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: memValue
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
               - kind: Unknown
                 text: )
               - kind: Whitespace
@@ -5089,14 +5117,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: vtDest
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -5105,32 +5129,112 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: vtDest
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: _
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                           "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: ByRefKeyword
+                            text: ByRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: memValueDest
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                           "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: ByRefKeyword
+                            text: ByRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: rmSrc
+                      - kind: Whitespace
+                        text: " "
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RemComment
+                                text: REMOTE_MEMORY _
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "                           "
               - kind: Unknown
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: memValueDest
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -5139,32 +5243,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: vtSrc
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: _
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "                           "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: rmSrc
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -5173,28 +5259,36 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: VariantKeyword
+                                text: Variant
                       - kind: Whitespace
                         text: " "
-              - kind: RemComment
-                text: REMOTE_MEMORY _
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "                           "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                           "
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: ByRefKeyword
+                            text: ByRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: memValueSrc
+                      - kind: Whitespace
+                        text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: vtSrc
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -5203,46 +5297,8 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: _
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "                           "
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: memValueSrc
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: AsKeyword
-                                text: As
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: Variant
+                              - kind: VariantKeyword
+                                text: Variant
               - kind: Unknown
                 text: )
               - kind: Newline
@@ -7529,14 +7585,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: memValue
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -7545,12 +7597,24 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: memValue
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
               - kind: Unknown
                 text: )
               - kind: Whitespace
@@ -12503,14 +12567,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: rmDest
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -12519,28 +12579,36 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: rmDest
                       - kind: Whitespace
                         text: " "
-              - kind: RemComment
-                text: "REMOTE_MEMORY, ByRef vtDest As Variant _"
-              - kind: Newline
-                text: "\r\n"
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: RemComment
+                                text: "REMOTE_MEMORY, ByRef vtDest As Variant _"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "                    "
               - kind: Unknown
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: destValue
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -12549,24 +12617,14 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: destValue
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
-              - kind: Unknown
-                text: ","
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: sArr
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -12575,26 +12633,46 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: VariantKeyword
+                                text: Variant
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: ByRefKeyword
+                            text: ByRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sArr
                       - kind: Whitespace
                         text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: SAFEARRAY_1D
+                  - kind: AsKeyword
+                    text: As
                   - kind: Whitespace
                     text: " "
-                  - kind: Underscore
-                    text: _
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: Whitespace
-                    text: "                    "
                   - kind: ArgumentList
                     children:
                       - kind: Argument
-                        children: []
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: SAFEARRAY_1D
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Underscore
+                        text: _
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "                    "
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -12701,14 +12779,10 @@ cst:
                 text: ","
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: ByRef
-              - kind: Whitespace
-                text: " "
               - kind: CallStatement
                 children:
-                  - kind: Identifier
-                    text: bstrPtrValue
+                  - kind: ByRefKeyword
+                    text: ByRef
                   - kind: Whitespace
                     text: " "
                   - kind: ArgumentList
@@ -12717,12 +12791,24 @@ cst:
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: AsKeyword
-                                text: As
+                              - kind: Identifier
+                                text: bstrPtrValue
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: Variant
+              - kind: CallStatement
+                children:
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: VariantKeyword
+                                text: Variant
               - kind: Unknown
                 text: )
               - kind: Newline
@@ -15811,14 +15897,10 @@ cst:
                         text: ","
                       - kind: Whitespace
                         text: " "
-                      - kind: Unknown
-                        text: ByRef
-                      - kind: Whitespace
-                        text: " "
                       - kind: CallStatement
                         children:
-                          - kind: Identifier
-                            text: vtArr
+                          - kind: ByRefKeyword
+                            text: ByRef
                           - kind: Whitespace
                             text: " "
                           - kind: ArgumentList
@@ -15827,12 +15909,24 @@ cst:
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: AsKeyword
-                                        text: As
+                                      - kind: Identifier
+                                        text: vtArr
                               - kind: Whitespace
                                 text: " "
-                      - kind: Unknown
-                        text: Variant
+                      - kind: CallStatement
+                        children:
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: VariantKeyword
+                                        text: Variant
                       - kind: Unknown
                         text: )
                       - kind: Newline
