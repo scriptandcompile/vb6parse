@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-11T18:26:06Z",
+  "last_updated": "2026-06-11T19:12:48Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -511,6 +511,40 @@
           "percent": 96.02
         }
       }
+    },
+    {
+      "timestamp": "2026-06-11T19:12:48Z",
+      "commit_sha": "26b410b30c3e39b8aab58134a24e4ddafa05a539",
+      "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.95,
+        "region_coverage": 96.03
+      },
+      "tests": {
+        "total": 6211,
+        "lib_tests": 5518,
+        "doc_tests": 119,
+        "integration_tests": 574,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96816,
+          "total": 100974,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6225,
+          "total": 6697,
+          "percent": 92.95
+        },
+        "regions": {
+          "covered": 154665,
+          "total": 161066,
+          "percent": 96.03
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -520,29 +554,29 @@
       "change_percent": 0.0,
       "best": 95.88,
       "worst": 95.13,
-      "average": 95.72
+      "average": 95.73
     },
     "function_coverage": {
       "latest": 92.95,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.02
+      "average": 93.01
     },
     "region_coverage": {
-      "latest": 96.02,
+      "latest": 96.03,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.89
+      "average": 95.9
     },
     "test_count": {
-      "latest": 6209,
+      "latest": 6211,
       "trend": "stable",
-      "change_count": 5,
-      "growth_rate": 0.08
+      "change_count": 2,
+      "growth_rate": 0.03
     }
   }
 }
