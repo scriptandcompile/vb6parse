@@ -7075,30 +7075,34 @@ cst:
                         text: $
                       - kind: Whitespace
                         text: " "
-                      - kind: AssignmentStatement
+                      - kind: Unknown
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: Identifier
+                            text: Space
+                          - kind: ArgumentList
                             children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallExpression
-                            children:
-                              - kind: Identifier
-                                text: Space$
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
+                              - kind: Argument
                                 children:
-                                  - kind: Argument
+                                  - kind: CallExpression
                                     children:
-                                      - kind: NumericLiteralExpression
+                                      - kind: DollarSign
+                                        text: $
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: IntegerLiteral
-                                            text: "200"
-                              - kind: RightParenthesis
-                                text: )
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "200"
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

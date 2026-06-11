@@ -38965,32 +38965,30 @@ cst:
                                             text: )
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: AssignmentStatement
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: CallStatement
                                             children:
-                                              - kind: BinaryExpression
+                                              - kind: Identifier
+                                                text: HE0
+                                              - kind: ArgumentList
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: Argument
                                                     children:
-                                                      - kind: EqualityOperator
-                                                        text: "="
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Ampersand
+                                                            text: "&"
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: Ampersand
-                                                    text: "&"
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: HE0
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: ThenKeyword
-                                                    text: Then
-                                              - kind: Newline
-                                                text: "\n"
+                                          - kind: ThenKeyword
+                                            text: Then
+                                          - kind: Newline
+                                            text: "\n"
                                       - kind: Whitespace
                                         text: "            "
                                       - kind: EndOfLineComment

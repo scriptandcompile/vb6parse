@@ -101,7 +101,17 @@ impl Parser<'_> {
     /// Check if the current position is at the start of an assignment statement.
     /// This looks ahead to see if there's an `=` operator (not part of a comparison).
     /// Note: Let statements are handled separately and should be checked first.
+    #[allow(clippy::too_many_lines)]
     pub(super) fn is_at_assignment(&self) -> bool {
+        // Assignment statements must start with an assignable token.
+        if !(self.at_token(Token::Identifier)
+            || self.at_keyword()
+            || self.at_token(Token::PeriodOperator)
+            || self.at_token(Token::Octothorpe))
+        {
+            return false;
+        }
+
         // Let statements are handled separately
         if self.at_token(Token::LetKeyword) {
             return false;
@@ -148,6 +158,15 @@ impl Parser<'_> {
                 | Token::LongLiteral
                 | Token::SingleLiteral
                 | Token::DoubleLiteral
+                | Token::DecimalLiteral
+                | Token::StringLiteral
+                | Token::DateTimeLiteral
+                | Token::TrueKeyword
+                | Token::FalseKeyword
+                | Token::NullKeyword
+                | Token::EmptyKeyword
+                | Token::ExclamationMark
+                | Token::Octothorpe
                 | Token::Comma => {
                     last_was_period = false;
                     at_start = false;
@@ -178,7 +197,9 @@ impl Parser<'_> {
                 | Token::BackwardSlashOperator
                 | Token::ExponentiationOperator
                 | Token::Ampersand => {
-                    seen_other_operator = true;
+                    if paren_depth == 0 {
+                        seen_other_operator = true;
+                    }
                     last_was_period = false;
                     at_start = false;
                 }
@@ -189,6 +210,12 @@ impl Parser<'_> {
                 }
                 // At the start of a statement, keywords can be used as variable names
                 _ if at_start && token.is_keyword() => {
+                    at_start = false;
+                }
+                // Inside indexing/call parentheses, allow expression tokens while looking for
+                // top-level assignment operator.
+                _ if paren_depth > 0 => {
+                    last_was_period = false;
                     at_start = false;
                 }
                 // If we hit other unexpected tokens, it's not an assignment
@@ -257,6 +284,38 @@ obj.subProperty = value
     fn array_assignment() {
         let source = r"
 arr(0) = 100
+";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/assignment");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn assignment_with_default_property_indexer_lvalue() {
+        let source = r#"
+rs("OrderDate") = Date
+"#;
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/assignment");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn assignment_with_index_expression_lvalue() {
+        let source = r"
+arr(i + 1) = value
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");

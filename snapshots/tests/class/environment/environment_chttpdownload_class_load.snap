@@ -4478,20 +4478,22 @@ cst:
                                         text: SocketType
                   - kind: ColonOperator
                     text: ":"
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
+                      - kind: Identifier
+                        text: ucsSckStream
+                      - kind: ArgumentList
                         children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: ucsSckStream
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
                   - kind: ThenKeyword
                     text: Then
                   - kind: Newline
@@ -4676,32 +4678,28 @@ cst:
                                                     text: UseTls
                               - kind: ColonOperator
                                 text: ":"
-                              - kind: AssignmentStatement
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: CallStatement
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Identifier
+                                    text: pvIsProtocolSecure
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: EqualityOperator
-                                        text: "="
-                                  - kind: CallExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: pvIsProtocolSecure
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
+                                      - kind: Argument
                                         children:
-                                          - kind: Argument
+                                          - kind: MemberAccessExpression
                                             children:
-                                              - kind: MemberAccessExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: m_uRemote
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Protocol
-                                      - kind: RightParenthesis
-                                        text: )
+                                              - kind: Identifier
+                                                text: m_uRemote
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: Protocol
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: RightParenthesis
                                 text: )
                               - kind: Whitespace
@@ -6690,20 +6688,22 @@ cst:
                                                             text: SocketType
                                       - kind: ColonOperator
                                         text: ":"
-                                      - kind: AssignmentStatement
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: CallStatement
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: Identifier
+                                            text: ucsSckStream
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: EqualityOperator
-                                                text: "="
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: ucsSckStream
-                                      - kind: RightParenthesis
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                              - kind: Whitespace
+                                                text: " "
                                       - kind: ThenKeyword
                                         text: Then
                                       - kind: Newline
@@ -6900,32 +6900,28 @@ cst:
                                                                         text: UseTls
                                                   - kind: ColonOperator
                                                     text: ":"
-                                                  - kind: AssignmentStatement
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: CallStatement
                                                     children:
-                                                      - kind: IdentifierExpression
+                                                      - kind: Identifier
+                                                        text: pvIsProtocolSecure
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
                                                         children:
-                                                          - kind: EqualityOperator
-                                                            text: "="
-                                                      - kind: CallExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: pvIsProtocolSecure
-                                                          - kind: LeftParenthesis
-                                                            text: (
-                                                          - kind: ArgumentList
+                                                          - kind: Argument
                                                             children:
-                                                              - kind: Argument
+                                                              - kind: MemberAccessExpression
                                                                 children:
-                                                                  - kind: MemberAccessExpression
-                                                                    children:
-                                                                      - kind: Identifier
-                                                                        text: m_uRemote
-                                                                      - kind: PeriodOperator
-                                                                        text: "."
-                                                                      - kind: Identifier
-                                                                        text: Protocol
-                                                          - kind: RightParenthesis
-                                                            text: )
+                                                                  - kind: Identifier
+                                                                    text: m_uRemote
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Protocol
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: RightParenthesis
                                                     text: )
                                                   - kind: Whitespace
@@ -9504,20 +9500,22 @@ cst:
                                                     text: CodePage
                               - kind: ColonOperator
                                 text: ":"
-                              - kind: AssignmentStatement
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: CallStatement
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Identifier
+                                    text: ucsScpAcp
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: EqualityOperator
-                                        text: "="
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: ucsScpAcp
-                              - kind: RightParenthesis
-                                text: )
-                              - kind: Whitespace
-                                text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Whitespace
+                                        text: " "
                               - kind: ThenKeyword
                                 text: Then
                               - kind: Newline
@@ -14532,20 +14530,22 @@ cst:
                                                 text: CodePage
                           - kind: ColonOperator
                             text: ":"
-                          - kind: AssignmentStatement
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: CallStatement
                             children:
-                              - kind: IdentifierExpression
+                              - kind: Identifier
+                                text: ucsScpAcp
+                              - kind: ArgumentList
                                 children:
-                                  - kind: EqualityOperator
-                                    text: "="
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: ucsScpAcp
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Whitespace
-                            text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: RightParenthesis
+                                            text: )
+                                  - kind: Whitespace
+                                    text: " "
                           - kind: ThenKeyword
                             text: Then
                           - kind: Newline
@@ -15282,20 +15282,22 @@ cst:
                                         text: CodePage
                   - kind: ColonOperator
                     text: ":"
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
+                      - kind: Identifier
+                        text: ucsScpAcp
+                      - kind: ArgumentList
                         children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: ucsScpAcp
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
                   - kind: ThenKeyword
                     text: Then
                   - kind: Newline
@@ -17134,16 +17136,12 @@ cst:
                             text: Flush
                           - kind: ColonOperator
                             text: ":"
-                      - kind: AssignmentStatement
+                      - kind: Unknown
+                        text: "="
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: BooleanLiteralExpression
-                            children:
-                              - kind: TrueKeyword
-                                text: "True"
+                          - kind: TrueKeyword
+                            text: "True"
                           - kind: Newline
                             text: "\r\n"
                       - kind: RaiseEventStatement

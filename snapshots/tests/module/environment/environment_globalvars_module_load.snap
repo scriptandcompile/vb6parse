@@ -1287,18 +1287,14 @@ cst:
                         text: $
                       - kind: Whitespace
                         text: " "
-                      - kind: AssignmentStatement
+                      - kind: Unknown
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: AskCancelGR
+                          - kind: Identifier
+                            text: AskCancelGR
                           - kind: Newline
                             text: "\r\n"
                       - kind: Unknown
@@ -1307,18 +1303,14 @@ cst:
                         text: $
                       - kind: Whitespace
                         text: " "
-                      - kind: AssignmentStatement
+                      - kind: Unknown
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: AskOkGR
+                          - kind: Identifier
+                            text: AskOkGR
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -1473,18 +1465,14 @@ cst:
                             text: $
                           - kind: Whitespace
                             text: " "
-                          - kind: AssignmentStatement
+                          - kind: Unknown
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallStatement
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: EqualityOperator
-                                    text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: AskCancelEn
+                              - kind: Identifier
+                                text: AskCancelEn
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Unknown
@@ -1493,18 +1481,14 @@ cst:
                             text: $
                           - kind: Whitespace
                             text: " "
-                          - kind: AssignmentStatement
+                          - kind: Unknown
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallStatement
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: EqualityOperator
-                                    text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: AskOkEn
+                              - kind: Identifier
+                                text: AskOkEn
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace
@@ -2765,34 +2749,30 @@ cst:
                             children:
                               - kind: Identifier
                                 text: ColorDialog
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: Scr
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: NameKeyword
+                                text: Name
                           - kind: Whitespace
                             text: " "
-                          - kind: BinaryExpression
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Scr
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: NameKeyword
-                                    text: Name
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"GuiM2000\""
+                              - kind: StringLiteral
+                                text: "\"GuiM2000\""
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -4165,34 +4145,30 @@ cst:
                             children:
                               - kind: Identifier
                                 text: FontDialog
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: Scr
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: NameKeyword
+                                text: Name
                           - kind: Whitespace
                             text: " "
-                          - kind: BinaryExpression
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Scr
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: NameKeyword
-                                    text: Name
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"GuiM2000\""
+                              - kind: StringLiteral
+                                text: "\"GuiM2000\""
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -6275,34 +6251,30 @@ cst:
                             children:
                               - kind: Identifier
                                 text: LoadFile
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: Scr
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: NameKeyword
+                                text: Name
                           - kind: Whitespace
                             text: " "
-                          - kind: BinaryExpression
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Scr
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: NameKeyword
-                                    text: Name
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"GuiM2000\""
+                              - kind: StringLiteral
+                                text: "\"GuiM2000\""
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -8529,34 +8501,30 @@ cst:
                     children:
                       - kind: Identifier
                         text: LoadFile
+              - kind: Unknown
+                text: ","
+              - kind: Whitespace
+                text: " "
               - kind: AssignmentStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: MemberAccessExpression
                     children:
-                      - kind: Comma
-                        text: ","
+                      - kind: Identifier
+                        text: Scr
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: NameKeyword
+                        text: Name
                   - kind: Whitespace
                     text: " "
-                  - kind: BinaryExpression
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteralExpression
                     children:
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: Scr
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: NameKeyword
-                            text: Name
-                      - kind: Whitespace
-                        text: " "
-                      - kind: EqualityOperator
-                        text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: StringLiteralExpression
-                        children:
-                          - kind: StringLiteral
-                            text: "\"GuiM2000\""
+                      - kind: StringLiteral
+                        text: "\"GuiM2000\""
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -10801,34 +10769,30 @@ cst:
                             children:
                               - kind: Identifier
                                 text: LoadFile
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: Scr
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: NameKeyword
+                                text: Name
                           - kind: Whitespace
                             text: " "
-                          - kind: BinaryExpression
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Scr
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: NameKeyword
-                                    text: Name
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"GuiM2000\""
+                              - kind: StringLiteral
+                                text: "\"GuiM2000\""
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -12993,34 +12957,30 @@ cst:
                             children:
                               - kind: Identifier
                                 text: LoadFile
+                      - kind: Unknown
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: Comma
-                                text: ","
+                              - kind: Identifier
+                                text: Scr
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: NameKeyword
+                                text: Name
                           - kind: Whitespace
                             text: " "
-                          - kind: BinaryExpression
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
                             children:
-                              - kind: MemberAccessExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Scr
-                                  - kind: PeriodOperator
-                                    text: "."
-                                  - kind: NameKeyword
-                                    text: Name
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: StringLiteralExpression
-                                children:
-                                  - kind: StringLiteral
-                                    text: "\"GuiM2000\""
+                              - kind: StringLiteral
+                                text: "\"GuiM2000\""
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement
@@ -13567,56 +13527,58 @@ cst:
                                 text: $
                               - kind: Whitespace
                                 text: " "
-                              - kind: AssignmentStatement
+                              - kind: Unknown
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallStatement
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Identifier
+                                    text: all
+                                  - kind: ArgumentList
                                     children:
-                                      - kind: EqualityOperator
-                                        text: "="
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: IdentifierExpression
+                                      - kind: Argument
                                         children:
-                                          - kind: Identifier
-                                            text: all
-                                          - kind: DollarSign
-                                            text: $
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Ampersand
-                                        text: "&"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: CStr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: BinaryExpression
                                             children:
-                                              - kind: Argument
+                                              - kind: IdentifierExpression
                                                 children:
-                                                  - kind: CallExpression
+                                                  - kind: DollarSign
+                                                    text: $
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: CStr
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: Identifier
-                                                        text: aa
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: Argument
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: IdentifierExpression
+                                                              - kind: Identifier
+                                                                text: aa
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: i
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                          - kind: RightParenthesis
-                                            text: )
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: i
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                  - kind: RightParenthesis
+                                                    text: )
                                   - kind: Newline
                                     text: "\r\n"
                           - kind: NextKeyword

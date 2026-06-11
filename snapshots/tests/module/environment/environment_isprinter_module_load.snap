@@ -871,64 +871,68 @@ cst:
                 text: $
               - kind: Whitespace
                 text: " "
-              - kind: AssignmentStatement
+              - kind: Unknown
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: StringKeyword
+                    text: String
+                  - kind: ArgumentList
                     children:
-                      - kind: EqualityOperator
-                        text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: String$
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: Argument
                         children:
-                          - kind: Argument
+                          - kind: CallExpression
                             children:
-                              - kind: BinaryExpression
+                              - kind: DollarSign
+                                text: $
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: NumericLiteralExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: IntegerLiteral
-                                        text: "8192"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: DivisionOperator
-                                    text: /
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: NumericLiteralExpression
-                                    children:
-                                      - kind: IntegerLiteral
-                                        text: "2"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Chr
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
+                                      - kind: BinaryExpression
                                         children:
                                           - kind: NumericLiteralExpression
                                             children:
                                               - kind: IntegerLiteral
-                                                text: "0"
-                                  - kind: RightParenthesis
-                                    text: )
-                      - kind: RightParenthesis
-                        text: )
+                                                text: "8192"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: DivisionOperator
+                                            text: /
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "2"
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Chr
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: NumericLiteralExpression
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "0"
+                                          - kind: RightParenthesis
+                                            text: )
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

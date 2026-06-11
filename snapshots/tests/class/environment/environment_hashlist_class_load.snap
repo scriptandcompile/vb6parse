@@ -18324,38 +18324,42 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
-                text: MemLong
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: VarPtr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: a
-                              - kind: DollarSign
-                                text: $
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: Identifier
+                        text: MemLong
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: VarPtr
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: a
+                                              - kind: DollarSign
+                                                text: $
+                                  - kind: RightParenthesis
+                                    text: )
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: IdentifierExpression
@@ -18366,38 +18370,42 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
-                text: MemLong
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: VarPtr
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: b
-                              - kind: DollarSign
-                                text: $
-                  - kind: RightParenthesis
-                    text: )
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
               - kind: AssignmentStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: EqualityOperator
-                        text: "="
+                      - kind: Identifier
+                        text: MemLong
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: VarPtr
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: b
+                                              - kind: DollarSign
+                                                text: $
+                                  - kind: RightParenthesis
+                                    text: )
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
                   - kind: IdentifierExpression
@@ -19024,54 +19032,52 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "        "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: MemByte
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: VarPtr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: OneLongLong
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "8"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: Identifier
+                                text: MemByte
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: VarPtr
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: OneLongLong
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "8"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
                           - kind: NumericLiteralExpression
@@ -19126,54 +19132,52 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "        "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: MemByte
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: VarPtr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: OneBigLongLong
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "12"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: Identifier
+                                text: MemByte
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: VarPtr
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: OneBigLongLong
+                                              - kind: RightParenthesis
+                                                text: )
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "12"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
                           - kind: NumericLiteralExpression

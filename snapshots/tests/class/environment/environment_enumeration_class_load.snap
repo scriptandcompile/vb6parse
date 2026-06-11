@@ -1436,22 +1436,18 @@ cst:
                 text: $
               - kind: Whitespace
                 text: " "
-              - kind: AssignmentStatement
+              - kind: Unknown
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
                 children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: EqualityOperator
-                        text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: MemberAccessExpression
-                    children:
-                      - kind: Identifier
-                        text: other
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: KeyToString
+                  - kind: Identifier
+                    text: other
+                  - kind: PeriodOperator
+                    text: "."
+                  - kind: Identifier
+                    text: KeyToString
                   - kind: Newline
                     text: "\r\n"
               - kind: ForStatement

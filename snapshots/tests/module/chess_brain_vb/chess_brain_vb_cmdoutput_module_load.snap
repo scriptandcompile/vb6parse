@@ -4369,18 +4369,12 @@ cst:
                             text: )
                           - kind: Whitespace
                             text: " "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: EqualityOperator
-                                    text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
                           - kind: Whitespace
                             text: " "
                           - kind: ThenKeyword

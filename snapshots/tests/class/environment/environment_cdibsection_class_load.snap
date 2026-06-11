@@ -9428,32 +9428,30 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: AssignmentStatement
-                    children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: CallExpression
-                        children:
-                          - kind: Identifier
-                            text: Hex$
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: bckColor
-                          - kind: RightParenthesis
-                            text: )
+                  - kind: EqualityOperator
+                    text: "="
                   - kind: Whitespace
                     text: " "
+                  - kind: Identifier
+                    text: Hex
+                  - kind: DollarSign
+                    text: $
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: CallStatement
+                    children:
+                      - kind: Identifier
+                        text: bckColor
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Whitespace
+                            text: " "
                   - kind: ElseKeyword
                     text: Else
                   - kind: Whitespace
@@ -9464,18 +9462,14 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: bckColor
+                      - kind: Identifier
+                        text: bckColor
                       - kind: Newline
                         text: "\r\n"
               - kind: Unknown
@@ -9484,54 +9478,58 @@ cst:
                 text: $
               - kind: Whitespace
                 text: " "
-              - kind: AssignmentStatement
+              - kind: Unknown
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: Identifier
+                    text: Right
+                  - kind: ArgumentList
                     children:
-                      - kind: EqualityOperator
-                        text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: Right$
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: Argument
                         children:
-                          - kind: Argument
+                          - kind: CallExpression
                             children:
-                              - kind: BinaryExpression
+                              - kind: DollarSign
+                                text: $
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: StringLiteralExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: StringLiteral
-                                        text: "\"00000\""
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"00000\""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: ba
+                                              - kind: DollarSign
+                                                text: $
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: Ampersand
-                                    text: "&"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: Identifier
-                                        text: ba
-                                      - kind: DollarSign
-                                        text: $
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "6"
-                      - kind: RightParenthesis
-                        text: )
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "6"
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -25086,52 +25084,50 @@ cst:
                                             children:
                                               - kind: Whitespace
                                                 text: "                "
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: bDib
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: BinaryExpression
-                                                            children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: x
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: AdditionOperator
-                                                                text: +
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: z
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: y
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                              - kind: Whitespace
-                                                text: " "
                                               - kind: AssignmentStatement
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: CallExpression
                                                     children:
-                                                      - kind: EqualityOperator
-                                                        text: "="
+                                                      - kind: Identifier
+                                                        text: bDib
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: BinaryExpression
+                                                                children:
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: x
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: AdditionOperator
+                                                                    text: +
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: IdentifierExpression
+                                                                    children:
+                                                                      - kind: Identifier
+                                                                        text: z
+                                                          - kind: Comma
+                                                            text: ","
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: IdentifierExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: y
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: IdentifierExpression
@@ -25368,52 +25364,50 @@ cst:
                                                 children:
                                                   - kind: Whitespace
                                                     text: "                "
-                                                  - kind: CallStatement
+                                                  - kind: AssignmentStatement
                                                     children:
-                                                      - kind: Identifier
-                                                        text: bDib
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: CallExpression
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: Identifier
+                                                            text: bDib
+                                                          - kind: LeftParenthesis
+                                                            text: (
+                                                          - kind: ArgumentList
                                                             children:
-                                                              - kind: BinaryExpression
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: BinaryExpression
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: x
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: AdditionOperator
+                                                                        text: +
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: NumericLiteralExpression
+                                                                        children:
+                                                                          - kind: IntegerLiteral
+                                                                            text: "1"
+                                                              - kind: Comma
+                                                                text: ","
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: Argument
                                                                 children:
                                                                   - kind: IdentifierExpression
                                                                     children:
                                                                       - kind: Identifier
-                                                                        text: x
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: AdditionOperator
-                                                                    text: +
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: NumericLiteralExpression
-                                                                    children:
-                                                                      - kind: IntegerLiteral
-                                                                        text: "1"
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Argument
-                                                            children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: y
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: AssignmentStatement
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: EqualityOperator
-                                                            text: "="
+                                                                        text: y
+                                                          - kind: RightParenthesis
+                                                            text: )
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: EqualityOperator
+                                                        text: "="
                                                       - kind: Whitespace
                                                         text: " "
                                                       - kind: BinaryExpression

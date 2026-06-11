@@ -1310,54 +1310,56 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: MeKeyword
-                            text: Me
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: Identifier
-                            text: Controls
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: StringLiteralExpression
-                                        children:
-                                          - kind: StringLiteral
-                                            text: "\"Piece\""
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Ampersand
-                                        text: "&"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: CStr
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: PieceType
-                                          - kind: RightParenthesis
-                                            text: )
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: MeKeyword
+                                        text: Me
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Controls
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: StringLiteralExpression
+                                                children:
+                                                  - kind: StringLiteral
+                                                    text: "\"Piece\""
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Ampersand
+                                                text: "&"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: CStr
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: PieceType
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8024,50 +8026,50 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WPAWN
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WPAWN
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8134,50 +8136,50 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WKNIGHT
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WKNIGHT
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8244,50 +8246,50 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WBISHOP
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WBISHOP
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8354,50 +8356,50 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WROOK
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WROOK
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8464,50 +8466,50 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WQUEEN
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WQUEEN
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier
@@ -8584,50 +8586,50 @@ cst:
                         text: "\r\n"
                       - kind: Whitespace
                         text: "  "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: oPieceCnt
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: PieceDisplayOrder
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: WKING
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                          - kind: RightParenthesis
-                            text: )
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: oPieceCnt
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: PieceDisplayOrder
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: WKING
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: AdditionOperator
+                                                text: +
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "1"
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: PeriodOperator
                                 text: "."
                               - kind: Identifier

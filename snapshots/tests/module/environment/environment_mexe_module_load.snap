@@ -2205,18 +2205,14 @@ cst:
                         text: $
                       - kind: Whitespace
                         text: " "
-                      - kind: AssignmentStatement
+                      - kind: Unknown
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: Command
+                          - kind: Identifier
+                            text: Command
                           - kind: Newline
                             text: "\r\n"
                   - kind: ElseClause

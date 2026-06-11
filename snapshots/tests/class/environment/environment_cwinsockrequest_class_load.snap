@@ -2451,104 +2451,100 @@ cst:
                                         text: SocketType
                   - kind: ColonOperator
                     text: ":"
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
+                      - kind: Identifier
+                        text: IIf
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
                         children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: CallExpression
-                        children:
-                          - kind: Identifier
-                            text: IIf
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
+                          - kind: Argument
                             children:
-                              - kind: Argument
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: BinaryExpression
+                                  - kind: CallExpression
                                     children:
-                                      - kind: CallExpression
+                                      - kind: Identifier
+                                        text: Right$
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: Identifier
-                                            text: Right$
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: Argument
                                             children:
-                                              - kind: Argument
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: CallExpression
+                                                  - kind: Identifier
+                                                    text: At
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: Identifier
-                                                        text: At
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: Argument
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: IdentifierExpression
                                                             children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: vSplit
-                                                          - kind: Comma
-                                                            text: ","
-                                                          - kind: Whitespace
-                                                            text: " "
-                                                          - kind: Argument
+                                                              - kind: Identifier
+                                                                text: vSplit
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
                                                             children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: lIdx
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                              - kind: Identifier
+                                                                text: lIdx
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "4"
-                                          - kind: RightParenthesis
-                                            text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: StringLiteralExpression
-                                        children:
-                                          - kind: StringLiteral
-                                            text: "\"/udp\""
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
+                                                  - kind: IntegerLiteral
+                                                    text: "4"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
                                     children:
-                                      - kind: Identifier
-                                        text: ucsSckDatagram
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
+                                      - kind: StringLiteral
+                                        text: "\"/udp\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: ucsSckStream
-                          - kind: RightParenthesis
-                            text: )
+                                  - kind: Identifier
+                                    text: ucsSckDatagram
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: ucsSckStream
+                      - kind: RightParenthesis
+                        text: )
                   - kind: RightParenthesis
                     text: )
                   - kind: Whitespace

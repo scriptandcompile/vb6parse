@@ -6284,42 +6284,38 @@ cst:
                 text: $
               - kind: Whitespace
                 text: " "
-              - kind: AssignmentStatement
+              - kind: Unknown
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: Identifier
+                    text: UCase
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: ArgumentList
                     children:
-                      - kind: EqualityOperator
-                        text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: UCase
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: Argument
                         children:
-                          - kind: Argument
+                          - kind: CallExpression
                             children:
-                              - kind: CallExpression
+                              - kind: Identifier
+                                text: ExtractType
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Identifier
-                                    text: ExtractType
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: FileName
-                                  - kind: RightParenthesis
-                                    text: )
-                      - kind: RightParenthesis
-                        text: )
+                                          - kind: Identifier
+                                            text: FileName
+                              - kind: RightParenthesis
+                                text: )
+                  - kind: RightParenthesis
+                    text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

@@ -25279,38 +25279,38 @@ cst:
                                                                                     text: "\r\n"
                                                                               - kind: Whitespace
                                                                                 text: "  "
-                                                                              - kind: CallStatement
-                                                                                children:
-                                                                                  - kind: Identifier
-                                                                                    text: arGameMoves
-                                                                                  - kind: LeftParenthesis
-                                                                                    text: (
-                                                                                  - kind: ArgumentList
-                                                                                    children:
-                                                                                      - kind: Argument
-                                                                                        children:
-                                                                                          - kind: BinaryExpression
-                                                                                            children:
-                                                                                              - kind: IdentifierExpression
-                                                                                                children:
-                                                                                                  - kind: Identifier
-                                                                                                    text: MAX_GAME_MOVES
-                                                                                              - kind: Whitespace
-                                                                                                text: " "
-                                                                                              - kind: SubtractionOperator
-                                                                                                text: "-"
-                                                                                              - kind: Whitespace
-                                                                                                text: " "
-                                                                                              - kind: NumericLiteralExpression
-                                                                                                children:
-                                                                                                  - kind: IntegerLiteral
-                                                                                                    text: "1"
-                                                                                  - kind: RightParenthesis
-                                                                                    text: )
                                                                               - kind: AssignmentStatement
                                                                                 children:
-                                                                                  - kind: IdentifierExpression
+                                                                                  - kind: MemberAccessExpression
                                                                                     children:
+                                                                                      - kind: CallExpression
+                                                                                        children:
+                                                                                          - kind: Identifier
+                                                                                            text: arGameMoves
+                                                                                          - kind: LeftParenthesis
+                                                                                            text: (
+                                                                                          - kind: ArgumentList
+                                                                                            children:
+                                                                                              - kind: Argument
+                                                                                                children:
+                                                                                                  - kind: BinaryExpression
+                                                                                                    children:
+                                                                                                      - kind: IdentifierExpression
+                                                                                                        children:
+                                                                                                          - kind: Identifier
+                                                                                                            text: MAX_GAME_MOVES
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: SubtractionOperator
+                                                                                                        text: "-"
+                                                                                                      - kind: Whitespace
+                                                                                                        text: " "
+                                                                                                      - kind: NumericLiteralExpression
+                                                                                                        children:
+                                                                                                          - kind: IntegerLiteral
+                                                                                                            text: "1"
+                                                                                          - kind: RightParenthesis
+                                                                                            text: )
                                                                                       - kind: PeriodOperator
                                                                                         text: "."
                                                                                       - kind: Identifier

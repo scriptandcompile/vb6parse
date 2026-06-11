@@ -15053,160 +15053,156 @@ cst:
                 text: $
               - kind: Whitespace
                 text: " "
-              - kind: AssignmentStatement
+              - kind: Unknown
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: CallStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: Identifier
+                    text: ListenUnicode
+                  - kind: LeftParenthesis
+                    text: (
+                  - kind: ArgumentList
                     children:
-                      - kind: EqualityOperator
-                        text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: ListenUnicode
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: Argument
                         children:
-                          - kind: Argument
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "915"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "915"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "953"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "953"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "974"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "974"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "961"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "961"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "947"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "947"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "959"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "959"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "962"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "962"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "32"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "32"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "922"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "922"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "945"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "945"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "961"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "961"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "961"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "961"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "940"
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
+                              - kind: IntegerLiteral
+                                text: "940"
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "962"
-                      - kind: RightParenthesis
-                        text: )
+                              - kind: IntegerLiteral
+                                text: "962"
+                  - kind: RightParenthesis
+                    text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -19495,26 +19491,26 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: combo1
                   - kind: AssignmentStatement
                     children:
                       - kind: IdentifierExpression
                         children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: combo1
                           - kind: PeriodOperator
                             text: "."
                           - kind: Identifier
                             text: ListText
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ElseKeyword
-                    text: Else
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: ElseKeyword
+                            text: Else
                   - kind: Whitespace
                     text: " "
                   - kind: Identifier
@@ -19523,22 +19519,18 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: combo1
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: TextKeyword
-                            text: Text
+                      - kind: Identifier
+                        text: combo1
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: TextKeyword
+                        text: Text
                       - kind: Newline
                         text: "\r\n"
               - kind: CallStatement
@@ -19661,26 +19653,26 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: combo2
                   - kind: AssignmentStatement
                     children:
                       - kind: IdentifierExpression
                         children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: combo2
                           - kind: PeriodOperator
                             text: "."
                           - kind: Identifier
                             text: ListText
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ElseKeyword
-                    text: Else
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: ElseKeyword
+                            text: Else
                   - kind: Whitespace
                     text: " "
                   - kind: Identifier
@@ -19689,22 +19681,18 @@ cst:
                     text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: AssignmentStatement
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallStatement
                     children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: Whitespace
-                        text: " "
-                      - kind: MemberAccessExpression
-                        children:
-                          - kind: Identifier
-                            text: combo2
-                          - kind: PeriodOperator
-                            text: "."
-                          - kind: TextKeyword
-                            text: Text
+                      - kind: Identifier
+                        text: combo2
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: TextKeyword
+                        text: Text
                       - kind: Newline
                         text: "\r\n"
               - kind: AssignmentStatement

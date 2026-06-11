@@ -33927,46 +33927,44 @@ cst:
                     children:
                       - kind: Whitespace
                         text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Board
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: MemberAccessExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: mMove
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: From
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "10"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
                       - kind: AssignmentStatement
                         children:
-                          - kind: IdentifierExpression
+                          - kind: CallExpression
                             children:
-                              - kind: EqualityOperator
-                                text: "="
+                              - kind: Identifier
+                                text: Board
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: mMove
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: From
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "10"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
                           - kind: Whitespace
                             text: " "
                           - kind: IdentifierExpression
@@ -34061,46 +34059,44 @@ cst:
                         children:
                           - kind: Whitespace
                             text: "    "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Board
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: mMove
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: From
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: SubtractionOperator
-                                            text: "-"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "10"
-                              - kind: RightParenthesis
-                                text: )
-                          - kind: Whitespace
-                            text: " "
                           - kind: AssignmentStatement
                             children:
-                              - kind: IdentifierExpression
+                              - kind: CallExpression
                                 children:
-                                  - kind: EqualityOperator
-                                    text: "="
+                                  - kind: Identifier
+                                    text: Board
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: MemberAccessExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: mMove
+                                                  - kind: PeriodOperator
+                                                    text: "."
+                                                  - kind: Identifier
+                                                    text: From
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: SubtractionOperator
+                                                text: "-"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "10"
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
                               - kind: Whitespace
                                 text: " "
                               - kind: IdentifierExpression

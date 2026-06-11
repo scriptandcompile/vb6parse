@@ -4670,16 +4670,18 @@ cst:
             children:
               - kind: Whitespace
                 text: "    "
-              - kind: Unknown
-                text: oXml
               - kind: AssignmentStatement
                 children:
                   - kind: CallExpression
                     children:
-                      - kind: PeriodOperator
-                        text: "."
-                      - kind: Identifier
-                        text: attr
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: oXml
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: attr
                       - kind: LeftParenthesis
                         text: (
                       - kind: ArgumentList

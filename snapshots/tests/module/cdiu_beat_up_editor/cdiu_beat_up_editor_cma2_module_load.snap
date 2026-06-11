@@ -2879,54 +2879,52 @@ cst:
                                             children:
                                               - kind: Whitespace
                                                 text: "                        "
-                                              - kind: CallStatement
+                                              - kind: AssignmentStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: SData
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
+                                                  - kind: CallExpression
                                                     children:
-                                                      - kind: Argument
+                                                      - kind: Identifier
+                                                        text: SData
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
                                                         children:
-                                                          - kind: BinaryExpression
+                                                          - kind: Argument
                                                             children:
                                                               - kind: BinaryExpression
                                                                 children:
+                                                                  - kind: BinaryExpression
+                                                                    children:
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: i
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: MultiplicationOperator
+                                                                        text: "*"
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: NumericLiteralExpression
+                                                                        children:
+                                                                          - kind: IntegerLiteral
+                                                                            text: "8"
+                                                                  - kind: Whitespace
+                                                                    text: " "
+                                                                  - kind: AdditionOperator
+                                                                    text: +
+                                                                  - kind: Whitespace
+                                                                    text: " "
                                                                   - kind: IdentifierExpression
                                                                     children:
                                                                       - kind: Identifier
-                                                                        text: i
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: MultiplicationOperator
-                                                                    text: "*"
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: NumericLiteralExpression
-                                                                    children:
-                                                                      - kind: IntegerLiteral
-                                                                        text: "8"
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: AdditionOperator
-                                                                text: +
-                                                              - kind: Whitespace
-                                                                text: " "
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: u
-                                                  - kind: RightParenthesis
-                                                    text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: AssignmentStatement
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: EqualityOperator
-                                                        text: "="
+                                                                        text: u
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: CallExpression
@@ -9429,54 +9427,52 @@ cst:
                             children:
                               - kind: Whitespace
                                 text: "            "
-                              - kind: CallStatement
+                              - kind: AssignmentStatement
                                 children:
-                                  - kind: Identifier
-                                    text: SData
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: CallExpression
                                     children:
-                                      - kind: Argument
+                                      - kind: Identifier
+                                        text: SData
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: BinaryExpression
+                                          - kind: Argument
                                             children:
                                               - kind: BinaryExpression
                                                 children:
+                                                  - kind: BinaryExpression
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: i
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: MultiplicationOperator
+                                                        text: "*"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: NumericLiteralExpression
+                                                        children:
+                                                          - kind: IntegerLiteral
+                                                            text: "8"
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
                                                   - kind: IdentifierExpression
                                                     children:
                                                       - kind: Identifier
-                                                        text: i
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: MultiplicationOperator
-                                                    text: "*"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "8"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: AdditionOperator
-                                                text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: Which
-                                  - kind: RightParenthesis
-                                    text: )
-                              - kind: Whitespace
-                                text: " "
-                              - kind: AssignmentStatement
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: EqualityOperator
-                                        text: "="
+                                                        text: Which
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
                                   - kind: Whitespace
                                     text: " "
                                   - kind: BinaryExpression
@@ -9587,54 +9583,52 @@ cst:
                                     text: Then
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: CallStatement
+                                  - kind: AssignmentStatement
                                     children:
-                                      - kind: Identifier
-                                        text: SData
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
+                                      - kind: CallExpression
                                         children:
-                                          - kind: Argument
+                                          - kind: Identifier
+                                            text: SData
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: BinaryExpression
+                                              - kind: Argument
                                                 children:
                                                   - kind: BinaryExpression
                                                     children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: i
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "8"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: AdditionOperator
+                                                        text: +
+                                                      - kind: Whitespace
+                                                        text: " "
                                                       - kind: IdentifierExpression
                                                         children:
                                                           - kind: Identifier
-                                                            text: i
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MultiplicationOperator
-                                                        text: "*"
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: NumericLiteralExpression
-                                                        children:
-                                                          - kind: IntegerLiteral
-                                                            text: "8"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: AdditionOperator
-                                                    text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Which
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
+                                                            text: Which
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
                                       - kind: Whitespace
                                         text: " "
                                       - kind: NumericLiteralExpression
@@ -9733,54 +9727,52 @@ cst:
                                     text: Then
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: CallStatement
+                                  - kind: AssignmentStatement
                                     children:
-                                      - kind: Identifier
-                                        text: SData
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
+                                      - kind: CallExpression
                                         children:
-                                          - kind: Argument
+                                          - kind: Identifier
+                                            text: SData
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
                                             children:
-                                              - kind: BinaryExpression
+                                              - kind: Argument
                                                 children:
                                                   - kind: BinaryExpression
                                                     children:
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: i
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: MultiplicationOperator
+                                                            text: "*"
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "8"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: AdditionOperator
+                                                        text: +
+                                                      - kind: Whitespace
+                                                        text: " "
                                                       - kind: IdentifierExpression
                                                         children:
                                                           - kind: Identifier
-                                                            text: i
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: MultiplicationOperator
-                                                        text: "*"
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: NumericLiteralExpression
-                                                        children:
-                                                          - kind: IntegerLiteral
-                                                            text: "8"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: AdditionOperator
-                                                    text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: Which
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
+                                                            text: Which
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
                                       - kind: Whitespace
                                         text: " "
                                       - kind: NumericLiteralExpression

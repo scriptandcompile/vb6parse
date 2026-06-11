@@ -441,22 +441,24 @@ cst:
         text: " "
       - kind: Unknown
         text: (
-      - kind: AssignmentStatement
-        children:
-          - kind: IdentifierExpression
-            children:
-              - kind: EqualityOperator
-                text: "="
-          - kind: Whitespace
-            text: " "
-          - kind: BooleanLiteralExpression
-            children:
-              - kind: TrueKeyword
-                text: "True"
       - kind: Unknown
-        text: )
+        text: "="
       - kind: Whitespace
         text: " "
+      - kind: CallStatement
+        children:
+          - kind: TrueKeyword
+            text: "True"
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: RightParenthesis
+                        text: )
+              - kind: Whitespace
+                text: " "
       - kind: ThenKeyword
         text: Then
       - kind: Newline
@@ -485,22 +487,24 @@ cst:
         text: " "
       - kind: Unknown
         text: (
-      - kind: AssignmentStatement
-        children:
-          - kind: IdentifierExpression
-            children:
-              - kind: EqualityOperator
-                text: "="
-          - kind: Whitespace
-            text: " "
-          - kind: BooleanLiteralExpression
-            children:
-              - kind: TrueKeyword
-                text: "True"
       - kind: Unknown
-        text: )
+        text: "="
       - kind: Whitespace
         text: " "
+      - kind: CallStatement
+        children:
+          - kind: TrueKeyword
+            text: "True"
+          - kind: ArgumentList
+            children:
+              - kind: Argument
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: RightParenthesis
+                        text: )
+              - kind: Whitespace
+                text: " "
       - kind: ThenKeyword
         text: Then
       - kind: Newline

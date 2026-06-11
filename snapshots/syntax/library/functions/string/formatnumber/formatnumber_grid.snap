@@ -7,56 +7,56 @@ root:
   children:
     - kind: Newline
       text: "\n"
-    - kind: CallStatement
+    - kind: AssignmentStatement
       children:
-        - kind: Identifier
-          text: grid
-        - kind: PeriodOperator
-          text: "."
-        - kind: Identifier
-          text: TextMatrix
-        - kind: LeftParenthesis
-          text: (
-        - kind: ArgumentList
+        - kind: CallExpression
           children:
-            - kind: Argument
+            - kind: MemberAccessExpression
               children:
-                - kind: BinaryExpression
+                - kind: Identifier
+                  text: grid
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: TextMatrix
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
                   children:
-                    - kind: IdentifierExpression
+                    - kind: BinaryExpression
                       children:
-                        - kind: Identifier
-                          text: i
-                    - kind: Whitespace
-                      text: " "
-                    - kind: AdditionOperator
-                      text: +
-                    - kind: Whitespace
-                      text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: i
+                        - kind: Whitespace
+                          text: " "
+                        - kind: AdditionOperator
+                          text: +
+                        - kind: Whitespace
+                          text: " "
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
                     - kind: NumericLiteralExpression
                       children:
                         - kind: IntegerLiteral
-                          text: "1"
-            - kind: Comma
-              text: ","
-            - kind: Whitespace
-              text: " "
-            - kind: Argument
-              children:
-                - kind: NumericLiteralExpression
-                  children:
-                    - kind: IntegerLiteral
-                      text: "0"
-        - kind: RightParenthesis
-          text: )
-    - kind: Whitespace
-      text: " "
-    - kind: AssignmentStatement
-      children:
-        - kind: IdentifierExpression
-          children:
-            - kind: EqualityOperator
-              text: "="
+                          text: "0"
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
         - kind: Whitespace
           text: " "
         - kind: CallExpression
@@ -87,56 +87,56 @@ root:
               text: )
         - kind: Newline
           text: "\n"
-    - kind: CallStatement
+    - kind: AssignmentStatement
       children:
-        - kind: Identifier
-          text: grid
-        - kind: PeriodOperator
-          text: "."
-        - kind: Identifier
-          text: TextMatrix
-        - kind: LeftParenthesis
-          text: (
-        - kind: ArgumentList
+        - kind: CallExpression
           children:
-            - kind: Argument
+            - kind: MemberAccessExpression
               children:
-                - kind: BinaryExpression
+                - kind: Identifier
+                  text: grid
+                - kind: PeriodOperator
+                  text: "."
+                - kind: Identifier
+                  text: TextMatrix
+            - kind: LeftParenthesis
+              text: (
+            - kind: ArgumentList
+              children:
+                - kind: Argument
                   children:
-                    - kind: IdentifierExpression
+                    - kind: BinaryExpression
                       children:
-                        - kind: Identifier
-                          text: i
-                    - kind: Whitespace
-                      text: " "
-                    - kind: AdditionOperator
-                      text: +
-                    - kind: Whitespace
-                      text: " "
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: i
+                        - kind: Whitespace
+                          text: " "
+                        - kind: AdditionOperator
+                          text: +
+                        - kind: Whitespace
+                          text: " "
+                        - kind: NumericLiteralExpression
+                          children:
+                            - kind: IntegerLiteral
+                              text: "1"
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
+                  children:
                     - kind: NumericLiteralExpression
                       children:
                         - kind: IntegerLiteral
                           text: "1"
-            - kind: Comma
-              text: ","
-            - kind: Whitespace
-              text: " "
-            - kind: Argument
-              children:
-                - kind: NumericLiteralExpression
-                  children:
-                    - kind: IntegerLiteral
-                      text: "1"
-        - kind: RightParenthesis
-          text: )
-    - kind: Whitespace
-      text: " "
-    - kind: AssignmentStatement
-      children:
-        - kind: IdentifierExpression
-          children:
-            - kind: EqualityOperator
-              text: "="
+            - kind: RightParenthesis
+              text: )
+        - kind: Whitespace
+          text: " "
+        - kind: EqualityOperator
+          text: "="
         - kind: Whitespace
           text: " "
         - kind: CallExpression

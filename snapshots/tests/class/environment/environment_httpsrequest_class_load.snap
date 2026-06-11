@@ -1259,16 +1259,10 @@ cst:
                                         text: DefProtocol
                   - kind: ColonOperator
                     text: ":"
-                  - kind: AssignmentStatement
-                    children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: EqualityOperator
-                            text: "="
-                      - kind: StringLiteralExpression
-                        children:
-                          - kind: StringLiteral
-                            text: "\"https\""
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: StringLiteral
+                    text: "\"https\""
                   - kind: RightParenthesis
                     text: )
                   - kind: Whitespace
@@ -1707,42 +1701,38 @@ cst:
                                                                 text: UseTls
                                           - kind: ColonOperator
                                             text: ":"
-                                          - kind: AssignmentStatement
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: CallStatement
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: FalseKeyword
+                                                text: "False"
+                                              - kind: ArgumentList
                                                 children:
-                                                  - kind: EqualityOperator
-                                                    text: "="
-                                              - kind: BooleanLiteralExpression
-                                                children:
-                                                  - kind: FalseKeyword
-                                                    text: "False"
-                                          - kind: Comma
-                                            text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Underscore
-                                            text: _
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "                    "
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: AlpnProtocols
-                                          - kind: ColonOperator
-                                            text: ":"
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: EqualityOperator
-                                                text: "="
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\"http/1.1\""
+                                                  - kind: Argument
+                                                    children: []
+                                                  - kind: Comma
+                                                    text: ","
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: Underscore
+                                                    text: _
+                                                  - kind: Newline
+                                                    text: "\r\n"
+                                                  - kind: Whitespace
+                                                    text: "                    "
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: AlpnProtocols
+                                      - kind: Unknown
+                                        text: ":"
+                                      - kind: Unknown
+                                        text: "="
+                                      - kind: Unknown
+                                        text: "\"http/1.1\""
                                       - kind: Unknown
                                         text: )
                                       - kind: Whitespace
@@ -1877,64 +1867,60 @@ cst:
                                 children:
                                   - kind: Unknown
                                     text: ":"
-                                  - kind: AssignmentStatement
+                                  - kind: Unknown
+                                    text: "="
+                                  - kind: CallStatement
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Identifier
+                                        text: IIf
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
                                         children:
-                                          - kind: EqualityOperator
-                                            text: "="
-                                      - kind: CallExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: IIf
-                                          - kind: LeftParenthesis
-                                            text: (
-                                          - kind: ArgumentList
+                                          - kind: Argument
                                             children:
-                                              - kind: Argument
+                                              - kind: CallExpression
                                                 children:
-                                                  - kind: CallExpression
+                                                  - kind: Identifier
+                                                    text: pvIsKnownBadCertificate
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
                                                     children:
-                                                      - kind: Identifier
-                                                        text: pvIsKnownBadCertificate
-                                                      - kind: LeftParenthesis
-                                                        text: (
-                                                      - kind: ArgumentList
+                                                      - kind: Argument
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: MemberAccessExpression
                                                             children:
-                                                              - kind: MemberAccessExpression
-                                                                children:
-                                                                  - kind: Identifier
-                                                                    text: uRemote
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: Host
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                              - kind: Identifier
+                                                                text: uRemote
+                                                              - kind: PeriodOperator
+                                                                text: "."
+                                                              - kind: Identifier
+                                                                text: Host
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: IdentifierExpression
                                                 children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: ucsTlsIgnoreServerCertificateErrors
-                                              - kind: Comma
-                                                text: ","
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Argument
+                                                  - kind: Identifier
+                                                    text: ucsTlsIgnoreServerCertificateErrors
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
+                                            children:
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "0"
-                                          - kind: RightParenthesis
-                                            text: )
+                                                  - kind: IntegerLiteral
+                                                    text: "0"
+                                      - kind: RightParenthesis
+                                        text: )
                                   - kind: Unknown
                                     text: ","
                                   - kind: Whitespace
@@ -1951,16 +1937,10 @@ cst:
                                         text: RootCa
                                       - kind: ColonOperator
                                         text: ":"
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: m_oRootCa
+                                  - kind: Unknown
+                                    text: "="
+                                  - kind: Unknown
+                                    text: m_oRootCa
                                   - kind: Unknown
                                     text: ","
                                   - kind: Whitespace
@@ -1971,16 +1951,10 @@ cst:
                                         text: AlpnProtocols
                                       - kind: ColonOperator
                                         text: ":"
-                                  - kind: AssignmentStatement
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: EqualityOperator
-                                            text: "="
-                                      - kind: StringLiteralExpression
-                                        children:
-                                          - kind: StringLiteral
-                                            text: "\"http/1.1\""
+                                  - kind: Unknown
+                                    text: "="
+                                  - kind: Unknown
+                                    text: "\"http/1.1\""
                                   - kind: Unknown
                                     text: )
                                   - kind: Whitespace
@@ -2475,16 +2449,10 @@ cst:
                                             text: Timeout
                       - kind: Unknown
                         text: ":"
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EqualityOperator
-                                text: "="
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "5000"
+                      - kind: Unknown
+                        text: "="
+                      - kind: Unknown
+                        text: "5000"
                       - kind: Unknown
                         text: )
                       - kind: Newline
