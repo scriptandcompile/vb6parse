@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-10T22:21:18Z",
+  "last_updated": "2026-06-11T18:26:06Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -477,6 +477,40 @@
           "percent": 96.02
         }
       }
+    },
+    {
+      "timestamp": "2026-06-11T18:26:06Z",
+      "commit_sha": "aa312380057bbcc3403276fcdefc32b1ae6032cd",
+      "commit_message": "Fixed 'Print-like' calls to allow the use of semicolons. removing yet one more 'unknowntoken' location.",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.95,
+        "region_coverage": 96.02
+      },
+      "tests": {
+        "total": 6209,
+        "lib_tests": 5516,
+        "doc_tests": 119,
+        "integration_tests": 574,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96780,
+          "total": 100938,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6223,
+          "total": 6695,
+          "percent": 92.95
+        },
+        "regions": {
+          "covered": 154596,
+          "total": 160997,
+          "percent": 96.02
+        }
+      }
     }
   ],
   "coverage_summary": {
@@ -486,12 +520,12 @@
       "change_percent": 0.0,
       "best": 95.88,
       "worst": 95.13,
-      "average": 95.7
+      "average": 95.72
     },
     "function_coverage": {
-      "latest": 92.94,
+      "latest": 92.95,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 93.76,
       "worst": 92.87,
       "average": 93.02
@@ -502,13 +536,13 @@
       "change_percent": 0.0,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.88
+      "average": 95.89
     },
     "test_count": {
-      "latest": 6204,
+      "latest": 6209,
       "trend": "stable",
-      "change_count": 1,
-      "growth_rate": 0.02
+      "change_count": 5,
+      "growth_rate": 0.08
     }
   }
 }
