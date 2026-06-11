@@ -90,7 +90,7 @@ impl Parser<'_> {
         self.consume_whitespace();
 
         // Parse the callee (procedure name, which may include member access or dot-prefix)
-        self.parse_call_target();
+        let is_print_like_call = self.parse_call_target();
 
         // Parse arguments (with or without parentheses)
         // Check if there's whitespace before the parenthesis - this is important for VB6's graphics methods.
@@ -109,14 +109,14 @@ impl Parser<'_> {
             if has_whitespace_before_paren {
                 // Space before parenthesis means the parentheses are part of argument expressions
                 // This handles graphics methods like Line: Picture1.Line (x, y)-(x2, y2)
-                self.parse_unparenthesized_arguments();
+                self.parse_unparenthesized_arguments(is_print_like_call);
             } else {
                 // No space means parentheses delimit the argument list
                 self.parse_parenthesized_arguments();
             }
         } else if !self.at_token(Token::Newline) && !self.is_at_end() {
             // Arguments without parentheses (VB6 allows this for Sub calls)
-            self.parse_unparenthesized_arguments();
+            self.parse_unparenthesized_arguments(is_print_like_call);
         }
 
         // Consume until newline
@@ -132,7 +132,9 @@ impl Parser<'_> {
     /// - `MySub`
     /// - `obj.Method`
     /// - `.Method` (in With blocks)
-    fn parse_call_target(&mut self) {
+    fn parse_call_target(&mut self) -> bool {
+        let mut last_name_is_print = false;
+
         // Check if this starts with a period (With block member access)
         if self.at_token(Token::PeriodOperator) {
             self.consume_token();
@@ -141,6 +143,7 @@ impl Parser<'_> {
 
         // Consume the identifier or keyword (VB6 allows keywords as method names)
         if self.is_identifier() || self.at_keyword() {
+            last_name_is_print = self.current_token_is_print_name();
             self.consume_token();
         }
 
@@ -179,6 +182,7 @@ impl Parser<'_> {
 
                     // Consume the member name
                     if self.is_identifier() || self.at_keyword() {
+                        last_name_is_print = self.current_token_is_print_name();
                         self.consume_token();
                     } else {
                         break;
@@ -190,6 +194,17 @@ impl Parser<'_> {
             } else {
                 break;
             }
+        }
+
+        last_name_is_print
+    }
+
+    /// Returns true when the current identifier/keyword token spells `Print`.
+    fn current_token_is_print_name(&self) -> bool {
+        if let Some((text, token)) = self.tokens.get(self.pos) {
+            *token == Token::PrintKeyword || text.eq_ignore_ascii_case("print")
+        } else {
+            false
         }
     }
 
@@ -240,10 +255,11 @@ impl Parser<'_> {
 
     /// Parse arguments without parentheses (VB6 Sub call syntax).
     /// Creates an `ArgumentList` node with `Argument` children.
-    fn parse_unparenthesized_arguments(&mut self) {
+    fn parse_unparenthesized_arguments(&mut self, allow_semicolon_separator: bool) {
         self.builder.start_node(SyntaxKind::ArgumentList.to_raw());
 
-        // Parse arguments separated by commas until we hit a newline
+        // Parse arguments separated by commas until newline.
+        // For print-like calls (Debug.Print / Printer.Print), semicolon is also a separator.
         loop {
             if self.at_token(Token::Newline) || self.is_at_end() {
                 break;
@@ -251,9 +267,12 @@ impl Parser<'_> {
 
             self.builder.start_node(SyntaxKind::Argument.to_raw());
 
-            // Check if this is an empty argument (comma or newline immediately following)
+            // Check if this is an empty argument (separator or newline immediately following)
             // Empty arguments are valid in VB6: Err.Raise 1, , "error message"
-            if !self.at_token(Token::Comma) && !self.at_token(Token::Newline) {
+            if !(self.at_token(Token::Comma)
+                || self.at_token(Token::Newline)
+                || allow_semicolon_separator && self.at_token(Token::Semicolon))
+            {
                 // Check for ByVal/ByRef keyword (VB6 allows overriding passing mode at call site)
                 if self.at_token(Token::ByValKeyword) || self.at_token(Token::ByRefKeyword) {
                     self.consume_token();
@@ -267,8 +286,10 @@ impl Parser<'_> {
 
             self.consume_whitespace();
 
-            // Check for comma (more arguments)
-            if self.at_token(Token::Comma) {
+            // Check for separator (more arguments). Print-like calls can use ';'.
+            if self.at_token(Token::Comma)
+                || (allow_semicolon_separator && self.at_token(Token::Semicolon))
+            {
                 self.consume_token();
                 self.consume_whitespace();
             } else {
@@ -633,6 +654,62 @@ mod tests {
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
 
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_debug_print_trailing_semicolon() {
+        let source = "Sub Test()\n    Debug.Print Hex(i);\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_debug_print_semicolon_separated_arguments() {
+        let source = "Sub Test()\n    Debug.Print \"A\"; \"B\"\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_output_object_print_trailing_semicolon() {
+        let source = "Sub Test()\n    Printer.Print \"A\";\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_non_print_semicolon_not_separator() {
+        let source = "Sub Test()\n    Foo 1; 2\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();

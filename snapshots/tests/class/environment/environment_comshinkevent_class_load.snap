@@ -9954,14 +9954,16 @@ cst:
                             children:
                               - kind: StringLiteral
                                 text: "\">>\""
-              - kind: Unknown
-                text: ;
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: strEvent
+                      - kind: Semicolon
+                        text: ;
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: strEvent
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement

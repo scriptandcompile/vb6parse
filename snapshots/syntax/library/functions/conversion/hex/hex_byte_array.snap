@@ -197,10 +197,10 @@ root:
                                                   text: "2"
                                     - kind: RightParenthesis
                                       text: )
-                    - kind: Unknown
-                      text: ;
-                    - kind: Newline
-                      text: "\n"
+                            - kind: Semicolon
+                              text: ;
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: NextKeyword

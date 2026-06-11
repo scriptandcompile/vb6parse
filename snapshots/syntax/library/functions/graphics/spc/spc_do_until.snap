@@ -77,34 +77,38 @@ root:
                                   children:
                                     - kind: StringLiteral
                                       text: "\"Item\""
-                    - kind: Unknown
-                      text: ;
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: Spc
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
-                          children:
+                            - kind: Semicolon
+                              text: ;
+                            - kind: Whitespace
+                              text: " "
                             - kind: Argument
                               children:
-                                - kind: NumericLiteralExpression
+                                - kind: CallExpression
                                   children:
-                                    - kind: IntegerLiteral
-                                      text: "8"
-                        - kind: RightParenthesis
-                          text: )
-                    - kind: Unknown
-                      text: ;
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: i
+                                    - kind: Identifier
+                                      text: Spc
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "8"
+                                    - kind: RightParenthesis
+                                      text: )
+                            - kind: Semicolon
+                              text: ;
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: i
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

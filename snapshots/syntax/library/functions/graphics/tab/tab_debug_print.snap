@@ -57,14 +57,18 @@ root:
                                           text: "15"
                             - kind: RightParenthesis
                               text: )
-            - kind: Unknown
-              text: ;
-            - kind: Whitespace
-              text: " "
-            - kind: Unknown
-              text: "\"Debug info\""
-            - kind: Newline
-              text: "\n"
+                    - kind: Semicolon
+                      text: ;
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
+                      children:
+                        - kind: StringLiteralExpression
+                          children:
+                            - kind: StringLiteral
+                              text: "\"Debug info\""
+                - kind: Newline
+                  text: "\n"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

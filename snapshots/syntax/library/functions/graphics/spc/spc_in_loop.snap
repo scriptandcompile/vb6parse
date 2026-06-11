@@ -101,50 +101,52 @@ root:
                                   children:
                                     - kind: Identifier
                                       text: i
-                    - kind: Unknown
-                      text: ;
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: Spc
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: NumericLiteralExpression
-                                  children:
-                                    - kind: IntegerLiteral
-                                      text: "5"
-                        - kind: RightParenthesis
-                          text: )
-                    - kind: Unknown
-                      text: ;
-                    - kind: Whitespace
-                      text: " "
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: i
-                        - kind: Whitespace
-                          text: " "
-                        - kind: ArgumentList
-                          children:
-                            - kind: Argument
-                              children:
-                                - kind: IdentifierExpression
-                                  children:
-                                    - kind: MultiplicationOperator
-                                      text: "*"
+                            - kind: Semicolon
+                              text: ;
                             - kind: Whitespace
                               text: " "
-                    - kind: Unknown
-                      text: "10"
-                    - kind: Newline
-                      text: "\n"
+                            - kind: Argument
+                              children:
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: Spc
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: NumericLiteralExpression
+                                              children:
+                                                - kind: IntegerLiteral
+                                                  text: "5"
+                                    - kind: RightParenthesis
+                                      text: )
+                            - kind: Semicolon
+                              text: ;
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: BinaryExpression
+                                  children:
+                                    - kind: IdentifierExpression
+                                      children:
+                                        - kind: Identifier
+                                          text: i
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: MultiplicationOperator
+                                      text: "*"
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: NumericLiteralExpression
+                                      children:
+                                        - kind: IntegerLiteral
+                                          text: "10"
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: NextKeyword
