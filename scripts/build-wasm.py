@@ -84,7 +84,9 @@ def build_wasm(wasm_pack: str, output_dir: Path, no_typescript: bool) -> None:
         "build",
         "--target", "web",
         "--out-dir", str(output_dir),
-        "--release"
+        "--release",
+        # Use our own explicit wasm-opt invocation for cross-platform consistency.
+        "--no-opt",
     ]
     
     # Add --no-typescript flag if requested (reduces output files)
@@ -112,6 +114,7 @@ def optimize_wasm(wasm_opt: str | None, wasm_file: Path) -> None:
         cmd = [
             wasm_opt,
             "-Oz",  # Optimize aggressively for size
+            "--enable-bulk-memory",
             "-o", str(wasm_file),
             str(backup_file)
         ]

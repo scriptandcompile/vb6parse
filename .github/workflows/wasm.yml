@@ -8,7 +8,6 @@ on:
       - '**.md'
       - 'docs/**'
       - 'tests/**'
-      - 'scripts/build-wasm.py'
       - 'benches/**'
       - 'examples/**'
   
@@ -39,6 +38,14 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
+
+    - name: Show build tool versions
+      run: |
+        rustc --version
+        cargo --version
+        wasm-pack --version
+        wasm-opt --version
+        python3 --version
     
     - name: Build WASM module
       run: |
