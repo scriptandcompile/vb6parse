@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-10T21:11:44Z",
+  "last_updated": "2026-06-10T22:21:18Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -443,35 +443,69 @@
           "percent": 96.02
         }
       }
+    },
+    {
+      "timestamp": "2026-06-10T22:21:18Z",
+      "commit_sha": "8e33a03741a1bb1430d17a6ac7ed17eb11eca330",
+      "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
+      "coverage": {
+        "line_coverage": 95.88,
+        "function_coverage": 92.94,
+        "region_coverage": 96.02
+      },
+      "tests": {
+        "total": 6204,
+        "lib_tests": 5511,
+        "doc_tests": 119,
+        "integration_tests": 574,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96713,
+          "total": 100870,
+          "percent": 95.88
+        },
+        "functions": {
+          "covered": 6217,
+          "total": 6689,
+          "percent": 92.94
+        },
+        "regions": {
+          "covered": 154444,
+          "total": 160843,
+          "percent": 96.02
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.88,
       "trend": "stable",
-      "change_percent": 0.09,
+      "change_percent": 0.0,
       "best": 95.88,
       "worst": 95.13,
-      "average": 95.69
+      "average": 95.7
     },
     "function_coverage": {
       "latest": 92.94,
       "trend": "stable",
-      "change_percent": 0.05,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.03
+      "average": 93.02
     },
     "region_coverage": {
       "latest": 96.02,
       "trend": "stable",
-      "change_percent": 0.04,
+      "change_percent": 0.0,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.87
+      "average": 95.88
     },
     "test_count": {
-      "latest": 6203,
+      "latest": 6204,
       "trend": "stable",
       "change_count": 1,
       "growth_rate": 0.02
