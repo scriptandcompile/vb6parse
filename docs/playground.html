@@ -13,10 +13,11 @@
     <!-- Playground-specific CSS -->
     <link rel="stylesheet" href="assets/css/playground.css">
     <link rel="stylesheet" href="assets/css/tree-viz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/treant-js/1.0/Treant.css">
     
-    <!-- D3.js for tree visualization -->
-    <!-- TODO: Consider loading D3 dynamically only when Tree tab is opened -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Treant.js dependencies for CST tree visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/treant-js/1.0/Treant.min.js"></script>
     
     <!-- Theme switcher from main site -->
     <script src="assets/js/theme-switcher.js"></script>
@@ -118,7 +119,7 @@
                 <button class="tab-btn" data-tab="cst">
                     <span class="tab-icon">📋</span> CST
                 </button>
-                <button class="tab-btn" data-tab="tree" style="display: none;">
+                <button class="tab-btn" data-tab="tree">
                     <span class="tab-icon">🌳</span> Tree
                 </button>
                 <button class="tab-btn" data-tab="info">
@@ -169,13 +170,17 @@
                     </div>
                 </div>
                 <!-- Tree Visualization Tab -->
-                <div id="tree-tab" class="tab-pane" style="display: none;">
+                <div id="tree-tab" class="tab-pane">
                     <div class="tab-toolbar">
                         <button id="tree-layout-toggle" class="btn btn-sm">
                             <span id="layout-icon">↔️</span> Toggle Layout
                         </button>
                         <button id="tree-fit" class="btn btn-sm">Fit to Screen</button>
                         <button id="tree-reset-zoom" class="btn btn-sm">Reset Zoom</button>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="tree-remove-whitespace" checked>
+                            Remove Whitespace
+                        </label>
                         <div class="tree-legend">
                             <span class="legend-item">
                                 <span class="legend-color" style="background: var(--node-statement)"></span>
@@ -203,7 +208,6 @@
                     </div>
                     <div id="tree-node-details" class="tree-node-details hidden">
                         <!-- Shows details when a node is clicked -->
-                        <h4>Node Details</h4>
                         <div id="node-details-content"></div>
                     </div>
                 </div>

@@ -1,7 +1,78 @@
 /* VB6Parse Playground - Tree Visualization Styles */
 
+.tree-viz-container {
+    overflow: auto;
+    padding: 16px;
+    cursor: grab;
+}
+
+.tree-viz-container.panning {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.tree-viz-container .Treant {
+    padding: 12px;
+    min-width: max-content;
+}
+
+.tree-viz-container .node {
+    background: var(--background-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 6px 8px;
+    min-width: 110px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tree-viz-container .node .node-name {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.tree-viz-container .node .node-desc {
+    color: var(--placeholder-color);
+    font-size: 11px;
+}
+
+.tree-viz-container .node:hover,
+.tree-viz-container .node.hovered {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+    border-color: var(--primary-color);
+}
+
+.tree-viz-container .node.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 45%, transparent), 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tree-viz-container .node.node-statement {
+    border-left: 4px solid var(--node-statement);
+}
+
+.tree-viz-container .node.node-expression {
+    border-left: 4px solid var(--node-expression);
+}
+
+.tree-viz-container .node.node-literal {
+    border-left: 4px solid var(--node-literal);
+}
+
+.tree-viz-container .node.node-keyword {
+    border-left: 4px solid var(--node-keyword);
+}
+
+.tree-viz-container .node.node-default {
+    border-left: 4px solid var(--node-default);
+}
+
 /* ============================================
-   D3.js Tree Specific Styles
+    Legacy Tree Styles
    ============================================ */
 
 /* SVG Container */

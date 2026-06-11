@@ -1,189 +1,117 @@
 /**
  * VB6Parse Playground - Tree Visualization Module
- * 
- * Handles D3.js tree visualization rendering and interactions.
- * Creates an interactive visual representation of the CST.
- * 
- * TODO: Implement D3 tree layout and rendering
- * TODO: Add zoom and pan functionality
- * TODO: Implement node click interactions
- * TODO: Add layout toggle (horizontal/vertical)
+ *
+ * Renders CST data with Treant.js and wires tree interactions back to the editor.
  */
 
-let svg = null;
-let g = null;
-let tree = null;
-let root = null;
-let currentLayout = 'vertical'; // 'vertical' or 'horizontal'
-let zoom = null;
+import { getEditorContent } from './editor.js';
 
-// Tree configuration
-const config = {
-    nodeRadius: 6,
-    verticalSpacing: 60,
-    horizontalSpacing: 120,
-    transitionDuration: 750,
-    maxLabelLength: 20
+let currentContainerId = null;
+let currentCst = null;
+let currentLayout = 'vertical'; // 'vertical' or 'horizontal'
+let renderVersion = 0;
+let nodeCounter = 0;
+let removeWhitespaceNodes = true;
+let selectedNodeDomId = null;
+
+const panState = {
+    active: false,
+    startX: 0,
+    startY: 0,
+    startScrollLeft: 0,
+    startScrollTop: 0
 };
+
+const nodeMetaByDomId = new Map();
 
 /**
  * Initialize the tree visualization
  * @param {string} containerId - Container element ID
  */
 export function initTreeViz(containerId) {
-    const container = document.getElementById(containerId);
+    currentContainerId = containerId;
+
+    const container = getContainer();
     if (!container) {
         console.error(`Container ${containerId} not found`);
         return;
     }
 
-    // Clear container
-    container.innerHTML = '';
+    const removeWhitespaceToggle = document.getElementById('tree-remove-whitespace');
+    if (removeWhitespaceToggle) {
+        removeWhitespaceNodes = removeWhitespaceToggle.checked;
+    }
 
-    // Create SVG
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    svg = d3.select(container)
-        .append('svg')
-        .attr('id', 'tree-viz-svg')
-        .attr('width', width)
-        .attr('height', height);
-
-    // Create zoom behavior
-    zoom = d3.zoom()
-        .scaleExtent([0.1, 3])
-        .on('zoom', (event) => {
-            g.attr('transform', event.transform);
-        });
-
-    svg.call(zoom);
-
-    // Create main group for tree
-    g = svg.append('g')
-        .attr('class', 'tree-group')
-        .attr('transform', `translate(${width / 2}, 50)`);
-
-    console.log('✅ Tree visualization initialized');
+    updateLayoutIcon();
+    setupPanDrag(container);
+    renderPlaceholder('Parse code to see the visual tree');
+    console.log('✅ Tree visualization initialized (Treant.js)');
 }
 
 /**
- * Render CST as a tree visualization
+ * Render CST as a Treant.js tree
  * @param {CstNode} cst - Root CST node
- * 
- * TODO: Implement actual D3 tree rendering
- * This is a skeleton that needs D3.js implementation
  */
 export function renderTree(cst) {
-    if (!svg || !g) {
+    const container = getContainer();
+    if (!container) {
         console.error('Tree visualization not initialized');
         return;
     }
 
-    console.log('🔧 TODO: Render D3 tree from CST:', cst);
+    currentCst = cst;
 
-    // TODO: Convert CST to D3 hierarchy
-    // const hierarchy = d3.hierarchy(convertCstToD3Format(cst));
-    
-    // TODO: Create tree layout
-    // const treeLayout = createTreeLayout();
-    // treeLayout(hierarchy);
-    
-    // TODO: Render nodes and links
-    // renderNodes(hierarchy.descendants());
-    // renderLinks(hierarchy.links());
-
-    // Placeholder visualization
-    renderPlaceholder();
-}
-
-/**
- * Convert CST node to D3 hierarchy format
- * @param {CstNode} node - CST node
- * @returns {object} D3 hierarchy data
- * 
- * TODO: Implement full conversion
- */
-function convertCstToD3Format(node) {
-    return {
-        name: node.type,
-        value: node.value,
-        range: node.range,
-        children: node.children ? node.children.map(convertCstToD3Format) : undefined
-    };
-}
-
-/**
- * Create tree layout based on current orientation
- * @returns {d3.tree} D3 tree layout
- * 
- * TODO: Implement layout configuration
- */
-function createTreeLayout() {
-    const container = document.getElementById('tree-viz-container');
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    if (currentLayout === 'vertical') {
-        return d3.tree()
-            .size([width - 100, height - 100])
-            .separation((a, b) => a.parent === b.parent ? 1 : 2);
-    } else {
-        return d3.tree()
-            .size([height - 100, width - 100])
-            .separation((a, b) => a.parent === b.parent ? 1 : 2);
+    if (!cst) {
+        renderPlaceholder('No CST available');
+        return;
     }
-}
 
-/**
- * Render tree nodes
- * @param {Array} nodes - D3 hierarchy nodes
- * 
- * TODO: Implement node rendering with D3
- */
-function renderNodes(nodes) {
-    // TODO: Implement D3 node rendering
-    // - Bind data
-    // - Create node groups
-    // - Add circles
-    // - Add text labels
-    // - Add click handlers
-    // - Add hover effects
-}
+    if (typeof window.Treant !== 'function') {
+        console.error('Treant.js is not loaded');
+        renderPlaceholder('Treant.js failed to load');
+        return;
+    }
 
-/**
- * Render tree links (edges)
- * @param {Array} links - D3 hierarchy links
- * 
- * TODO: Implement link rendering with D3
- */
-function renderLinks(links) {
-    // TODO: Implement D3 link rendering
-    // - Bind data
-    // - Create paths
-    // - Use curved or straight lines
-    // - Add animations
-}
+    nodeCounter = 0;
+    nodeMetaByDomId.clear();
 
-/**
- * Render placeholder when no tree data
- */
-function renderPlaceholder() {
-    g.selectAll('*').remove();
-    
-    g.append('text')
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'var(--placeholder-color)')
-        .attr('font-size', '18px')
-        .attr('y', 100)
-        .text('🌳 Tree visualization coming soon!');
-    
-    g.append('text')
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'var(--placeholder-color)')
-        .attr('font-size', '14px')
-        .attr('y', 130)
-        .text('This will show an interactive D3.js tree of the parsed code');
+    const nodeStructure = convertCstToTreantNode(cst, 0, true);
+    const config = {
+        chart: {
+            container: `#${currentContainerId}`,
+            rootOrientation: currentLayout === 'vertical' ? 'NORTH' : 'WEST',
+            nodeAlign: 'TOP',
+            hideRootNode: false,
+            animateOnInit: false,
+            animateOnInitDelay: 0,
+            connectors: {
+                type: 'step',
+                style: {
+                    stroke: '#94a3b8',
+                    'stroke-width': 2,
+                    'arrow-end': 'none'
+                }
+            },
+            node: {
+                HTMLclass: 'vb6-tree-node'
+            }
+        },
+        nodeStructure
+    };
+
+    container.innerHTML = '';
+    renderVersion += 1;
+    const thisRender = renderVersion;
+    selectedNodeDomId = null;
+
+    try {
+        new window.Treant(config);
+        bindNodeInteractions(thisRender);
+        console.log('✅ Rendered CST tree with Treant.js');
+    } catch (error) {
+        console.error('Failed to render Treant tree:', error);
+        renderPlaceholder('Failed to render tree');
+    }
 }
 
 /**
@@ -191,122 +119,65 @@ function renderPlaceholder() {
  */
 export function toggleLayout() {
     currentLayout = currentLayout === 'vertical' ? 'horizontal' : 'vertical';
-    
-    // Update UI icon
-    const icon = document.getElementById('layout-icon');
-    if (icon) {
-        icon.textContent = currentLayout === 'vertical' ? '↔️' : '↕️';
-    }
+    updateLayoutIcon();
 
-    // Re-render tree with new layout
-    if (root) {
-        renderTree(root);
+    if (currentCst) {
+        renderTree(currentCst);
     }
 
     console.log(`🔄 Switched to ${currentLayout} layout`);
 }
 
 /**
- * Fit tree to screen
+ * Fit tree to screen (best-effort centering for scrollable Treant container)
  */
 export function fitToScreen() {
-    if (!svg || !g) return;
-
-    // TODO: Calculate bounding box and zoom to fit
-    const bounds = g.node().getBBox();
-    const parent = svg.node().parentElement;
-    const fullWidth = parent.clientWidth;
-    const fullHeight = parent.clientHeight;
-    const width = bounds.width;
-    const height = bounds.height;
-    const midX = bounds.x + width / 2;
-    const midY = bounds.y + height / 2;
-
-    if (width === 0 || height === 0) return;
-
-    // Calculate scale to fit
-    const scale = 0.9 / Math.max(width / fullWidth, height / fullHeight);
-    const translate = [
-        fullWidth / 2 - scale * midX,
-        fullHeight / 2 - scale * midY
-    ];
-
-    // Apply transform with animation
-    svg.transition()
-        .duration(750)
-        .call(zoom.transform, d3.zoomIdentity
-            .translate(translate[0], translate[1])
-            .scale(scale));
-
-    console.log('📐 Fitted tree to screen');
+    centerTreeView();
+    console.log('📐 Centered tree view');
 }
 
 /**
- * Reset zoom to default
+ * Reset tree position
  */
 export function resetZoom() {
-    if (!svg || !zoom) return;
+    const container = getContainer();
+    if (!container) return;
 
-    const container = document.getElementById('tree-viz-container');
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    svg.transition()
-        .duration(750)
-        .call(zoom.transform, d3.zoomIdentity
-            .translate(width / 2, 50)
-            .scale(1));
-
-    console.log('🔄 Reset zoom');
-}
-
-/**
- * Handle node click
- * @param {object} nodeData - D3 node data
- * 
- * TODO: Implement node selection and details display
- */
-function handleNodeClick(nodeData) {
-    console.log('Node clicked:', nodeData);
-    
-    // TODO: Show node details in sidebar
-    // TODO: Highlight corresponding code in editor
-    // TODO: Highlight node visually
-}
-
-/**
- * Show node details in sidebar
- * @param {object} nodeData - D3 node data
- * 
- * TODO: Implement details panel
- */
-function showNodeDetails(nodeData) {
-    const detailsPanel = document.getElementById('tree-node-details');
-    const detailsContent = document.getElementById('node-details-content');
-    
-    if (!detailsPanel || !detailsContent) return;
-
-    detailsContent.innerHTML = `
-        <p><strong>Type:</strong> ${nodeData.name}</p>
-        ${nodeData.value ? `<p><strong>Value:</strong> ${nodeData.value}</p>` : ''}
-        ${nodeData.range ? `<p><strong>Range:</strong> [${nodeData.range[0]}..${nodeData.range[1]}]</p>` : ''}
-        <p><strong>Depth:</strong> ${nodeData.depth}</p>
-        <p><strong>Children:</strong> ${nodeData.children ? nodeData.children.length : 0}</p>
-    `;
-
-    detailsPanel.classList.remove('hidden');
+    container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+    console.log('🔄 Reset tree view');
 }
 
 /**
  * Clear tree visualization
  */
 export function clearTree() {
-    if (!g) return;
-    
-    g.selectAll('*').remove();
-    root = null;
-    
-    renderPlaceholder();
+    currentCst = null;
+    nodeMetaByDomId.clear();
+    selectedNodeDomId = null;
+    renderPlaceholder('Parse code to see the visual tree');
+}
+
+/**
+ * Toggle removal of whitespace/newline CST nodes from the tree
+ * @param {boolean} enabled
+ */
+export function setRemoveWhitespace(enabled) {
+    removeWhitespaceNodes = Boolean(enabled);
+}
+
+/**
+ * Focus the most specific rendered tree node that contains a byte offset
+ * @param {number} byteOffset
+ * @returns {boolean} True if a node was found and focused
+ */
+export function focusNodeByOffset(byteOffset) {
+    const target = findBestNodeByOffset(byteOffset);
+    if (!target) {
+        return false;
+    }
+
+    focusTreeNode(target.domId, target.meta);
+    return true;
 }
 
 /**
@@ -319,10 +190,10 @@ export function getTreeStats(cst) {
     let maxDepth = 0;
 
     function traverse(node, depth) {
-        nodeCount++;
+        nodeCount += 1;
         maxDepth = Math.max(maxDepth, depth);
 
-        if (node.children) {
+        if (node.children && node.children.length > 0) {
             node.children.forEach(child => traverse(child, depth + 1));
         }
     }
@@ -341,65 +212,345 @@ export function getTreeStats(cst) {
  */
 export function exportAsSvg() {
     console.log('🔧 TODO: Export tree as SVG');
-    // Get SVG element and serialize
-    // Offer download to user
 }
 
 /**
  * Export tree as PNG
- * TODO: Implement PNG export using html2canvas or similar
+ * TODO: Implement PNG export
  */
 export function exportAsPng() {
     console.log('🔧 TODO: Export tree as PNG');
-    // Convert SVG to PNG
-    // Offer download to user
 }
 
-/**
- * TODO: D3.js Implementation Checklist
- * 
- * 1. Tree Layout:
- *    - Implement d3.hierarchy() conversion
- *    - Configure d3.tree() layout
- *    - Handle vertical and horizontal layouts
- *    - Optimize for large trees (>500 nodes)
- * 
- * 2. Nodes:
- *    - Draw circles with appropriate colors
- *    - Add text labels (truncated if needed)
- *    - Implement hover effects
- *    - Add click handlers
- *    - Show collapse/expand indicators
- * 
- * 3. Links:
- *    - Use curved paths (d3.linkVertical/linkHorizontal)
- *    - Add hover effects
- *    - Color code by node type
- * 
- * 4. Interactions:
- *    - Zoom and pan
- *    - Node selection
- *    - Collapse/expand nodes
- *    - Tooltip on hover
- *    - Highlight path from root to node
- * 
- * 5. Performance:
- *    - Virtualization for large trees
- *    - Lazy loading of subtrees
- *    - Disable animations for >500 nodes
- *    - Use canvas for >1000 nodes
- * 
- * 6. Styling:
- *    - Node colors by type (statement, expression, literal, keyword)
- *    - Highlight selected nodes
- *    - Theme support (light/dark)
- *    - Responsive sizing
- * 
- * 7. Export:
- *    - SVG download
- *    - PNG download
- *    - JSON export of tree data
- */
+function getContainer() {
+    if (!currentContainerId) return null;
+    return document.getElementById(currentContainerId);
+}
+
+function renderPlaceholder(message) {
+    const container = getContainer();
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="placeholder">
+            <p>🌳 ${escapeHtml(message)}</p>
+        </div>
+    `;
+}
+
+function updateLayoutIcon() {
+    const icon = document.getElementById('layout-icon');
+    if (!icon) return;
+
+    icon.textContent = currentLayout === 'vertical' ? '↕️' : '↔️';
+}
+
+function convertCstToTreantNode(node, depth, isRoot = false) {
+    if (!isRoot && shouldFilterOutNode(node)) {
+        return null;
+    }
+
+    const domId = `tree-node-${nodeCounter++}`;
+    const children = Array.isArray(node.children)
+        ? buildTreantChildren(node.children, depth + 1)
+        : [];
+    const childCount = children.length;
+
+    nodeMetaByDomId.set(domId, {
+        kind: node.kind,
+        depth,
+        childCount,
+        value: node.value,
+        range: Array.isArray(node.range) ? node.range : null
+    });
+
+    const displayName = truncate(node.kind || 'Unknown', 40);
+    const rangeText = Array.isArray(node.range)
+        ? `[${node.range[0]}..${node.range[1]}]`
+        : 'No range';
+
+    const treantNode = {
+        HTMLid: domId,
+        text: {
+            name: displayName,
+            desc: rangeText
+        },
+        HTMLclass: getNodeClass(node.kind)
+    };
+
+    if (childCount > 0) {
+        treantNode.children = children;
+    }
+
+    return treantNode;
+}
+
+function buildTreantChildren(children, depth) {
+    const result = [];
+
+    children.forEach((child) => {
+        const converted = convertCstToTreantNode(child, depth, false);
+        if (converted) {
+            result.push(converted);
+            return;
+        }
+
+        if (Array.isArray(child.children) && child.children.length > 0) {
+            result.push(...buildTreantChildren(child.children, depth + 1));
+        }
+    });
+
+    return result;
+}
+
+function shouldFilterOutNode(node) {
+    if (!removeWhitespaceNodes || !node || !node.kind) {
+        return false;
+    }
+
+    const kind = String(node.kind).toLowerCase();
+    return kind.includes('whitespace') || kind.includes('newline');
+}
+
+function getNodeClass(kind) {
+    const value = (kind || '').toLowerCase();
+
+    if (value.includes('statement') || value.includes('declaration')) {
+        return 'vb6-tree-node node-statement';
+    }
+    if (value.includes('expression')) {
+        return 'vb6-tree-node node-expression';
+    }
+    if (value.includes('literal') || value.includes('number') || value.includes('string')) {
+        return 'vb6-tree-node node-literal';
+    }
+    if (value.includes('keyword')) {
+        return 'vb6-tree-node node-keyword';
+    }
+
+    return 'vb6-tree-node node-default';
+}
+
+function bindNodeInteractions(renderToken) {
+    const container = getContainer();
+    if (!container) return;
+
+    requestAnimationFrame(() => {
+        if (renderToken !== renderVersion) {
+            return;
+        }
+
+        const nodeElements = container.querySelectorAll('.node');
+        nodeElements.forEach((nodeEl) => {
+            const meta = nodeMetaByDomId.get(nodeEl.id);
+            if (!meta) {
+                return;
+            }
+
+            nodeEl.addEventListener('mouseenter', () => {
+                if (!meta.range) return;
+                nodeEl.classList.add('hovered');
+                dispatchHighlightNode(meta.range[0], meta.range[1], true);
+            });
+
+            nodeEl.addEventListener('mouseleave', () => {
+                nodeEl.classList.remove('hovered');
+                dispatchClearHighlight();
+            });
+
+            nodeEl.addEventListener('click', () => {
+                if (!meta.range) return;
+                focusTreeNode(nodeEl.id, meta);
+                dispatchHighlightAndPosition(meta.range[0], meta.range[1]);
+            });
+        });
+
+        centerTreeView();
+    });
+}
+
+function focusTreeNode(domId, meta) {
+    const container = getContainer();
+    if (!container) {
+        return;
+    }
+
+    if (selectedNodeDomId) {
+        const prevNode = document.getElementById(selectedNodeDomId);
+        prevNode?.classList.remove('selected');
+    }
+
+    const nodeEl = document.getElementById(domId);
+    if (!nodeEl) {
+        return;
+    }
+
+    nodeEl.classList.add('selected');
+    selectedNodeDomId = domId;
+    showNodeDetails(meta);
+    nodeEl.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+}
+
+function findBestNodeByOffset(byteOffset) {
+    let best = null;
+    let bestRangeSize = Number.POSITIVE_INFINITY;
+
+    nodeMetaByDomId.forEach((meta, domId) => {
+        if (!meta.range) {
+            return;
+        }
+
+        const [start, end] = meta.range;
+        if (byteOffset < start || byteOffset >= end) {
+            return;
+        }
+
+        const size = end - start;
+        if (!best || size < bestRangeSize) {
+            best = { domId, meta };
+            bestRangeSize = size;
+        }
+    });
+
+    return best;
+}
+
+function setupPanDrag(container) {
+    container.addEventListener('mousedown', (event) => {
+        if (event.button !== 0) {
+            return;
+        }
+
+        if (event.target.closest('.node')) {
+            return;
+        }
+
+        panState.active = true;
+        panState.startX = event.clientX;
+        panState.startY = event.clientY;
+        panState.startScrollLeft = container.scrollLeft;
+        panState.startScrollTop = container.scrollTop;
+        container.classList.add('panning');
+        event.preventDefault();
+    });
+
+    container.addEventListener('mousemove', (event) => {
+        if (!panState.active) {
+            return;
+        }
+
+        const dx = event.clientX - panState.startX;
+        const dy = event.clientY - panState.startY;
+
+        container.scrollLeft = panState.startScrollLeft - dx;
+        container.scrollTop = panState.startScrollTop - dy;
+    });
+
+    const stopPanning = () => {
+        panState.active = false;
+        container.classList.remove('panning');
+    };
+
+    container.addEventListener('mouseup', stopPanning);
+    container.addEventListener('mouseleave', stopPanning);
+}
+
+function centerTreeView() {
+    const container = getContainer();
+    if (!container) return;
+
+    const firstNode = container.querySelector('.node');
+    if (!firstNode) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const nodeRect = firstNode.getBoundingClientRect();
+
+    const left = container.scrollLeft + (nodeRect.left - containerRect.left) - (container.clientWidth / 2) + (nodeRect.width / 2);
+    const top = container.scrollTop + (nodeRect.top - containerRect.top) - 24;
+
+    container.scrollTo({
+        left: Math.max(0, left),
+        top: Math.max(0, top),
+        behavior: 'smooth'
+    });
+}
+
+function showNodeDetails(meta) {
+    const detailsPanel = document.getElementById('tree-node-details');
+    const detailsContent = document.getElementById('node-details-content');
+    if (!detailsPanel || !detailsContent) {
+        return;
+    }
+
+    const range = meta.range
+        ? `[${meta.range[0]}..${meta.range[1]}]`
+        : 'N/A';
+    const nodeText = getNodeText(meta);
+
+    detailsContent.innerHTML = `
+        <p><strong>Kind:</strong> ${escapeHtml(meta.kind || 'Unknown')}</p>
+        <p><strong>Range:</strong> ${range}</p>
+        <p><strong>Text:</strong><span class="tree-node-text">${escapeHtml(nodeText)}</span></p>
+        <p><strong>Depth:</strong> ${meta.depth}</p>
+        <p><strong>Children:</strong> ${meta.childCount}</p>
+    `;
+
+    detailsPanel.classList.remove('hidden');
+}
+
+function getNodeText(meta) {
+    if (meta.value !== undefined && meta.value !== null) {
+        const valueText = String(meta.value);
+        if (valueText.length > 0) {
+            return valueText;
+        }
+    }
+
+    if (meta.range) {
+        const content = getEditorContent();
+        if (content) {
+            const [start, end] = meta.range;
+            if (Number.isInteger(start) && Number.isInteger(end) && end >= start) {
+                const slice = content.slice(start, end);
+                if (slice.length > 0) {
+                    return slice;
+                }
+            }
+        }
+    }
+
+    return '(no text)';
+}
+
+function dispatchHighlightNode(startOffset, endOffset, isHover) {
+    const event = new CustomEvent('highlightNodeInEditor', {
+        detail: { startOffset, endOffset, isHover }
+    });
+    document.dispatchEvent(event);
+}
+
+function dispatchHighlightAndPosition(startOffset, endOffset) {
+    const event = new CustomEvent('highlightAndPositionCursor', {
+        detail: { startOffset, endOffset }
+    });
+    document.dispatchEvent(event);
+}
+
+function dispatchClearHighlight() {
+    document.dispatchEvent(new CustomEvent('clearEditorHighlight'));
+}
+
+function truncate(text, max) {
+    const value = String(text ?? '');
+    if (value.length <= max) return value;
+    return `${value.slice(0, max - 1)}…`;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 export default {
     initTreeViz,
@@ -408,6 +559,8 @@ export default {
     fitToScreen,
     resetZoom,
     clearTree,
+    setRemoveWhitespace,
+    focusNodeByOffset,
     getTreeStats,
     exportAsSvg,
     exportAsPng

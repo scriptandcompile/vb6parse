@@ -125,6 +125,12 @@ function setupEventListeners() {
     document.getElementById('tree-layout-toggle')?.addEventListener('click', TreeViz.toggleLayout);
     document.getElementById('tree-fit')?.addEventListener('click', TreeViz.fitToScreen);
     document.getElementById('tree-reset-zoom')?.addEventListener('click', TreeViz.resetZoom);
+    document.getElementById('tree-remove-whitespace')?.addEventListener('change', (e) => {
+        TreeViz.setRemoveWhitespace(e.target.checked);
+        if (state.lastParseResult?.cst) {
+            TreeViz.renderTree(state.lastParseResult.cst);
+        }
+    });
 
     // Editor content change (for auto-parse)
     document.addEventListener('editorContentChanged', handleEditorChange);
@@ -429,6 +435,11 @@ function handleEditorCursorChange(e) {
             if (node) {
                 highlightCstNode(node);
             }
+        }
+    } else if (state.activeTab === 'tree') {
+        const byteOffset = positionToByteOffset(lineNumber, column);
+        if (byteOffset !== null) {
+            TreeViz.focusNodeByOffset(byteOffset);
         }
     }
 }
