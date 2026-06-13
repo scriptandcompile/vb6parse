@@ -6,5 +6,5 @@
   "fuzz_targets": 9,
   "line_coverage": 95.88,
   "function_coverage": 92.95,
-  "region_coverage": 96.03
+  "region_coverage": 96.02
 }
