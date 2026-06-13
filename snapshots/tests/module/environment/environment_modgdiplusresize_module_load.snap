@@ -25673,14 +25673,14 @@ cst:
                 text: "    "
               - kind: AssignmentStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: MemberAccessExpression
                     children:
                       - kind: Identifier
                         text: Angle
                       - kind: ExclamationMark
                         text: "!"
-                  - kind: Whitespace
-                    text: " "
+                      - kind: Whitespace
+                        text: " "
                   - kind: EqualityOperator
                     text: "="
                   - kind: Whitespace
@@ -25699,7 +25699,7 @@ cst:
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: MemberAccessExpression
                                     children:
                                       - kind: Identifier
                                         text: Angle
@@ -25729,14 +25729,14 @@ cst:
                     text: " "
                   - kind: BinaryExpression
                     children:
-                      - kind: IdentifierExpression
+                      - kind: MemberAccessExpression
                         children:
                           - kind: Identifier
                             text: Angle
                           - kind: ExclamationMark
                             text: "!"
-                      - kind: Whitespace
-                        text: " "
+                          - kind: Whitespace
+                            text: " "
                       - kind: LessThanOperator
                         text: "<"
                       - kind: Whitespace
@@ -25753,28 +25753,28 @@ cst:
                     text: " "
                   - kind: AssignmentStatement
                     children:
-                      - kind: IdentifierExpression
+                      - kind: MemberAccessExpression
                         children:
                           - kind: Identifier
                             text: Angle
                           - kind: ExclamationMark
                             text: "!"
-                      - kind: Whitespace
-                        text: " "
+                          - kind: Whitespace
+                            text: " "
                       - kind: EqualityOperator
                         text: "="
                       - kind: Whitespace
                         text: " "
                       - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
                               - kind: Identifier
                                 text: Angle
                               - kind: ExclamationMark
                                 text: "!"
-                          - kind: Whitespace
-                            text: " "
+                              - kind: Whitespace
+                                text: " "
                           - kind: AdditionOperator
                             text: +
                           - kind: Whitespace
@@ -28799,14 +28799,14 @@ cst:
                                         text: "           "
                                       - kind: AssignmentStatement
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: MemberAccessExpression
                                             children:
                                               - kind: Identifier
                                                 text: Angle
                                               - kind: ExclamationMark
                                                 text: "!"
-                                          - kind: Whitespace
-                                            text: " "
+                                              - kind: Whitespace
+                                                text: " "
                                           - kind: EqualityOperator
                                             text: "="
                                           - kind: Whitespace
@@ -29895,7 +29895,7 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
                               - kind: Identifier
                                 text: Angle
@@ -31233,14 +31233,14 @@ cst:
                 text: "    "
               - kind: AssignmentStatement
                 children:
-                  - kind: IdentifierExpression
+                  - kind: MemberAccessExpression
                     children:
                       - kind: Identifier
                         text: Angle
                       - kind: ExclamationMark
                         text: "!"
-                  - kind: Whitespace
-                    text: " "
+                      - kind: Whitespace
+                        text: " "
                   - kind: EqualityOperator
                     text: "="
                   - kind: Whitespace
@@ -31259,7 +31259,7 @@ cst:
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: MemberAccessExpression
                                     children:
                                       - kind: Identifier
                                         text: Angle
@@ -31289,14 +31289,14 @@ cst:
                     text: " "
                   - kind: BinaryExpression
                     children:
-                      - kind: IdentifierExpression
+                      - kind: MemberAccessExpression
                         children:
                           - kind: Identifier
                             text: Angle
                           - kind: ExclamationMark
                             text: "!"
-                      - kind: Whitespace
-                        text: " "
+                          - kind: Whitespace
+                            text: " "
                       - kind: LessThanOperator
                         text: "<"
                       - kind: Whitespace
@@ -31313,28 +31313,28 @@ cst:
                     text: " "
                   - kind: AssignmentStatement
                     children:
-                      - kind: IdentifierExpression
+                      - kind: MemberAccessExpression
                         children:
                           - kind: Identifier
                             text: Angle
                           - kind: ExclamationMark
                             text: "!"
-                      - kind: Whitespace
-                        text: " "
+                          - kind: Whitespace
+                            text: " "
                       - kind: EqualityOperator
                         text: "="
                       - kind: Whitespace
                         text: " "
                       - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
                               - kind: Identifier
                                 text: Angle
                               - kind: ExclamationMark
                                 text: "!"
-                          - kind: Whitespace
-                            text: " "
+                              - kind: Whitespace
+                                text: " "
                           - kind: AdditionOperator
                             text: +
                           - kind: Whitespace
@@ -31537,14 +31537,14 @@ cst:
                     children:
                       - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
                               - kind: Identifier
                                 text: Alpha
                               - kind: ExclamationMark
                                 text: "!"
-                          - kind: Whitespace
-                            text: " "
+                              - kind: Whitespace
+                                text: " "
                           - kind: InequalityOperator
                             text: "<>"
                           - kind: Whitespace
@@ -31623,14 +31623,14 @@ cst:
                     text: " "
                   - kind: BinaryExpression
                     children:
-                      - kind: IdentifierExpression
+                      - kind: MemberAccessExpression
                         children:
                           - kind: Identifier
                             text: Alpha
                           - kind: ExclamationMark
                             text: "!"
-                      - kind: Whitespace
-                        text: " "
+                          - kind: Whitespace
+                            text: " "
                       - kind: InequalityOperator
                         text: "<>"
                       - kind: Whitespace
@@ -31891,7 +31891,7 @@ cst:
                                                             text: "-"
                                                           - kind: Whitespace
                                                             text: " "
-                                                          - kind: IdentifierExpression
+                                                          - kind: MemberAccessExpression
                                                             children:
                                                               - kind: Identifier
                                                                 text: Alpha
@@ -32527,7 +32527,7 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: MemberAccessExpression
                             children:
                               - kind: Identifier
                                 text: Angle
@@ -41931,7 +41931,7 @@ cst:
                                             text: " "
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: MemberAccessExpression
                                                 children:
                                                   - kind: Identifier
                                                     text: Angle
@@ -42071,7 +42071,7 @@ cst:
                                                 text: " "
                                               - kind: Argument
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
                                                       - kind: Identifier
                                                         text: Angle
@@ -42083,7 +42083,7 @@ cst:
                                                 text: " "
                                               - kind: Argument
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
                                                       - kind: Identifier
                                                         text: zoomfactor
@@ -42095,7 +42095,7 @@ cst:
                                                 text: " "
                                               - kind: Argument
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: MemberAccessExpression
                                                     children:
                                                       - kind: Identifier
                                                         text: blend
@@ -42223,7 +42223,7 @@ cst:
                                                     text: " "
                                                   - kind: Argument
                                                     children:
-                                                      - kind: IdentifierExpression
+                                                      - kind: MemberAccessExpression
                                                         children:
                                                           - kind: Identifier
                                                             text: Angle
@@ -42235,7 +42235,7 @@ cst:
                                                     text: " "
                                                   - kind: Argument
                                                     children:
-                                                      - kind: IdentifierExpression
+                                                      - kind: MemberAccessExpression
                                                         children:
                                                           - kind: Identifier
                                                             text: zoomfactor
@@ -42247,7 +42247,7 @@ cst:
                                                     text: " "
                                                   - kind: Argument
                                                     children:
-                                                      - kind: IdentifierExpression
+                                                      - kind: MemberAccessExpression
                                                         children:
                                                           - kind: Identifier
                                                             text: blend
@@ -42961,7 +42961,7 @@ cst:
                                         text: " "
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: MemberAccessExpression
                                             children:
                                               - kind: Identifier
                                                 text: Angle

@@ -886,7 +886,7 @@ impl Parser<'_> {
                 // Consume just the identifier/keyword
                 self.consume_token();
 
-                // Check for type character suffix ($, %, &, !, #, @) - but NOT for library functions
+                // Check for type character suffix ($, %, &, #, @) - but NOT for library functions
                 // Only consume dollar sign if it's NOT part of a library function name
                 if matches!(
                     self.current_token(),
@@ -894,7 +894,6 @@ impl Parser<'_> {
                         Token::DollarSign
                             | Token::Percent
                             | Token::Ampersand
-                            | Token::ExclamationMark
                             | Token::Octothorpe
                             | Token::AtSign
                     )

@@ -51,18 +51,16 @@ root:
                               children:
                                 - kind: Argument
                                   children:
-                                    - kind: IdentifierExpression
+                                    - kind: MemberAccessExpression
                                       children:
                                         - kind: Identifier
                                           text: rs
                                         - kind: ExclamationMark
                                           text: "!"
-            - kind: NameStatement
-              children:
-                - kind: NameKeyword
-                  text: Name
-                - kind: RightParenthesis
-                  text: )
+                                        - kind: NameKeyword
+                                          text: Name
+                            - kind: RightParenthesis
+                              text: )
                 - kind: RightParenthesis
                   text: )
                 - kind: Newline

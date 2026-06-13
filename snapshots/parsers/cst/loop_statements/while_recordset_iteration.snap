@@ -97,16 +97,14 @@ root:
                           children:
                             - kind: Argument
                               children:
-                                - kind: IdentifierExpression
+                                - kind: MemberAccessExpression
                                   children:
                                     - kind: Identifier
                                       text: rs
                                     - kind: ExclamationMark
                                       text: "!"
-                    - kind: CallStatement
-                      children:
-                        - kind: Identifier
-                          text: FieldName
+                                    - kind: Identifier
+                                      text: FieldName
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace
