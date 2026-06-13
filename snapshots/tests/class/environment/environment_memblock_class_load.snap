@@ -24551,23 +24551,17 @@ cst:
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
+                                            children: []
+                                          - kind: Comma
+                                            text: ","
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Argument
                                             children:
                                               - kind: IdentifierExpression
                                                 children:
-                                                  - kind: Comma
-                                                    text: ","
-                                          - kind: Whitespace
-                                            text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: rot
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
+                                                  - kind: Identifier
+                                                    text: rot
                                       - kind: RightParenthesis
                                         text: )
                           - kind: Newline

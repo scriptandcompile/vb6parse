@@ -31,33 +31,37 @@ root:
                       text: "&"
                     - kind: Whitespace
                       text: " "
-                    - kind: CallExpression
+                    - kind: MemberAccessExpression
                       children:
-                        - kind: Identifier
-                          text: GetObject
-                        - kind: LeftParenthesis
-                          text: (
-                        - kind: ArgumentList
+                        - kind: MemberAccessExpression
                           children:
-                            - kind: Argument
+                            - kind: CallExpression
                               children:
-                                - kind: IdentifierExpression
+                                - kind: Identifier
+                                  text: GetObject
+                                - kind: LeftParenthesis
+                                  text: (
+                                - kind: ArgumentList
                                   children:
+                                    - kind: Argument
+                                      children: []
                                     - kind: Comma
                                       text: ","
-                            - kind: Whitespace
-                              text: " "
-    - kind: Unknown
-      text: "\"Excel.Application\""
-    - kind: Unknown
-      text: )
-    - kind: CallStatement
-      children:
-        - kind: PeriodOperator
-          text: "."
-        - kind: Identifier
-          text: Workbooks
-        - kind: PeriodOperator
-          text: "."
-        - kind: Identifier
-          text: Count
+                                    - kind: Whitespace
+                                      text: " "
+                                    - kind: Argument
+                                      children:
+                                        - kind: StringLiteralExpression
+                                          children:
+                                            - kind: StringLiteral
+                                              text: "\"Excel.Application\""
+                                - kind: RightParenthesis
+                                  text: )
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Workbooks
+                        - kind: PeriodOperator
+                          text: "."
+                        - kind: Identifier
+                          text: Count

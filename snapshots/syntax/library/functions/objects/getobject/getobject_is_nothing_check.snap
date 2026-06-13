@@ -11,42 +11,48 @@ root:
           text: If
         - kind: Whitespace
           text: " "
-        - kind: CallExpression
+        - kind: BinaryExpression
           children:
-            - kind: Identifier
-              text: GetObject
-            - kind: LeftParenthesis
-              text: (
-            - kind: ArgumentList
+            - kind: CallExpression
               children:
-                - kind: Argument
+                - kind: Identifier
+                  text: GetObject
+                - kind: LeftParenthesis
+                  text: (
+                - kind: ArgumentList
                   children:
-                    - kind: IdentifierExpression
+                    - kind: Argument
+                      children: []
+                    - kind: Comma
+                      text: ","
+                    - kind: Whitespace
+                      text: " "
+                    - kind: Argument
                       children:
-                        - kind: Comma
-                          text: ","
-                - kind: Whitespace
-                  text: " "
-        - kind: Identifier
-          text: progID
-        - kind: RightParenthesis
-          text: )
-        - kind: Whitespace
-          text: " "
-        - kind: IsKeyword
-          text: Is
-        - kind: Whitespace
-          text: " "
-        - kind: NothingKeyword
-          text: Nothing
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: progID
+                - kind: RightParenthesis
+                  text: )
+            - kind: Whitespace
+              text: " "
+            - kind: IsKeyword
+              text: Is
+            - kind: Whitespace
+              text: " "
+            - kind: IdentifierExpression
+              children:
+                - kind: NothingKeyword
+                  text: Nothing
         - kind: Whitespace
           text: " "
         - kind: ThenKeyword
           text: Then
+        - kind: Whitespace
+          text: " "
         - kind: ExitStatement
           children:
-            - kind: Whitespace
-              text: " "
             - kind: ExitKeyword
               text: Exit
             - kind: Whitespace

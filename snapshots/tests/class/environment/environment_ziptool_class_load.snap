@@ -888,13 +888,13 @@ cst:
                           - kind: Whitespace
                             text: " "
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                            children: []
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
+                          - kind: Argument
+                            children: []
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -1182,13 +1182,13 @@ cst:
                           - kind: Whitespace
                             text: " "
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                            children: []
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
+                          - kind: Argument
+                            children: []
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -2802,29 +2802,23 @@ cst:
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Argument
+                                    children: []
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
                                     children:
                                       - kind: IdentifierExpression
                                         children:
-                                          - kind: Comma
-                                            text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: Pass
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: DollarSign
-                                        text: $
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                                          - kind: Identifier
+                                            text: Pass
+                                          - kind: DollarSign
+                                            text: $
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: ElseClause

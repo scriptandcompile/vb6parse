@@ -48,24 +48,18 @@ root:
                 - kind: Whitespace
                   text: " "
                 - kind: Argument
+                  children: []
+                - kind: Comma
+                  text: ","
+                - kind: Whitespace
+                  text: " "
+                - kind: Argument
                   children:
                     - kind: IdentifierExpression
                       children:
-                        - kind: Comma
-                          text: ","
-                - kind: Whitespace
-                  text: " "
-    - kind: CallStatement
-      children:
-        - kind: Identifier
-          text: vbTrue
-        - kind: ArgumentList
-          children:
-            - kind: Argument
-              children:
-                - kind: IdentifierExpression
-                  children:
-                    - kind: RightParenthesis
-                      text: )
+                        - kind: Identifier
+                          text: vbTrue
+            - kind: RightParenthesis
+              text: )
         - kind: Newline
           text: "\n"

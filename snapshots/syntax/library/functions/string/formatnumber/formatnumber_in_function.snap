@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/formatnumber.rs
+source: vb6parse/src/syntax/library/functions/string/formatnumber.rs
 expression: tree
 ---
 root:
@@ -86,13 +86,13 @@ root:
                         - kind: Whitespace
                           text: " "
                         - kind: Argument
-                          children:
-                            - kind: IdentifierExpression
-                              children:
-                                - kind: Comma
-                                  text: ","
+                          children: []
+                        - kind: Comma
+                          text: ","
                         - kind: Whitespace
                           text: " "
+                        - kind: Argument
+                          children: []
                         - kind: Comma
                           text: ","
                         - kind: Whitespace

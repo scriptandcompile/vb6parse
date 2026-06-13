@@ -466,6 +466,16 @@ impl Parser<'_> {
             return;
         }
 
+        // Support an empty first argument: e.g., GetObject(, "Excel.Application")
+        if self.at_token(Token::Comma) {
+            self.builder.start_node(SyntaxKind::Argument.to_raw());
+            self.builder.finish_node(); // Argument (empty)
+            self.consume_token(); // ,
+            self.consume_whitespace();
+            self.parse_argument_after_separator(frame_stack, min_bp, call_checkpoint);
+            return;
+        }
+
         // Parse first argument
         self.builder.start_node(SyntaxKind::Argument.to_raw());
 
@@ -481,6 +491,57 @@ impl Parser<'_> {
             min_bp: BindingPower::NONE,
             lhs_checkpoint: arg_checkpoint,
         });
+    }
+
+    /// Parse the argument that follows a comma separator.
+    /// Handles empty arguments between separators and before the closing parenthesis.
+    fn parse_argument_after_separator(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        call_checkpoint: Checkpoint,
+    ) {
+        loop {
+            if self.at_token(Token::RightParenthesis) {
+                // Trailing separator means final empty argument.
+                self.builder.start_node(SyntaxKind::Argument.to_raw());
+                self.builder.finish_node(); // Argument (empty)
+
+                self.builder.finish_node(); // ArgumentList
+                self.consume_token(); // )
+                self.builder.finish_node(); // CallExpression
+
+                frame_stack.push(ExprParseFrame::ParsePostfix {
+                    min_bp,
+                    lhs_checkpoint: call_checkpoint,
+                });
+                return;
+            }
+
+            if self.at_token(Token::Comma) {
+                // Consecutive separators imply an empty argument.
+                self.builder.start_node(SyntaxKind::Argument.to_raw());
+                self.builder.finish_node(); // Argument (empty)
+                self.consume_token(); // ,
+                self.consume_whitespace();
+                continue;
+            }
+
+            // Non-empty argument expression.
+            self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+            frame_stack.push(ExprParseFrame::NextArgument {
+                min_bp,
+                call_checkpoint,
+            });
+
+            let arg_checkpoint = self.builder.checkpoint();
+            frame_stack.push(ExprParseFrame::ParsePrefix {
+                min_bp: BindingPower::NONE,
+                lhs_checkpoint: arg_checkpoint,
+            });
+            return;
+        }
     }
 
     fn handle_next_argument_frame(
@@ -500,36 +561,7 @@ impl Parser<'_> {
             self.consume_token();
             self.consume_whitespace();
 
-            // Check if there's actually another argument
-            if self.at_token(Token::RightParenthesis) {
-                // Trailing comma but no argument - just finish
-                self.builder.finish_node(); // ArgumentList
-                self.consume_token(); // )
-                self.builder.finish_node(); // CallExpression
-
-                // Check for more postfix operators
-                frame_stack.push(ExprParseFrame::ParsePostfix {
-                    min_bp,
-                    lhs_checkpoint: call_checkpoint,
-                });
-                return;
-            }
-
-            // Parse next argument
-            self.builder.start_node(SyntaxKind::Argument.to_raw());
-
-            // After finishing, check for more arguments
-            frame_stack.push(ExprParseFrame::NextArgument {
-                min_bp,
-                call_checkpoint,
-            });
-
-            // Parse the argument expression
-            let arg_checkpoint = self.builder.checkpoint();
-            frame_stack.push(ExprParseFrame::ParsePrefix {
-                min_bp: BindingPower::NONE,
-                lhs_checkpoint: arg_checkpoint,
-            });
+            self.parse_argument_after_separator(frame_stack, min_bp, call_checkpoint);
             return;
         }
 

@@ -2737,21 +2737,17 @@ cst:
                           - kind: Whitespace
                             text: " "
                           - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Comma
-                                    text: ","
+                            children: []
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-                  - kind: CallStatement
-                    children:
-                      - kind: TrueKeyword
-                        text: "True"
-                      - kind: ArgumentList
-                        children:
                           - kind: Argument
-                            children: []
+                            children:
+                              - kind: BooleanLiteralExpression
+                                children:
+                                  - kind: TrueKeyword
+                                    text: "True"
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -2814,622 +2810,634 @@ cst:
                                     text: "."
                                   - kind: Identifier
                                     text: hWnd
-                  - kind: RightParenthesis
-                    text: )
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Whitespace
                     text: " "
                   - kind: ThenKeyword
                     text: Then
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: EndOfLineComment
-                text: "'Open the file"
-              - kind: Newline
-                text: "\r\n"
-              - kind: OpenStatement
-                children:
-                  - kind: Whitespace
-                    text: "        "
-                  - kind: OpenKeyword
-                    text: Open
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: sFile
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ForKeyword
-                    text: For
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryKeyword
-                    text: Binary
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Octothorpe
-                    text: "#"
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "            "
-              - kind: EndOfLineComment
-                text: "'At present, map files are pretty simple - the width, height, and data is all we currently store"
-              - kind: Newline
-                text: "\r\n"
-              - kind: GetStatement
-                children:
-                  - kind: Whitespace
-                    text: "            "
-                  - kind: GetKeyword
-                    text: Get
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Octothorpe
-                    text: "#"
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: SizeX
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: GetStatement
-                children:
-                  - kind: Whitespace
-                    text: "            "
-                  - kind: GetKeyword
-                    text: Get
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Octothorpe
-                    text: "#"
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: SizeY
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: ReDimStatement
-                children:
-                  - kind: Whitespace
-                    text: "            "
-                  - kind: ReDimKeyword
-                    text: ReDim
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: MapArray
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ToKeyword
-                    text: To
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: SizeX
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "0"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ToKeyword
-                    text: To
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: SizeY
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByteKeyword
-                    text: Byte
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: GetStatement
-                children:
-                  - kind: Whitespace
-                    text: "            "
-                  - kind: GetKeyword
-                    text: Get
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Octothorpe
-                    text: "#"
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: MapArray
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: CloseStatement
-                children:
-                  - kind: Whitespace
-                    text: "        "
-                  - kind: CloseKeyword
-                    text: Close
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Octothorpe
-                    text: "#"
-                  - kind: IntegerLiteral
-                    text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: EndOfLineComment
-                text: "'Once MapArray has been successfully created, Draw the map!"
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: DrawMap
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IfKeyword
-                    text: If
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Newline
-                        text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: Newline
-                    text: "\r\n"
                   - kind: StatementList
                     children:
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Unknown
-                        text: End
                       - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
+                        text: "        "
                       - kind: Newline
                         text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
                       - kind: EndOfLineComment
-                        text: "'Menu -> Refresh"
+                        text: "'Open the file"
                       - kind: Newline
                         text: "\r\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: MnuRefresh_Click
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: RefreshAll
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: EndOfLineComment
-                        text: "'Menu -> Resize"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: MnuResize_Click
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: MemberAccessExpression
-                            children:
-                              - kind: Identifier
-                                text: FrmResize
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: Visible
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BooleanLiteralExpression
-                            children:
-                              - kind: TrueKeyword
-                                text: "True"
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: EndOfLineComment
-                        text: "'Menu -> Save"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: MnuSave_Click
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'Initialize the common dialog interface"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: newDialog
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AsKeyword
-                            text: As
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: pdOpenSaveDialog
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: SetStatement
+                      - kind: OpenStatement
                         children:
                           - kind: Whitespace
-                            text: "    "
-                          - kind: SetKeyword
-                            text: Set
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: newDialog
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NewKeyword
-                            text: New
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: pdOpenSaveDialog
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'String returned from the common dialog wrapper"
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
-                        children:
-                          - kind: DimKeyword
-                            text: Dim
+                            text: "        "
+                          - kind: OpenKeyword
+                            text: Open
                           - kind: Whitespace
                             text: " "
                           - kind: Identifier
                             text: sFile
                           - kind: Whitespace
                             text: " "
+                          - kind: ForKeyword
+                            text: For
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryKeyword
+                            text: Binary
+                          - kind: Whitespace
+                            text: " "
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: StringKeyword
-                            text: String
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: IntegerLiteral
+                            text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
-                        text: "    "
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
+                        text: "            "
                       - kind: EndOfLineComment
-                        text: "'This string contains the filters for loading different kinds of images.  Using"
+                        text: "'At present, map files are pretty simple - the width, height, and data is all we currently store"
                       - kind: Newline
                         text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: EndOfLineComment
-                        text: "'this feature correctly makes our common dialog box a LOT more pleasant to use."
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: DimStatement
+                      - kind: GetStatement
                         children:
-                          - kind: DimKeyword
-                            text: Dim
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: GetKeyword
+                            text: Get
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
                           - kind: Identifier
-                            text: cdfStr
+                            text: SizeX
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: GetStatement
+                        children:
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: GetKeyword
+                            text: Get
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SizeY
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: ReDimStatement
+                        children:
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: ReDimKeyword
+                            text: ReDim
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: MapArray
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ToKeyword
+                            text: To
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SizeX
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IntegerLiteral
+                            text: "0"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ToKeyword
+                            text: To
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: SizeY
+                          - kind: RightParenthesis
+                            text: )
                           - kind: Whitespace
                             text: " "
                           - kind: AsKeyword
                             text: As
                           - kind: Whitespace
                             text: " "
-                          - kind: StringKeyword
-                            text: String
+                          - kind: ByteKeyword
+                            text: Byte
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Whitespace
-                        text: "    "
-                      - kind: AssignmentStatement
+                      - kind: GetStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: cdfStr
+                          - kind: Whitespace
+                            text: "            "
+                          - kind: GetKeyword
+                            text: Get
                           - kind: Whitespace
                             text: " "
-                          - kind: EqualityOperator
-                            text: "="
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-                          - kind: StringLiteralExpression
-                            children:
-                              - kind: StringLiteral
-                                text: "\"VB Map Files (.map)|*.map|All Files|*.*\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: MapArray
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: CloseStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: CloseKeyword
+                            text: Close
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: IntegerLiteral
+                            text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
-                        text: "    "
+                        text: "        "
                       - kind: Newline
                         text: "\r\n"
                       - kind: Whitespace
-                        text: "    "
+                        text: "        "
                       - kind: EndOfLineComment
-                        text: "'If cancel isn't selected, save a map to the user-specified file"
+                        text: "'Once MapArray has been successfully created, Draw the map!"
                       - kind: Newline
                         text: "\r\n"
-                      - kind: IfStatement
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: CallStatement
                         children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: IfKeyword
-                            text: If
+                          - kind: Identifier
+                            text: DrawMap
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Menu -> Refresh"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MnuRefresh_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: CallStatement
+                children:
+                  - kind: Identifier
+                    text: RefreshAll
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Menu -> Resize"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MnuResize_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: FrmResize
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: Visible
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: TrueKeyword
+                        text: "True"
+                  - kind: Newline
+                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: EndOfLineComment
+        text: "'Menu -> Save"
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: MnuSave_Click
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'Initialize the common dialog interface"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: newDialog
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: pdOpenSaveDialog
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: SetStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: SetKeyword
+                    text: Set
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: newDialog
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NewKeyword
+                    text: New
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: pdOpenSaveDialog
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'String returned from the common dialog wrapper"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: sFile
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'This string contains the filters for loading different kinds of images.  Using"
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'this feature correctly makes our common dialog box a LOT more pleasant to use."
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: DimStatement
+                children:
+                  - kind: DimKeyword
+                    text: Dim
+                  - kind: Whitespace
+                    text: " "
+                  - kind: Identifier
+                    text: cdfStr
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringKeyword
+                    text: String
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: cdfStr
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: StringLiteralExpression
+                    children:
+                      - kind: StringLiteral
+                        text: "\"VB Map Files (.map)|*.map|All Files|*.*\""
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: Newline
+                text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'If cancel isn't selected, save a map to the user-specified file"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: CallExpression
+                    children:
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: newDialog
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: GetSaveFileName
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: sFile
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-                          - kind: CallExpression
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: cdfStr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "1"
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children: []
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"Save a map file\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
+                            children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\".map\""
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Argument
                             children:
                               - kind: MemberAccessExpression
                                 children:
-                                  - kind: Identifier
-                                    text: newDialog
+                                  - kind: MeKeyword
+                                    text: Me
                                   - kind: PeriodOperator
                                     text: "."
                                   - kind: Identifier
-                                    text: GetSaveFileName
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: sFile
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: cdfStr
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: IntegerLiteral
-                                            text: "1"
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Comma
-                                            text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: StringLiteral
-                            text: "\"Save a map file\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: StringLiteral
-                            text: "\".map\""
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: MeKeyword
-                                text: Me
-                              - kind: PeriodOperator
-                                text: "."
-                              - kind: Identifier
-                                text: hWnd
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: RightParenthesis
-                                            text: )
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Newline
-                            text: "\r\n"
+                                    text: hWnd
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
                       - kind: Whitespace
                         text: "        "
                       - kind: Newline

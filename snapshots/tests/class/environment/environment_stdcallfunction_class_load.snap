@@ -1383,61 +1383,75 @@ cst:
                                                           - kind: Whitespace
                                                             text: " "
                                                           - kind: Argument
-                                                            children:
-                                                              - kind: IdentifierExpression
-                                                                children:
-                                                                  - kind: Comma
-                                                                    text: ","
+                                                            children: []
+                                                          - kind: Comma
+                                                            text: ","
                                                           - kind: Whitespace
                                                             text: " "
-                                                  - kind: IntegerLiteral
-                                                    text: "3"
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                          - kind: Argument
+                                                            children:
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "3"
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: Whitespace
                                                     text: " "
                                                   - kind: ThenKeyword
                                                     text: Then
                                                   - kind: Newline
                                                     text: "\r\n"
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: CallStatement
-                                                children:
-                                                  - kind: Identifier
-                                                    text: PushType
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: ArgumentList
+                                                  - kind: StatementList
                                                     children:
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: UnaryExpression
-                                                            children:
-                                                              - kind: SubtractionOperator
-                                                                text: "-"
-                                                              - kind: NumericLiteralExpression
-                                                                children:
-                                                                  - kind: IntegerLiteral
-                                                                    text: "100"
                                                       - kind: Whitespace
-                                                        text: "  "
-                                              - kind: EndOfLineComment
-                                                text: "' Paramarray"
-                                              - kind: Newline
-                                                text: "\r\n"
-                                              - kind: ExitStatement
-                                                children:
+                                                        text: " "
+                                                      - kind: CallStatement
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: PushType
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: ArgumentList
+                                                            children:
+                                                              - kind: Argument
+                                                                children:
+                                                                  - kind: UnaryExpression
+                                                                    children:
+                                                                      - kind: SubtractionOperator
+                                                                        text: "-"
+                                                                      - kind: NumericLiteralExpression
+                                                                        children:
+                                                                          - kind: IntegerLiteral
+                                                                            text: "100"
+                                                              - kind: Whitespace
+                                                                text: "  "
+                                                      - kind: EndOfLineComment
+                                                        text: "' Paramarray"
+                                                      - kind: Newline
+                                                        text: "\r\n"
+                                                      - kind: ExitStatement
+                                                        children:
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: ExitKeyword
+                                                            text: Exit
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: DoKeyword
+                                                            text: Do
+                                                      - kind: Newline
+                                                        text: "\r\n"
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                  - kind: EndKeyword
+                                                    text: End
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: ExitKeyword
-                                                    text: Exit
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: DoKeyword
-                                                    text: Do
-                                              - kind: Newline
-                                                text: "\r\n"
+                                                  - kind: IfKeyword
+                                                    text: If
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: Whitespace
                                                 text: " "
                                           - kind: EndKeyword
@@ -1458,52 +1472,38 @@ cst:
                                 text: If
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: End
-                          - kind: IfStatement
+                          - kind: CallStatement
                             children:
+                              - kind: Identifier
+                                text: PushType
                               - kind: Whitespace
                                 text: " "
-                              - kind: IfKeyword
-                                text: If
-                              - kind: IdentifierExpression
+                              - kind: ArgumentList
                                 children:
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: PushType
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ArgumentList
+                                  - kind: Argument
                                     children:
-                                      - kind: Argument
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: BinaryExpression
+                                          - kind: IdentifierExpression
                                             children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: m
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: AdditionOperator
-                                                text: +
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: l
-                                      - kind: Whitespace
-                                        text: "   "
-                              - kind: EndOfLineComment
-                                text: "'above 16 is byref"
-                              - kind: Newline
-                                text: "\r\n"
+                                              - kind: Identifier
+                                                text: m
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: l
+                                  - kind: Whitespace
+                                    text: "   "
+                          - kind: EndOfLineComment
+                            text: "'above 16 is byref"
+                          - kind: Newline
+                            text: "\r\n"
                           - kind: IfStatement
                             children:
                               - kind: IfKeyword

@@ -21,46 +21,44 @@ root:
               text: Not
             - kind: Whitespace
               text: " "
-            - kind: CallExpression
+            - kind: BinaryExpression
               children:
-                - kind: Identifier
-                  text: GetObject
-                - kind: LeftParenthesis
-                  text: (
-                - kind: ArgumentList
+                - kind: CallExpression
                   children:
-                    - kind: Argument
+                    - kind: Identifier
+                      text: GetObject
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
                       children:
-                        - kind: IdentifierExpression
+                        - kind: Argument
+                          children: []
+                        - kind: Comma
+                          text: ","
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Argument
                           children:
-                            - kind: Comma
-                              text: ","
-                    - kind: Whitespace
-                      text: " "
-        - kind: StatementList
-          children:
-            - kind: Unknown
-              text: "\"Excel.Application\""
-            - kind: Unknown
-              text: )
-            - kind: Whitespace
-              text: " "
-            - kind: CallStatement
-              children:
+                            - kind: StringLiteralExpression
+                              children:
+                                - kind: StringLiteral
+                                  text: "\"Excel.Application\""
+                    - kind: RightParenthesis
+                      text: )
+                - kind: Whitespace
+                  text: " "
                 - kind: IsKeyword
                   text: Is
                 - kind: Whitespace
                   text: " "
-                - kind: ArgumentList
+                - kind: IdentifierExpression
                   children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
-                          children:
-                            - kind: NothingKeyword
-                              text: Nothing
-                - kind: Newline
-                  text: "\n"
+                    - kind: NothingKeyword
+                      text: Nothing
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
             - kind: Whitespace
               text: "    "
             - kind: CallStatement
