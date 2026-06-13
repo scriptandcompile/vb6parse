@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/string/asc.rs
+source: vb6parse/src/syntax/library/functions/string/asc.rs
 expression: tree
 ---
 root:
@@ -55,7 +55,7 @@ root:
                                   text: "\"A\""
                     - kind: RightParenthesis
                       text: )
-            - kind: Unknown
+            - kind: ColonOperator
               text: ":"
             - kind: Whitespace
               text: " "
@@ -87,7 +87,7 @@ root:
                                   text: "\"B\""
                     - kind: RightParenthesis
                       text: )
-            - kind: Unknown
+            - kind: ColonOperator
               text: ":"
             - kind: Whitespace
               text: " "

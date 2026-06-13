@@ -1341,7 +1341,7 @@ cst:
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "
@@ -1661,7 +1661,7 @@ cst:
                                                 children:
                                                   - kind: IntegerLiteral
                                                     text: "1"
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: IfStatement
                                         children:
@@ -2207,7 +2207,7 @@ cst:
                                                     children:
                                                       - kind: StringLiteral
                                                         text: "\"\""
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: Whitespace
                                                 text: " "
@@ -2729,7 +2729,7 @@ cst:
                                                     children:
                                                       - kind: IntegerLiteral
                                                         text: "0"
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: Whitespace
                                                 text: " "
@@ -3395,7 +3395,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "1"
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: IfStatement
                                                         children:
@@ -4189,7 +4189,7 @@ cst:
                                                                                     children:
                                                                                       - kind: Identifier
                                                                                         text: i
-                                                                              - kind: Unknown
+                                                                              - kind: ColonOperator
                                                                                 text: ":"
                                                                               - kind: IfStatement
                                                                                 children:
@@ -4287,7 +4287,7 @@ cst:
                                                                         children:
                                                                           - kind: IntegerLiteral
                                                                             text: "1"
-                                                                  - kind: Unknown
+                                                                  - kind: ColonOperator
                                                                     text: ":"
                                                                   - kind: Whitespace
                                                                     text: " "

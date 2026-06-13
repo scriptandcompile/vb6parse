@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/atn.rs
+source: vb6parse/src/syntax/library/functions/math/atn.rs
 expression: tree
 ---
 root:
@@ -55,7 +55,7 @@ root:
                                   text: "0"
                     - kind: RightParenthesis
                       text: )
-            - kind: Unknown
+            - kind: ColonOperator
               text: ":"
             - kind: Whitespace
               text: " "
@@ -87,7 +87,7 @@ root:
                                   text: "1"
                     - kind: RightParenthesis
                       text: )
-            - kind: Unknown
+            - kind: ColonOperator
               text: ":"
             - kind: Whitespace
               text: " "

@@ -1727,7 +1727,7 @@ cst:
                                                         children:
                                                           - kind: Identifier
                                                             text: AlpnProtocols
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Unknown
                                         text: "="
@@ -1865,7 +1865,7 @@ cst:
                                                     text: LocalFeatures
                               - kind: StatementList
                                 children:
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Unknown
                                     text: "="
@@ -2447,7 +2447,7 @@ cst:
                                         children:
                                           - kind: Identifier
                                             text: Timeout
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Unknown
                         text: "="

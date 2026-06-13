@@ -2346,7 +2346,7 @@ cst:
                                     children:
                                       - kind: IntegerLiteral
                                         text: "1"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: ExitStatement
                                 children:
@@ -19588,7 +19588,7 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "1"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: ExitStatement
                                 children:

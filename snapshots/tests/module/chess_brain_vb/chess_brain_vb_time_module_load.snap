@@ -1361,7 +1361,7 @@ cst:
                                             text: "1#"
                               - kind: RightParenthesis
                                 text: )
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "

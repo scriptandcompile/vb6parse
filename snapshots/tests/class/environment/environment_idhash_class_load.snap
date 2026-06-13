@@ -3624,7 +3624,7 @@ cst:
                                                     children:
                                                       - kind: TrueKeyword
                                                         text: "True"
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: Whitespace
                                                 text: " "
@@ -3644,7 +3644,7 @@ cst:
                                                     children:
                                                       - kind: Identifier
                                                         text: Key
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: Whitespace
                                                 text: " "
@@ -3664,7 +3664,7 @@ cst:
                                                     children:
                                                       - kind: Identifier
                                                         text: k
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: ExitStatement
                                                 children:

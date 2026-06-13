@@ -1079,7 +1079,7 @@ cst:
                             children:
                               - kind: Ampersand
                                 text: "&"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "

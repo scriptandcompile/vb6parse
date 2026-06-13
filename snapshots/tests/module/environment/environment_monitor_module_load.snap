@@ -5955,7 +5955,7 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: i
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: ExitStatement
                                         children:

@@ -27816,7 +27816,7 @@ cst:
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: st
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: GotoStatement
                                                         children:

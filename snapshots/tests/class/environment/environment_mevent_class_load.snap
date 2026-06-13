@@ -5260,7 +5260,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: ndx
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -5280,7 +5280,7 @@ cst:
                                             children:
                                               - kind: TrueKeyword
                                                 text: "True"
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: ExitStatement
                                         children:

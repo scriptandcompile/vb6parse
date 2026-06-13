@@ -14909,7 +14909,7 @@ cst:
                                     children:
                                       - kind: IntegerLiteral
                                         text: "1"
-                          - kind: Unknown
+                          - kind: ColonOperator
                             text: ":"
                           - kind: IfStatement
                             children:

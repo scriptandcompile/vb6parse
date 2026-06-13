@@ -255,7 +255,7 @@ cst:
                     children:
                       - kind: IntegerLiteral
                         text: "0"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -9869,7 +9869,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"¸¶µð\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -9911,7 +9911,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"¹Ú(1/4)\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -9953,7 +9953,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"1/16\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -9995,7 +9995,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"À§Ä¡\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10037,7 +10037,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"µ¿ÀÛ\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10079,7 +10079,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"Key\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Newline
                 text: "\n"
@@ -10121,7 +10121,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"int\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10163,7 +10163,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"int\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10205,7 +10205,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"int\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10247,7 +10247,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"int\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10289,7 +10289,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"enum(n,s,f)\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -10331,7 +10331,7 @@ cst:
                     children:
                       - kind: StringLiteral
                         text: "\"string\""
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Newline
                 text: "\n"

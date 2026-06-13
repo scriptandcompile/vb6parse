@@ -4428,7 +4428,7 @@ cst:
                             children:
                               - kind: Identifier
                                 text: m
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "

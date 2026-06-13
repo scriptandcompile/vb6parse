@@ -19462,7 +19462,7 @@ cst:
                                                     text: "1"
                                       - kind: StatementList
                                         children:
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: Whitespace
                                             text: " "
@@ -19494,7 +19494,7 @@ cst:
                                                     children:
                                                       - kind: Identifier
                                                         text: maxlonglong
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: Whitespace
                                             text: " "
@@ -19538,7 +19538,7 @@ cst:
                                         text: limitlonglong
                               - kind: StatementList
                                 children:
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "
@@ -19570,7 +19570,7 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: maxlonglong
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "
@@ -20016,7 +20016,7 @@ cst:
                                                             text: "1"
                                               - kind: StatementList
                                                 children:
-                                                  - kind: Unknown
+                                                  - kind: ColonOperator
                                                     text: ":"
                                                   - kind: Whitespace
                                                     text: " "
@@ -20048,7 +20048,7 @@ cst:
                                                             children:
                                                               - kind: Identifier
                                                                 text: maxlonglong
-                                                  - kind: Unknown
+                                                  - kind: ColonOperator
                                                     text: ":"
                                                   - kind: Whitespace
                                                     text: " "
@@ -20092,7 +20092,7 @@ cst:
                                                 text: limitlonglong
                                       - kind: StatementList
                                         children:
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: Whitespace
                                             text: " "
@@ -20124,7 +20124,7 @@ cst:
                                                     children:
                                                       - kind: Identifier
                                                         text: maxlonglong
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: Whitespace
                                             text: " "

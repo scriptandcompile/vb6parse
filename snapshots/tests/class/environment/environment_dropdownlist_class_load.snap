@@ -3643,7 +3643,7 @@ cst:
                                             text: item
                               - kind: RightParenthesis
                                 text: )
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "

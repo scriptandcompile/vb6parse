@@ -4575,7 +4575,7 @@ cst:
                                             text: )
                               - kind: RightParenthesis
                                 text: )
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: "   "
@@ -5647,7 +5647,7 @@ cst:
                                             text: )
                               - kind: RightParenthesis
                                 text: )
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: "   "
@@ -6567,7 +6567,7 @@ cst:
                                             text: )
                               - kind: RightParenthesis
                                 text: )
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: "   "

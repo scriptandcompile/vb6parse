@@ -8397,7 +8397,7 @@ cst:
                         text: Do
                       - kind: StatementList
                         children:
-                          - kind: Unknown
+                          - kind: ColonOperator
                             text: ":"
                           - kind: Whitespace
                             text: " "
@@ -8429,7 +8429,7 @@ cst:
                                     children:
                                       - kind: IntegerLiteral
                                         text: "10"
-                          - kind: Unknown
+                          - kind: ColonOperator
                             text: ":"
                           - kind: Whitespace
                             text: " "
@@ -8565,7 +8565,7 @@ cst:
                         text: Do
                       - kind: StatementList
                         children:
-                          - kind: Unknown
+                          - kind: ColonOperator
                             text: ":"
                           - kind: Whitespace
                             text: " "
@@ -8597,7 +8597,7 @@ cst:
                                     children:
                                       - kind: IntegerLiteral
                                         text: "10"
-                          - kind: Unknown
+                          - kind: ColonOperator
                             text: ":"
                           - kind: Whitespace
                             text: " "
@@ -8989,7 +8989,7 @@ cst:
                                 text: Do
                               - kind: StatementList
                                 children:
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "
@@ -9021,7 +9021,7 @@ cst:
                                             children:
                                               - kind: IntegerLiteral
                                                 text: "10"
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "
@@ -21031,7 +21031,7 @@ cst:
                                                             children:
                                                               - kind: StringLiteral
                                                                 text: "\"Administrators\""
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: ExitStatement
                                                         children:
@@ -21141,7 +21141,7 @@ cst:
                                                                 children:
                                                                   - kind: StringLiteral
                                                                     text: "\"Power Users\""
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: ExitStatement
                                                             children:
@@ -21251,7 +21251,7 @@ cst:
                                                                 children:
                                                                   - kind: StringLiteral
                                                                     text: "\"Limited Users\""
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: ExitStatement
                                                             children:
@@ -21361,7 +21361,7 @@ cst:
                                                                 children:
                                                                   - kind: StringLiteral
                                                                     text: "\"Guests\""
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: ExitStatement
                                                             children:

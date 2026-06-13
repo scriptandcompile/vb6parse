@@ -12028,7 +12028,7 @@ cst:
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "
@@ -12060,7 +12060,7 @@ cst:
                             children:
                               - kind: IntegerLiteral
                                 text: "0"
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "

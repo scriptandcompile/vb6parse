@@ -3684,7 +3684,7 @@ cst:
                                                                     children:
                                                                       - kind: Identifier
                                                                         text: nook
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: Whitespace
                                                                 text: " "
@@ -3924,7 +3924,7 @@ cst:
                                                                 children:
                                                                   - kind: Identifier
                                                                     text: nook
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: Whitespace
                                                             text: " "
@@ -5612,7 +5612,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "0"
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: Whitespace
                                                             text: " "
@@ -5636,7 +5636,7 @@ cst:
                                                                 children:
                                                                   - kind: TrueKeyword
                                                                     text: "True"
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: Whitespace
                                                             text: " "
@@ -5660,7 +5660,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "0"
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: Whitespace
                                                             text: " "
@@ -5680,7 +5680,7 @@ cst:
                                                                 children:
                                                                   - kind: FalseKeyword
                                                                     text: "False"
-                                                          - kind: Unknown
+                                                          - kind: ColonOperator
                                                             text: ":"
                                                           - kind: ExitStatement
                                                             children:
@@ -5836,7 +5836,7 @@ cst:
                                                                     children:
                                                                       - kind: FalseKeyword
                                                                         text: "False"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: ExitStatement
                                                                 children:
@@ -6054,7 +6054,7 @@ cst:
                                                                     children:
                                                                       - kind: IntegerLiteral
                                                                         text: "0"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: Whitespace
                                                                 text: " "
@@ -6078,7 +6078,7 @@ cst:
                                                                     children:
                                                                       - kind: TrueKeyword
                                                                         text: "True"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: Whitespace
                                                                 text: " "
@@ -6102,7 +6102,7 @@ cst:
                                                                     children:
                                                                       - kind: IntegerLiteral
                                                                         text: "0"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: Whitespace
                                                                 text: " "
@@ -6122,7 +6122,7 @@ cst:
                                                                     children:
                                                                       - kind: FalseKeyword
                                                                         text: "False"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: ExitStatement
                                                                 children:
@@ -6278,7 +6278,7 @@ cst:
                                                                         children:
                                                                           - kind: FalseKeyword
                                                                             text: "False"
-                                                                  - kind: Unknown
+                                                                  - kind: ColonOperator
                                                                     text: ":"
                                                                   - kind: ExitStatement
                                                                     children:

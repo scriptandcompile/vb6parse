@@ -19111,7 +19111,7 @@ cst:
                                 text: hx
                               - kind: DollarSign
                                 text: $
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Whitespace
                         text: " "
@@ -19143,7 +19143,7 @@ cst:
                                 children:
                                   - kind: IntegerLiteral
                                     text: "1"
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: Newline
                         text: "\r\n"
@@ -20333,7 +20333,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lChar
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -20545,7 +20545,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lChar
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -20825,7 +20825,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lchar1
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -21021,7 +21021,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lchar1
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -21289,7 +21289,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lChar2
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -21503,7 +21503,7 @@ cst:
                                                 children:
                                                   - kind: Identifier
                                                     text: lChar2
-                                          - kind: Unknown
+                                          - kind: ColonOperator
                                             text: ":"
                                           - kind: GotoStatement
                                             children:
@@ -23749,7 +23749,7 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "1"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: Whitespace
                                 text: " "
@@ -23895,7 +23895,7 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "1"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: Whitespace
                                 text: " "
@@ -24021,7 +24021,7 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "1"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: Whitespace
                                 text: " "

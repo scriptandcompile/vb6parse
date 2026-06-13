@@ -6133,7 +6133,7 @@ cst:
                     children:
                       - kind: FalseKeyword
                         text: "False"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Newline
                 text: "\r\n"
@@ -7349,7 +7349,7 @@ cst:
                                                         text: item
                                           - kind: RightParenthesis
                                             text: )
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "
@@ -16845,7 +16845,7 @@ cst:
                                                         text: item
                                           - kind: RightParenthesis
                                             text: )
-                                  - kind: Unknown
+                                  - kind: ColonOperator
                                     text: ":"
                                   - kind: Whitespace
                                     text: " "

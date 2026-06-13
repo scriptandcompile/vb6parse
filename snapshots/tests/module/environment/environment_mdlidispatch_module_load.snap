@@ -22453,7 +22453,7 @@ cst:
                                                                     children:
                                                                       - kind: TrueKeyword
                                                                         text: "True"
-                                                              - kind: Unknown
+                                                              - kind: ColonOperator
                                                                 text: ":"
                                                               - kind: Whitespace
                                                                 text: " "

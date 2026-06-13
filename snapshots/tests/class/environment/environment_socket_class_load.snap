@@ -6907,7 +6907,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"÷ñåéÜæïìáé ìéá äéÜñèñùóç\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:
@@ -7263,7 +7263,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"ç áñ÷éêÞ äéåýèõíóç åßíáé åêôüò äéÜñèñùóçò\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:
@@ -7391,7 +7391,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"÷ñåéÜæïìáé ìéá ìåãáëýôåñç äéÜñèñùóç\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:
@@ -8501,7 +8501,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"÷ñåéÜæïìáé ìéá äéÜñèñùóç\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:
@@ -8857,7 +8857,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"ç áñ÷éêÞ äéåýèõíóç åßíáé åêôüò äéÜñèñùóçò\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:
@@ -8985,7 +8985,7 @@ cst:
                                     children:
                                       - kind: StringLiteral
                                         text: "\"÷ñåéÜæïìáé ìéá ìåãáëýôåñç äéÜñèñùóç\""
-                      - kind: Unknown
+                      - kind: ColonOperator
                         text: ":"
                       - kind: ExitStatement
                         children:

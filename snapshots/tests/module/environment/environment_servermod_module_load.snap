@@ -4835,7 +4835,7 @@ cst:
                                     children:
                                       - kind: FalseKeyword
                                         text: "False"
-                              - kind: Unknown
+                              - kind: ColonOperator
                                 text: ":"
                               - kind: GotoStatement
                                 children:

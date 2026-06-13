@@ -6284,7 +6284,7 @@ cst:
                                         text: "2#"
                       - kind: RightParenthesis
                         text: )
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -6332,7 +6332,7 @@ cst:
                                         text: "2#"
                       - kind: RightParenthesis
                         text: )
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -6428,7 +6428,7 @@ cst:
                                         text: "2#"
                       - kind: RightParenthesis
                         text: )
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -6476,7 +6476,7 @@ cst:
                                         text: "2#"
                       - kind: RightParenthesis
                         text: )
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -17728,7 +17728,7 @@ cst:
                         children:
                           - kind: DoubleLiteral
                             text: "2#"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "       "
@@ -17764,7 +17764,7 @@ cst:
                         children:
                           - kind: DoubleLiteral
                             text: "2#"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "       "
@@ -17836,7 +17836,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num1
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "
@@ -17872,7 +17872,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num2
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "
@@ -17944,7 +17944,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num2
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "
@@ -17980,7 +17980,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num3
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "
@@ -18052,7 +18052,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num1
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "
@@ -18088,7 +18088,7 @@ cst:
                         children:
                           - kind: Identifier
                             text: num2
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: "     "

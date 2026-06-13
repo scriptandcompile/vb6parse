@@ -3760,7 +3760,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: nDx
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -3780,7 +3780,7 @@ cst:
                                             children:
                                               - kind: TrueKeyword
                                                 text: "True"
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -3800,7 +3800,7 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: k
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: "  "
@@ -3838,7 +3838,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: originaltype
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -3876,7 +3876,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: globalvar
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: ExitStatement
                                         children:
@@ -4328,7 +4328,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: nDx
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -4348,7 +4348,7 @@ cst:
                                             children:
                                               - kind: TrueKeyword
                                                 text: "True"
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -4368,7 +4368,7 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: k
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -4406,7 +4406,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: globalvar
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: ExitStatement
                                         children:
@@ -4844,7 +4844,7 @@ cst:
                                                 text: "."
                                               - kind: Identifier
                                                 text: nDx
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -4864,7 +4864,7 @@ cst:
                                             children:
                                               - kind: TrueKeyword
                                                 text: "True"
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: Whitespace
                                         text: " "
@@ -4884,7 +4884,7 @@ cst:
                                             children:
                                               - kind: Identifier
                                                 text: k
-                                      - kind: Unknown
+                                      - kind: ColonOperator
                                         text: ":"
                                       - kind: ExitStatement
                                         children:
@@ -5902,7 +5902,7 @@ cst:
                                                     children:
                                                       - kind: TrueKeyword
                                                         text: "True"
-                                              - kind: Unknown
+                                              - kind: ColonOperator
                                                 text: ":"
                                               - kind: ExitStatement
                                                 children:

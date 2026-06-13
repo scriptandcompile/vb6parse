@@ -2448,7 +2448,7 @@ cst:
                     children:
                       - kind: FalseKeyword
                         text: "False"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -2468,7 +2468,7 @@ cst:
                     children:
                       - kind: IntegerLiteral
                         text: "2"
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: SetStatement
                 children:

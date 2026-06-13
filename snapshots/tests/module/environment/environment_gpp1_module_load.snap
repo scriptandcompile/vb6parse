@@ -5845,7 +5845,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: pw
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -5865,7 +5865,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: ph
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -5903,7 +5903,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: psw
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -5923,7 +5923,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: psh
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -5961,7 +5961,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: LPX
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "
@@ -5981,7 +5981,7 @@ cst:
                     children:
                       - kind: Identifier
                         text: lpy
-              - kind: Unknown
+              - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
                 text: " "

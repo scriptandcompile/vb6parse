@@ -2136,7 +2136,10 @@ impl<'a> Parser<'a> {
                     // Standalone End statement (terminates program execution)
                     } else if self.is_standalone_end() {
                         self.parse_end_statement();
-                    } else if self.is_identifier()
+                    // Colon is a statement separator in VB6, allowing multiple statements on one line.
+                    } else if self.at_token(Token::ColonOperator)
+                    // Identifiers, keywords, and the octothorpe are all valid statement starters on a line.
+                        || self.is_identifier()
                         || self.at_keyword()
                         || self.at_token(Token::Octothorpe)
                     {
@@ -2712,6 +2715,11 @@ impl<'a> Parser<'a> {
         } else if self.is_standalone_end() {
             self.parse_end_statement();
         } else if self.at_token(Token::Octothorpe) {
+            self.consume_token();
+        } else if self.at_token(Token::ColonOperator) {
+            // Colon is a statement separator in VB6, allowing multiple statements on one line.
+            // e.g. `a = 1 : b = 2 : c = 3`
+            // Consume the colon token and continue parsing the next statement.
             self.consume_token();
         } else {
             self.consume_token_as_unknown();

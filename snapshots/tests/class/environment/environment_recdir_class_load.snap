@@ -15028,7 +15028,7 @@ cst:
                                                                                                     children:
                                                                                                       - kind: Identifier
                                                                                                         text: Level
-                                                                                      - kind: Unknown
+                                                                                      - kind: ColonOperator
                                                                                         text: ":"
                                                                                       - kind: Whitespace
                                                                                         text: " "
@@ -15182,7 +15182,7 @@ cst:
                                                                                                     children:
                                                                                                       - kind: Identifier
                                                                                                         text: Level
-                                                                                      - kind: Unknown
+                                                                                      - kind: ColonOperator
                                                                                         text: ":"
                                                                                       - kind: Whitespace
                                                                                         text: " "
@@ -16898,7 +16898,7 @@ cst:
                                                                         text: )
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
@@ -16930,7 +16930,7 @@ cst:
                                                                                 children:
                                                                                   - kind: IntegerLiteral
                                                                                     text: "1"
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
@@ -17036,7 +17036,7 @@ cst:
                                                         text: )
                                                   - kind: StatementList
                                                     children:
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -17068,7 +17068,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "1"
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -17138,7 +17138,7 @@ cst:
                                                                             text: M1
                                                               - kind: RightParenthesis
                                                                 text: )
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -17182,7 +17182,7 @@ cst:
                                                                             text: M2
                                                               - kind: RightParenthesis
                                                                 text: )
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -17382,7 +17382,7 @@ cst:
                                                         text: )
                                                   - kind: StatementList
                                                     children:
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -17414,7 +17414,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "1"
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -18938,7 +18938,7 @@ cst:
                                                                                 text: "1"
                                                                   - kind: StatementList
                                                                     children:
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
@@ -18970,7 +18970,7 @@ cst:
                                                                                 children:
                                                                                   - kind: IntegerLiteral
                                                                                     text: "1"
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
@@ -19092,7 +19092,7 @@ cst:
                                                             text: "1"
                                                   - kind: StatementList
                                                     children:
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -19124,7 +19124,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "1"
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -19482,7 +19482,7 @@ cst:
                                                                 text: "1"
                                                   - kind: StatementList
                                                     children:
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -19514,7 +19514,7 @@ cst:
                                                                 children:
                                                                   - kind: IntegerLiteral
                                                                     text: "1"
-                                                      - kind: Unknown
+                                                      - kind: ColonOperator
                                                         text: ":"
                                                       - kind: Whitespace
                                                         text: " "
@@ -20468,7 +20468,7 @@ cst:
                                                                             children:
                                                                               - kind: Identifier
                                                                                 text: j
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
@@ -20652,7 +20652,7 @@ cst:
                                                                             children:
                                                                               - kind: Identifier
                                                                                 text: j
-                                                                      - kind: Unknown
+                                                                      - kind: ColonOperator
                                                                         text: ":"
                                                                       - kind: Whitespace
                                                                         text: " "
