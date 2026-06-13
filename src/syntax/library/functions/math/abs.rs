@@ -632,7 +632,7 @@ End Sub
         let source = r"
 Sub Test()
     While Abs(current - target) > threshold
-        Step
+        applyAdjustment(Abs(current - target))
     Wend
 End Sub
 ";
