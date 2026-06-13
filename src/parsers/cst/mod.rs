@@ -173,7 +173,7 @@
 use std::collections::HashMap;
 use std::num::NonZeroUsize;
 
-use crate::errors::{ErrorKind, FormError};
+use crate::errors::{ErrorDetails, ErrorKind, FormError, Severity, Span};
 use crate::files::common::{
     Creatable, Exposed, FileAttributes, FileFormatVersion, NameSpace, ObjectReference,
     PreDeclaredID, Properties,
@@ -331,13 +331,16 @@ impl ConcreteSyntaxTree {
     {
         let mut source_stream = SourceStream::new(file_name.into(), contents);
         let token_stream_result = tokenize(&mut source_stream);
-        let (token_stream_opt, failures) = token_stream_result.unpack();
+        let (token_stream_opt, mut failures) = token_stream_result.unpack();
 
         let Some(token_stream) = token_stream_opt else {
             return ParseResult::new(None, failures);
         };
 
-        let cst = parse(token_stream);
+        let mut parser = Parser::new(token_stream);
+        parser.set_source_content(contents);
+        let (cst, mut parser_failures) = parser.parse_root();
+        failures.append(&mut parser_failures);
 
         ParseResult::new(Some(cst), failures)
     }
@@ -501,7 +504,7 @@ impl ConcreteSyntaxTree {
 #[must_use]
 pub fn parse(tokens: TokenStream) -> ConcreteSyntaxTree {
     let parser = Parser::new(tokens);
-    parser.parse_root()
+    parser.parse_root().0
 }
 
 /// Frame for control parsing with explicit stack.
@@ -755,16 +758,27 @@ pub(crate) struct Parser<'a> {
     pub(crate) pos: usize,
     pub(crate) builder: GreenNodeBuilder<'static>,
     pub(crate) parsing_header: bool,
+    pub(crate) source_name: String,
+    pub(crate) source_content: &'a str,
+    pub(crate) failures: Vec<ErrorDetails<'a>>,
 }
 
 impl<'a> Parser<'a> {
     fn new(token_stream: TokenStream<'a>) -> Self {
+        let source_name = token_stream.file_name().to_string();
         Parser {
             tokens: token_stream.into_tokens(),
             pos: 0,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
+            source_name,
+            source_content: "",
+            failures: Vec::new(),
         }
+    }
+
+    fn set_source_content(&mut self, source_content: &'a str) {
+        self.source_content = source_content;
     }
 
     /// Create parser for direct extraction mode (control-only parsing)
@@ -774,7 +788,52 @@ impl<'a> Parser<'a> {
             pos,
             builder: GreenNodeBuilder::new(),
             parsing_header: true,
+            source_name: String::new(),
+            source_content: "",
+            failures: Vec::new(),
         }
+    }
+
+    fn current_span(&self) -> Span {
+        let mut offset: u32 = 0;
+        let mut line: u32 = 1;
+
+        for (text, token) in self.tokens.iter().take(self.pos) {
+            let text_len = u32::try_from(text.len()).unwrap_or(u32::MAX);
+            offset = offset.saturating_add(text_len);
+            if *token == Token::Newline {
+                line = line.saturating_add(1);
+            }
+        }
+
+        let (length, line_end) = if let Some((text, token)) = self.tokens.get(self.pos) {
+            let text_len = u32::try_from(text.len().max(1)).unwrap_or(u32::MAX);
+            if *token == Token::Newline {
+                (text_len, line.saturating_add(1))
+            } else {
+                (text_len, line)
+            }
+        } else {
+            (1, line)
+        };
+
+        Span::new(offset, line, line_end, length)
+    }
+
+    pub(crate) fn report_error<E>(&mut self, kind: E)
+    where
+        E: Into<ErrorKind>,
+    {
+        let span = self.current_span();
+        self.failures.push(ErrorDetails::basic(
+            self.source_name.clone().into_boxed_str(),
+            self.source_content,
+            span.offset,
+            span.line_start,
+            span.line_end,
+            kind,
+            Severity::Error,
+        ));
     }
 
     // Create parser for hybrid mode (`FormFile` optimization)
@@ -1935,7 +1994,7 @@ impl<'a> Parser<'a> {
     /// This function loops through all tokens and identifies what kind of
     /// VB6 construct to parse based on the current token. As more VB6 syntax
     /// is supported, additional branches can be added to this loop.
-    fn parse_root(mut self) -> ConcreteSyntaxTree {
+    fn parse_root(mut self) -> (ConcreteSyntaxTree, Vec<ErrorDetails<'a>>) {
         self.builder.start_node(SyntaxKind::Root.to_raw());
 
         // Parse VERSION statement (if present)
@@ -1958,7 +2017,7 @@ impl<'a> Parser<'a> {
         self.builder.finish_node(); // Root
 
         let root = self.builder.finish();
-        ConcreteSyntaxTree::new(root)
+        (ConcreteSyntaxTree::new(root), self.failures)
     }
 
     #[allow(clippy::too_many_lines)]

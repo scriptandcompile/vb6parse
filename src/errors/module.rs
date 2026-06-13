@@ -31,4 +31,8 @@ pub enum ModuleError {
         /// The maximum allowed nesting depth
         max_depth: usize,
     },
+
+    /// Invalid semicolon separator in a non-print procedure call.
+    #[error("Invalid ';' separator in procedure call arguments. Semicolon separators are only valid for print-like calls (e.g., Debug.Print, Printer.Print).")]
+    InvalidSemicolonSeparatorInProcedureCall,
 }

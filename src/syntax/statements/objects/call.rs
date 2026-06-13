@@ -32,6 +32,7 @@
 //!
 //! [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/call-statement)
 
+use crate::errors::ModuleError;
 use crate::language::Token;
 use crate::parsers::cst::Parser;
 use crate::parsers::SyntaxKind;
@@ -293,6 +294,9 @@ impl Parser<'_> {
                 self.consume_token();
                 self.consume_whitespace();
             } else {
+                if !allow_semicolon_separator && self.at_token(Token::Semicolon) {
+                    self.report_error(ModuleError::InvalidSemicolonSeparatorInProcedureCall);
+                }
                 break;
             }
         }
@@ -708,9 +712,25 @@ mod tests {
     #[test]
     fn procedure_call_non_print_semicolon_not_separator() {
         let source = "Sub Test()\n    Foo 1; 2\nEnd Sub\n";
-        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
         let cst = cst_opt.expect("CST should be parsed");
         let tree = cst.to_serializable();
+
+        let failure = &failures[0];
+        assert!(
+            matches!(
+                failure.kind.as_ref(),
+                crate::errors::ErrorKind::Module(
+                    crate::errors::ModuleError::InvalidSemicolonSeparatorInProcedureCall
+                )
+            ),
+            "Expected parser failure for ';' in non-print procedure call"
+        );
+
+        // "Sub Test()\n" is 11 bytes and ';' is the 10th byte on line 2 (0-based index 9).
+        assert_eq!(failure.error_offset, 20);
+        assert_eq!(failure.line_start, 2);
+        assert_eq!(failure.line_end, 2);
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
