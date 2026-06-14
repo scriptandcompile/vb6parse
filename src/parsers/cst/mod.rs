@@ -173,7 +173,7 @@
 use std::collections::HashMap;
 use std::num::NonZeroUsize;
 
-use crate::errors::{ErrorDetails, ErrorKind, FormError, Severity, Span};
+use crate::errors::{ErrorDetails, ErrorKind, FormError, ModuleError, Severity, Span};
 use crate::files::common::{
     Creatable, Exposed, FileAttributes, FileFormatVersion, NameSpace, ObjectReference,
     PreDeclaredID, Properties,
@@ -2513,7 +2513,7 @@ impl<'a> Parser<'a> {
 
         // Note: start_node will be called when this frame is first processed
 
-        while Self::statement_stack_within_limit(&frame_stack) {
+        while self.statement_stack_within_limit(&frame_stack) {
             let Some(frame_kind) = Self::current_frame_kind(&frame_stack) else {
                 break;
             };
@@ -2527,18 +2527,15 @@ impl<'a> Parser<'a> {
         }
     }
 
-    fn statement_stack_within_limit(frame_stack: &[ControlFlowFrame]) -> bool {
+    fn statement_stack_within_limit(&mut self, frame_stack: &[ControlFlowFrame]) -> bool {
         if frame_stack.len() <= MAX_STATEMENT_DEPTH {
             return true;
         }
 
-        // TODO: Record error when we have error tracking in CST parser.
-        // For now, stop to prevent stack overflow.
-        eprintln!(
-            "Warning: Control flow nesting depth ({}) exceeds maximum ({})",
-            frame_stack.len(),
-            MAX_STATEMENT_DEPTH
-        );
+        self.report_error(ErrorKind::Module(ModuleError::NestingTooDeep {
+            depth: frame_stack.len(),
+            max_depth: MAX_STATEMENT_DEPTH,
+        }));
         false
     }
 
