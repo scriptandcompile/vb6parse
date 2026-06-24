@@ -63,7 +63,7 @@ exclude = [
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-uuid = "1.23.2"
+uuid = "1.23.3"
 thiserror = "2.0.18"
 ariadne = "0.6.0"
 image = "0.25.10"
@@ -73,12 +73,12 @@ strum_macros = "0.28.0"
 encoding_rs = "0.8.35"
 either = { version = "1.16.0", features = ["serde"] }
 serde = { version = "1.0.228", features = ["derive"] }
-phf = { version = "0.13.1", features = ["macros"] }
+phf = { version = "0.14.0", features = ["macros"] }
 rowan = "0.16.1"
 
 # WASM-specific dependencies - only compiled for wasm32 target
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen = "0.2.122"
+wasm-bindgen = "0.2.125"
 serde-wasm-bindgen = "0.6.5"
 console_error_panic_hook = "0.1.7"
 serde_json = "1.0.150"
@@ -90,13 +90,13 @@ codegen-units = 1   # Reduce parallel code generation units for better optimizat
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = { version = "0.8.2", features = ["html_reports"] }
-insta = { version = "1.47.2", features = ["yaml"] }
+insta = { version = "1.48.0", features = ["yaml"] }
 assert_matches = { version = "1.5.0" }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 criterion = { version = "0.8.2", default-features = false }
 insta = { version = "1.46.3", features = ["yaml"] }
-wasm-bindgen-test = "0.3.72"
+wasm-bindgen-test = "0.3.76"
 
 
 
