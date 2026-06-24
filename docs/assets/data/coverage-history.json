@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-06-24T18:42:12Z",
+  "last_updated": "2026-06-24T19:17:22Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -754,6 +754,40 @@
       "timestamp": "2026-06-24T18:42:12Z",
       "commit_sha": "5f29a6e4f849cde5847072af670e8ea445b55051",
       "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
+      "coverage": {
+        "line_coverage": 95.9,
+        "function_coverage": 92.99,
+        "region_coverage": 96.04
+      },
+      "tests": {
+        "total": 6224,
+        "lib_tests": 5518,
+        "doc_tests": 119,
+        "integration_tests": 587,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96925,
+          "total": 101067,
+          "percent": 95.9
+        },
+        "functions": {
+          "covered": 6231,
+          "total": 6701,
+          "percent": 92.99
+        },
+        "regions": {
+          "covered": 154843,
+          "total": 161228,
+          "percent": 96.04
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-24T19:17:22Z",
+      "commit_sha": "7e41a39fd88a0c68ae521349b717d50bf4398031",
+      "commit_message": "Updated the cargo dependencies",
       "coverage": {
         "line_coverage": 95.9,
         "function_coverage": 92.99,
