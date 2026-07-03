@@ -811,9 +811,16 @@ impl ConcreteSyntaxTree {
     /// The first child node matching the kind, or `None` if not found
     #[must_use]
     pub fn first_child_by_kind(&self, kind: SyntaxKind) -> Option<CstNode> {
-        self.children()
-            .into_iter()
-            .find(|child| child.kind() == kind)
+        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
+
+        syntax_node.children_with_tokens().find_map(|child| {
+            let child_kind = match &child {
+                rowan::NodeOrToken::Node(node) => node.kind(),
+                rowan::NodeOrToken::Token(token) => token.kind(),
+            };
+
+            (child_kind == kind).then(|| Self::build_cst_node(child))
+        })
     }
 
     /// Check if the tree contains any node of the specified kind

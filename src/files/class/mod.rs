@@ -8,8 +8,6 @@
 
 pub mod properties;
 
-use crate::syntax::CstNode;
-
 use std::fmt::Display;
 
 use crate::{
@@ -161,13 +159,6 @@ impl ClassFile {
     }
 }
 
-fn find_property_block_nodes(cst: &ConcreteSyntaxTree) -> Vec<CstNode> {
-    cst.children()
-        .into_iter()
-        .filter(|c| c.kind() == SyntaxKind::PropertiesBlock)
-        .collect()
-}
-
 /// Extract `VB6ClassProperties` from `PropertiesBlock` nodes in the CST
 fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
     let mut multi_use = FileUsage::MultiUse;
@@ -176,23 +167,12 @@ fn extract_properties(cst: &ConcreteSyntaxTree) -> ClassProperties {
     let mut data_source_behavior = DataSourceBehavior::None;
     let mut mts_transaction_mode = MtsStatus::NotAnMTSObject;
 
-    // Find the PropertiesBlock node
-    let properties_blocks = find_property_block_nodes(cst);
-
-    if properties_blocks.is_empty() {
+    let Some(properties_block) = cst.first_child_by_kind(SyntaxKind::PropertiesBlock) else {
         return ClassProperties::default();
-    }
-
-    let properties_block = &properties_blocks[0];
+    };
 
     // Find all Property nodes within the PropertiesBlock
-    let property_nodes: Vec<_> = properties_block
-        .children()
-        .iter()
-        .filter(|c| c.kind() == SyntaxKind::Property)
-        .collect();
-
-    for prop_node in property_nodes {
+    for prop_node in properties_block.children_by_kind(SyntaxKind::Property) {
         let mut key = String::new();
         let mut value = String::new();
         let mut found_equals = false;
