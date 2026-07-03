@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-03T22:30:38Z",
+  "last_updated": "2026-07-03T23:57:20Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -885,13 +885,47 @@
           "percent": 96.02
         }
       }
+    },
+    {
+      "timestamp": "2026-07-03T23:57:20Z",
+      "commit_sha": "bc32dc8fd1a9f476f90094fc8cb0c80627101ad0",
+      "commit_message": "performance improvement by switching over to the new children_by_kind filtered children function.",
+      "coverage": {
+        "line_coverage": 95.89,
+        "function_coverage": 92.96,
+        "region_coverage": 96.02
+      },
+      "tests": {
+        "total": 6224,
+        "lib_tests": 5518,
+        "doc_tests": 119,
+        "integration_tests": 587,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 96968,
+          "total": 101128,
+          "percent": 95.89
+        },
+        "functions": {
+          "covered": 6229,
+          "total": 6701,
+          "percent": 92.96
+        },
+        "regions": {
+          "covered": 154926,
+          "total": 161355,
+          "percent": 96.02
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.89,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 95.9,
       "worst": 95.13,
       "average": 95.79
@@ -899,7 +933,7 @@
     "function_coverage": {
       "latest": 92.96,
       "trend": "stable",
-      "change_percent": 0.03,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
       "average": 93.0
@@ -907,7 +941,7 @@
     "region_coverage": {
       "latest": 96.02,
       "trend": "stable",
-      "change_percent": 0.02,
+      "change_percent": 0.0,
       "best": 96.07,
       "worst": 95.39,
       "average": 95.95
