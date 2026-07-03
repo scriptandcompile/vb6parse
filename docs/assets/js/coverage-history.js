@@ -505,6 +505,13 @@ function renderTestChart(history) {
     testSection.style.display = 'block';
     
     const snapshots = history.snapshots;
+    const dateLabels = snapshots.map(s => {
+        const date = new Date(s.timestamp);
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+        });
+    });
     
     // Prepare stacked bar chart data
     const testCategories = ['lib_tests', 'doc_tests', 'integration_tests', 'fuzz_targets'];
@@ -516,7 +523,10 @@ function renderTestChart(history) {
         data: snapshots.map(s => s.tests[category] || 0),
         backgroundColor: colors[idx],
         borderColor: colors[idx],
-        borderWidth: 1
+        borderWidth: 1,
+        categoryPercentage: 0.9,
+        barPercentage: 0.95,
+        maxBarThickness: 30
     }));
     
     // Destroy existing chart if any
@@ -531,7 +541,7 @@ function renderTestChart(history) {
     window.testCountChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: snapshots.map(s => new Date(s.timestamp)),
+            labels: dateLabels,
             datasets: datasets
         },
         options: {
@@ -598,13 +608,7 @@ function renderTestChart(history) {
             },
             scales: {
                 x: {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                        displayFormats: {
-                            day: 'MMM d'
-                        }
-                    },
+                    type: 'category',
                     stacked: true,
                     title: {
                         display: true,
@@ -612,6 +616,12 @@ function renderTestChart(history) {
                         font: {
                             weight: 'bold'
                         }
+                    },
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45,
+                        autoSkip: true,
+                        maxTicksLimit: 16
                     }
                 },
                 y: {

@@ -517,7 +517,13 @@
     width: 100% !important;
 }
 
-#trends-chart,
+#trends-chart {
+    max-width: 100% !important;
+    max-height: 380px !important;
+    height: 100% !important;
+    width: 100% !important;
+}
+
 #test-chart {
     max-width: 100% !important;
     max-height: 380px !important;
