@@ -98,8 +98,9 @@ criterion = { version = "0.8.2", default-features = false }
 insta = { version = "1.46.3", features = ["yaml"] }
 wasm-bindgen-test = "0.3.76"
 
-
-
+[profile.samply]
+inherits = "release"
+debug = true
 
 [[bench]]
 name = "lexer"
