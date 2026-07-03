@@ -61,7 +61,7 @@ pub mod token_stream;
 pub use crate::language::Token;
 pub use token_stream::TokenStream;
 
-use phf::{phf_map, phf_ordered_map, Map, OrderedMap};
+use phf::{phf_map, Map};
 
 use crate::{
     errors::LexerError,
@@ -228,41 +228,6 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: Map<&'static str, Token> = phf_map! {
     "WITH" => Token::WithKeyword,
     "WRITE" => Token::WriteKeyword,
     "XOR" => Token::XorKeyword,
-};
-
-/// Lookup table for VB6 symbols to their corresponding tokens.
-/// This table is used during the tokenization process to quickly identify
-/// symbols in the source code.
-static SYMBOL_TOKEN_LOOKUP_TABLE: OrderedMap<&'static str, Token> = phf_ordered_map! {
-    "<>" => Token::InequalityOperator,
-    "<=" => Token::LessThanOrEqualOperator,
-    ">=" => Token::GreaterThanOrEqualOperator,
-    "=" => Token::EqualityOperator,
-    "$" => Token::DollarSign,
-    "_" => Token::Underscore,
-    "&" => Token::Ampersand,
-    "%" => Token::Percent,
-    "#" => Token::Octothorpe,
-    "<" => Token::LessThanOperator,
-    ">" => Token::GreaterThanOperator,
-    "(" => Token::LeftParenthesis,
-    ")" => Token::RightParenthesis,
-    "{" => Token::LeftCurlyBrace,
-    "}" => Token::RightCurlyBrace,
-    "," => Token::Comma,
-    "+" => Token::AdditionOperator,
-    "-" => Token::SubtractionOperator,
-    "*" => Token::MultiplicationOperator,
-    "\\" => Token::BackwardSlashOperator,
-    "/" => Token::DivisionOperator,
-    "." => Token::PeriodOperator,
-    ":" => Token::ColonOperator,
-    "^" => Token::ExponentiationOperator,
-    "!" => Token::ExclamationMark,
-    "[" => Token::LeftSquareBracket,
-    "]" => Token::RightSquareBracket,
-    ";" => Token::Semicolon,
-    "@" => Token::AtSign,
 };
 
 /// Type alias for a tuple representing text and its corresponding token.
@@ -1104,13 +1069,52 @@ fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> 
 /// `Some()` with a tuple containing the matched symbol text and its corresponding VB6 token
 /// if a symbol is found at the current position in the stream; otherwise, `None`.
 fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
-    for entry in SYMBOL_TOKEN_LOOKUP_TABLE.entries() {
-        if let Some(matching_text) = input.take(*entry.0, Comparator::CaseSensitive) {
-            return Some((matching_text, *entry.1));
+    if let Some(two_char_symbol) = input.peek(2) {
+        let two_char_token = match two_char_symbol {
+            "<>" => Some(Token::InequalityOperator),
+            "<=" => Some(Token::LessThanOrEqualOperator),
+            ">=" => Some(Token::GreaterThanOrEqualOperator),
+            _ => None,
+        };
+
+        if let Some(token) = two_char_token {
+            let matching_text = input.take_count(2)?;
+            return Some((matching_text, token));
         }
     }
 
-    None
+    let one_char_token = match input.peek(1)? {
+        "=" => Token::EqualityOperator,
+        "$" => Token::DollarSign,
+        "_" => Token::Underscore,
+        "&" => Token::Ampersand,
+        "%" => Token::Percent,
+        "#" => Token::Octothorpe,
+        "<" => Token::LessThanOperator,
+        ">" => Token::GreaterThanOperator,
+        "(" => Token::LeftParenthesis,
+        ")" => Token::RightParenthesis,
+        "{" => Token::LeftCurlyBrace,
+        "}" => Token::RightCurlyBrace,
+        "," => Token::Comma,
+        "+" => Token::AdditionOperator,
+        "-" => Token::SubtractionOperator,
+        "*" => Token::MultiplicationOperator,
+        "\\" => Token::BackwardSlashOperator,
+        "/" => Token::DivisionOperator,
+        "." => Token::PeriodOperator,
+        ":" => Token::ColonOperator,
+        "^" => Token::ExponentiationOperator,
+        "!" => Token::ExclamationMark,
+        "[" => Token::LeftSquareBracket,
+        "]" => Token::RightSquareBracket,
+        ";" => Token::Semicolon,
+        "@" => Token::AtSign,
+        _ => return None,
+    };
+
+    let matching_text = input.take_count(1)?;
+    Some((matching_text, one_char_token))
 }
 
 /// Attempts to take a matching text from the input stream, ensuring that
