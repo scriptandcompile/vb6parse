@@ -1029,6 +1029,8 @@ fn take_string_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTupl
 /// `Some()` with a tuple containing the matched keyword text and its corresponding VB6 token
 /// if a keyword is found at the current position in the stream; otherwise, `None`.
 fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
+    const MAX_KEYWORD_LEN: usize = 32;
+
     let start_offset = input.offset();
 
     if !input.peek(1)?.chars().next()?.is_ascii_alphabetic() {
@@ -1037,7 +1039,6 @@ fn take_keyword<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> 
 
     let identifier_text = input.take_ascii_underscore_alphanumerics()?;
 
-    const MAX_KEYWORD_LEN: usize = 32;
     if identifier_text.len() > MAX_KEYWORD_LEN {
         input.offset = start_offset;
         return None;
