@@ -193,6 +193,9 @@ use serde::ser::{Serialize, SerializeStruct, Serializer};
 use super::{ConcreteSyntaxTree, VB6Language};
 use crate::parsers::SyntaxKind;
 
+type SyntaxElement =
+    rowan::NodeOrToken<rowan::SyntaxNode<VB6Language>, rowan::SyntaxToken<VB6Language>>;
+
 /// Represents a node in the Concrete Syntax Tree
 ///
 /// This can be either a structural node (like `SubStatement`) or a token (like Identifier).
@@ -687,6 +690,25 @@ pub struct DepthFirstIterOwned {
     stack: Vec<CstNode>,
 }
 
+struct RootChildElementIter {
+    next: Option<SyntaxElement>,
+}
+
+impl Iterator for RootChildElementIter {
+    type Item = SyntaxElement;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let element = self.next.take()?;
+
+        self.next = match &element {
+            rowan::NodeOrToken::Node(node) => node.next_sibling_or_token(),
+            rowan::NodeOrToken::Token(token) => token.next_sibling_or_token(),
+        };
+
+        Some(element)
+    }
+}
+
 impl Iterator for DepthFirstIterOwned {
     type Item = CstNode;
 
@@ -703,6 +725,29 @@ impl Iterator for DepthFirstIterOwned {
 }
 
 impl ConcreteSyntaxTree {
+    fn root_child_elements(&self) -> RootChildElementIter {
+        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
+
+        RootChildElementIter {
+            next: syntax_node.first_child_or_token(),
+        }
+    }
+
+    fn root_children_iter(&self) -> impl Iterator<Item = CstNode> {
+        self.root_child_elements().map(Self::build_cst_node)
+    }
+
+    fn syntax_element_kind(element: &SyntaxElement) -> SyntaxKind {
+        match element {
+            rowan::NodeOrToken::Node(node) => node.kind(),
+            rowan::NodeOrToken::Token(token) => token.kind(),
+        }
+    }
+
+    fn syntax_element_is_token(element: &SyntaxElement) -> bool {
+        matches!(element, rowan::NodeOrToken::Token(_))
+    }
+
     /// Get a textual representation of the tree structure (for debugging)
     #[must_use]
     pub fn debug_tree(&self) -> String {
@@ -728,11 +773,7 @@ impl ConcreteSyntaxTree {
     /// Returns a vector of child nodes with their kind and text content.
     #[must_use]
     pub fn children(&self) -> Vec<CstNode> {
-        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-        syntax_node
-            .children_with_tokens()
-            .map(Self::build_cst_node)
-            .collect()
+        self.root_children_iter().collect()
     }
 
     /// Recursively build a `CstNode` from a rowan `NodeOrToken`
@@ -795,9 +836,9 @@ impl ConcreteSyntaxTree {
     /// let dim_stmts: Vec<_> = cst.children_by_kind(SyntaxKind::DimStatement).collect();
     /// ```
     pub fn children_by_kind(&self, kind: SyntaxKind) -> impl Iterator<Item = CstNode> {
-        self.children()
-            .into_iter()
-            .filter(move |child| child.kind() == kind)
+        self.root_child_elements()
+            .filter(move |child| Self::syntax_element_kind(child) == kind)
+            .map(Self::build_cst_node)
     }
 
     /// Find the first direct child of a specific kind
@@ -811,16 +852,9 @@ impl ConcreteSyntaxTree {
     /// The first child node matching the kind, or `None` if not found
     #[must_use]
     pub fn first_child_by_kind(&self, kind: SyntaxKind) -> Option<CstNode> {
-        let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
-
-        syntax_node.children_with_tokens().find_map(|child| {
-            let child_kind = match &child {
-                rowan::NodeOrToken::Node(node) => node.kind(),
-                rowan::NodeOrToken::Token(token) => token.kind(),
-            };
-
-            (child_kind == kind).then(|| Self::build_cst_node(child))
-        })
+        self.root_child_elements()
+            .find(|child| Self::syntax_element_kind(child) == kind)
+            .map(Self::build_cst_node)
     }
 
     /// Check if the tree contains any node of the specified kind
@@ -834,7 +868,8 @@ impl ConcreteSyntaxTree {
     /// `true` if at least one node of the specified kind exists, `false` otherwise
     #[must_use]
     pub fn contains_kind(&self, kind: SyntaxKind) -> bool {
-        self.children().iter().any(|child| child.kind() == kind)
+        self.root_child_elements()
+            .any(|child| Self::syntax_element_kind(&child) == kind)
     }
 
     /// Get the first child node (including tokens)
@@ -844,7 +879,7 @@ impl ConcreteSyntaxTree {
     /// The first child node if it exists, `None` otherwise
     #[must_use]
     pub fn first_child(&self) -> Option<CstNode> {
-        self.children().into_iter().next()
+        self.root_child_elements().next().map(Self::build_cst_node)
     }
 
     /// Get the last child node (including tokens)
@@ -854,7 +889,7 @@ impl ConcreteSyntaxTree {
     /// The last child node if it exists, `None` otherwise
     #[must_use]
     pub fn last_child(&self) -> Option<CstNode> {
-        self.children().into_iter().last()
+        self.root_child_elements().last().map(Self::build_cst_node)
     }
 
     /// Get child at a specific index
@@ -868,7 +903,9 @@ impl ConcreteSyntaxTree {
     /// The child at the specified index if it exists, `None` otherwise
     #[must_use]
     pub fn child_at(&self, index: usize) -> Option<CstNode> {
-        self.children().into_iter().nth(index)
+        self.root_child_elements()
+            .nth(index)
+            .map(Self::build_cst_node)
     }
 
     /// Find the first descendant node of a specific kind (depth-first search)
@@ -909,29 +946,34 @@ impl ConcreteSyntaxTree {
 
     /// Get an iterator over non-token children (structural nodes only)
     pub fn non_token_children(&self) -> impl Iterator<Item = CstNode> {
-        self.children()
-            .into_iter()
-            .filter(|child| !child.is_token())
+        self.root_child_elements()
+            .filter(|child| !Self::syntax_element_is_token(child))
+            .map(Self::build_cst_node)
     }
 
     /// Get an iterator over token children only
     pub fn token_children(&self) -> impl Iterator<Item = CstNode> {
-        self.children().into_iter().filter(CstNode::is_token)
+        self.root_child_elements()
+            .filter(Self::syntax_element_is_token)
+            .map(Self::build_cst_node)
     }
 
     /// Get the first non-whitespace child
     #[must_use]
     pub fn first_non_whitespace_child(&self) -> Option<CstNode> {
-        self.children()
-            .into_iter()
-            .find(|child| child.kind() != SyntaxKind::Whitespace)
+        self.root_child_elements()
+            .find(|child| Self::syntax_element_kind(child) != SyntaxKind::Whitespace)
+            .map(Self::build_cst_node)
     }
 
     /// Get an iterator over significant children (excluding whitespace and newlines)
     pub fn significant_children(&self) -> impl Iterator<Item = CstNode> {
-        self.children().into_iter().filter(|child| {
-            child.kind() != SyntaxKind::Whitespace && child.kind() != SyntaxKind::Newline
-        })
+        self.root_child_elements()
+            .filter(|child| {
+                let kind = Self::syntax_element_kind(child);
+                kind != SyntaxKind::Whitespace && kind != SyntaxKind::Newline
+            })
+            .map(Self::build_cst_node)
     }
 
     /// Find the first descendant node matching a predicate (depth-first search)
