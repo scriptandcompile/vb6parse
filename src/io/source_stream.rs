@@ -414,8 +414,32 @@ impl<'a> SourceStream<'a> {
     /// if it exists. If a newline character is found, it consumes it and returns
     /// it as a `str`. If no newline character is found, it returns `None`.
     pub fn take_newline(&mut self) -> Option<&'a str> {
-        self.take_windows_newline()
-            .or_else(|| self.take_linux_newline())
+        // We are basically doing this:
+        //
+        //
+        // let bytes = self.contents.as_bytes();
+        //
+        // match bytes.get(self.offset..)? {
+        //     [b'\n', ..] => self.take_count(1),
+        //     [b'\r', b'\n', ..] => self.take_count(2),
+        //     _ => None,
+        // }
+        //
+        //
+        // But we are doing it this way since we want to avoid match slicing.
+        // It's a very minor performance consideration, but the newline check is performed very frequently.
+
+        let current = *self.contents.as_bytes().get(self.offset)?;
+
+        if current == b'\n' {
+            return self.take_count(1);
+        }
+
+        if current == b'\r' && self.contents.as_bytes().get(self.offset + 1) == Some(&b'\n') {
+            return self.take_count(2);
+        }
+
+        None
     }
 
     /// Takes a Windows newline character pair "\r\n" from the stream if the pair
