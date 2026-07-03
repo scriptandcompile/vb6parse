@@ -79,6 +79,8 @@ fn class_benchmarks(criterion: &mut Criterion) {
         let benchmark_name = format!("{}/{}", class.size_category.as_str(), class.name);
 
         group.throughput(Throughput::Bytes(class.data.len() as u64));
+        group.measurement_time(std::time::Duration::from_secs(10));
+        group.sampling_mode(criterion::SamplingMode::Flat);
         group.bench_with_input(
             BenchmarkId::from_parameter(&benchmark_name),
             &class,
