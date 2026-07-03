@@ -1559,48 +1559,42 @@ cst:
                                     text: " "
                                   - kind: Argument
                                     children:
+                                      - kind: AddressOfExpression
+                                        children:
+                                          - kind: AddressOfKeyword
+                                            text: AddressOf
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: MouseProc
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: App
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: hInstance
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: AddressOf
-                                  - kind: Whitespace
-                                    text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: MouseProc
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: App
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: hInstance
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: GetCurrentThreadId
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                                            text: GetCurrentThreadId
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Newline
                         text: "\r\n"
                       - kind: Whitespace

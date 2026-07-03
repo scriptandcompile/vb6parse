@@ -2033,20 +2033,14 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: AddressOfExpression
                             children:
-                              - kind: Identifier
+                              - kind: AddressOfKeyword
                                 text: AddressOf
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: MonitorEnumProc
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -2213,20 +2207,14 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: AddressOfExpression
                             children:
-                              - kind: Identifier
+                              - kind: AddressOfKeyword
                                 text: AddressOf
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: MonitorEnumProc
                       - kind: Comma
                         text: ","
                       - kind: Whitespace
@@ -2339,20 +2327,14 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: AddressOfExpression
                             children:
-                              - kind: Identifier
+                              - kind: AddressOfKeyword
                                 text: AddressOf
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: MonitorEnumProc
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Identifier
+                                text: MonitorEnumProc
                       - kind: Comma
                         text: ","
                       - kind: Whitespace

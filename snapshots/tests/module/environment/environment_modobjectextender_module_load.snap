@@ -3127,24 +3127,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_QueryInterface
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_QueryInterface
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3183,24 +3175,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_AddRef
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_AddRef
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3239,24 +3223,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_Release
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_Release
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3295,24 +3271,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_GetTypeInfoCount
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_GetTypeInfoCount
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3351,24 +3319,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_GetTypeInfo
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_GetTypeInfo
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3407,24 +3367,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_GetIDsOfNames
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_GetIDsOfNames
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -3463,24 +3415,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: ObjExt_Invoke
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: ObjExt_Invoke
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline

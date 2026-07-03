@@ -2101,24 +2101,16 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
-                          - kind: Whitespace
-                            text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: IcyCopyMemory
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: RightParenthesis
-                                text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: IcyCopyMemory
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace

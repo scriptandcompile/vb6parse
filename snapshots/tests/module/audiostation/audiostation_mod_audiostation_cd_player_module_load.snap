@@ -815,20 +815,14 @@ cst:
                                     text: " "
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: AddressOfExpression
                                         children:
-                                          - kind: Identifier
+                                          - kind: AddressOfKeyword
                                             text: AddressOf
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: EndSync
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children: []
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Identifier
+                                            text: EndSync
                                   - kind: Comma
                                     text: ","
                                   - kind: Whitespace
@@ -839,8 +833,8 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                          - kind: Unknown
-                            text: )
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Whitespace
                             text: " "
                           - kind: EndOfLineComment

@@ -428,34 +428,28 @@ cst:
                             text: " "
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: AddressOfExpression
                                 children:
-                                  - kind: Identifier
+                                  - kind: AddressOfKeyword
                                     text: AddressOf
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Identifier
+                                    text: SUBDOWNLOADPROC
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: SUBDOWNLOADPROC
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: NumericLiteralExpression
+                          - kind: Argument
                             children:
-                              - kind: IntegerLiteral
-                                text: "0"
-              - kind: Unknown
-                text: )
-              - kind: Newline
-                text: "\n"
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
               - kind: Newline
                 text: "\n"
               - kind: IfStatement
