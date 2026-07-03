@@ -247,14 +247,7 @@ pub(crate) fn extract_attributes(cst: &crate::parsers::ConcreteSyntaxTree) -> Fi
     let mut description: Option<String> = None;
     let mut ext_key: HashMap<String, String> = HashMap::new();
 
-    // Find all AttributeStatement nodes
-    let attr_statements: Vec<_> = cst
-        .children()
-        .into_iter()
-        .filter(|c| c.kind() == SyntaxKind::AttributeStatement)
-        .collect();
-
-    for attr_stmt in attr_statements {
+    for attr_stmt in cst.children_by_kind(SyntaxKind::AttributeStatement) {
         // Navigate through the child tokens of the AttributeStatement
         // Expected structure: AttributeKeyword, Whitespace, Identifier, Whitespace, EqualityOperator, Whitespace, Value, Newline
 
