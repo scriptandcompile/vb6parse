@@ -168,6 +168,20 @@ main.container {
     cursor: pointer;
 }
 
+.trends-no-data {
+    height: 100%;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    font-weight: 600;
+}
+
 .chart-legend {
     text-align: center;
     color: var(--text-secondary);

@@ -464,6 +464,7 @@ function showError(message) {
 function renderTrendsChart(history, daysRange) {
     const trendsSection = document.getElementById('historical-trends');
     const canvas = document.getElementById('trends-chart');
+    const noDataMessage = document.getElementById('trends-no-data');
     
     if (!canvas || !history || !history.snapshots || history.snapshots.length < 2) {
         if (trendsSection) trendsSection.style.display = 'none';
@@ -481,8 +482,21 @@ function renderTrendsChart(history, daysRange) {
     }
     
     if (snapshots.length < 2) {
-        trendsSection.style.display = 'none';
+        if (window.trendsChartInstance) {
+            window.trendsChartInstance.destroy();
+            window.trendsChartInstance = null;
+        }
+
+        canvas.style.display = 'none';
+        if (noDataMessage) {
+            noDataMessage.style.display = 'flex';
+        }
         return;
+    }
+
+    canvas.style.display = 'block';
+    if (noDataMessage) {
+        noDataMessage.style.display = 'none';
     }
     
     // Group benchmarks by file type and calculate averages
@@ -509,7 +523,12 @@ function renderTrendsChart(history, daysRange) {
             const avgTime = benchmarks.reduce((sum, b) => sum + b.mean, 0) / benchmarks.length;
             return {
                 x: new Date(snapshot.timestamp),
-                y: avgTime / 1000000  // Convert to milliseconds
+                y: avgTime / 1000000,  // Convert to milliseconds
+                snapshot: {
+                    timestamp: snapshot.timestamp,
+                    commit_sha: snapshot.commit_sha,
+                    commit_message: snapshot.commit_message
+                }
             };
         }).filter(d => d !== null);
         
@@ -532,9 +551,6 @@ function renderTrendsChart(history, daysRange) {
         window.trendsChartInstance.destroy();
     }
     
-    // Store snapshots for click handling
-    window.trendsChartSnapshots = snapshots;
-    
     // GitHub repository URL
     const githubRepo = 'https://github.com/scriptandcompile/vb6parse';
     
@@ -552,8 +568,10 @@ function renderTrendsChart(history, daysRange) {
             },
             onClick: (event, elements) => {
                 if (elements.length > 0) {
-                    const index = elements[0].index;
-                    const snapshot = window.trendsChartSnapshots[index];
+                    const firstPoint = elements[0];
+                    const dataset = window.trendsChartInstance.data.datasets[firstPoint.datasetIndex];
+                    const point = dataset.data[firstPoint.index];
+                    const snapshot = point && point.snapshot;
                     if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
                         window.open(`${githubRepo}/commit/${snapshot.commit_sha}`, '_blank');
                     }
@@ -572,7 +590,7 @@ function renderTrendsChart(history, daysRange) {
                         title: function(context) {
                             // Show date as title
                             if (context.length > 0) {
-                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                const snapshot = context[0].raw && context[0].raw.snapshot;
                                 if (snapshot) {
                                     const date = new Date(snapshot.timestamp).toLocaleDateString('en-US', {
                                         year: 'numeric',
@@ -589,13 +607,14 @@ function renderTrendsChart(history, daysRange) {
                         beforeBody: function(context) {
                             // Show commit info once before all data points
                             if (context.length > 0) {
-                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                const snapshot = context[0].raw && context[0].raw.snapshot;
                                 if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
                                     const commitShort = snapshot.commit_sha.substring(0, 8);
-                                    const commitMsg = snapshot.commit_message.substring(0, 60);
+                                    const commitMessage = snapshot.commit_message || '';
+                                    const commitMsg = commitMessage.substring(0, 60);
                                     return [
                                         `Commit: ${commitShort}`,
-                                        `${commitMsg}${snapshot.commit_message.length > 60 ? '...' : ''}`,
+                                        `${commitMsg}${commitMessage.length > 60 ? '...' : ''}`,
                                         '' // empty line separator
                                     ];
                                 }
@@ -607,7 +626,7 @@ function renderTrendsChart(history, daysRange) {
                         },
                         footer: function(context) {
                             if (context.length > 0) {
-                                const snapshot = window.trendsChartSnapshots[context[0].dataIndex];
+                                const snapshot = context[0].raw && context[0].raw.snapshot;
                                 if (snapshot && snapshot.commit_sha && snapshot.commit_sha !== 'unknown') {
                                     return '(click to view on GitHub)';
                                 }
@@ -621,7 +640,9 @@ function renderTrendsChart(history, daysRange) {
                 x: {
                     type: 'time',
                     time: {
-                        unit: daysRange <= 30 ? 'day' : daysRange <= 90 ? 'week' : 'month',
+                        unit: daysRange === 'all'
+                            ? 'month'
+                            : (parseInt(daysRange, 10) <= 30 ? 'day' : (parseInt(daysRange, 10) <= 90 ? 'week' : 'month')),
                         displayFormats: {
                             day: 'MMM d',
                             week: 'MMM d',
