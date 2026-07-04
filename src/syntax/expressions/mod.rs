@@ -305,9 +305,9 @@ impl Parser<'_> {
         min_bp: BindingPower,
         lhs_checkpoint: Checkpoint,
     ) {
-        // Parse a prefix expression (simplified non-recursive version)
+        // Parse a prefix expression using explicit parser frames.
         let (pushes_frames, prefix_checkpoint) =
-            self.parse_prefix_expression_nonrecursive(frame_stack, min_bp, lhs_checkpoint);
+            self.parse_prefix_expression_frame(frame_stack, min_bp, lhs_checkpoint);
 
         // Only push postfix/infix if no frames were pushed
         // If frames were pushed, those frames will handle the continuation
@@ -715,13 +715,97 @@ impl Parser<'_> {
         }
     }
 
-    /// Parse a prefix expression without recursion.
+    fn push_unary_prefix_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+        operand_min_bp: BindingPower,
+    ) {
+        self.builder
+            .start_node(SyntaxKind::UnaryExpression.to_raw());
+        self.consume_token();
+        self.consume_whitespace();
+
+        frame_stack.push(ExprParseFrame::FinishUnary {
+            min_bp,
+            lhs_checkpoint,
+        });
+
+        let operand_checkpoint = self.builder.checkpoint();
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp: operand_min_bp,
+            lhs_checkpoint: operand_checkpoint,
+        });
+    }
+
+    fn push_parenthesized_prefix_frame(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) {
+        self.builder
+            .start_node(SyntaxKind::ParenthesizedExpression.to_raw());
+        self.consume_token();
+        self.consume_whitespace();
+
+        frame_stack.push(ExprParseFrame::FinishParenthesized {
+            min_bp,
+            lhs_checkpoint,
+        });
+
+        let inner_checkpoint = self.builder.checkpoint();
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp: BindingPower::NONE,
+            lhs_checkpoint: inner_checkpoint,
+        });
+    }
+
+    fn try_push_prefix_frames(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        lhs_checkpoint: Checkpoint,
+    ) -> bool {
+        match self.current_token() {
+            // Logical NOT
+            Some(Token::NotKeyword) => {
+                self.push_unary_prefix_frame(
+                    frame_stack,
+                    min_bp,
+                    lhs_checkpoint,
+                    BindingPower::NOT,
+                );
+                true
+            }
+            // Argument passing modifiers used in Declare/API calls, e.g. WriteFile(..., ByVal ptr, ...)
+            // or, the value is being negated which is another unary operation.
+            Some(Token::ByValKeyword | Token::ByRefKeyword | Token::SubtractionOperator) => {
+                self.push_unary_prefix_frame(
+                    frame_stack,
+                    min_bp,
+                    lhs_checkpoint,
+                    BindingPower::UNARY,
+                );
+                true
+            }
+            // Parenthesized expression
+            Some(Token::LeftParenthesis) => {
+                self.push_parenthesized_prefix_frame(frame_stack, min_bp, lhs_checkpoint);
+                true
+            }
+            _ => false,
+        }
+    }
+
+    /// Parse a prefix expression using explicit parser frames.
     ///
-    /// This version pushes frames onto the stack instead of making recursive calls.
+    /// This pushes follow-up work onto `frame_stack` instead of relying on call-stack recursion.
     /// Returns (`pushed_frames`, `checkpoint`) where:
     /// - `pushed_frames`: true if frames were pushed (meaning caller shouldn't push `ParsePostfix` yet)
     /// - `checkpoint`: the checkpoint to use for wrapping postfix operations
-    fn parse_prefix_expression_nonrecursive(
+    fn parse_prefix_expression_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
@@ -734,94 +818,18 @@ impl Parser<'_> {
         let checkpoint = self.builder.checkpoint();
 
         let mut is_identifier = false;
-        let mut pushed_frames = false;
+        if self.try_push_prefix_frames(frame_stack, min_bp, lhs_checkpoint) {
+            return (true, checkpoint);
+        }
 
         match self.current_token() {
-            // Unary minus - needs to parse operand
-            Some(Token::SubtractionOperator) => {
-                self.builder
-                    .start_node(SyntaxKind::UnaryExpression.to_raw());
-                self.consume_token();
-                self.consume_whitespace();
-
-                // Push frames: FinishUnary (with outer context), then ParsePrefix for operand
-                frame_stack.push(ExprParseFrame::FinishUnary {
-                    min_bp,
-                    lhs_checkpoint,
-                });
-
-                let operand_checkpoint = self.builder.checkpoint();
-                frame_stack.push(ExprParseFrame::ParsePrefix {
-                    min_bp: BindingPower::UNARY,
-                    lhs_checkpoint: operand_checkpoint,
-                });
-                pushed_frames = true;
-            }
-            // Logical NOT - needs to parse operand
-            Some(Token::NotKeyword) => {
-                self.builder
-                    .start_node(SyntaxKind::UnaryExpression.to_raw());
-                self.consume_token();
-                self.consume_whitespace();
-
-                frame_stack.push(ExprParseFrame::FinishUnary {
-                    min_bp,
-                    lhs_checkpoint,
-                });
-
-                let operand_checkpoint = self.builder.checkpoint();
-                frame_stack.push(ExprParseFrame::ParsePrefix {
-                    min_bp: BindingPower::NOT,
-                    lhs_checkpoint: operand_checkpoint,
-                });
-                pushed_frames = true;
-            }
             // AddressOf operator
             Some(Token::AddressOfKeyword) => {
                 self.parse_addressof_expression();
             }
-            // Argument passing modifiers used in Declare/API calls, e.g. WriteFile(..., ByVal ptr, ...)
-            Some(Token::ByValKeyword | Token::ByRefKeyword) => {
-                self.builder
-                    .start_node(SyntaxKind::UnaryExpression.to_raw());
-                self.consume_token();
-                self.consume_whitespace();
-
-                frame_stack.push(ExprParseFrame::FinishUnary {
-                    min_bp,
-                    lhs_checkpoint,
-                });
-
-                let operand_checkpoint = self.builder.checkpoint();
-                frame_stack.push(ExprParseFrame::ParsePrefix {
-                    min_bp: BindingPower::UNARY,
-                    lhs_checkpoint: operand_checkpoint,
-                });
-                pushed_frames = true;
-            }
             // New operator
             Some(Token::NewKeyword) => {
                 self.parse_new_expression();
-            }
-            // Parenthesized expression - needs to parse inner expression
-            Some(Token::LeftParenthesis) => {
-                self.builder
-                    .start_node(SyntaxKind::ParenthesizedExpression.to_raw());
-                self.consume_token();
-                self.consume_whitespace();
-
-                // Push frames: FinishParenthesized, then ParsePrefix for inner
-                frame_stack.push(ExprParseFrame::FinishParenthesized {
-                    min_bp,
-                    lhs_checkpoint,
-                });
-
-                let inner_checkpoint = self.builder.checkpoint();
-                frame_stack.push(ExprParseFrame::ParsePrefix {
-                    min_bp: BindingPower::NONE,
-                    lhs_checkpoint: inner_checkpoint,
-                });
-                pushed_frames = true;
             }
             // Numeric literals
             Some(
@@ -864,11 +872,11 @@ impl Parser<'_> {
         }
 
         // If we didn't push frames and this was a bare identifier, wrap it
-        if !pushed_frames && is_identifier {
+        if is_identifier {
             self.parse_bare_identifier(checkpoint);
         }
 
-        (pushed_frames, checkpoint)
+        (false, checkpoint)
     }
 
     /// If we parsed an identifier but it doesn't have any postfix operators, wrap it in an `IdentifierExpression`.
