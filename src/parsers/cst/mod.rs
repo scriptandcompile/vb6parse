@@ -22,6 +22,9 @@
 //! - [`parse`] - A function to parse a [`TokenStream`] into a CST
 //! - [`CstNode`] - A structure for navigating and querying the CST
 //!
+//! For parser method naming and helper behavior conventions, see
+//! [`Parser` conventions](Parser#parser-conventions).
+//!
 //! # Example Usage
 //!
 //! ```rust
@@ -752,7 +755,25 @@ impl ControlFlowFrame {
     }
 }
 
-/// Internal parser state for building the CST
+/// Internal parser state for building the CST.
+///
+/// # Parser Conventions
+///
+/// This type uses consistent method-prefix conventions across CST parsing code:
+///
+/// - `parse_*`: Parse a grammar construct and usually emit CST nodes/tokens.
+/// - `handle_*`: Advance an explicit parser state-machine frame (dispatch/phase handlers).
+/// - `try_*`: Attempt a parse path and return `bool` to indicate whether it matched.
+///   These methods should be non-destructive when returning `false`.
+/// - `consume_*`: Advance input and usually feed tokens into the CST builder.
+/// - `skip_*`: Advance input without emitting CST nodes (typically direct-extraction helpers).
+/// - `at_*` / `peek_*`: Token inspection/lookahead helpers used for branching decisions.
+///
+/// Error-handling conventions:
+///
+/// - `report_error(...)` records recoverable parse failures while allowing continued parsing.
+/// - Callers should prefer recovery over hard-fail where practical so downstream tools still
+///   receive a partial CST plus diagnostics.
 pub(crate) struct Parser<'a> {
     pub(crate) tokens: Vec<(&'a str, Token)>,
     pub(crate) pos: usize,

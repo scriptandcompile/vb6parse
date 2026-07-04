@@ -53,6 +53,14 @@
 //! This approach naturally handles precedence and associativity without complex lookahead
 //! or multiple parsing passes.
 //!
+//! # Naming Conventions
+//!
+//! Expression parsing follows parser-wide naming conventions:
+//!
+//! - `parse_*` methods parse grammar/token constructs.
+//! - `handle_*_frame` methods advance explicit frame states in the iterative parser loop.
+//! - `try_*` methods probe a branch and return whether it matched.
+//!
 //! # Examples
 //!
 //! ```vb6
@@ -263,7 +271,7 @@ impl Parser<'_> {
             ExprParseFrame::ParsePrefix {
                 min_bp,
                 lhs_checkpoint,
-            } => self.handle_parse_prefix_frame(frame_stack, min_bp, lhs_checkpoint),
+            } => self.handle_prefix_frame(frame_stack, min_bp, lhs_checkpoint),
             ExprParseFrame::InfixLoop {
                 min_bp,
                 lhs_checkpoint,
@@ -283,23 +291,19 @@ impl Parser<'_> {
             ExprParseFrame::ParsePostfix {
                 min_bp,
                 lhs_checkpoint,
-            } => self.parse_postfix_expression_with_binding_power(
-                frame_stack,
-                min_bp,
-                lhs_checkpoint,
-            ),
+            } => self.handle_postfix_frame(frame_stack, min_bp, lhs_checkpoint),
             ExprParseFrame::StartArgumentList {
                 min_bp,
                 call_checkpoint,
-            } => self.handle_start_argument_list_frame(frame_stack, min_bp, call_checkpoint),
+            } => self.handle_argument_list_start_frame(frame_stack, min_bp, call_checkpoint),
             ExprParseFrame::NextArgument {
                 min_bp,
                 call_checkpoint,
-            } => self.handle_next_argument_frame(frame_stack, min_bp, call_checkpoint),
+            } => self.handle_argument_next_frame(frame_stack, min_bp, call_checkpoint),
         }
     }
 
-    fn handle_parse_prefix_frame(
+    fn handle_prefix_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
@@ -439,7 +443,7 @@ impl Parser<'_> {
         });
     }
 
-    fn handle_start_argument_list_frame(
+    fn handle_argument_list_start_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
@@ -544,7 +548,7 @@ impl Parser<'_> {
         }
     }
 
-    fn handle_next_argument_frame(
+    fn handle_argument_next_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
@@ -641,7 +645,7 @@ impl Parser<'_> {
         binding_power
     }
 
-    fn parse_postfix_expression_with_binding_power(
+    fn handle_postfix_frame(
         &mut self,
         frame_stack: &mut Vec<ExprParseFrame>,
         min_bp: BindingPower,
