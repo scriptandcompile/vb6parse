@@ -34,7 +34,7 @@ jobs:
     
     - name: Commit and push if changed
       run: |
-        git pull
+        git pull --rebase --autostash
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
