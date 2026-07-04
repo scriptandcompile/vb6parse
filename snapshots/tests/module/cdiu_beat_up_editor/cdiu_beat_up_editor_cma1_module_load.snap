@@ -2291,30 +2291,26 @@ cst:
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: UnaryExpression
                                                 children:
                                                   - kind: ByValKeyword
                                                     text: ByVal
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CData
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: CData
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
+                                          - kind: Argument
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                               - kind: CallStatement
                                 children:
                                   - kind: Identifier
@@ -2729,30 +2725,26 @@ cst:
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: UnaryExpression
                                                 children:
                                                   - kind: ByValKeyword
                                                     text: ByVal
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CData
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: CData
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
+                                          - kind: Argument
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                               - kind: CallStatement
                                 children:
                                   - kind: Identifier
@@ -3095,30 +3087,26 @@ cst:
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: UnaryExpression
                                         children:
                                           - kind: ByValKeyword
                                             text: ByVal
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CData
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: CData
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Ampersand
+                                            text: "&"
                       - kind: CallStatement
                         children:
                           - kind: Identifier
@@ -3453,30 +3441,26 @@ cst:
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: UnaryExpression
                                         children:
                                           - kind: ByValKeyword
                                             text: ByVal
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: CData
+                                  - kind: Comma
+                                    text: ","
                                   - kind: Whitespace
                                     text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: CData
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
-                              - kind: Comma
-                                text: ","
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
+                                  - kind: Argument
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Ampersand
+                                            text: "&"
                       - kind: CallStatement
                         children:
                           - kind: Identifier
@@ -3885,30 +3869,26 @@ cst:
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: UnaryExpression
                                                 children:
                                                   - kind: ByValKeyword
                                                     text: ByVal
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CData
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: CData
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
+                                          - kind: Argument
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                               - kind: CallStatement
                                 children:
                                   - kind: Identifier
@@ -4323,30 +4303,26 @@ cst:
                                         children:
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
+                                              - kind: UnaryExpression
                                                 children:
                                                   - kind: ByValKeyword
                                                     text: ByVal
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: CData
+                                          - kind: Comma
+                                            text: ","
                                           - kind: Whitespace
                                             text: " "
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: CData
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
-                                      - kind: Comma
-                                        text: ","
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
+                                          - kind: Argument
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Ampersand
+                                                    text: "&"
                               - kind: CallStatement
                                 children:
                                   - kind: Identifier
@@ -5501,30 +5477,26 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: UnaryExpression
                                 children:
                                   - kind: ByValKeyword
                                     text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: CData
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: CData
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: Argument
                             children:
-                              - kind: Ampersand
-                                text: "&"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Ampersand
+                                    text: "&"
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -10877,30 +10849,26 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: UnaryExpression
                                 children:
                                   - kind: ByValKeyword
                                     text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: CData
+                          - kind: Comma
+                            text: ","
                           - kind: Whitespace
                             text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: CData
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children: []
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: Argument
                             children:
-                              - kind: Ampersand
-                                text: "&"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Ampersand
+                                    text: "&"
               - kind: CallStatement
                 children:
                   - kind: Identifier

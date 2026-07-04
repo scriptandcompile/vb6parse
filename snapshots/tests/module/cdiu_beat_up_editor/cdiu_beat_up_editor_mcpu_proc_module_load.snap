@@ -989,18 +989,20 @@ cst:
                             text: " "
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: UnaryExpression
                                 children:
                                   - kind: ByValKeyword
                                     text: ByVal
-                          - kind: Whitespace
-                            text: " "
-              - kind: Unknown
-                text: "0"
-              - kind: Unknown
-                text: )
-              - kind: Newline
-                text: "\n"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Newline
+                    text: "\n"
               - kind: DoStatement
                 children:
                   - kind: Whitespace

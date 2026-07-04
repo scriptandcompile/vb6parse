@@ -780,6 +780,25 @@ impl Parser<'_> {
             Some(Token::AddressOfKeyword) => {
                 self.parse_addressof_expression();
             }
+            // Argument passing modifiers used in Declare/API calls, e.g. WriteFile(..., ByVal ptr, ...)
+            Some(Token::ByValKeyword | Token::ByRefKeyword) => {
+                self.builder
+                    .start_node(SyntaxKind::UnaryExpression.to_raw());
+                self.consume_token();
+                self.consume_whitespace();
+
+                frame_stack.push(ExprParseFrame::FinishUnary {
+                    min_bp,
+                    lhs_checkpoint,
+                });
+
+                let operand_checkpoint = self.builder.checkpoint();
+                frame_stack.push(ExprParseFrame::ParsePrefix {
+                    min_bp: BindingPower::UNARY,
+                    lhs_checkpoint: operand_checkpoint,
+                });
+                pushed_frames = true;
+            }
             // New operator
             Some(Token::NewKeyword) => {
                 self.parse_new_expression();
