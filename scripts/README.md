@@ -15,10 +15,6 @@ Pure Python3 script that generates test coverage data and test statistics. Works
 ### `generate-benchmarks.py`
 Pure Python3 script that generates performance benchmark data from Criterion results. Works on both Windows and Linux.
 
-### Legacy Scripts
-
-The original Bash scripts (`generate-coverage.sh` and `generate-benchmarks.sh`) are deprecated in favor of the Python3 versions for cross-platform compatibility.
-
 ---
 
 ## Library Documentation Generation (`generate-library-docs.py`)
