@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-05T04:56:17Z",
+  "last_updated": "2026-07-05T07:09:34Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -953,13 +953,47 @@
           "percent": 96.01
         }
       }
+    },
+    {
+      "timestamp": "2026-07-05T07:09:34Z",
+      "commit_sha": "fe758a3526e315c60b2e2bec9d7411ff5ce4892e",
+      "commit_message": "Removed string allocation from parse_control_type_direct which should provide a significant speed up.",
+      "coverage": {
+        "line_coverage": 95.86,
+        "function_coverage": 92.97,
+        "region_coverage": 95.99
+      },
+      "tests": {
+        "total": 6231,
+        "lib_tests": 5523,
+        "doc_tests": 119,
+        "integration_tests": 589,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97146,
+          "total": 101343,
+          "percent": 95.86
+        },
+        "functions": {
+          "covered": 6240,
+          "total": 6712,
+          "percent": 92.97
+        },
+        "regions": {
+          "covered": 155268,
+          "total": 161755,
+          "percent": 95.99
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.87,
+      "latest": 95.86,
       "trend": "stable",
-      "change_percent": 0.02,
+      "change_percent": 0.01,
       "best": 95.9,
       "worst": 95.13,
       "average": 95.8
@@ -967,24 +1001,24 @@
     "function_coverage": {
       "latest": 92.97,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
       "average": 93.0
     },
     "region_coverage": {
-      "latest": 96.01,
+      "latest": 95.99,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.02,
       "best": 96.07,
       "worst": 95.39,
-      "average": 95.95
+      "average": 95.96
     },
     "test_count": {
-      "latest": 6229,
+      "latest": 6231,
       "trend": "stable",
-      "change_count": 5,
-      "growth_rate": 0.08
+      "change_count": 2,
+      "growth_rate": 0.03
     }
   }
 }
