@@ -239,9 +239,7 @@ impl Parser<'_> {
         let start_offset = span_start - source_start;
         let end_offset = span_end - source_start;
 
-        if self.source_content.get(start_offset..end_offset).is_none() {
-            return None;
-        }
+        self.source_content.get(start_offset..end_offset)?;
 
         Some((start_offset, end_offset))
     }

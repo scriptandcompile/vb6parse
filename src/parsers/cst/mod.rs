@@ -996,12 +996,10 @@ impl<'a> Parser<'a> {
         let mut span_end = self.pos;
 
         // Parse identifier or keyword
-        if self.is_identifier() || self.at_keyword() {
-            if self.tokens.get(self.pos).is_some() {
-                span_start = Some(self.pos);
-                self.consume_advance();
-                span_end = self.pos;
-            }
+        if (self.is_identifier() || self.at_keyword()) && self.tokens.get(self.pos).is_some() {
+            span_start = Some(self.pos);
+            self.consume_advance();
+            span_end = self.pos;
         }
 
         // Parse dot-separated parts (e.g., "VB.Form")
@@ -1038,18 +1036,15 @@ impl<'a> Parser<'a> {
 
     /// Parse control name directly from tokens
     fn parse_control_name_direct(&mut self) -> String {
-        if self.is_identifier() || self.at_keyword() {
-            if self.tokens.get(self.pos).is_some() {
-                let start = self.pos;
-                self.consume_advance();
-                if let Some((start_offset, end_offset)) = self.tokens_span_offsets(start, self.pos)
-                {
-                    return self.source_content[start_offset..end_offset].to_string();
-                }
+        if (self.is_identifier() || self.at_keyword()) && self.tokens.get(self.pos).is_some() {
+            let start = self.pos;
+            self.consume_advance();
+            if let Some((start_offset, end_offset)) = self.tokens_span_offsets(start, self.pos) {
+                return self.source_content[start_offset..end_offset].to_string();
+            }
 
-                if let Some((text, _)) = self.tokens.get(start) {
-                    return text.to_string();
-                }
+            if let Some((text, _)) = self.tokens.get(start) {
+                return text.to_string();
             }
         }
         String::new()
