@@ -1,0 +1,96 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+assertion_line: 205
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: CallInterface
+        - kind: Whitespace
+          text: " "
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: Identifier
+                      text: c_lngObjDevEnumerator
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: GetDefaultAudioEndpoint
+                    - kind: RightSquareBracket
+                      text: "]"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: NumericLiteralExpression
+                  children:
+                    - kind: IntegerLiteral
+                      text: "3"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: eRender
+                    - kind: RightSquareBracket
+                      text: "]"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: eConsole
+                    - kind: RightSquareBracket
+                      text: "]"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: CallExpression
+                  children:
+                    - kind: Identifier
+                      text: VarPtr
+                    - kind: LeftParenthesis
+                      text: (
+                    - kind: ArgumentList
+                      children:
+                        - kind: Argument
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: c_lngObjIMMDevice
+                    - kind: RightParenthesis
+                      text: )

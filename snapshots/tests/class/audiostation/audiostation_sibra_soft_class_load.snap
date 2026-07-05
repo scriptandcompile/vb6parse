@@ -15908,14 +15908,10 @@ cst:
                         children:
                           - kind: LeftSquareBracket
                             text: "["
-                  - kind: Identifier
-                    text: System
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Path
-                  - kind: RightSquareBracket
-                    text: "]"
+                          - kind: Identifier
+                            text: System Path
+                          - kind: RightSquareBracket
+                            text: "]"
                   - kind: Whitespace
                     text: " "
                   - kind: ThenKeyword

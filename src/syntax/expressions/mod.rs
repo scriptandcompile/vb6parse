@@ -907,6 +907,12 @@ impl Parser<'_> {
     /// - Identifiers with type characters: `myVar$`, `count%`
     /// - Keywords used as identifiers in expression context
     fn parse_identifier_or_call_expression(&mut self) {
+        // Escaped identifiers in VB6 use square brackets and can contain spaces/keywords.
+        if self.at_token(Token::LeftSquareBracket) {
+            self.parse_bracketed_identifier();
+            return;
+        }
+
         // In expression context, many keywords can be used as identifiers
         if self.is_identifier() || self.at_keyword() {
             // Check if this is a dollar-sign library function (Chr$, UCase$, etc.)
@@ -938,6 +944,99 @@ impl Parser<'_> {
         }
 
         // Don't wrap in a node here - let parse_postfix_operators handle it
+    }
+
+    /// Parse a bracketed VB6 escaped identifier.
+    ///
+    /// Examples: `[eRender]`, `[Get Default Audio Endpoint]`, `[Property]`
+    fn parse_bracketed_identifier(&mut self) {
+        // Emit opening bracket token.
+        if let Some((text, _)) = self.tokens.get(self.pos) {
+            self.builder
+                .token(SyntaxKind::LeftSquareBracket.to_raw(), text);
+            self.pos += 1;
+        }
+
+        // Merge all tokens inside brackets into one Identifier token.
+        let content_start = self.pos;
+        while !self.is_at_end() && !self.at_token(Token::RightSquareBracket) {
+            self.pos += 1;
+        }
+        let content_end = self.pos;
+
+        if let Some((start_offset, end_offset)) =
+            self.tokens_span_offsets(content_start, content_end)
+        {
+            let content = &self.source_content[start_offset..end_offset];
+            self.builder
+                .token(SyntaxKind::Identifier.to_raw(), content);
+        } else {
+            // Fallback for parser modes that do not have a usable source backing slice.
+            let mut merged_identifier = String::new();
+            for idx in content_start..content_end {
+                if let Some((text, _)) = self.tokens.get(idx) {
+                    merged_identifier.push_str(text);
+                }
+            }
+            self.builder
+                .token(SyntaxKind::Identifier.to_raw(), &merged_identifier);
+        }
+
+        // Emit closing bracket token if present.
+        if let Some((text, _)) = self.tokens.get(self.pos) {
+            if self.at_token(Token::RightSquareBracket) {
+                self.builder
+                    .token(SyntaxKind::RightSquareBracket.to_raw(), text);
+                self.pos += 1;
+            }
+        }
+
+        // Support optional VB6 type characters after escaped identifiers.
+        if matches!(
+            self.current_token(),
+            Some(
+                Token::DollarSign
+                    | Token::Percent
+                    | Token::Ampersand
+                    | Token::Octothorpe
+                    | Token::AtSign
+            )
+        ) {
+            self.consume_token();
+        }
+    }
+
+    /// Return source-content byte offsets spanning `self.tokens[start..end]` when possible.
+    fn tokens_span_offsets(&self, start: usize, end: usize) -> Option<(usize, usize)> {
+        if start >= end {
+            return Some((0, 0));
+        }
+
+        if self.source_content.is_empty() {
+            return None;
+        }
+
+        let (start_text, _) = self.tokens.get(start)?;
+        let (end_text, _) = self.tokens.get(end - 1)?;
+
+        let source_start = self.source_content.as_ptr() as usize;
+        let source_end = source_start + self.source_content.len();
+
+        let span_start = start_text.as_ptr() as usize;
+        let span_end = end_text.as_ptr() as usize + end_text.len();
+
+        if span_start < source_start || span_end > source_end || span_start > span_end {
+            return None;
+        }
+
+        let start_offset = span_start - source_start;
+        let end_offset = span_end - source_start;
+
+        if self.source_content.get(start_offset..end_offset).is_none() {
+            return None;
+        }
+
+        Some((start_offset, end_offset))
     }
 
     /// Parse a VB6 file-number reference used in expressions.

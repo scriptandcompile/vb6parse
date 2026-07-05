@@ -2318,16 +2318,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: GetDefaultAudioEndpoint
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: GetDefaultAudioEndpoint
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -2350,16 +2342,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: eRender
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: eRender
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -2372,16 +2356,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: eConsole
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: eConsole
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -2406,10 +2382,10 @@ cst:
                                                             text: c_lngObjIMMDevice
                                               - kind: RightParenthesis
                                                 text: )
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: IfStatement
                                 children:
                                   - kind: Whitespace
@@ -2484,16 +2460,8 @@ cst:
                                                     children:
                                                       - kind: LeftSquareBracket
                                                         text: "["
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: Activate
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
+                                                      - kind: Identifier
+                                                        text: Activate
                                                       - kind: RightSquareBracket
                                                         text: "]"
                                               - kind: Comma
@@ -2570,10 +2538,10 @@ cst:
                                                                     text: c_lngObjAudioMeterInformation
                                                       - kind: RightParenthesis
                                                         text: )
-                                      - kind: Unknown
-                                        text: )
-                                      - kind: Newline
-                                        text: "\n"
+                                          - kind: RightParenthesis
+                                            text: )
+                                          - kind: Newline
+                                            text: "\n"
                                       - kind: Whitespace
                                         text: "                "
                                       - kind: AssignmentStatement
@@ -2770,16 +2738,8 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Release
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
+                                          - kind: Identifier
+                                            text: Release
                                           - kind: RightSquareBracket
                                             text: "]"
                                   - kind: Comma
@@ -2792,10 +2752,10 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -2866,16 +2826,8 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Release
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
+                                          - kind: Identifier
+                                            text: Release
                                           - kind: RightSquareBracket
                                             text: "]"
                                   - kind: Comma
@@ -2888,10 +2840,10 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -2962,16 +2914,8 @@ cst:
                                         children:
                                           - kind: LeftSquareBracket
                                             text: "["
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: Release
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
+                                          - kind: Identifier
+                                            text: Release
                                           - kind: RightSquareBracket
                                             text: "]"
                                   - kind: Comma
@@ -2984,10 +2928,10 @@ cst:
                                         children:
                                           - kind: IntegerLiteral
                                             text: "0"
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
+                              - kind: RightParenthesis
+                                text: )
+                              - kind: Newline
+                                text: "\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -3228,16 +3172,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: GetPeakValue
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: GetPeakValue
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -3272,10 +3208,10 @@ cst:
                                                             text: GetPeak
                                               - kind: RightParenthesis
                                                 text: )
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: Whitespace
                                 text: "        "
                           - kind: EndKeyword
@@ -3468,16 +3404,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: GetMeteringChannelCount
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: GetMeteringChannelCount
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -3512,10 +3440,10 @@ cst:
                                                             text: lngChannels
                                               - kind: RightParenthesis
                                                 text: )
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: ReDimStatement
                                 children:
                                   - kind: Whitespace
@@ -3564,16 +3492,8 @@ cst:
                                             children:
                                               - kind: LeftSquareBracket
                                                 text: "["
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: GetChannelsPeakValues
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
+                                              - kind: Identifier
+                                                text: GetChannelsPeakValues
                                               - kind: RightSquareBracket
                                                 text: "]"
                                       - kind: Comma
@@ -3630,10 +3550,10 @@ cst:
                                                             text: )
                                               - kind: RightParenthesis
                                                 text: )
-                              - kind: Unknown
-                                text: )
-                              - kind: Newline
-                                text: "\n"
+                                  - kind: RightParenthesis
+                                    text: )
+                                  - kind: Newline
+                                    text: "\n"
                               - kind: Whitespace
                                 text: "            "
                               - kind: AssignmentStatement

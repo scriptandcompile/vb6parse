@@ -182,3 +182,46 @@ fn call_with_empty_arguments() {
     let _guard = settings.bind_to_scope();
     insta::assert_yaml_snapshot!(tree);
 }
+
+#[test]
+fn call_with_bracketed_enum_arguments() {
+    let source =
+        r"CallInterface c_lngObjDevEnumerator, [GetDefaultAudioEndpoint], 3, [eRender], [eConsole], VarPtr(c_lngObjIMMDevice)";
+    let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+
+    // Check for failures
+    for failure in &failures {
+        failure.eprint();
+    }
+
+    let cst = cst_opt.expect("CST should be parsed");
+    let tree = cst.to_serializable();
+
+    // Create snapshot
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/call_argument_list");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
+    insta::assert_yaml_snapshot!(tree);
+}
+
+#[test]
+fn call_with_bracketed_identifier_containing_whitespace() {
+    let source = r"CallInterface [Get Default Audio Endpoint], [e Render], [e Console]";
+    let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+
+    // Check for failures
+    for failure in &failures {
+        failure.eprint();
+    }
+
+    let cst = cst_opt.expect("CST should be parsed");
+    let tree = cst.to_serializable();
+
+    // Create snapshot
+    let mut settings = insta::Settings::clone_current();
+    settings.set_snapshot_path("../snapshots/tests/call_argument_list");
+    settings.set_prepend_module_to_snapshot(false);
+    let _guard = settings.bind_to_scope();
+    insta::assert_yaml_snapshot!(tree);
+}

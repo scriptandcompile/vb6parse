@@ -1,0 +1,54 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+assertion_line: 226
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: CallStatement
+      children:
+        - kind: Identifier
+          text: CallInterface
+        - kind: Whitespace
+          text: " "
+        - kind: ArgumentList
+          children:
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: Get Default Audio Endpoint
+                    - kind: RightSquareBracket
+                      text: "]"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: e Render
+                    - kind: RightSquareBracket
+                      text: "]"
+            - kind: Comma
+              text: ","
+            - kind: Whitespace
+              text: " "
+            - kind: Argument
+              children:
+                - kind: IdentifierExpression
+                  children:
+                    - kind: LeftSquareBracket
+                      text: "["
+                    - kind: Identifier
+                      text: e Console
+                    - kind: RightSquareBracket
+                      text: "]"
