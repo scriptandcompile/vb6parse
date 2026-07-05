@@ -209,10 +209,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H20A
+          - kind: LongLiteral
+            text: "&H20A"
           - kind: Newline
             text: "\r\n"
       - kind: Newline

@@ -62,12 +62,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H1&"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -96,12 +92,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H2&"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -130,12 +122,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H4&"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -164,12 +152,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H10
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H10&"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -6170,22 +6154,22 @@ cst:
                     text: btASM
                   - kind: LeftParenthesis
                     text: (
-                  - kind: IdentifierExpression
+                  - kind: BinaryExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: HEC00
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubtractionOperator
-                    text: "-"
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IntegerLiteral
-                    text: "1"
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: LongLiteral
+                            text: "&HEC00&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: SubtractionOperator
+                        text: "-"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
                   - kind: RightParenthesis
                     text: )
                   - kind: Whitespace
@@ -6312,26 +6296,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H58
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   POP   EAX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H58"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   POP   EAX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement
@@ -6354,26 +6328,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H59
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   POP   ECX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H59"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   POP   ECX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement
@@ -6396,26 +6360,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H59
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   POP   ECX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H59"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   POP   ECX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement
@@ -6438,26 +6392,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H59
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   POP   ECX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H59"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   POP   ECX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement
@@ -6480,26 +6424,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H59
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   POP   ECX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H59"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   POP   ECX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement
@@ -6522,26 +6456,16 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H50
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: EndOfLineComment
-                                text: "'   PUSH  EAX"
-                  - kind: Newline
-                    text: "\n"
+                              - kind: LongLiteral
+                                text: "&H50"
+                      - kind: Whitespace
+                        text: " "
+              - kind: EndOfLineComment
+                text: "'   PUSH  EAX"
+              - kind: Newline
+                text: "\n"
               - kind: Whitespace
                 text: "      "
               - kind: Newline
@@ -6720,14 +6644,10 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HC3
+                              - kind: LongLiteral
+                                text: "&HC3"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -6908,14 +6828,10 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H68
+                              - kind: LongLiteral
+                                text: "&H68"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -7026,14 +6942,10 @@ cst:
                         text: " "
                       - kind: Argument
                         children:
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HE8
+                              - kind: LongLiteral
+                                text: "&HE8"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace

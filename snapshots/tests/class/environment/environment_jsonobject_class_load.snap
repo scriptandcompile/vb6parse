@@ -832,14 +832,10 @@ cst:
                         text: And
                       - kind: Whitespace
                         text: " "
-                      - kind: IdentifierExpression
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H7FFFFFFF
+                          - kind: LongLiteral
+                            text: "&H7FFFFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -12676,10 +12672,8 @@ cst:
                                 text: To
                               - kind: Whitespace
                                 text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Identifier
-                                text: H9F
+                              - kind: LongLiteral
+                                text: "&H9F"
                               - kind: Newline
                                 text: "\r\n"
                               - kind: StatementList
@@ -14274,14 +14268,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H30
-                  - kind: Ampersand
-                    text: "&"
+                      - kind: LongLiteral
+                        text: "&H30&"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -14652,62 +14642,54 @@ cst:
                                                 text: "="
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: ParenthesizedExpression
+                                              - kind: BinaryExpression
                                                 children:
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: BinaryExpression
+                                                  - kind: ParenthesizedExpression
                                                     children:
-                                                      - kind: CallExpression
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: BinaryExpression
                                                         children:
-                                                          - kind: Identifier
-                                                            text: AscW
-                                                          - kind: LeftParenthesis
-                                                            text: (
-                                                          - kind: ArgumentList
+                                                          - kind: CallExpression
                                                             children:
-                                                              - kind: Argument
+                                                              - kind: Identifier
+                                                                text: AscW
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
                                                                 children:
-                                                                  - kind: IdentifierExpression
+                                                                  - kind: Argument
                                                                     children:
-                                                                      - kind: Identifier
-                                                                        text: ch
-                                                          - kind: RightParenthesis
-                                                            text: )
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: AndKeyword
-                                                        text: And
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Ampersand
-                                                            text: "&"
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: Identifier
-                                                text: HF
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
+                                                                      - kind: IdentifierExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: ch
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AndKeyword
+                                                            text: And
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: LongLiteral
+                                                                text: "&HF&"
+                                                      - kind: RightParenthesis
+                                                        text: )
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: AdditionOperator
+                                                    text: +
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: NumericLiteralExpression
                                                     children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Ampersand
-                                                            text: "&"
-                                          - kind: Unknown
-                                            text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: +
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Unknown
-                                            text: "9"
-                                          - kind: Newline
-                                            text: "\r\n"
+                                                      - kind: IntegerLiteral
+                                                        text: "9"
+                                              - kind: Newline
+                                                text: "\r\n"
                                           - kind: Whitespace
                                             text: "                "
                                       - kind: ElseClause
@@ -14788,44 +14770,32 @@ cst:
                                         text: " "
                                       - kind: BinaryExpression
                                         children:
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: Value
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: MultiplicationOperator
+                                                text: "*"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: LongLiteral
+                                                    text: "&H10&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
                                           - kind: IdentifierExpression
                                             children:
                                               - kind: Identifier
-                                                text: Value
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: MultiplicationOperator
-                                            text: "*"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: H10
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
-                                              - kind: BinaryExpression
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: AdditionOperator
-                                                    text: +
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: DigitValue
+                                                text: DigitValue
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: Whitespace

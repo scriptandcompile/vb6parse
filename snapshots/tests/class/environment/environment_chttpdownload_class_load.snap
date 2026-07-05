@@ -614,10 +614,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1000
+          - kind: LongLiteral
+            text: "&H1000"
           - kind: Newline
             text: "\r\n"
       - kind: Newline

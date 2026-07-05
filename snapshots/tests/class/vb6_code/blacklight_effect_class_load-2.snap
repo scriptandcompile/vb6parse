@@ -722,10 +722,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -738,10 +736,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -754,10 +750,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4
+          - kind: LongLiteral
+            text: "&H4"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -770,10 +764,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8
+          - kind: LongLiteral
+            text: "&H8"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -786,10 +778,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H10
+          - kind: LongLiteral
+            text: "&H10"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -802,10 +792,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H20
+          - kind: LongLiteral
+            text: "&H20"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -818,10 +806,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H40
+          - kind: LongLiteral
+            text: "&H40"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -834,10 +820,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80
+          - kind: LongLiteral
+            text: "&H80"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -850,10 +834,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H100
+          - kind: LongLiteral
+            text: "&H100"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -866,10 +848,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H200
+          - kind: LongLiteral
+            text: "&H200"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -882,10 +862,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H400
+          - kind: LongLiteral
+            text: "&H400"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -898,10 +876,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H800
+          - kind: LongLiteral
+            text: "&H800"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -914,10 +890,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1000
+          - kind: LongLiteral
+            text: "&H1000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -930,10 +904,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2000
+          - kind: LongLiteral
+            text: "&H2000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -946,10 +918,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4000
+          - kind: LongLiteral
+            text: "&H4000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -962,12 +932,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8000
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H8000&"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -980,10 +946,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H10000
+          - kind: LongLiteral
+            text: "&H10000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -996,10 +960,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H20000
+          - kind: LongLiteral
+            text: "&H20000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1012,10 +974,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H40000
+          - kind: LongLiteral
+            text: "&H40000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1028,10 +988,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80000
+          - kind: LongLiteral
+            text: "&H80000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1044,10 +1002,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H100000
+          - kind: LongLiteral
+            text: "&H100000"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1060,10 +1016,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H200000
+          - kind: LongLiteral
+            text: "&H200000"
           - kind: Newline
             text: "\r\n"
           - kind: EndKeyword
@@ -1116,10 +1070,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H1
+                  - kind: LongLiteral
+                    text: "&H1"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1132,12 +1084,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H2
+                      - kind: LongLiteral
+                        text: "&H2"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1150,10 +1100,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H4
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H4"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1166,10 +1116,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H8
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H8"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1182,10 +1132,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H10
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H10"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1208,10 +1158,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H20
+                  - kind: LongLiteral
+                    text: "&H20"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1224,12 +1172,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H40
+                      - kind: LongLiteral
+                        text: "&H40"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1242,10 +1188,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H80
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H80"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1258,10 +1204,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H100
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H100"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1284,10 +1230,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H200
+                  - kind: LongLiteral
+                    text: "&H200"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1300,12 +1244,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H400
+                      - kind: LongLiteral
+                        text: "&H400"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1318,10 +1260,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H800
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H800"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1334,10 +1276,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H1000
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H1000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1360,10 +1302,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H2000
+                  - kind: LongLiteral
+                    text: "&H2000"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1376,12 +1316,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H4000
+                      - kind: LongLiteral
+                        text: "&H4000"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1394,12 +1332,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H8000
-                  - kind: Ampersand
-                    text: "&"
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H8000&"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1412,10 +1348,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H10000
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H10000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1438,10 +1374,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H20000
+                  - kind: LongLiteral
+                    text: "&H20000"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1454,12 +1388,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H40000
+                      - kind: LongLiteral
+                        text: "&H40000"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1472,10 +1404,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H80000
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H80000"
                   - kind: Comma
                     text: ","
                   - kind: Whitespace
@@ -1488,10 +1420,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H100000
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: LongLiteral
+                        text: "&H100000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1514,10 +1446,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H200000
+                  - kind: LongLiteral
+                    text: "&H200000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Octothorpe
@@ -1560,12 +1490,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HFFFF
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&HFFFF&"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1578,10 +1504,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H6
+          - kind: LongLiteral
+            text: "&H6"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1594,10 +1518,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H7
+          - kind: LongLiteral
+            text: "&H7"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1610,10 +1532,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1626,10 +1546,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H5
+          - kind: LongLiteral
+            text: "&H5"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1642,10 +1560,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8
+          - kind: LongLiteral
+            text: "&H8"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1658,10 +1574,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H9
+          - kind: LongLiteral
+            text: "&H9"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1674,10 +1588,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HA
+          - kind: LongLiteral
+            text: "&HA"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1690,10 +1602,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4
+          - kind: LongLiteral
+            text: "&H4"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1706,10 +1616,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8
+          - kind: LongLiteral
+            text: "&H8"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1722,10 +1630,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3
+          - kind: LongLiteral
+            text: "&H3"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1738,10 +1644,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HC
+          - kind: LongLiteral
+            text: "&HC"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1754,10 +1658,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1770,12 +1672,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3003
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H3003&"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1788,12 +1686,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3002
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H3002&"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -1806,12 +1700,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3001
-          - kind: Ampersand
-            text: "&"
+          - kind: LongLiteral
+            text: "&H3001&"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace

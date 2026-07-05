@@ -5854,30 +5854,20 @@ cst:
                                 text: And
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
+                                  - kind: LongLiteral
+                                    text: "&H1"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\r\n"
                       - kind: StatementList
                         children:
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: H1
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: RightParenthesis
-                                            text: )
-                                  - kind: Whitespace
-                                    text: " "
-                          - kind: Unknown
-                            text: Then
-                          - kind: Newline
-                            text: "\r\n"
                           - kind: Whitespace
                             text: "    "
                           - kind: DimStatement
@@ -29052,26 +29042,16 @@ cst:
                                                                                                             text: And
                                                                                                           - kind: Whitespace
                                                                                                             text: " "
-                                                                                                          - kind: IdentifierExpression
+                                                                                                          - kind: NumericLiteralExpression
                                                                                                             children:
-                                                                                                              - kind: Ampersand
-                                                                                                                text: "&"
-                                                                                                  - kind: CallStatement
-                                                                                                    children:
-                                                                                                      - kind: Identifier
-                                                                                                        text: HFFFFFFFE
-                                                                                                      - kind: Whitespace
-                                                                                                        text: "  "
-                                                                                                      - kind: ArgumentList
-                                                                                                        children:
-                                                                                                          - kind: Argument
-                                                                                                            children:
-                                                                                                              - kind: IdentifierExpression
-                                                                                                                children:
-                                                                                                                  - kind: EndOfLineComment
-                                                                                                                    text: "' FALSE BIT 0"
-                                                                                                      - kind: Newline
-                                                                                                        text: "\r\n"
+                                                                                                              - kind: LongLiteral
+                                                                                                                text: "&HFFFFFFFE"
+                                                                                                  - kind: Whitespace
+                                                                                                    text: "  "
+                                                                                                  - kind: EndOfLineComment
+                                                                                                    text: "' FALSE BIT 0"
+                                                                                                  - kind: Newline
+                                                                                                    text: "\r\n"
                                                                                                   - kind: Whitespace
                                                                                                     text: "                            "
                                                                                                   - kind: CallStatement
@@ -31980,14 +31960,10 @@ cst:
                                                                                                                 text: And
                                                                                                               - kind: Whitespace
                                                                                                                 text: " "
-                                                                                                              - kind: IdentifierExpression
+                                                                                                              - kind: NumericLiteralExpression
                                                                                                                 children:
-                                                                                                                  - kind: Ampersand
-                                                                                                                    text: "&"
-                                                                                                      - kind: CallStatement
-                                                                                                        children:
-                                                                                                          - kind: Identifier
-                                                                                                            text: HFFFFFFFE
+                                                                                                                  - kind: LongLiteral
+                                                                                                                    text: "&HFFFFFFFE"
                                                                                                           - kind: Newline
                                                                                                             text: "\r\n"
                                                                                                       - kind: Whitespace
@@ -32696,30 +32672,20 @@ cst:
                                             text: And
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
+                                              - kind: LongLiteral
+                                                text: "&H1"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ThenKeyword
+                                    text: Then
+                                  - kind: Newline
+                                    text: "\r\n"
                                   - kind: StatementList
                                     children:
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H1
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: RightParenthesis
-                                                        text: )
-                                              - kind: Whitespace
-                                                text: " "
-                                      - kind: Unknown
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "    "
                                       - kind: DimStatement

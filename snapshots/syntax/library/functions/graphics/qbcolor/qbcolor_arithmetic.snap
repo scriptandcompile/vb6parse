@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/graphics/qbcolor.rs
+source: vb6parse/src/syntax/library/functions/graphics/qbcolor.rs
 expression: tree
 ---
 root:
@@ -97,13 +97,9 @@ root:
               text: And
             - kind: Whitespace
               text: " "
-            - kind: IdentifierExpression
+            - kind: NumericLiteralExpression
               children:
-                - kind: Ampersand
-                  text: "&"
-    - kind: CallStatement
-      children:
-        - kind: Identifier
-          text: HFF
+                - kind: LongLiteral
+                  text: "&HFF"
         - kind: Newline
           text: "\n"

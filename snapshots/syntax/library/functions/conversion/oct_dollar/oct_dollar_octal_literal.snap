@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/conversion/oct_dollar.rs
+source: vb6parse/src/syntax/library/functions/conversion/oct_dollar.rs
 expression: tree
 ---
 root:
@@ -79,14 +79,10 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: NumericLiteralExpression
                   children:
-                    - kind: Ampersand
-                      text: "&"
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: O777
+                    - kind: LongLiteral
+                      text: "&O777"
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

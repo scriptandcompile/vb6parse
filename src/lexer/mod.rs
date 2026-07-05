@@ -348,6 +348,11 @@ pub fn tokenize<'a>(input: &mut SourceStream<'a>) -> ParseResult<'a, TokenStream
             continue;
         }
 
+        if let Some((literal_text, literal_token)) = take_prefixed_numeric_literal(input) {
+            tokens.push((literal_text, literal_token));
+            continue;
+        }
+
         if let Some((symbol_text, symbol_token)) = take_symbol(input) {
             tokens.push((symbol_text, symbol_token));
             continue;
@@ -1118,6 +1123,45 @@ fn take_symbol<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
     Some((matching_text, one_char_token))
 }
 
+/// Parses a VB6 prefixed numeric literal from the input stream.
+///
+/// Recognizes hexadecimal literals like `&H2A130` and octal literals like `&O77`.
+/// The parser is intentionally permissive here so that invalid digits still stay
+/// attached to the literal token and can flow through the CST unchanged.
+///
+/// Prefixed integer literals only accept integral type suffixes (`%` and `&`).
+fn take_prefixed_numeric_literal<'a>(input: &mut SourceStream<'a>) -> Option<TextTokenTuple<'a>> {
+    let start_offset = input.offset();
+
+    let token_type = if input.peek_text("&H", Comparator::CaseInsensitive).is_some()
+        || input.peek_text("&O", Comparator::CaseInsensitive).is_some()
+    {
+        Token::LongLiteral
+    } else {
+        return None;
+    };
+
+    let _ = input.take_count(2)?;
+
+    if input.take_ascii_alphanumerics().is_none() {
+        input.offset = start_offset;
+        return None;
+    }
+
+    let token_type = if input.peek_text("%", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        Token::IntegerLiteral
+    } else if input.peek_text("&", Comparator::CaseInsensitive).is_some() {
+        let _ = input.take_count(1);
+        Token::LongLiteral
+    } else {
+        token_type
+    };
+
+    let literal_text = &input.contents[start_offset..input.offset()];
+    Some((literal_text, token_type))
+}
+
 /// Attempts to take a matching text from the input stream, ensuring that
 /// the match is not part of a larger identifier.
 ///
@@ -1789,6 +1833,134 @@ Attribute VB_Exposed = False
         assert_eq!(tokens[3], (" ", Token::Whitespace));
         assert_eq!(tokens[4], ("123456&", Token::LongLiteral));
         assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn prefixed_hex_long_literal_with_suffix_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "x = &H2A130&");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("&H2A130&", Token::LongLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn prefixed_octal_long_literal_with_suffix_tokenize() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "x = &O77&");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("&O77&", Token::LongLiteral));
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn prefixed_hex_with_single_suffix_does_not_fold_suffix() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "x = &H2A!");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("&H2A", Token::LongLiteral));
+        assert_eq!(tokens[5], ("!", Token::ExclamationMark));
+        assert_eq!(tokens.len(), 6);
+    }
+
+    #[test]
+    fn prefixed_hex_with_double_suffix_does_not_fold_suffix() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "x = &H2A#");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("&H2A", Token::LongLiteral));
+        assert_eq!(tokens[5], ("#", Token::Octothorpe));
+        assert_eq!(tokens.len(), 6);
+    }
+
+    #[test]
+    fn prefixed_hex_with_currency_suffix_does_not_fold_suffix() {
+        use super::tokenize;
+        use crate::io::SourceStream;
+
+        let mut input = SourceStream::new("", "x = &H2A@");
+        let result = tokenize(&mut input);
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("x", Token::Identifier));
+        assert_eq!(tokens[1], (" ", Token::Whitespace));
+        assert_eq!(tokens[2], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[3], (" ", Token::Whitespace));
+        assert_eq!(tokens[4], ("&H2A", Token::LongLiteral));
+        assert_eq!(tokens[5], ("@", Token::AtSign));
+        assert_eq!(tokens.len(), 6);
     }
 
     #[test]

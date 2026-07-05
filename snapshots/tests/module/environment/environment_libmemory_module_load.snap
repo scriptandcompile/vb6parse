@@ -1479,10 +1479,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H4000
+                  - kind: LongLiteral
+                    text: "&H4000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -1847,10 +1845,8 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: Ampersand
-                    text: "&"
-                  - kind: Identifier
-                    text: H80
+                  - kind: LongLiteral
+                    text: "&H80"
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -7849,64 +7845,60 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: LongLiteral
+                                    text: "&H8000000000000000"
+                              - kind: ExponentiationOperator
+                                text: ^
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Newline
+                                    text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: Octothorpe
+                            text: "#"
+                          - kind: ElseKeyword
+                            text: Else
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: DimStatement
+                        children:
+                          - kind: ConstKeyword
+                            text: Const
+                          - kind: Whitespace
+                            text: " "
                           - kind: Identifier
-                            text: H8000000000000000
-                          - kind: ExponentiationOperator
-                            text: ^
+                            text: minNegative
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: LongLiteral
+                                text: "&H80000000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                       - kind: Octothorpe
                         text: "#"
-                  - kind: ElseClause
-                    children:
-                      - kind: ElseKeyword
-                        text: Else
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: StatementList
-                        children:
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: DimStatement
-                            children:
-                              - kind: ConstKeyword
-                                text: Const
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Identifier
-                                text: minNegative
-                              - kind: Whitespace
-                                text: " "
-                              - kind: AsKeyword
-                                text: As
-                              - kind: Whitespace
-                                text: " "
-                              - kind: LongKeyword
-                                text: Long
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Ampersand
-                                    text: "&"
-                              - kind: Identifier
-                                text: H80000000
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: Octothorpe
-                            text: "#"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -11291,12 +11283,10 @@ cst:
                                         text: "="
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Ampersand
-                                            text: "&"
-                                      - kind: Identifier
-                                        text: H7FFFFFFF
+                                          - kind: LongLiteral
+                                            text: "&H7FFFFFFF"
                                       - kind: Newline
                                         text: "\r\n"
                                   - kind: IfStatement
@@ -17949,12 +17939,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                          - kind: Identifier
-                            text: H80
+                              - kind: LongLiteral
+                                text: "&H80"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -17993,12 +17981,10 @@ cst:
                                 text: "*"
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                          - kind: Identifier
-                            text: H10000
+                                  - kind: LongLiteral
+                                    text: "&H10000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

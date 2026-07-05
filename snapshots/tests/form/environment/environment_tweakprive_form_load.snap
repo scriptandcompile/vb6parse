@@ -18855,14 +18855,10 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H999999
+                                      - kind: LongLiteral
+                                        text: "&H999999"
                           - kind: Newline
                             text: "\r\n"
                       - kind: AssignmentStatement

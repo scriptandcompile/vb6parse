@@ -10712,14 +10712,10 @@ cst:
                         text: And
                       - kind: Whitespace
                         text: " "
-                      - kind: IdentifierExpression
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HFFFF
+                          - kind: LongLiteral
+                            text: "&HFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: IfStatement
@@ -10778,38 +10774,24 @@ cst:
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: Ampersand
-                                            text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H10000
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: AdditionOperator
-                                        text: +
-                              - kind: Whitespace
-                                text: " "
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: b
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: RightParenthesis
-                                        text: )
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: LongLiteral
+                                                text: "&H10000"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: b
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace

@@ -295,12 +295,10 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: IdentifierExpression
+          - kind: NumericLiteralExpression
             children:
-              - kind: Ampersand
-                text: "&"
-          - kind: Identifier
-            text: H100
+              - kind: LongLiteral
+                text: "&H100"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -4549,14 +4547,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H20400
+                              - kind: LongLiteral
+                                text: "&H20400"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -4587,14 +4581,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HC0
+                              - kind: LongLiteral
+                                text: "&HC0"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -4625,14 +4615,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H46
+                              - kind: LongLiteral
+                                text: "&H46"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5541,14 +5527,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H300
+                              - kind: LongLiteral
+                                text: "&H300"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -28621,28 +28603,40 @@ cst:
                     text: " "
                   - kind: BinaryExpression
                     children:
-                      - kind: ParenthesizedExpression
+                      - kind: BinaryExpression
                         children:
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: BinaryExpression
+                          - kind: ParenthesizedExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: Identifier
-                                    text: insID
-                              - kind: Whitespace
-                                text: " "
-                              - kind: MultiplicationOperator
-                                text: "*"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "256"
-                          - kind: RightParenthesis
-                            text: )
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: insID
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: MultiplicationOperator
+                                    text: "*"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "256"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AdditionOperator
+                            text: +
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: LongLiteral
+                                text: "&HC0"
                       - kind: Whitespace
                         text: " "
                       - kind: AdditionOperator
@@ -28651,28 +28645,8 @@ cst:
                         text: " "
                       - kind: IdentifierExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HC0
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: AdditionOperator
-                                text: +
-                      - kind: Whitespace
-                        text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Channel
+                          - kind: Identifier
+                            text: Channel
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

@@ -1,6 +1,5 @@
 ---
 source: vb6parse/tests/class/audiostation.rs
-assertion_line: 156
 expression: class
 ---
 header:
@@ -89,10 +88,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H40000000
+          - kind: LongLiteral
+            text: "&H40000000"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -113,10 +110,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80
+          - kind: LongLiteral
+            text: "&H80"
           - kind: Newline
             text: "\n"
       - kind: DimStatement

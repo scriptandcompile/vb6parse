@@ -4214,26 +4214,16 @@ cst:
                         text: And
                       - kind: Whitespace
                         text: " "
-                      - kind: IdentifierExpression
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-                  - kind: CallStatement
-                    children:
-                      - kind: Identifier
-                        text: H80000000
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: ThenKeyword
-                                    text: Then
-                          - kind: Whitespace
-                            text: " "
+                          - kind: LongLiteral
+                            text: "&H80000000"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
                   - kind: EndOfLineComment
                     text: "'Start < 0"
                   - kind: Newline
@@ -4288,20 +4278,14 @@ cst:
                     children:
                       - kind: Argument
                         children:
-                          - kind: BinaryExpression
+                          - kind: IdentifierExpression
                             children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: OrKeyword
-                                    text: Or
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: H80000000
+                              - kind: OrKeyword
+                                text: Or
+                      - kind: Whitespace
+                        text: " "
+              - kind: Unknown
+                text: "&H80000000"
               - kind: Unknown
                 text: )
               - kind: Whitespace
@@ -4380,78 +4364,58 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: ParenthesizedExpression
+                  - kind: BinaryExpression
                     children:
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: BinaryExpression
+                      - kind: ParenthesizedExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: start
-                          - kind: Whitespace
-                            text: " "
-                          - kind: AdditionOperator
-                            text: +
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H80000000
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
+                          - kind: LeftParenthesis
+                            text: (
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: RightParenthesis
-                                    text: )
+                                  - kind: Identifier
+                                    text: start
                               - kind: Whitespace
                                 text: " "
                               - kind: AdditionOperator
                                 text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: ParenthesizedExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: Incr
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: AdditionOperator
-                                        text: +
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Ampersand
-                                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H80000000
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                                  - kind: LongLiteral
+                                    text: "&H80000000"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AdditionOperator
+                        text: +
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ParenthesizedExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: BinaryExpression
                             children:
-                              - kind: RightParenthesis
-                                text: )
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Incr
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AdditionOperator
+                                text: +
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: LongLiteral
+                                    text: "&H80000000"
+                          - kind: RightParenthesis
+                            text: )
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace

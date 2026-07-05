@@ -11276,14 +11276,10 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HF0F0F0
+                                      - kind: LongLiteral
+                                        text: "&HF0F0F0"
                           - kind: Newline
                             text: "\r\n"
                       - kind: EndOfLineComment

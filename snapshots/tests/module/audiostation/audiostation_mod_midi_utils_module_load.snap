@@ -223,10 +223,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H7FFFFFFF
+          - kind: LongLiteral
+            text: "&H7FFFFFFF"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -247,10 +245,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HF
+          - kind: LongLiteral
+            text: "&HF"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -271,10 +267,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HF0
+          - kind: LongLiteral
+            text: "&HF0"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -295,10 +289,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HFF
+          - kind: LongLiteral
+            text: "&HFF"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -319,10 +311,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HFF00
+          - kind: LongLiteral
+            text: "&HFF00"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -371,10 +361,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H10
+          - kind: LongLiteral
+            text: "&H10"
           - kind: Whitespace
             text: " "
           - kind: EndOfLineComment
@@ -3161,22 +3149,12 @@ cst:
                                     text: And
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: IdentifierExpression
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HFF
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: RightParenthesis
-                                        text: )
+                                      - kind: LongLiteral
+                                        text: "&HFF"
+                              - kind: RightParenthesis
+                                text: )
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -3297,38 +3275,32 @@ cst:
                         text: "="
                       - kind: Whitespace
                         text: " "
-                      - kind: IdentifierExpression
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-                  - kind: Identifier
-                    text: H80
+                          - kind: LongLiteral
+                            text: "&H80"
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Whitespace
                     text: " "
                   - kind: AssignmentStatement
                     children:
                       - kind: IdentifierExpression
                         children:
-                          - kind: ThenKeyword
-                            text: Then
+                          - kind: Identifier
+                            text: tempchksum
                       - kind: Whitespace
                         text: " "
-                      - kind: BinaryExpression
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: tempchksum
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "0"
+                          - kind: IntegerLiteral
+                            text: "0"
                       - kind: Newline
                         text: "\n"
                   - kind: Newline

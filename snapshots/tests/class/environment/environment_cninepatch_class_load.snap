@@ -222,10 +222,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H26200A
+          - kind: LongLiteral
+            text: "&H26200A"
           - kind: Newline
             text: "\r\n"
       - kind: EndOfLineComment
@@ -15260,42 +15258,34 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: ParenthesizedExpression
+                  - kind: BinaryExpression
                     children:
-                      - kind: LeftParenthesis
-                        text: (
                       - kind: ParenthesizedExpression
                         children:
                           - kind: LeftParenthesis
                             text: (
                           - kind: BinaryExpression
                             children:
-                              - kind: IdentifierExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: Identifier
-                                    text: lUnsignedPtr
-                              - kind: Whitespace
-                                text: " "
-                              - kind: XorKeyword
-                                text: Xor
-                              - kind: Whitespace
-                                text: " "
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Ampersand
-                                    text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H80000000
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lUnsignedPtr
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: XorKeyword
+                                        text: Xor
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: LongLiteral
+                                            text: "&H80000000"
                                   - kind: RightParenthesis
                                     text: )
                               - kind: Whitespace
@@ -15308,28 +15298,18 @@ cst:
                                 children:
                                   - kind: Identifier
                                     text: lSignedOffset
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: XorKeyword
-                    text: Xor
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: XorKeyword
+                        text: Xor
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Ampersand
-                                text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H80000000
+                          - kind: LongLiteral
+                            text: "&H80000000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Unknown

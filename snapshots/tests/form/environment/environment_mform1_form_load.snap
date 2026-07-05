@@ -722,10 +722,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HC
+          - kind: LongLiteral
+            text: "&HC"
           - kind: Newline
             text: "\r\n"
       - kind: Whitespace

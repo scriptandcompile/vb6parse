@@ -9606,16 +9606,12 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H404040
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: LongLiteral
+                                                text: "&H404040"
+                                      - kind: ColonOperator
+                                        text: ":"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: AssignmentStatement
@@ -10042,16 +10038,12 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H404040
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: LongLiteral
+                                                text: "&H404040"
+                                      - kind: ColonOperator
+                                        text: ":"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: AssignmentStatement
@@ -10508,16 +10500,12 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H404040
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: LongLiteral
+                                                text: "&H404040"
+                                      - kind: ColonOperator
+                                        text: ":"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: AssignmentStatement
@@ -10970,16 +10958,12 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H404040
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: LongLiteral
+                                                text: "&H404040"
+                                      - kind: ColonOperator
+                                        text: ":"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: AssignmentStatement
@@ -14218,16 +14202,12 @@ cst:
                                             text: "="
                                           - kind: Whitespace
                                             text: " "
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                                      - kind: LabelStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H80000012
-                                          - kind: ColonOperator
-                                            text: ":"
+                                              - kind: LongLiteral
+                                                text: "&H80000012"
+                                      - kind: ColonOperator
+                                        text: ":"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: AssignmentStatement

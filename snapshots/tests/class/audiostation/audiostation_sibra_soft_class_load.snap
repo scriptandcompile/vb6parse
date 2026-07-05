@@ -538,10 +538,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80000000
+          - kind: LongLiteral
+            text: "&H80000000"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -562,10 +560,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8000000
+          - kind: LongLiteral
+            text: "&H8000000"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -586,10 +582,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H0
+          - kind: LongLiteral
+            text: "&H0"
           - kind: Newline
             text: "\n"
       - kind: Newline
@@ -620,10 +614,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -652,10 +644,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -684,10 +674,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4
+          - kind: LongLiteral
+            text: "&H4"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -716,10 +704,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H20
+          - kind: LongLiteral
+            text: "&H20"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -748,10 +734,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H40
+          - kind: LongLiteral
+            text: "&H40"
           - kind: Newline
             text: "\n"
       - kind: Whitespace
@@ -3984,12 +3968,10 @@ cst:
                     text: tOSVw
                   - kind: LeftParenthesis
                     text: (
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: H54
+                      - kind: LongLiteral
+                        text: "&H54"
                   - kind: RightParenthesis
                     text: )
                   - kind: Whitespace
@@ -4026,34 +4008,22 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: BinaryExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H54
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: BinaryExpression
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: MultiplicationOperator
-                                    text: "*"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: H4
+                          - kind: LongLiteral
+                            text: "&H54"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MultiplicationOperator
+                        text: "*"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: LongLiteral
+                            text: "&H4"
                   - kind: Newline
                     text: "\n"
               - kind: CallStatement

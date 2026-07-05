@@ -431,10 +431,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H40
+          - kind: LongLiteral
+            text: "&H40"
           - kind: Newline
             text: "\n"
       - kind: Newline
@@ -595,16 +593,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H8B575651
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H8B575651"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -631,16 +625,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H8B10247C
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H8B10247C"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -667,16 +657,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H8B142474
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H8B142474"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -703,14 +689,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H5118244C
+                      - kind: LongLiteral
+                        text: "&H5118244C"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -739,16 +721,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HF33FE183
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HF33FE183"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -775,16 +753,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HE18359A4
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HE18359A4"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -811,16 +785,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H6850FC0
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H6850FC0"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -847,14 +817,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H5F000000
+                      - kind: LongLiteral
+                        text: "&H5F000000"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -883,16 +849,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HCC2595E
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HCC2595E"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -919,16 +881,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H3E9C100
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H3E9C100"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -955,16 +913,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H8DCE348D
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H8DCE348D"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -991,14 +945,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HD9F7CF3C
+                      - kind: LongLiteral
+                        text: "&HD9F7CF3C"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1027,16 +977,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HCE84180F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HCE84180F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1063,22 +1009,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H200
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Ampersand
-                                text: "&"
+                      - kind: LongLiteral
+                        text: "&H200&"
               - kind: ColonOperator
                 text: ":"
               - kind: Whitespace
@@ -1107,16 +1041,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HCE046F0F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HCE046F0F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1143,14 +1073,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HCE4C6F0F
+                      - kind: LongLiteral
+                        text: "&HCE4C6F0F"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1179,16 +1105,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H4E70F08
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H4E70F08"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1215,16 +1137,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H4CE70FCF
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H4CE70FCF"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1251,16 +1169,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H6F0F08CF
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H6F0F08CF"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1287,14 +1201,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HF10CE44
+                      - kind: LongLiteral
+                        text: "&HF10CE44"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1323,16 +1233,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H18CE4C6F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H18CE4C6F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1359,16 +1265,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HCF44E70F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HCF44E70F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1395,16 +1297,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H4CE70F10
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H4CE70F10"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1431,14 +1329,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H6F0F18CF
+                      - kind: LongLiteral
+                        text: "&H6F0F18CF"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1467,16 +1361,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HF20CE44
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HF20CE44"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1503,16 +1393,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H28CE4C6F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H28CE4C6F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1539,16 +1425,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HCF44E70F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HCF44E70F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1575,14 +1457,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H4CE70F20
+                      - kind: LongLiteral
+                        text: "&H4CE70F20"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1611,16 +1489,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H6F0F28CF
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H6F0F28CF"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1647,16 +1521,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HF30CE44
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HF30CE44"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1683,16 +1553,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H38CE4C6F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H38CE4C6F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1719,14 +1585,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HCF44E70F
+                      - kind: LongLiteral
+                        text: "&HCF44E70F"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1755,16 +1617,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: H4CE70F30
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&H4CE70F30"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1791,16 +1649,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HC18338CF
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HC18338CF"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1827,16 +1681,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HFA57508
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HFA57508"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1863,14 +1713,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H770FF8AE
+                      - kind: LongLiteral
+                        text: "&H770FF8AE"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1899,16 +1745,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HC2595E5F
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HC2595E5F"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -1935,22 +1777,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HC
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Ampersand
-                                text: "&"
+                      - kind: LongLiteral
+                        text: "&HC&"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -1979,16 +1809,12 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: LabelStatement
-                children:
-                  - kind: Identifier
-                    text: HFF505A58
-                  - kind: ColonOperator
-                    text: ":"
+                      - kind: LongLiteral
+                        text: "&HFF505A58"
+              - kind: ColonOperator
+                text: ":"
               - kind: Whitespace
                 text: " "
               - kind: AssignmentStatement
@@ -2015,22 +1841,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HE2
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Ampersand
-                                text: "&"
+                      - kind: LongLiteral
+                        text: "&HE2&"
                   - kind: Newline
                     text: "\n"
               - kind: Whitespace
@@ -2193,20 +2007,10 @@ cst:
                                 children:
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Ampersand
-                                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HE9
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
+                                          - kind: LongLiteral
+                                            text: "&HE9"
                               - kind: RightParenthesis
                                 text: )
                       - kind: Comma

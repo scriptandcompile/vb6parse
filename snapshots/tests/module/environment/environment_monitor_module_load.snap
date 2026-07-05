@@ -945,10 +945,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -969,10 +967,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -993,10 +989,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H0
+          - kind: LongLiteral
+            text: "&H0"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -1017,10 +1011,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -1963,14 +1955,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H7FFFFFFF
+                      - kind: LongLiteral
+                        text: "&H7FFFFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -1987,14 +1975,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H7FFFFFFF
+                      - kind: LongLiteral
+                        text: "&H7FFFFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2137,14 +2121,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H7FFFFFFF
+                      - kind: LongLiteral
+                        text: "&H7FFFFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -2161,14 +2141,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H7FFFFFFF
+                      - kind: LongLiteral
+                        text: "&H7FFFFFFF"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

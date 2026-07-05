@@ -407,14 +407,10 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: IdentifierExpression
+          - kind: NumericLiteralExpression
             children:
-              - kind: Ampersand
-                text: "&"
-          - kind: Identifier
-            text: H1
-          - kind: Ampersand
-            text: "&"
+              - kind: LongLiteral
+                text: "&H1&"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -431,14 +427,10 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: IdentifierExpression
+          - kind: NumericLiteralExpression
             children:
-              - kind: Ampersand
-                text: "&"
-          - kind: Identifier
-            text: H20
-          - kind: Ampersand
-            text: "&"
+              - kind: LongLiteral
+                text: "&H20&"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement

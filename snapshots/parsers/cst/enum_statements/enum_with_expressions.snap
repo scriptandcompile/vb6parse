@@ -91,10 +91,8 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Identifier
-          text: HFF
+        - kind: LongLiteral
+          text: "&HFF"
         - kind: Newline
           text: "\n"
         - kind: EndKeyword

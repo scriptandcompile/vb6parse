@@ -463,10 +463,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H800705B4
+          - kind: LongLiteral
+            text: "&H800705B4"
           - kind: Newline
             text: "\r\n"
       - kind: Newline

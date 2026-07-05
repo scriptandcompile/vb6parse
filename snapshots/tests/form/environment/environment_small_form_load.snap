@@ -1056,10 +1056,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HD
+          - kind: LongLiteral
+            text: "&HD"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -1080,10 +1078,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HE
+          - kind: LongLiteral
+            text: "&HE"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -1104,10 +1100,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HC
+          - kind: LongLiteral
+            text: "&HC"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement

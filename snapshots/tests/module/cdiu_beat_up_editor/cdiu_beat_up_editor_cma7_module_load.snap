@@ -219,12 +219,10 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: IdentifierExpression
+          - kind: NumericLiteralExpression
             children:
-              - kind: Ampersand
-                text: "&"
-          - kind: Identifier
-            text: H80000000
+              - kind: LongLiteral
+                text: "&H80000000"
           - kind: Newline
             text: "\n"
       - kind: DimStatement
@@ -241,12 +239,10 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: IdentifierExpression
+          - kind: NumericLiteralExpression
             children:
-              - kind: Ampersand
-                text: "&"
-          - kind: Identifier
-            text: H4000000
+              - kind: LongLiteral
+                text: "&H4000000"
           - kind: Newline
             text: "\n"
       - kind: DeclareStatement
@@ -1221,14 +1217,10 @@ cst:
                                 text: Xor
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H30
+                                  - kind: LongLiteral
+                                    text: "&H30"
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -5051,14 +5043,10 @@ cst:
                                 text: Xor
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H30
+                                  - kind: LongLiteral
+                                    text: "&H30"
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace

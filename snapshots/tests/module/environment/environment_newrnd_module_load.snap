@@ -719,12 +719,10 @@ cst:
                                                 text: And
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: Ampersand
-                                                    text: "&"
-                                      - kind: Identifier
-                                        text: H7FFFFFFF
+                                                  - kind: LongLiteral
+                                                    text: "&H7FFFFFFF"
                                       - kind: Whitespace
                                         text: " "
                                       - kind: ElseKeyword
@@ -755,14 +753,10 @@ cst:
                                                 text: And
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: Ampersand
-                                                    text: "&"
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H7FFFFFFF
+                                                  - kind: LongLiteral
+                                                    text: "&H7FFFFFFF"
                                           - kind: Newline
                                             text: "\r\n"
                                   - kind: Whitespace

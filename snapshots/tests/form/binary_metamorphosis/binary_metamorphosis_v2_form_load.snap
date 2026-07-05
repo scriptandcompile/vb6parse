@@ -3066,18 +3066,10 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H996633
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: LongLiteral
+                                        text: "&H996633"
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace

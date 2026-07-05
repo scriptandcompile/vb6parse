@@ -250,10 +250,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -2936,18 +2934,10 @@ cst:
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: H80049300
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
+                                              - kind: LongLiteral
+                                                text: "&H80049300"
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -3238,18 +3228,10 @@ cst:
                                             children:
                                               - kind: Argument
                                                 children:
-                                                  - kind: IdentifierExpression
+                                                  - kind: NumericLiteralExpression
                                                     children:
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                      - kind: CallStatement
-                                        children:
-                                          - kind: Identifier
-                                            text: H80049302
-                                          - kind: ArgumentList
-                                            children:
-                                              - kind: Argument
-                                                children: []
+                                                      - kind: LongLiteral
+                                                        text: "&H80049302"
                                               - kind: Comma
                                                 text: ","
                                               - kind: Whitespace
@@ -4144,18 +4126,10 @@ cst:
                             children:
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: NumericLiteralExpression
                                     children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H80049304
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children: []
+                                      - kind: LongLiteral
+                                        text: "&H80049304"
                               - kind: Comma
                                 text: ","
                               - kind: Whitespace
@@ -4392,18 +4366,10 @@ cst:
                                     children:
                                       - kind: Argument
                                         children:
-                                          - kind: IdentifierExpression
+                                          - kind: NumericLiteralExpression
                                             children:
-                                              - kind: Ampersand
-                                                text: "&"
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: H80049306
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children: []
+                                              - kind: LongLiteral
+                                                text: "&H80049306"
                                       - kind: Comma
                                         text: ","
                                       - kind: Whitespace
@@ -4850,18 +4816,10 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                  - kind: CallStatement
-                    children:
-                      - kind: Identifier
-                        text: H80049308
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children: []
+                                  - kind: LongLiteral
+                                    text: "&H80049308"
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -5740,18 +5698,10 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                  - kind: CallStatement
-                    children:
-                      - kind: Identifier
-                        text: H8004930A
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children: []
+                                  - kind: LongLiteral
+                                    text: "&H8004930A"
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -6424,18 +6374,10 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                  - kind: CallStatement
-                    children:
-                      - kind: Identifier
-                        text: H8004930A
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children: []
+                                  - kind: LongLiteral
+                                    text: "&H8004930A"
                           - kind: Comma
                             text: ","
                           - kind: Whitespace
@@ -6778,18 +6720,10 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Ampersand
-                                    text: "&"
-                  - kind: CallStatement
-                    children:
-                      - kind: Identifier
-                        text: H80049308
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children: []
+                                  - kind: LongLiteral
+                                    text: "&H80049308"
                           - kind: Comma
                             text: ","
                           - kind: Whitespace

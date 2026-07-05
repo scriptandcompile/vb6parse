@@ -351,10 +351,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H1
+          - kind: LongLiteral
+            text: "&H1"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -367,10 +365,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H2
+          - kind: LongLiteral
+            text: "&H2"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -383,10 +379,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H4
+          - kind: LongLiteral
+            text: "&H4"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -399,10 +393,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H8
+          - kind: LongLiteral
+            text: "&H8"
           - kind: Newline
             text: "\r\n"
           - kind: Whitespace
@@ -415,10 +407,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H7
+          - kind: LongLiteral
+            text: "&H7"
           - kind: Newline
             text: "\r\n"
           - kind: EndKeyword
@@ -7675,14 +7665,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: HEC
+                      - kind: LongLiteral
+                        text: "&HEC"
                   - kind: Newline
                     text: "\r\n"
               - kind: DoStatement
@@ -7795,38 +7781,26 @@ cst:
                                 children:
                                   - kind: LeftParenthesis
                                     text: (
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Ampersand
-                                        text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HEC
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
                                   - kind: BinaryExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: XorKeyword
-                                            text: Xor
+                                          - kind: LongLiteral
+                                            text: "&HEC"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: Ampersand
-                                        text: "&"
-                                      - kind: IdentifierExpression
+                                      - kind: XorKeyword
+                                        text: Xor
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Identifier
-                                            text: H11
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                                          - kind: LongLiteral
+                                            text: "&H11"
+                                  - kind: RightParenthesis
+                                    text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: LoopKeyword
@@ -10085,16 +10059,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: H7BF80980
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&H7BF80980"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -10121,16 +10091,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: H101ABF32
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&H101ABF32"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -10157,16 +10123,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: HAA00BB8B
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&HAA00BB8B"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -10193,14 +10155,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HAB0C3000
+                              - kind: LongLiteral
+                                text: "&HAB0C3000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -11737,16 +11695,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: H109
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&H109"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -11773,16 +11727,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: HC0
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&HC0"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -11809,14 +11759,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H46000000
+                              - kind: LongLiteral
+                                text: "&H46000000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -13211,12 +13157,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-                  - kind: Identifier
-                    text: HCC0020
+                      - kind: LongLiteral
+                        text: "&HCC0020"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -14547,16 +14491,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: H7BF80980
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&H7BF80980"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -14583,16 +14523,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: H101ABF32
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&H101ABF32"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -14619,16 +14555,12 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: LabelStatement
-                        children:
-                          - kind: Identifier
-                            text: HAA00BB8B
-                          - kind: ColonOperator
-                            text: ":"
+                              - kind: LongLiteral
+                                text: "&HAA00BB8B"
+                      - kind: ColonOperator
+                        text: ":"
                       - kind: Whitespace
                         text: " "
                       - kind: AssignmentStatement
@@ -14655,14 +14587,10 @@ cst:
                             text: "="
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: NumericLiteralExpression
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: HAB0C3000
+                              - kind: LongLiteral
+                                text: "&HAB0C3000"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -20309,18 +20237,10 @@ cst:
                                                     text: And
                                                   - kind: Whitespace
                                                     text: " "
-                                                  - kind: IdentifierExpression
+                                                  - kind: NumericLiteralExpression
                                                     children:
-                                                      - kind: Ampersand
-                                                        text: "&"
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: H3FF
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children: []
+                                                      - kind: LongLiteral
+                                                        text: "&H3FF"
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
@@ -20759,14 +20679,10 @@ cst:
                     text: "="
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: NumericLiteralExpression
                     children:
-                      - kind: Ampersand
-                        text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H80000000
+                      - kind: LongLiteral
+                        text: "&H80000000"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -26023,192 +25939,176 @@ cst:
                             text: If
                           - kind: Whitespace
                             text: " "
-                          - kind: ParenthesizedExpression
+                          - kind: BinaryExpression
                             children:
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: BinaryExpression
+                              - kind: ParenthesizedExpression
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: Identifier
-                                        text: pvReedSolomonMultiply
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AndKeyword
-                                    text: And
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Ampersand
-                                        text: "&"
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: H80
-                              - kind: ArgumentList
-                                children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: BinaryExpression
+                                      - kind: IdentifierExpression
                                         children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: InequalityOperator
-                                            text: "<>"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NumericLiteralExpression
-                                            children:
-                                              - kind: IntegerLiteral
-                                                text: "0"
-                                  - kind: Whitespace
-                                    text: " "
+                                          - kind: Identifier
+                                            text: pvReedSolomonMultiply
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AndKeyword
+                                        text: And
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: LongLiteral
+                                            text: "&H80"
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: InequalityOperator
+                                text: "<>"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: IntegerLiteral
+                                    text: "0"
+                          - kind: Whitespace
+                            text: " "
                           - kind: ThenKeyword
                             text: Then
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Whitespace
-                        text: "            "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
+                          - kind: StatementList
                             children:
-                              - kind: Identifier
-                                text: lTemp
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
+                              - kind: Whitespace
+                                text: "            "
+                              - kind: AssignmentStatement
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: lTemp
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: LongLiteral
+                                        text: "&H11D"
+                                  - kind: Newline
+                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: "        "
+                          - kind: ElseClause
                             children:
-                              - kind: Ampersand
-                                text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H11D
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "        "
-                      - kind: Unknown
-                        text: Else
-                      - kind: Newline
-                        text: "\r\n"
-                      - kind: Whitespace
-                        text: "            "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: lTemp
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "0"
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: Whitespace
-                        text: "        "
-                      - kind: Unknown
-                        text: End
-                      - kind: IfStatement
-                        children:
+                              - kind: ElseKeyword
+                                text: Else
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StatementList
+                                children:
+                                  - kind: Whitespace
+                                    text: "            "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lTemp
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                                      - kind: Newline
+                                        text: "\r\n"
+                                  - kind: Whitespace
+                                    text: "        "
+                          - kind: EndKeyword
+                            text: End
                           - kind: Whitespace
                             text: " "
                           - kind: IfKeyword
                             text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: Newline
-                                text: "\r\n"
-                          - kind: Whitespace
-                            text: "        "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: pvReedSolomonMultiply
-                              - kind: Whitespace
-                                text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: ParenthesizedExpression
-                                    children:
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: ParenthesizedExpression
-                                            children:
-                                              - kind: LeftParenthesis
-                                                text: (
-                                              - kind: BinaryExpression
-                                                children:
-                                                  - kind: IdentifierExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: pvReedSolomonMultiply
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: MultiplicationOperator
-                                                    text: "*"
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: NumericLiteralExpression
-                                                    children:
-                                                      - kind: IntegerLiteral
-                                                        text: "2"
-                                              - kind: RightParenthesis
-                                                text: )
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: XorKeyword
-                                            text: Xor
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: lTemp
-                                      - kind: RightParenthesis
-                                        text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: AndKeyword
-                                    text: And
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Ampersand
-                                        text: "&"
-                          - kind: CallStatement
-                            children:
                               - kind: Identifier
-                                text: HFF
-                              - kind: Newline
-                                text: "\r\n"
+                                text: pvReedSolomonMultiply
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: ParenthesizedExpression
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: BinaryExpression
+                                    children:
+                                      - kind: ParenthesizedExpression
+                                        children:
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: pvReedSolomonMultiply
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: MultiplicationOperator
+                                                text: "*"
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: IntegerLiteral
+                                                    text: "2"
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: XorKeyword
+                                        text: Xor
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: lTemp
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: AndKeyword
+                                text: And
+                              - kind: Whitespace
+                                text: " "
+                              - kind: NumericLiteralExpression
+                                children:
+                                  - kind: LongLiteral
+                                    text: "&HFF"
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
@@ -29501,22 +29401,12 @@ cst:
                                                 text: "*"
                                               - kind: Whitespace
                                                 text: " "
-                                              - kind: IdentifierExpression
+                                              - kind: NumericLiteralExpression
                                                 children:
-                                                  - kind: Ampersand
-                                                    text: "&"
-                              - kind: CallStatement
-                                children:
-                                  - kind: Identifier
-                                    text: H1F25
-                                  - kind: ArgumentList
-                                    children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: RightParenthesis
-                                                text: )
+                                                  - kind: LongLiteral
+                                                    text: "&H1F25"
+                                          - kind: RightParenthesis
+                                            text: )
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -30401,22 +30291,12 @@ cst:
                                         text: "*"
                                       - kind: Whitespace
                                         text: " "
-                                      - kind: IdentifierExpression
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Ampersand
-                                            text: "&"
-                      - kind: CallStatement
-                        children:
-                          - kind: Identifier
-                            text: H537
-                          - kind: ArgumentList
-                            children:
-                              - kind: Argument
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: RightParenthesis
-                                        text: )
+                                          - kind: LongLiteral
+                                            text: "&H537"
+                                  - kind: RightParenthesis
+                                    text: )
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -30493,14 +30373,10 @@ cst:
                         text: Xor
                       - kind: Whitespace
                         text: " "
-                      - kind: IdentifierExpression
+                      - kind: NumericLiteralExpression
                         children:
-                          - kind: Ampersand
-                            text: "&"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: H5412
+                          - kind: LongLiteral
+                            text: "&H5412"
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace

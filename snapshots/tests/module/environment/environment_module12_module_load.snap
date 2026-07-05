@@ -47,10 +47,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3
+          - kind: LongLiteral
+            text: "&H3"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -111,10 +109,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80000000
+          - kind: LongLiteral
+            text: "&H80000000"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -143,10 +139,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H80
+          - kind: LongLiteral
+            text: "&H80"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -175,10 +169,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H0
+          - kind: LongLiteral
+            text: "&H0"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -207,10 +199,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: H3
+          - kind: LongLiteral
+            text: "&H3"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement
@@ -239,10 +229,8 @@ cst:
             text: "="
           - kind: Whitespace
             text: " "
-          - kind: Ampersand
-            text: "&"
-          - kind: Identifier
-            text: HE
+          - kind: LongLiteral
+            text: "&HE"
           - kind: Newline
             text: "\r\n"
       - kind: DimStatement

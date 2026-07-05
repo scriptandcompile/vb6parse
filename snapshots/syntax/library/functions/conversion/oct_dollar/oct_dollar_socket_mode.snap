@@ -59,14 +59,10 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: NumericLiteralExpression
                   children:
-                    - kind: Ampersand
-                      text: "&"
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: O666
+                    - kind: LongLiteral
+                      text: "&O666"
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

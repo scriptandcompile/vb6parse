@@ -79,14 +79,10 @@ root:
                   text: "="
                 - kind: Whitespace
                   text: " "
-                - kind: IdentifierExpression
+                - kind: NumericLiteralExpression
                   children:
-                    - kind: Ampersand
-                      text: "&"
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: HFF8040
+                    - kind: LongLiteral
+                      text: "&HFF8040"
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace
@@ -119,22 +115,12 @@ root:
                           text: And
                         - kind: Whitespace
                           text: " "
-                        - kind: IdentifierExpression
+                        - kind: NumericLiteralExpression
                           children:
-                            - kind: Ampersand
-                              text: "&"
-            - kind: CallStatement
-              children:
-                - kind: Identifier
-                  text: HFF
-                - kind: ArgumentList
-                  children:
-                    - kind: Argument
-                      children:
-                        - kind: IdentifierExpression
-                          children:
-                            - kind: RightParenthesis
-                              text: )
+                            - kind: LongLiteral
+                              text: "&HFF"
+                    - kind: RightParenthesis
+                      text: )
                 - kind: Newline
                   text: "\n"
             - kind: Whitespace

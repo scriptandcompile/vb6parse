@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/enum_statements.rs
+source: vb6parse/src/parsers/cst/enum_statements.rs
 expression: tree
 ---
 root:
@@ -27,10 +27,8 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Identifier
-          text: H1
+        - kind: LongLiteral
+          text: "&H1"
         - kind: Newline
           text: "\n"
         - kind: Whitespace
@@ -43,10 +41,8 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Identifier
-          text: H2
+        - kind: LongLiteral
+          text: "&H2"
         - kind: Newline
           text: "\n"
         - kind: Whitespace
@@ -59,10 +55,8 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Identifier
-          text: H4
+        - kind: LongLiteral
+          text: "&H4"
         - kind: Newline
           text: "\n"
         - kind: Whitespace
@@ -75,10 +69,8 @@ root:
           text: "="
         - kind: Whitespace
           text: " "
-        - kind: Ampersand
-          text: "&"
-        - kind: Identifier
-          text: H20
+        - kind: LongLiteral
+          text: "&H20"
         - kind: Newline
           text: "\n"
         - kind: EndKeyword
