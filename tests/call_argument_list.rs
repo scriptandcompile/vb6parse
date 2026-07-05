@@ -185,8 +185,7 @@ fn call_with_empty_arguments() {
 
 #[test]
 fn call_with_bracketed_enum_arguments() {
-    let source =
-        r"CallInterface c_lngObjDevEnumerator, [GetDefaultAudioEndpoint], 3, [eRender], [eConsole], VarPtr(c_lngObjIMMDevice)";
+    let source = r"CallInterface c_lngObjDevEnumerator, [GetDefaultAudioEndpoint], 3, [eRender], [eConsole], VarPtr(c_lngObjIMMDevice)";
     let (cst_opt, failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
 
     // Check for failures

@@ -968,8 +968,7 @@ impl Parser<'_> {
             self.tokens_span_offsets(content_start, content_end)
         {
             let content = &self.source_content[start_offset..end_offset];
-            self.builder
-                .token(SyntaxKind::Identifier.to_raw(), content);
+            self.builder.token(SyntaxKind::Identifier.to_raw(), content);
         } else {
             // Fallback for parser modes that do not have a usable source backing slice.
             let mut merged_identifier = String::new();
@@ -1004,39 +1003,6 @@ impl Parser<'_> {
         ) {
             self.consume_token();
         }
-    }
-
-    /// Return source-content byte offsets spanning `self.tokens[start..end]` when possible.
-    fn tokens_span_offsets(&self, start: usize, end: usize) -> Option<(usize, usize)> {
-        if start >= end {
-            return Some((0, 0));
-        }
-
-        if self.source_content.is_empty() {
-            return None;
-        }
-
-        let (start_text, _) = self.tokens.get(start)?;
-        let (end_text, _) = self.tokens.get(end - 1)?;
-
-        let source_start = self.source_content.as_ptr() as usize;
-        let source_end = source_start + self.source_content.len();
-
-        let span_start = start_text.as_ptr() as usize;
-        let span_end = end_text.as_ptr() as usize + end_text.len();
-
-        if span_start < source_start || span_end > source_end || span_start > span_end {
-            return None;
-        }
-
-        let start_offset = span_start - source_start;
-        let end_offset = span_end - source_start;
-
-        if self.source_content.get(start_offset..end_offset).is_none() {
-            return None;
-        }
-
-        Some((start_offset, end_offset))
     }
 
     /// Parse a VB6 file-number reference used in expressions.

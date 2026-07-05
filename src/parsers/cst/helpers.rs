@@ -193,20 +193,57 @@ impl Parser<'_> {
     /// This merges tokens like `Error` + `$`, `Len` + `$`, `Mid` + `$`, etc. into single identifiers.
     pub(crate) fn consume_keyword_dollar_as_identifier(&mut self) {
         if self.at_keyword_dollar() {
-            // Get the text of both tokens
-            let first_text = self.tokens.get(self.pos).map_or("", |(text, _)| *text);
-            let dollar_text = self.tokens.get(self.pos + 1).map_or("", |(text, _)| *text);
-
-            // Create a combined text for the identifier
-            let combined_text = format!("{first_text}{dollar_text}");
-
-            // Add as a single Identifier token
-            self.builder
-                .token(SyntaxKind::Identifier.to_raw(), &combined_text);
+            if let Some((start_offset, end_offset)) =
+                self.tokens_span_offsets(self.pos, self.pos + 2)
+            {
+                let combined_text = &self.source_content[start_offset..end_offset];
+                self.builder
+                    .token(SyntaxKind::Identifier.to_raw(), combined_text);
+            } else {
+                // Fallback for parser modes that do not have a usable source backing slice.
+                let first_text = self.tokens.get(self.pos).map_or("", |(text, _)| *text);
+                let dollar_text = self.tokens.get(self.pos + 1).map_or("", |(text, _)| *text);
+                let combined_text = format!("{first_text}{dollar_text}");
+                self.builder
+                    .token(SyntaxKind::Identifier.to_raw(), &combined_text);
+            }
 
             // Skip both tokens
             self.pos += 2;
         }
+    }
+
+    /// Return source-content byte offsets spanning `self.tokens[start..end]` when possible.
+    pub(crate) fn tokens_span_offsets(&self, start: usize, end: usize) -> Option<(usize, usize)> {
+        if start >= end {
+            return Some((0, 0));
+        }
+
+        if self.source_content.is_empty() {
+            return None;
+        }
+
+        let (start_text, _) = self.tokens.get(start)?;
+        let (end_text, _) = self.tokens.get(end - 1)?;
+
+        let source_start = self.source_content.as_ptr() as usize;
+        let source_end = source_start + self.source_content.len();
+
+        let span_start = start_text.as_ptr() as usize;
+        let span_end = end_text.as_ptr() as usize + end_text.len();
+
+        if span_start < source_start || span_end > source_end || span_start > span_end {
+            return None;
+        }
+
+        let start_offset = span_start - source_start;
+        let end_offset = span_end - source_start;
+
+        if self.source_content.get(start_offset..end_offset).is_none() {
+            return None;
+        }
+
+        Some((start_offset, end_offset))
     }
 
     /// Consume the current token as an Identifier, regardless of whether it's actually a keyword.
