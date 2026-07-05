@@ -662,7 +662,6 @@ fn environment_modtypeinfo_module_load() {
 }
 
 #[test]
-#[ignore = "stack overflow issue"]
 fn environment_module10_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Module10.bas");
 
