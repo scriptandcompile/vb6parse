@@ -7,7 +7,7 @@ pub mod compilesettings;
 mod messages;
 pub mod properties;
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::convert::TryFrom;
 use std::fmt::{Debug, Display};
 use std::str::FromStr;
@@ -42,12 +42,9 @@ where
 
     let mut map_serializer = serializer.serialize_map(Some(sorted_outer.len()))?;
     for (key, inner_map) in sorted_outer {
-        let mut sorted_inner: Vec<_> = inner_map.iter().collect();
-        sorted_inner.sort_by_key(|(k, _)| *k);
-        map_serializer.serialize_entry(
-            key,
-            &sorted_inner.iter().copied().collect::<HashMap<_, _>>(),
-        )?;
+        // Use an ordered map for inner entries so serialization remains stable.
+        let sorted_inner: BTreeMap<_, _> = inner_map.iter().map(|(k, v)| (*k, *v)).collect();
+        map_serializer.serialize_entry(key, &sorted_inner)?;
     }
     map_serializer.end()
 }
