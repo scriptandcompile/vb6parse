@@ -992,13 +992,15 @@ impl<'a> Parser<'a> {
 
     /// Parse control type directly from tokens (e.g., "VB.Form", "VB.CommandButton")
     fn parse_control_type_direct(&mut self) -> String {
-        let mut parts = Vec::new();
+        let mut span_start: Option<usize> = None;
+        let mut span_end = self.pos;
 
         // Parse identifier or keyword
         if self.is_identifier() || self.at_keyword() {
-            if let Some((text, _)) = self.tokens.get(self.pos) {
-                parts.push(text.to_string());
+            if self.tokens.get(self.pos).is_some() {
+                span_start = Some(self.pos);
                 self.consume_advance();
+                span_end = self.pos;
             }
         }
 
@@ -1006,24 +1008,48 @@ impl<'a> Parser<'a> {
         while self.at_token(Token::PeriodOperator) {
             self.consume_advance(); // dot
             if self.is_identifier() || self.at_keyword() {
-                if let Some((text, _)) = self.tokens.get(self.pos) {
-                    parts.push(".".to_string());
-                    parts.push(text.to_string());
+                if self.tokens.get(self.pos).is_some() {
                     self.consume_advance();
+                    span_end = self.pos;
                 }
+            } else {
+                break;
             }
         }
 
-        parts.join("")
+        let Some(start) = span_start else {
+            return String::new();
+        };
+
+        if let Some((start_offset, end_offset)) = self.tokens_span_offsets(start, span_end) {
+            return self.source_content[start_offset..end_offset].to_string();
+        }
+
+        // Fallback for parser modes that do not have a usable source backing slice.
+        let mut value = String::new();
+        for idx in start..span_end {
+            if let Some((text, _)) = self.tokens.get(idx) {
+                value.push_str(text);
+            }
+        }
+
+        value
     }
 
     /// Parse control name directly from tokens
     fn parse_control_name_direct(&mut self) -> String {
         if self.is_identifier() || self.at_keyword() {
-            if let Some((text, _)) = self.tokens.get(self.pos) {
-                let name = text.to_string();
+            if self.tokens.get(self.pos).is_some() {
+                let start = self.pos;
                 self.consume_advance();
-                return name;
+                if let Some((start_offset, end_offset)) = self.tokens_span_offsets(start, self.pos)
+                {
+                    return self.source_content[start_offset..end_offset].to_string();
+                }
+
+                if let Some((text, _)) = self.tokens.get(start) {
+                    return text.to_string();
+                }
             }
         }
         String::new()
@@ -1034,10 +1060,18 @@ impl<'a> Parser<'a> {
     fn parse_property_direct(&mut self) -> Option<(String, String)> {
         // Parse property key
         let key = if self.is_identifier() || self.at_keyword() {
-            if let Some((text, _)) = self.tokens.get(self.pos) {
-                let k = text.to_string();
+            if self.tokens.get(self.pos).is_some() {
+                let key_start = self.pos;
                 self.consume_advance();
-                k
+                if let Some((start_offset, end_offset)) =
+                    self.tokens_span_offsets(key_start, self.pos)
+                {
+                    self.source_content[start_offset..end_offset].to_string()
+                } else if let Some((text, _)) = self.tokens.get(key_start) {
+                    text.to_string()
+                } else {
+                    return None;
+                }
             } else {
                 return None;
             }
@@ -1057,22 +1091,19 @@ impl<'a> Parser<'a> {
         // Parse value (everything until newline/colon)
         // Special case: Resource references like "file.frx":0000 or $"file.frx":0000
         // should include the colon and offset. The quotes should be preserved.
-        let mut value_parts = Vec::new();
+        let value_start = self.pos;
         let mut in_resource_reference = false;
 
         while !self.is_at_end() && !self.at_token(Token::Newline) {
-            if let Some((text, token)) = self.tokens.get(self.pos) {
-                let text_copy = *text;
+            if let Some((_, token)) = self.tokens.get(self.pos) {
                 let token_copy = *token;
 
                 // Check if we see a dollar sign
                 if token_copy == Token::DollarSign {
-                    value_parts.push(text_copy);
                     self.consume_advance();
                 }
                 // If we see a string literal (with or without $), check if resource reference follows
                 else if token_copy == Token::StringLiteral {
-                    value_parts.push(text_copy);
                     self.consume_advance();
 
                     // Peek ahead - if next token is colon, this is a resource reference
@@ -1084,14 +1115,12 @@ impl<'a> Parser<'a> {
                 }
                 // If in resource reference, capture colon
                 else if in_resource_reference && token_copy == Token::ColonOperator {
-                    value_parts.push(text_copy);
                     self.consume_advance();
                 }
                 // If in resource reference and we see the offset number, capture it and stop
                 else if in_resource_reference
                     && (token_copy == Token::IntegerLiteral || token_copy == Token::LongLiteral)
                 {
-                    value_parts.push(text_copy);
                     self.consume_advance();
                     break; // Done with resource reference
                 }
@@ -1101,7 +1130,6 @@ impl<'a> Parser<'a> {
                 }
                 // Otherwise, capture the token
                 else {
-                    value_parts.push(text_copy);
                     self.consume_advance();
                 }
             } else {
@@ -1112,8 +1140,24 @@ impl<'a> Parser<'a> {
         // Skip newline
         self.skip_whitespace_and_newlines();
 
-        // Join tokens directly without intermediate conversion
-        let value = value_parts.concat().trim().to_string();
+        let value_end = self.pos;
+        let value = if let Some((start_offset, end_offset)) =
+            self.tokens_span_offsets(value_start, value_end)
+        {
+            self.source_content[start_offset..end_offset]
+                .trim()
+                .to_string()
+        } else {
+            // Fallback for parser modes that do not have a usable source backing slice.
+            let mut value_text = String::new();
+            for idx in value_start..value_end {
+                if let Some((text, _)) = self.tokens.get(idx) {
+                    value_text.push_str(text);
+                }
+            }
+            value_text.trim().to_string()
+        };
+
         Some((key, value))
     }
 
