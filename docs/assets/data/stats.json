@@ -1,10 +1,10 @@
 {
-  "test_count": 6224,
-  "lib_tests": 5518,
+  "test_count": 6229,
+  "lib_tests": 5523,
   "doc_tests": 119,
   "integration_tests": 587,
   "fuzz_targets": 9,
-  "line_coverage": 95.89,
-  "function_coverage": 92.96,
-  "region_coverage": 96.02
+  "line_coverage": 95.87,
+  "function_coverage": 92.97,
+  "region_coverage": 96.01
 }

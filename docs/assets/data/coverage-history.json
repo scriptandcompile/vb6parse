@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-03T23:57:20Z",
+  "last_updated": "2026-07-05T04:56:17Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -919,38 +919,72 @@
           "percent": 96.02
         }
       }
+    },
+    {
+      "timestamp": "2026-07-05T04:56:17Z",
+      "commit_sha": "4477633dafb0deffd573addf3f162bbad5ca12f2",
+      "commit_message": "Fixed parsing issue with LongLiterals and leading and trailing literal indicators.",
+      "coverage": {
+        "line_coverage": 95.87,
+        "function_coverage": 92.97,
+        "region_coverage": 96.01
+      },
+      "tests": {
+        "total": 6229,
+        "lib_tests": 5523,
+        "doc_tests": 119,
+        "integration_tests": 587,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97068,
+          "total": 101246,
+          "percent": 95.87
+        },
+        "functions": {
+          "covered": 6238,
+          "total": 6710,
+          "percent": 92.97
+        },
+        "regions": {
+          "covered": 155138,
+          "total": 161587,
+          "percent": 96.01
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.89,
+      "latest": 95.87,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.02,
       "best": 95.9,
       "worst": 95.13,
-      "average": 95.79
+      "average": 95.8
     },
     "function_coverage": {
-      "latest": 92.96,
+      "latest": 92.97,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 93.76,
       "worst": 92.87,
       "average": 93.0
     },
     "region_coverage": {
-      "latest": 96.02,
+      "latest": 96.01,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 96.07,
       "worst": 95.39,
       "average": 95.95
     },
     "test_count": {
-      "latest": 6224,
+      "latest": 6229,
       "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "change_count": 5,
+      "growth_rate": 0.08
     }
   }
 }
