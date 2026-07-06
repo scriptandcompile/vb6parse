@@ -571,7 +571,7 @@ fn environment_modobjectextender_module_load() {
 }
 
 #[test]
-#[ignore = "Stack overflow in take_until_not()"]
+#[ignore = "Massive file (+50k lines) so snapshot is very large."]
 fn environment_mod_text_module_load() {
     let module_bytes = include_bytes!("../data/Environment/Mod_Text.bas");
 
