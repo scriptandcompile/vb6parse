@@ -443,12 +443,8 @@ impl ConcreteSyntaxTree {
             remove_lookup[*kind as usize] = true;
         }
 
-        let is_removed_kind = |kind: SyntaxKind| {
-            remove_lookup
-            .get(kind as usize)
-                .copied()
-                .unwrap_or(false)
-        };
+        let is_removed_kind =
+            |kind: SyntaxKind| remove_lookup.get(kind as usize).copied().unwrap_or(false);
 
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
 
