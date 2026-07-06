@@ -1,6 +1,10 @@
 {
   "version": "1.0",
+<<<<<<< Updated upstream
   "last_updated": "2026-07-06T02:35:05Z",
+=======
+  "last_updated": "2026-07-06T02:37:12Z",
+>>>>>>> Stashed changes
   "snapshots": [
     {
       "timestamp": "2026-02-06T09:56:37Z",
@@ -14115,785 +14119,1456 @@
       ]
     },
     {
+<<<<<<< Updated upstream
       "timestamp": "2026-07-06T02:35:05Z",
       "commit_sha": "c0cdac9cb19d36864baa25fd1e00f5a3fffacb1e",
+=======
+      "timestamp": "2026-07-06T02:37:12Z",
+      "commit_sha": "e570c2a89d62d406e8c243b284eeffab347675c3",
+>>>>>>> Stashed changes
       "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
       "benchmarks": [
         {
           "name": "large_Brightness_API_Brightness2.frx",
+<<<<<<< Updated upstream
           "mean": 862.8656491938807,
           "median": 863.4732949159308,
           "std_dev": 14.22698185178429,
+=======
+          "mean": 2282.8798540908665,
+          "median": 2281.357666527021,
+          "std_dev": 5.467218074413337,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Brightness_DIBs_Brightness3.frx",
+<<<<<<< Updated upstream
           "mean": 1034.8092464898925,
           "median": 1028.1323512608353,
           "std_dev": 21.43582309182004,
+=======
+          "mean": 2723.10996789565,
+          "median": 2722.626865996574,
+          "std_dev": 4.811647790565634,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Brightness_FasterDIBs_Brightness.frx",
+<<<<<<< Updated upstream
           "mean": 855.0726413582936,
           "median": 851.0591390442789,
           "std_dev": 8.732305749875225,
+=======
+          "mean": 2269.2208381692176,
+          "median": 2269.1562651772706,
+          "std_dev": 5.635009296388182,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Brightness_VB6_Brightness.frx",
+<<<<<<< Updated upstream
           "mean": 872.0826741564457,
           "median": 877.2258374034197,
           "std_dev": 20.947710156004046,
+=======
+          "mean": 2203.316359377747,
+          "median": 2202.872160571669,
+          "std_dev": 7.361407466529331,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Curves.frm",
+<<<<<<< Updated upstream
           "mean": 314161.82580830617,
           "median": 308960.25,
           "std_dev": 8164.530081261188,
+=======
+          "mean": 524828.2575608393,
+          "median": 524597.6059523809,
+          "std_dev": 1752.7756063136396,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Curves.frm",
+<<<<<<< Updated upstream
           "mean": 645570.9098802799,
           "median": 634160.0101604278,
           "std_dev": 40669.84469911396,
+=======
+          "mean": 1183898.4642934923,
+          "median": 1183228.7472527474,
+          "std_dev": 4077.6032002914103,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Curves.frm",
+<<<<<<< Updated upstream
           "mean": 1027160.503195876,
           "median": 1020501.5618556701,
           "std_dev": 24198.79624875968,
+=======
+          "mean": 1911668.7164150951,
+          "median": 1908495.6509433961,
+          "std_dev": 11468.121411956676,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_CustomFilters.frm",
+<<<<<<< Updated upstream
           "mean": 1456695.7502898544,
           "median": 1451605.6956521738,
           "std_dev": 17043.49965562705,
+=======
+          "mean": 2742495.196216215,
+          "median": 2739848.7432432435,
+          "std_dev": 13399.82231462283,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_FormPhysics.frm",
+<<<<<<< Updated upstream
           "mean": 162322.51791631666,
           "median": 162043.28968253967,
           "std_dev": 1094.8249309189225,
+=======
+          "mean": 273190.2874861807,
+          "median": 272759.0700320513,
+          "std_dev": 1610.4345289663606,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_FormPhysics.frm",
+<<<<<<< Updated upstream
           "mean": 384296.3238671548,
           "median": 383863.115066004,
           "std_dev": 3436.181356776451,
+=======
+          "mean": 702437.0864014231,
+          "median": 702326.345043573,
+          "std_dev": 1483.734055071756,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_FormPhysics.frx",
+<<<<<<< Updated upstream
           "mean": 1876.893612037444,
           "median": 1872.243389469609,
           "std_dev": 16.827946992562094,
+=======
+          "mean": 4088.1743138387224,
+          "median": 4087.4525003197086,
+          "std_dev": 11.572083999758787,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Grayscale.frm",
+<<<<<<< Updated upstream
           "mean": 1485150.492058824,
           "median": 1478447.9779411764,
           "std_dev": 44095.58270828915,
+=======
+          "mean": 2786782.518333333,
+          "median": 2785016.1805555555,
+          "std_dev": 10661.445877277665,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_HistogramsAdv_Histogram.frm",
+<<<<<<< Updated upstream
           "mean": 1379061.9864000005,
           "median": 1381750.4066666667,
           "std_dev": 25842.866359268308,
+=======
+          "mean": 2507606.511999999,
+          "median": 2505712.6875,
+          "std_dev": 8097.026827357557,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Levels_Main.frm",
+<<<<<<< Updated upstream
           "mean": 327409.5527626563,
           "median": 324305.0627828054,
           "std_dev": 7453.941070940163,
+=======
+          "mean": 553514.5134764919,
+          "median": 553527.6489583333,
+          "std_dev": 2211.4847134085016,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Levels_Main.frm",
+<<<<<<< Updated upstream
           "mean": 762130.8800378165,
           "median": 759696.0881989833,
           "std_dev": 8846.936690997389,
+=======
+          "mean": 1386024.1386496949,
+          "median": 1382595.8263063063,
+          "std_dev": 11228.715399324374,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Levels_Main.frm",
+<<<<<<< Updated upstream
           "mean": 1154741.9512643677,
           "median": 1153093.1206896552,
           "std_dev": 8294.492341589264,
+=======
+          "mean": 2169209.0795744685,
+          "median": 2167750.627659574,
+          "std_dev": 6610.640244386379,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_MapEditor_Main Editor.frx",
+<<<<<<< Updated upstream
           "mean": 3967.6842249670535,
           "median": 3933.572261206812,
           "std_dev": 118.51673510694955,
+=======
+          "mean": 9996.908555256296,
+          "median": 9994.914922504397,
+          "std_dev": 30.344869977287896,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_NatureFilters.frm",
+<<<<<<< Updated upstream
           "mean": 1382624.3829166668,
           "median": 1375127.7708333335,
           "std_dev": 31414.012215787672,
+=======
+          "mean": 2596525.7874358995,
+          "median": 2590811.346153846,
+          "std_dev": 34446.004213714536,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Organism.cls",
+<<<<<<< Updated upstream
           "mean": 138675.0656604262,
           "median": 138418.1888066202,
           "std_dev": 883.3101845002708,
+=======
+          "mean": 241474.97475674187,
+          "median": 241292.00050505053,
+          "std_dev": 1678.0979530898744,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Organism.cls",
+<<<<<<< Updated upstream
           "mean": 645619.1066451613,
           "median": 643741.9806451614,
           "std_dev": 9525.595056657572,
+=======
+          "mean": 1168192.0522093023,
+          "median": 1166099.4302325582,
+          "std_dev": 15899.054599437164,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_Organism.cls",
+<<<<<<< Updated upstream
           "mean": 303468.1928790505,
           "median": 300934.02307513915,
           "std_dev": 5795.462983553485,
+=======
+          "mean": 538736.639647485,
+          "median": 538489.7292865362,
+          "std_dev": 1047.0551071153775,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_cCommonDialog.cls",
+<<<<<<< Updated upstream
           "mean": 312329.40951976384,
           "median": 310433.3412698413,
           "std_dev": 6125.87992466166,
+=======
+          "mean": 538374.5031091715,
+          "median": 538179.0118421053,
+          "std_dev": 3158.8810175809267,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_cCommonDialog.cls",
+<<<<<<< Updated upstream
           "mean": 1568760.6546875,
           "median": 1558543.0390625,
           "std_dev": 44517.131301739886,
+=======
+          "mean": 2744637.1840540534,
+          "median": 2744277.9054054054,
+          "std_dev": 6157.579410140614,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_cCommonDialog.cls",
+<<<<<<< Updated upstream
           "mean": 781093.124382169,
           "median": 777612.0382922535,
           "std_dev": 13479.234207545232,
+=======
+          "mean": 1375054.4496799232,
+          "median": 1374136.2879416007,
+          "std_dev": 3389.80188496668,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_frmHMM.frm",
+<<<<<<< Updated upstream
           "mean": 1510193.2225373134,
           "median": 1507507.5820895522,
           "std_dev": 9991.040301131394,
+=======
+          "mean": 2814776.4002777766,
+          "median": 2811606.652777778,
+          "std_dev": 8289.80589651212,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_frmMain.frm",
+<<<<<<< Updated upstream
           "mean": 1493171.254179105,
           "median": 1481681.7985074627,
           "std_dev": 50152.105045002296,
+=======
+          "mean": 2775412.905405406,
+          "median": 2774964.4324324327,
+          "std_dev": 6450.436235412183,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_frmTransparency.frx",
+<<<<<<< Updated upstream
           "mean": 1252.7660169320727,
           "median": 1247.0392796106944,
           "std_dev": 16.834371550243766,
+=======
+          "mean": 3323.3884510549974,
+          "median": 3322.6326483918765,
+          "std_dev": 7.571153232272945,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_pdOpenSaveDialog.cls",
+<<<<<<< Updated upstream
           "mean": 139906.34166539458,
           "median": 139241.43265306123,
           "std_dev": 2862.197949264387,
+=======
+          "mean": 231357.07583114505,
+          "median": 231096.24076923076,
+          "std_dev": 1573.127800597962,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_pdOpenSaveDialog.cls",
+<<<<<<< Updated upstream
           "mean": 704859.9855633802,
           "median": 702357.7711267606,
           "std_dev": 8071.2374570973,
+=======
+          "mean": 1269029.6796249999,
+          "median": 1266313.575,
+          "std_dev": 17910.39131926555,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "large_pdOpenSaveDialog.cls",
+<<<<<<< Updated upstream
           "mean": 349070.1897506528,
           "median": 348413.9791666667,
           "std_dev": 2958.470439890779,
+=======
+          "mean": 637541.8098976446,
+          "median": 637226.1381578947,
+          "std_dev": 1138.175496346178,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Blacklight.frm",
+<<<<<<< Updated upstream
           "mean": 434382.27480519464,
           "median": 433703.8766233766,
           "std_dev": 6572.232243750908,
+=======
+          "mean": 824728.0636885248,
+          "median": 824037.2909836066,
+          "std_dev": 3035.4295191400256,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Brightness_API_Brightness2.frm",
+<<<<<<< Updated upstream
           "mean": 271494.4797527473,
           "median": 269769.49313186813,
           "std_dev": 3460.257452551122,
+=======
+          "mean": 522909.85140625,
+          "median": 522559.8385416666,
+          "std_dev": 2614.3896630821805,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Brightness_DIBs_Brightness3.frm",
+<<<<<<< Updated upstream
           "mean": 577840.1637142855,
           "median": 572686.0142857142,
           "std_dev": 14294.186642242446,
+=======
+          "mean": 1113595.3237777776,
+          "median": 1112151.788888889,
+          "std_dev": 8045.879701672295,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Brightness_FasterDIBs_Brightness.frm",
+<<<<<<< Updated upstream
           "mean": 309349.7086280488,
           "median": 308264.12347560975,
           "std_dev": 6530.346893993393,
+=======
+          "mean": 583157.3860693643,
+          "median": 582824.1069364161,
+          "std_dev": 2879.512662368061,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Brightness_VB6_Brightness.frm",
+<<<<<<< Updated upstream
           "mean": 252508.32538071065,
           "median": 250694.19035532995,
           "std_dev": 4403.613076519863,
+=======
+          "mean": 481936.5943750002,
+          "median": 482177.4783653846,
+          "std_dev": 1613.5768984266294,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Colorize.frm",
+<<<<<<< Updated upstream
           "mean": 836077.8446218483,
           "median": 833414.9285714286,
           "std_dev": 10892.84274729285,
+=======
+          "mean": 1577755.04515625,
+          "median": 1576388.28125,
+          "std_dev": 5527.663951393775,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Contrast.frm",
+<<<<<<< Updated upstream
           "mean": 374708.9972284644,
           "median": 374124.9625468165,
           "std_dev": 2436.8069115498356,
+=======
+          "mean": 717420.4104285714,
+          "median": 718002.9214285715,
+          "std_dev": 3201.549785705656,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_EdgeDetection.frm",
+<<<<<<< Updated upstream
           "mean": 879928.6634482755,
           "median": 885138.1379310344,
           "std_dev": 21280.4469064735,
+=======
+          "mean": 1607487.1388888888,
+          "median": 1605956.253968254,
+          "std_dev": 5977.973758039324,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_EmbossEngrave.frm",
+<<<<<<< Updated upstream
           "mean": 924407.1334862385,
           "median": 916733.6467889908,
           "std_dev": 30252.436479944317,
+=======
+          "mean": 1720548.318305085,
+          "median": 1719383.5084745763,
+          "std_dev": 7389.459814049287,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_FastDrawing.cls",
+<<<<<<< Updated upstream
           "mean": 66520.21589289463,
           "median": 66196.10184210527,
           "std_dev": 1097.291597078431,
+=======
+          "mean": 108071.80503907606,
+          "median": 108095.10845614035,
+          "std_dev": 737.4261739316747,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_FastDrawing.cls",
+<<<<<<< Updated upstream
           "mean": 361765.3939855072,
           "median": 360271.80253623193,
           "std_dev": 5458.209871760737,
+=======
+          "mean": 657163.2392156862,
+          "median": 655513.8137254902,
+          "std_dev": 10338.127679864196,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_FastDrawing.cls",
+<<<<<<< Updated upstream
           "mean": 194264.03630890086,
           "median": 193205.96379432624,
           "std_dev": 2896.072259935556,
+=======
+          "mean": 343907.50850661437,
+          "median": 343346.1623931624,
+          "std_dev": 3965.641477370887,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_FormPhysics.frm",
+<<<<<<< Updated upstream
           "mean": 589770.2084302324,
           "median": 583180.9563953488,
           "std_dev": 22521.304684585393,
+=======
+          "mean": 1095734.7996739135,
+          "median": 1096862.2934782607,
+          "std_dev": 4872.948396788943,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Gradient.frm",
+<<<<<<< Updated upstream
           "mean": 375103.7094117647,
           "median": 372845.2150735294,
           "std_dev": 12666.689555552162,
+=======
+          "mean": 713517.2041134753,
+          "median": 714611.3191489362,
+          "std_dev": 3830.8047668205922,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_HistogramsAdv_Main.frm",
+<<<<<<< Updated upstream
           "mean": 398527.1278099174,
           "median": 394973.4855371901,
           "std_dev": 12313.011599731612,
+=======
+          "mean": 747582.184962963,
+          "median": 747998.3222222222,
+          "std_dev": 3458.2752711184276,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_HistogramsAdv_mod_PublicVars.bas",
+<<<<<<< Updated upstream
           "mean": 150406.02018673776,
           "median": 149932.44642857142,
           "std_dev": 1758.4076231140252,
+=======
+          "mean": 268957.6156820992,
+          "median": 268558.2120037221,
+          "std_dev": 2900.17584639288,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Histograms_Histogram.frm",
+<<<<<<< Updated upstream
           "mean": 611331.9787116565,
           "median": 609781.5521472392,
           "std_dev": 7039.521749702537,
+=======
+          "mean": 1150163.9787500002,
+          "median": 1148867.7443181816,
+          "std_dev": 3671.5476113449427,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Histograms_Main.frm",
+<<<<<<< Updated upstream
           "mean": 260753.61157068075,
           "median": 259934.09685863875,
           "std_dev": 3861.615427587902,
+=======
+          "mean": 490748.677609756,
+          "median": 490322.30975609756,
+          "std_dev": 4562.335882614894,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Histograms_mod_PublicVars.bas",
+<<<<<<< Updated upstream
           "mean": 150713.32546051175,
           "median": 150301.55841269842,
           "std_dev": 2168.232408749417,
+=======
+          "mean": 268696.2542023698,
+          "median": 268312.49861111114,
+          "std_dev": 1900.9310497141598,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Levels_Histogram.frm",
+<<<<<<< Updated upstream
           "mean": 601629.0263636366,
           "median": 601151.7,
           "std_dev": 6988.365204555619,
+=======
+          "mean": 1145846.2943181817,
+          "median": 1145231.5568181816,
+          "std_dev": 5258.915153472649,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Mandelbrot.frm",
+<<<<<<< Updated upstream
           "mean": 744901.8293333332,
           "median": 741958.737037037,
           "std_dev": 8735.869536716587,
+=======
+          "mean": 1395836.386388889,
+          "median": 1392422.388888889,
+          "std_dev": 10551.103990415375,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_MapEditor_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 93003.71683651906,
           "median": 92778.6261072261,
           "std_dev": 828.307556876191,
+=======
+          "mean": 151418.82385500622,
+          "median": 151436.62724117987,
+          "std_dev": 817.3746390401404,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_MapEditor_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 208026.7098978762,
           "median": 204969.40143369176,
           "std_dev": 8051.405371341678,
+=======
+          "mean": 368340.8640323979,
+          "median": 367959.87037037034,
+          "std_dev": 977.0668724956175,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_MapEditor_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 432768.8499017739,
           "median": 427349.9100995025,
           "std_dev": 19086.84324650767,
+=======
+          "mean": 762938.5095517463,
+          "median": 762513.9528779254,
+          "std_dev": 2615.173768700037,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_MapEditor_FrmResize.frm",
+<<<<<<< Updated upstream
           "mean": 299919.4765269462,
           "median": 296749.92664670653,
           "std_dev": 7017.938386137614,
+=======
+          "mean": 568601.5147727273,
+          "median": 568139.7414772727,
+          "std_dev": 2148.2916038526378,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_MapEditor_Main Editor.frm",
+<<<<<<< Updated upstream
           "mean": 509746.9883333332,
           "median": 507774.5364583334,
           "std_dev": 6747.539288702035,
+=======
+          "mean": 987836.1690196075,
+          "median": 987373.6862745099,
+          "std_dev": 5776.2090092312765,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Physics_Logic.bas",
+<<<<<<< Updated upstream
           "mean": 120692.54196273368,
           "median": 121439.62846677133,
           "std_dev": 2296.2730203774427,
+=======
+          "mean": 208457.91247422647,
+          "median": 207806.40370370372,
+          "std_dev": 4545.155699605202,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Physics_Logic.bas",
+<<<<<<< Updated upstream
           "mean": 287026.4725580421,
           "median": 284719.7718710089,
           "std_dev": 5473.987157001664,
+=======
+          "mean": 504978.91983957303,
+          "median": 504742.28121840244,
+          "std_dev": 970.7760534832487,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Physics_Logic.bas",
+<<<<<<< Updated upstream
           "mean": 572769.2910766102,
           "median": 570781.7746031745,
           "std_dev": 6982.241282235758,
+=======
+          "mean": 1024156.7299501895,
+          "median": 1023638.5381152461,
+          "std_dev": 4533.117622642487,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_RandomizationFX.frm",
+<<<<<<< Updated upstream
           "mean": 794008.8865079363,
           "median": 790083.996031746,
           "std_dev": 10437.379989309795,
+=======
+          "mean": 1513006.2811940303,
+          "median": 1512717.8656716417,
+          "std_dev": 3623.908791991241,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_Sepia.frm",
+<<<<<<< Updated upstream
           "mean": 454898.26365740737,
           "median": 452960.74074074073,
           "std_dev": 5170.575680177855,
+=======
+          "mean": 856388.9799145301,
+          "median": 855888.9957264957,
+          "std_dev": 3357.5684468109835,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_ShiftColors.frm",
+<<<<<<< Updated upstream
           "mean": 380257.69617977535,
           "median": 377440.1310861423,
           "std_dev": 10712.967040789508,
+=======
+          "mean": 716333.3737142858,
+          "median": 716662.6607142857,
+          "std_dev": 4096.01182103356,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_cSystemColorDialog.cls",
+<<<<<<< Updated upstream
           "mean": 167568.10613827987,
           "median": 166811.22849915683,
           "std_dev": 3872.6148624360244,
+=======
+          "mean": 298555.10488095245,
+          "median": 298390.9776785715,
+          "std_dev": 905.4904252716001,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_frmFill.frm",
+<<<<<<< Updated upstream
           "mean": 193004.0753667954,
           "median": 192820.66602316604,
           "std_dev": 1376.5391924032258,
+=======
+          "mean": 361326.17212996393,
+          "median": 361098.22563176893,
+          "std_dev": 1859.2241923703577,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_frmFire.frm",
+<<<<<<< Updated upstream
           "mean": 698297.6304166669,
           "median": 695974.0659722222,
           "std_dev": 8803.64869988571,
+=======
+          "mean": 1361351.4067567566,
+          "median": 1356249.7432432433,
+          "std_dev": 14971.801824556669,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_frmFire.frx",
+<<<<<<< Updated upstream
           "mean": 154.40497444579262,
           "median": 152.38210495621556,
           "std_dev": 3.3243906897810245,
+=======
+          "mean": 243.48326822204714,
+          "median": 241.0198574815334,
+          "std_dev": 5.22736502142968,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_frmScanner.frm",
+<<<<<<< Updated upstream
           "mean": 424126.60119148926,
           "median": 422067.90212765953,
           "std_dev": 7005.233525931238,
+=======
+          "mean": 812296.8037903229,
+          "median": 810478.3588709678,
+          "std_dev": 12248.604526125022,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "medium_frmTransparency.frm",
+<<<<<<< Updated upstream
           "mean": 307646.36812883423,
           "median": 305785.14417177916,
           "std_dev": 8907.405894920277,
+=======
+          "mean": 577077.9970689657,
+          "median": 576573.7155172414,
+          "std_dev": 5032.289935902085,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Advanced Histograms.vbp",
+<<<<<<< Updated upstream
           "mean": 15558.31126073221,
           "median": 15489.56328125,
           "std_dev": 177.1860836470952,
+=======
+          "mean": 27424.561784568876,
+          "median": 27382.01786036036,
+          "std_dev": 164.35150830383532,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Artificial Life.vbp",
+<<<<<<< Updated upstream
           "mean": 16781.571274340455,
           "median": 16801.156944444447,
           "std_dev": 250.00402499762353,
+=======
+          "mean": 28092.01808442716,
+          "median": 28063.727831279553,
+          "std_dev": 179.84537649705504,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_ArtificialLife_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 83293.06332402019,
           "median": 83102.21099950396,
           "std_dev": 1059.84219519042,
+=======
+          "mean": 146372.32848507693,
+          "median": 146420.08519659805,
+          "std_dev": 786.772553730795,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Basic Histograms.vbp",
+<<<<<<< Updated upstream
           "mean": 15591.794375271938,
           "median": 15496.442042824074,
           "std_dev": 267.0704416855691,
+=======
+          "mean": 27444.30499489938,
+          "median": 27416.22765102765,
+          "std_dev": 133.24538362967314,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Blacklight.vbp",
+<<<<<<< Updated upstream
           "mean": 15181.987309984088,
           "median": 15137.2894238437,
           "std_dev": 271.69502401417435,
+=======
+          "mean": 25331.192549472304,
+          "median": 25307.14807170543,
+          "std_dev": 92.06878517500937,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Brightness.vbp",
+<<<<<<< Updated upstream
           "mean": 14706.583669313215,
           "median": 14672.39777992278,
           "std_dev": 272.01610810811775,
+=======
+          "mean": 24802.20961326333,
+          "median": 24792.83274453941,
+          "std_dev": 46.0448780326352,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Brightness2.vbp",
+<<<<<<< Updated upstream
           "mean": 14777.647736905245,
           "median": 14750.216859814578,
           "std_dev": 350.18685141519387,
+=======
+          "mean": 24874.309435512492,
+          "median": 24861.69294507576,
+          "std_dev": 66.71887118467761,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Brightness3.vbp",
+<<<<<<< Updated upstream
           "mean": 15488.47054318546,
           "median": 15423.143877551021,
           "std_dev": 326.2357344820139,
+=======
+          "mean": 25764.17563024839,
+          "median": 25739.41272079772,
+          "std_dev": 97.90226775039069,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Colorize.vbp",
+<<<<<<< Updated upstream
           "mean": 15148.94414344781,
           "median": 15028.948717948719,
           "std_dev": 266.4120277391444,
+=======
+          "mean": 26359.09468064788,
+          "median": 26349.44618197378,
+          "std_dev": 126.38796303269544,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Contrast.vbp",
+<<<<<<< Updated upstream
           "mean": 14801.77978781904,
           "median": 14742.664461838365,
           "std_dev": 209.83438502954087,
+=======
+          "mean": 26027.037212943207,
+          "median": 26008.018331084124,
+          "std_dev": 135.6028325488966,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Curves.vbp",
+<<<<<<< Updated upstream
           "mean": 13999.956364009158,
           "median": 13933.720369386128,
           "std_dev": 168.66792790614633,
+=======
+          "mean": 24588.637614320647,
+          "median": 24582.332012195122,
+          "std_dev": 34.84332591588718,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_CustomFilters.vbp",
+<<<<<<< Updated upstream
           "mean": 15323.193203976389,
           "median": 15144.99633365743,
           "std_dev": 680.2210967653054,
+=======
+          "mean": 26788.69380698503,
+          "median": 26703.553161750533,
+          "std_dev": 156.57456425769215,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 14609.301078286573,
           "median": 14446.266863846988,
           "std_dev": 539.5760563386447,
+=======
+          "mean": 23376.10932587741,
+          "median": 23371.41034226191,
+          "std_dev": 238.33449491210806,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Declarations.bas",
+<<<<<<< Updated upstream
           "mean": 46164.64969264106,
           "median": 46377.940862708725,
           "std_dev": 730.9132293148599,
+=======
+          "mean": 82347.94756662063,
+          "median": 82289.35147058824,
+          "std_dev": 427.8117584188917,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Diffuse.vbp",
+<<<<<<< Updated upstream
           "mean": 14913.377072174379,
           "median": 14854.877352368592,
           "std_dev": 171.61775571771904,
+=======
+          "mean": 26272.208843930868,
+          "median": 26259.755070730185,
+          "std_dev": 53.11833098381897,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_EdgeDetection.vbp",
+<<<<<<< Updated upstream
           "mean": 15268.73867525151,
           "median": 15247.889270749241,
           "std_dev": 229.11694760910927,
+=======
+          "mean": 26638.45954603347,
+          "median": 26604.515528250777,
+          "std_dev": 130.89447948860177,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_EmbossEngrave.vbp",
+<<<<<<< Updated upstream
           "mean": 16203.020717317995,
           "median": 16125.683305017432,
           "std_dev": 353.4015506357385,
+=======
+          "mean": 27905.36473835172,
+          "median": 27887.670060970857,
+          "std_dev": 72.7979273254215,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Fill_Region.vbp",
+<<<<<<< Updated upstream
           "mean": 13397.678229406101,
           "median": 13305.045966420967,
           "std_dev": 353.692334264333,
+=======
+          "mean": 23494.53755491638,
+          "median": 23456.738372093023,
+          "std_dev": 184.58684071029657,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_FlameTest.vbp",
+<<<<<<< Updated upstream
           "mean": 13546.430036620071,
           "median": 13509.094129158513,
           "std_dev": 149.74353129886427,
+=======
+          "mean": 23829.27990048221,
+          "median": 23817.971645021644,
+          "std_dev": 51.1054146109959,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_FormScreenCapture.frm",
+<<<<<<< Updated upstream
           "mean": 156615.90970031545,
           "median": 155897.5283911672,
           "std_dev": 2581.8500961232794,
+=======
+          "mean": 293122.79540935665,
+          "median": 292791.3771929825,
+          "std_dev": 1135.4298386281848,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Gradient.frx",
+<<<<<<< Updated upstream
           "mean": 88.39047612636314,
           "median": 86.01735760384575,
           "std_dev": 4.07797147447177,
+=======
+          "mean": 157.45450918595176,
+          "median": 156.82220567097323,
+          "std_dev": 1.5097636880387222,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Gradient.vbp",
+<<<<<<< Updated upstream
           "mean": 13891.016938622874,
           "median": 13834.031346450618,
           "std_dev": 181.9785470478905,
+=======
+          "mean": 24300.717788513764,
+          "median": 24290.110310421285,
+          "std_dev": 44.61389001821477,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Grayscale.vbp",
+<<<<<<< Updated upstream
           "mean": 15002.816608772173,
           "median": 14976.149446316802,
           "std_dev": 127.2424879502906,
+=======
+          "mean": 26532.901683790988,
+          "median": 26525.074088288966,
+          "std_dev": 48.41424282792228,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_HMM.vbp",
+<<<<<<< Updated upstream
           "mean": 13637.967105014597,
           "median": 13586.689826857906,
           "std_dev": 183.9921242735719,
+=======
+          "mean": 23969.06922721859,
+          "median": 23964.43225516622,
+          "std_dev": 34.41185099901629,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Image Levels.vbp",
+<<<<<<< Updated upstream
           "mean": 15940.168810402662,
           "median": 15941.673304805794,
           "std_dev": 243.0709278733347,
+=======
+          "mean": 27087.262834921185,
+          "median": 27065.522920997922,
+          "std_dev": 118.07364417932597,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Levels_mod_PublicVars.bas",
+<<<<<<< Updated upstream
           "mean": 142154.71420020287,
           "median": 141774.84098589583,
           "std_dev": 1780.151039354791,
+=======
+          "mean": 251371.09267904144,
+          "median": 251184.13022875815,
+          "std_dev": 1715.6997935750182,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Mandelbrot.vbp",
+<<<<<<< Updated upstream
           "mean": 14936.588548048654,
           "median": 14805.297725657427,
           "std_dev": 319.1095931396251,
+=======
+          "mean": 25944.95478551653,
+          "median": 25874.36847855513,
+          "std_dev": 473.73752925801216,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Map Editor.vbp",
+<<<<<<< Updated upstream
           "mean": 15627.520717073674,
           "median": 15797.5908203125,
           "std_dev": 361.0563532141322,
+=======
+          "mean": 26463.852657094194,
+          "median": 26445.26828687673,
+          "std_dev": 124.03226368351254,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_MapEditor_Subs.bas",
+<<<<<<< Updated upstream
           "mean": 65053.71286206915,
           "median": 64829.5902997449,
           "std_dev": 762.4771145717366,
+=======
+          "mean": 114451.3105022578,
+          "median": 114484.82714493727,
+          "std_dev": 600.3073921870408,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_NatureFilters.vbp",
+<<<<<<< Updated upstream
           "mean": 14967.585714928096,
           "median": 15066.509154040405,
           "std_dev": 309.0357577076309,
+=======
+          "mean": 25911.773557743043,
+          "median": 25871.539467979685,
+          "std_dev": 261.97611156605103,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Physics.vbp",
+<<<<<<< Updated upstream
           "mean": 14174.010969247118,
           "median": 14155.558690476191,
           "std_dev": 82.80480150417404,
+=======
+          "mean": 24998.896571803507,
+          "median": 24984.248756105007,
+          "std_dev": 50.737089488205044,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_RandomizationFX.vbp",
+<<<<<<< Updated upstream
           "mean": 15181.51404874928,
           "median": 15162.196343247575,
           "std_dev": 92.08306688510581,
+=======
+          "mean": 26888.632671034295,
+          "median": 26873.19187044187,
+          "std_dev": 58.09110930986436,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_ScreenCapture.vbp",
+<<<<<<< Updated upstream
           "mean": 14882.503669255744,
           "median": 14789.679319090821,
           "std_dev": 282.82462704183223,
+=======
+          "mean": 26269.706632960715,
+          "median": 26245.73761609907,
+          "std_dev": 94.33681612677088,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Sepia.vbp",
+<<<<<<< Updated upstream
           "mean": 14160.242488878204,
           "median": 14137.319224228153,
           "std_dev": 91.09073604597287,
+=======
+          "mean": 25164.435609140837,
+          "median": 25138.175000000003,
+          "std_dev": 127.94907220686132,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_ShiftColor.vbp",
+<<<<<<< Updated upstream
           "mean": 14562.394281914365,
           "median": 14418.788319810683,
           "std_dev": 378.52406580290335,
+=======
+          "mean": 25286.10496439866,
+          "median": 25278.131416666667,
+          "std_dev": 37.09863379482336,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Subs.bas",
+<<<<<<< Updated upstream
           "mean": 11446.288659974123,
           "median": 11425.201728602253,
           "std_dev": 81.3814068560541,
+=======
+          "mean": 18368.44970741512,
+          "median": 18402.07075471698,
+          "std_dev": 231.03567002260107,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Subs.bas",
+<<<<<<< Updated upstream
           "mean": 36053.217707005766,
           "median": 35674.79320864122,
           "std_dev": 973.6251525463731,
+=======
+          "mean": 64196.11705751331,
+          "median": 64168.595758442265,
+          "std_dev": 182.5042215135196,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Threshold.vbp",
+<<<<<<< Updated upstream
           "mean": 15315.063404165721,
           "median": 15245.755254154448,
           "std_dev": 226.775082956808,
+=======
+          "mean": 26508.522890762775,
+          "median": 26492.322078173376,
+          "std_dev": 58.17881550712983,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_Transparency.vbp",
+<<<<<<< Updated upstream
           "mean": 14999.900406746629,
           "median": 14888.805798197951,
           "std_dev": 413.16786923186726,
+=======
+          "mean": 26523.00875380452,
+          "median": 26507.682622504537,
+          "std_dev": 46.7552239578205,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_VB_Scanner_Support.vbp",
+<<<<<<< Updated upstream
           "mean": 12878.678907597872,
           "median": 12813.370504385965,
           "std_dev": 168.2509121940526,
+=======
+          "mean": 22586.422676918246,
+          "median": 22567.11710858586,
+          "std_dev": 71.1748218654196,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_frmHMM.frx",
+<<<<<<< Updated upstream
           "mean": 86.92378093842801,
           "median": 84.95162455832629,
           "std_dev": 3.102535461925232,
+=======
+          "mean": 153.31196997264337,
+          "median": 153.25791868706847,
+          "std_dev": 1.1815330506034432,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_mod_PublicVars.bas",
+<<<<<<< Updated upstream
           "mean": 30647.132658854072,
           "median": 30348.743916437095,
           "std_dev": 1062.1584754140758,
+=======
+          "mean": 49615.43542206876,
+          "median": 49605.631632653065,
+          "std_dev": 197.32684212196406,
+>>>>>>> Stashed changes
           "unit": "ns"
         },
         {
           "name": "small_mod_PublicVars.bas",
+<<<<<<< Updated upstream
           "mean": 68265.30286231946,
           "median": 67846.04428571428,
           "std_dev": 1102.1141494720173,
+=======
+          "mean": 122644.5093474543,
+          "median": 122450.13373356203,
+          "std_dev": 1076.2265484209217,
+>>>>>>> Stashed changes
           "unit": "ns"
         }
       ]
@@ -14957,6 +15632,7 @@
           "std_dev": 3.6416856143101
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 862.8656491938807,
           "median": 863.4732949159308,
@@ -14971,6 +15647,22 @@
         "mean": 862.8656491938807,
         "median": 863.4732949159308,
         "std_dev": 14.22698185178429
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2282.8798540908665,
+          "median": 2281.357666527021,
+          "std_dev": 5.467218074413337
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 5.03
+      },
+      "latest": {
+        "mean": 2282.8798540908665,
+        "median": 2281.357666527021,
+        "std_dev": 5.467218074413337
+>>>>>>> Stashed changes
       }
     },
     "large_Brightness_DIBs_Brightness3.frx": {
@@ -15030,20 +15722,36 @@
           "std_dev": 8.933983346248018
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1034.8092464898925,
           "median": 1028.1323512608353,
           "std_dev": 21.43582309182004
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2723.10996789565,
+          "median": 2722.626865996574,
+          "std_dev": 4.811647790565634
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -63.95
       },
       "latest": {
         "mean": 1034.8092464898925,
         "median": 1028.1323512608353,
         "std_dev": 21.43582309182004
+=======
+        "change_percent": -5.14
+      },
+      "latest": {
+        "mean": 2723.10996789565,
+        "median": 2722.626865996574,
+        "std_dev": 4.811647790565634
+>>>>>>> Stashed changes
       }
     },
     "large_Brightness_FasterDIBs_Brightness.frx": {
@@ -15103,20 +15811,36 @@
           "std_dev": 13.257596759366177
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 855.0726413582936,
           "median": 851.0591390442789,
           "std_dev": 8.732305749875225
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2269.2208381692176,
+          "median": 2269.1562651772706,
+          "std_dev": 5.635009296388182
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -62.63
       },
       "latest": {
         "mean": 855.0726413582936,
         "median": 851.0591390442789,
         "std_dev": 8.732305749875225
+=======
+        "change_percent": -0.83
+      },
+      "latest": {
+        "mean": 2269.2208381692176,
+        "median": 2269.1562651772706,
+        "std_dev": 5.635009296388182
+>>>>>>> Stashed changes
       }
     },
     "large_Brightness_VB6_Brightness.frx": {
@@ -15176,20 +15900,36 @@
           "std_dev": 7.928308894368044
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 872.0826741564457,
           "median": 877.2258374034197,
           "std_dev": 20.947710156004046
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2203.316359377747,
+          "median": 2202.872160571669,
+          "std_dev": 7.361407466529331
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -61.17
       },
       "latest": {
         "mean": 872.0826741564457,
         "median": 877.2258374034197,
         "std_dev": 20.947710156004046
+=======
+        "change_percent": -1.9
+      },
+      "latest": {
+        "mean": 2203.316359377747,
+        "median": 2202.872160571669,
+        "std_dev": 7.361407466529331
+>>>>>>> Stashed changes
       }
     },
     "large_Curves.frm": {
@@ -15249,20 +15989,36 @@
           "std_dev": 1375.2368535444552
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 314161.82580830617,
           "median": 308960.25,
           "std_dev": 8164.530081261188
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 524828.2575608393,
+          "median": 524597.6059523809,
+          "std_dev": 1752.7756063136396
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -40.45
       },
       "latest": {
         "mean": 1027160.503195876,
         "median": 1020501.5618556701,
         "std_dev": 24198.79624875968
+=======
+        "change_percent": -0.51
+      },
+      "latest": {
+        "mean": 1911668.7164150951,
+        "median": 1908495.6509433961,
+        "std_dev": 11468.121411956676
+>>>>>>> Stashed changes
       }
     },
     "large_CustomFilters.frm": {
@@ -15322,6 +16078,7 @@
           "std_dev": 16236.91769693011
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1456695.7502898544,
           "median": 1451605.6956521738,
@@ -15336,6 +16093,22 @@
         "mean": 1456695.7502898544,
         "median": 1451605.6956521738,
         "std_dev": 17043.49965562705
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2742495.196216215,
+          "median": 2739848.7432432435,
+          "std_dev": 13399.82231462283
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.15
+      },
+      "latest": {
+        "mean": 2742495.196216215,
+        "median": 2739848.7432432435,
+        "std_dev": 13399.82231462283
+>>>>>>> Stashed changes
       }
     },
     "large_FormPhysics.frm": {
@@ -15395,6 +16168,7 @@
           "std_dev": 1505.2147351670792
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 162322.51791631666,
           "median": 162043.28968253967,
@@ -15409,6 +16183,22 @@
         "mean": 384296.3238671548,
         "median": 383863.115066004,
         "std_dev": 3436.181356776451
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 273190.2874861807,
+          "median": 272759.0700320513,
+          "std_dev": 1610.4345289663606
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.61
+      },
+      "latest": {
+        "mean": 702437.0864014231,
+        "median": 702326.345043573,
+        "std_dev": 1483.734055071756
+>>>>>>> Stashed changes
       }
     },
     "large_FormPhysics.frx": {
@@ -15468,6 +16258,7 @@
           "std_dev": 13.021695683679765
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1876.893612037444,
           "median": 1872.243389469609,
@@ -15482,6 +16273,22 @@
         "mean": 1876.893612037444,
         "median": 1872.243389469609,
         "std_dev": 16.827946992562094
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 4088.1743138387224,
+          "median": 4087.4525003197086,
+          "std_dev": 11.572083999758787
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.58
+      },
+      "latest": {
+        "mean": 4088.1743138387224,
+        "median": 4087.4525003197086,
+        "std_dev": 11.572083999758787
+>>>>>>> Stashed changes
       }
     },
     "large_Grayscale.frm": {
@@ -15541,6 +16348,7 @@
           "std_dev": 8804.634821954394
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1485150.492058824,
           "median": 1478447.9779411764,
@@ -15555,6 +16363,22 @@
         "mean": 1485150.492058824,
         "median": 1478447.9779411764,
         "std_dev": 44095.58270828915
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2786782.518333333,
+          "median": 2785016.1805555555,
+          "std_dev": 10661.445877277665
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.33
+      },
+      "latest": {
+        "mean": 2786782.518333333,
+        "median": 2785016.1805555555,
+        "std_dev": 10661.445877277665
+>>>>>>> Stashed changes
       }
     },
     "large_HistogramsAdv_Histogram.frm": {
@@ -15614,6 +16438,7 @@
           "std_dev": 10256.446590819347
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1379061.9864000005,
           "median": 1381750.4066666667,
@@ -15628,6 +16453,22 @@
         "mean": 1379061.9864000005,
         "median": 1381750.4066666667,
         "std_dev": 25842.866359268308
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2507606.511999999,
+          "median": 2505712.6875,
+          "std_dev": 8097.026827357557
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.17
+      },
+      "latest": {
+        "mean": 2507606.511999999,
+        "median": 2505712.6875,
+        "std_dev": 8097.026827357557
+>>>>>>> Stashed changes
       }
     },
     "large_Levels_Main.frm": {
@@ -15687,20 +16528,36 @@
           "std_dev": 6503.357680952049
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 327409.5527626563,
           "median": 324305.0627828054,
           "std_dev": 7453.941070940163
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 553514.5134764919,
+          "median": 553527.6489583333,
+          "std_dev": 2211.4847134085016
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -41.49
       },
       "latest": {
         "mean": 1154741.9512643677,
         "median": 1153093.1206896552,
         "std_dev": 8294.492341589264
+=======
+        "change_percent": -1.08
+      },
+      "latest": {
+        "mean": 2169209.0795744685,
+        "median": 2167750.627659574,
+        "std_dev": 6610.640244386379
+>>>>>>> Stashed changes
       }
     },
     "large_MapEditor_Main Editor.frx": {
@@ -15760,20 +16617,36 @@
           "std_dev": 39.09489372623989
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 3967.6842249670535,
           "median": 3933.572261206812,
           "std_dev": 118.51673510694955
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 9996.908555256296,
+          "median": 9994.914922504397,
+          "std_dev": 30.344869977287896
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -64.2
       },
       "latest": {
         "mean": 3967.6842249670535,
         "median": 3933.572261206812,
         "std_dev": 118.51673510694955
+=======
+        "change_percent": -9.79
+      },
+      "latest": {
+        "mean": 9996.908555256296,
+        "median": 9994.914922504397,
+        "std_dev": 30.344869977287896
+>>>>>>> Stashed changes
       }
     },
     "large_NatureFilters.frm": {
@@ -15833,6 +16706,7 @@
           "std_dev": 9015.391236422334
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1382624.3829166668,
           "median": 1375127.7708333335,
@@ -15847,6 +16721,22 @@
         "mean": 1382624.3829166668,
         "median": 1375127.7708333335,
         "std_dev": 31414.012215787672
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2596525.7874358995,
+          "median": 2590811.346153846,
+          "std_dev": 34446.004213714536
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.14
+      },
+      "latest": {
+        "mean": 2596525.7874358995,
+        "median": 2590811.346153846,
+        "std_dev": 34446.004213714536
+>>>>>>> Stashed changes
       }
     },
     "large_Organism.cls": {
@@ -15906,6 +16796,7 @@
           "std_dev": 1253.1375261794353
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 138675.0656604262,
           "median": 138418.1888066202,
@@ -15920,6 +16811,22 @@
         "mean": 303468.1928790505,
         "median": 300934.02307513915,
         "std_dev": 5795.462983553485
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 241474.97475674187,
+          "median": 241292.00050505053,
+          "std_dev": 1678.0979530898744
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 2.17
+      },
+      "latest": {
+        "mean": 538736.639647485,
+        "median": 538489.7292865362,
+        "std_dev": 1047.0551071153775
+>>>>>>> Stashed changes
       }
     },
     "large_cCommonDialog.cls": {
@@ -15979,20 +16886,36 @@
           "std_dev": 3951.8218685747092
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 312329.40951976384,
           "median": 310433.3412698413,
           "std_dev": 6125.87992466166
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 538374.5031091715,
+          "median": 538179.0118421053,
+          "std_dev": 3158.8810175809267
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -42.37
       },
       "latest": {
         "mean": 781093.124382169,
         "median": 777612.0382922535,
         "std_dev": 13479.234207545232
+=======
+        "change_percent": -0.65
+      },
+      "latest": {
+        "mean": 1375054.4496799232,
+        "median": 1374136.2879416007,
+        "std_dev": 3389.80188496668
+>>>>>>> Stashed changes
       }
     },
     "large_frmHMM.frm": {
@@ -16052,6 +16975,7 @@
           "std_dev": 17208.289379185167
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1510193.2225373134,
           "median": 1507507.5820895522,
@@ -16066,6 +16990,22 @@
         "mean": 1510193.2225373134,
         "median": 1507507.5820895522,
         "std_dev": 9991.040301131394
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2814776.4002777766,
+          "median": 2811606.652777778,
+          "std_dev": 8289.80589651212
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.2
+      },
+      "latest": {
+        "mean": 2814776.4002777766,
+        "median": 2811606.652777778,
+        "std_dev": 8289.80589651212
+>>>>>>> Stashed changes
       }
     },
     "large_frmMain.frm": {
@@ -16125,6 +17065,7 @@
           "std_dev": 9567.147335094143
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1493171.254179105,
           "median": 1481681.7985074627,
@@ -16139,6 +17080,22 @@
         "mean": 1493171.254179105,
         "median": 1481681.7985074627,
         "std_dev": 50152.105045002296
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 2775412.905405406,
+          "median": 2774964.4324324327,
+          "std_dev": 6450.436235412183
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.22
+      },
+      "latest": {
+        "mean": 2775412.905405406,
+        "median": 2774964.4324324327,
+        "std_dev": 6450.436235412183
+>>>>>>> Stashed changes
       }
     },
     "large_frmTransparency.frx": {
@@ -16198,6 +17155,7 @@
           "std_dev": 7.44431892866496
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 1252.7660169320727,
           "median": 1247.0392796106944,
@@ -16212,6 +17170,22 @@
         "mean": 1252.7660169320727,
         "median": 1247.0392796106944,
         "std_dev": 16.834371550243766
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 3323.3884510549974,
+          "median": 3322.6326483918765,
+          "std_dev": 7.571153232272945
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.82
+      },
+      "latest": {
+        "mean": 3323.3884510549974,
+        "median": 3322.6326483918765,
+        "std_dev": 7.571153232272945
+>>>>>>> Stashed changes
       }
     },
     "large_pdOpenSaveDialog.cls": {
@@ -16271,20 +17245,36 @@
           "std_dev": 1797.936223897142
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 139906.34166539458,
           "median": 139241.43265306123,
           "std_dev": 2862.197949264387
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 231357.07583114505,
+          "median": 231096.24076923076,
+          "std_dev": 1573.127800597962
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -39.88
       },
       "latest": {
         "mean": 349070.1897506528,
         "median": 348413.9791666667,
         "std_dev": 2958.470439890779
+=======
+        "change_percent": -0.59
+      },
+      "latest": {
+        "mean": 637541.8098976446,
+        "median": 637226.1381578947,
+        "std_dev": 1138.175496346178
+>>>>>>> Stashed changes
       }
     },
     "medium_Blacklight.frm": {
@@ -16344,6 +17334,7 @@
           "std_dev": 5584.383473031855
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 434382.27480519464,
           "median": 433703.8766233766,
@@ -16358,6 +17349,22 @@
         "mean": 434382.27480519464,
         "median": 433703.8766233766,
         "std_dev": 6572.232243750908
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 824728.0636885248,
+          "median": 824037.2909836066,
+          "std_dev": 3035.4295191400256
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.26
+      },
+      "latest": {
+        "mean": 824728.0636885248,
+        "median": 824037.2909836066,
+        "std_dev": 3035.4295191400256
+>>>>>>> Stashed changes
       }
     },
     "medium_Brightness_API_Brightness2.frm": {
@@ -16417,20 +17424,36 @@
           "std_dev": 3738.3141538086766
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 271494.4797527473,
           "median": 269769.49313186813,
           "std_dev": 3460.257452551122
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 522909.85140625,
+          "median": 522559.8385416666,
+          "std_dev": 2614.3896630821805
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -48.4
       },
       "latest": {
         "mean": 271494.4797527473,
         "median": 269769.49313186813,
         "std_dev": 3460.257452551122
+=======
+        "change_percent": -0.61
+      },
+      "latest": {
+        "mean": 522909.85140625,
+        "median": 522559.8385416666,
+        "std_dev": 2614.3896630821805
+>>>>>>> Stashed changes
       }
     },
     "medium_Brightness_DIBs_Brightness3.frm": {
@@ -16490,20 +17513,36 @@
           "std_dev": 5098.355682116651
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 577840.1637142855,
           "median": 572686.0142857142,
           "std_dev": 14294.186642242446
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1113595.3237777776,
+          "median": 1112151.788888889,
+          "std_dev": 8045.879701672295
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -48.46
       },
       "latest": {
         "mean": 577840.1637142855,
         "median": 572686.0142857142,
         "std_dev": 14294.186642242446
+=======
+        "change_percent": -0.68
+      },
+      "latest": {
+        "mean": 1113595.3237777776,
+        "median": 1112151.788888889,
+        "std_dev": 8045.879701672295
+>>>>>>> Stashed changes
       }
     },
     "medium_Brightness_FasterDIBs_Brightness.frm": {
@@ -16563,20 +17602,36 @@
           "std_dev": 2491.4872314979684
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 309349.7086280488,
           "median": 308264.12347560975,
           "std_dev": 6530.346893993393
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 583157.3860693643,
+          "median": 582824.1069364161,
+          "std_dev": 2879.512662368061
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -47.32
       },
       "latest": {
         "mean": 309349.7086280488,
         "median": 308264.12347560975,
         "std_dev": 6530.346893993393
+=======
+        "change_percent": -0.7
+      },
+      "latest": {
+        "mean": 583157.3860693643,
+        "median": 582824.1069364161,
+        "std_dev": 2879.512662368061
+>>>>>>> Stashed changes
       }
     },
     "medium_Brightness_VB6_Brightness.frm": {
@@ -16636,6 +17691,7 @@
           "std_dev": 2138.2102060793222
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 252508.32538071065,
           "median": 250694.19035532995,
@@ -16650,6 +17706,22 @@
         "mean": 252508.32538071065,
         "median": 250694.19035532995,
         "std_dev": 4403.613076519863
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 481936.5943750002,
+          "median": 482177.4783653846,
+          "std_dev": 1613.5768984266294
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.14
+      },
+      "latest": {
+        "mean": 481936.5943750002,
+        "median": 482177.4783653846,
+        "std_dev": 1613.5768984266294
+>>>>>>> Stashed changes
       }
     },
     "medium_Colorize.frm": {
@@ -16709,20 +17781,36 @@
           "std_dev": 10952.395223247282
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 836077.8446218483,
           "median": 833414.9285714286,
           "std_dev": 10892.84274729285
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1577755.04515625,
+          "median": 1576388.28125,
+          "std_dev": 5527.663951393775
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -47.29
       },
       "latest": {
         "mean": 836077.8446218483,
         "median": 833414.9285714286,
         "std_dev": 10892.84274729285
+=======
+        "change_percent": -0.53
+      },
+      "latest": {
+        "mean": 1577755.04515625,
+        "median": 1576388.28125,
+        "std_dev": 5527.663951393775
+>>>>>>> Stashed changes
       }
     },
     "medium_Contrast.frm": {
@@ -16782,20 +17870,36 @@
           "std_dev": 2913.740120237384
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 374708.9972284644,
           "median": 374124.9625468165,
           "std_dev": 2436.8069115498356
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 717420.4104285714,
+          "median": 718002.9214285715,
+          "std_dev": 3201.549785705656
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -48.05
       },
       "latest": {
         "mean": 374708.9972284644,
         "median": 374124.9625468165,
         "std_dev": 2436.8069115498356
+=======
+        "change_percent": -0.55
+      },
+      "latest": {
+        "mean": 717420.4104285714,
+        "median": 718002.9214285715,
+        "std_dev": 3201.549785705656
+>>>>>>> Stashed changes
       }
     },
     "medium_EdgeDetection.frm": {
@@ -16855,6 +17959,7 @@
           "std_dev": 6598.615945998487
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 879928.6634482755,
           "median": 885138.1379310344,
@@ -16869,6 +17974,22 @@
         "mean": 879928.6634482755,
         "median": 885138.1379310344,
         "std_dev": 21280.4469064735
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1607487.1388888888,
+          "median": 1605956.253968254,
+          "std_dev": 5977.973758039324
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.0
+      },
+      "latest": {
+        "mean": 1607487.1388888888,
+        "median": 1605956.253968254,
+        "std_dev": 5977.973758039324
+>>>>>>> Stashed changes
       }
     },
     "medium_EmbossEngrave.frm": {
@@ -16928,6 +18049,7 @@
           "std_dev": 7448.297911985954
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 924407.1334862385,
           "median": 916733.6467889908,
@@ -16942,6 +18064,22 @@
         "mean": 924407.1334862385,
         "median": 916733.6467889908,
         "std_dev": 30252.436479944317
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1720548.318305085,
+          "median": 1719383.5084745763,
+          "std_dev": 7389.459814049287
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.32
+      },
+      "latest": {
+        "mean": 1720548.318305085,
+        "median": 1719383.5084745763,
+        "std_dev": 7389.459814049287
+>>>>>>> Stashed changes
       }
     },
     "medium_FastDrawing.cls": {
@@ -17001,6 +18139,7 @@
           "std_dev": 666.4443994554216
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 66520.21589289463,
           "median": 66196.10184210527,
@@ -17015,6 +18154,22 @@
         "mean": 194264.03630890086,
         "median": 193205.96379432624,
         "std_dev": 2896.072259935556
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 108071.80503907606,
+          "median": 108095.10845614035,
+          "std_dev": 737.4261739316747
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.1
+      },
+      "latest": {
+        "mean": 343907.50850661437,
+        "median": 343346.1623931624,
+        "std_dev": 3965.641477370887
+>>>>>>> Stashed changes
       }
     },
     "medium_FormPhysics.frm": {
@@ -17074,6 +18229,7 @@
           "std_dev": 5687.141068642582
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 589770.2084302324,
           "median": 583180.9563953488,
@@ -17088,6 +18244,22 @@
         "mean": 589770.2084302324,
         "median": 583180.9563953488,
         "std_dev": 22521.304684585393
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1095734.7996739135,
+          "median": 1096862.2934782607,
+          "std_dev": 4872.948396788943
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.12
+      },
+      "latest": {
+        "mean": 1095734.7996739135,
+        "median": 1096862.2934782607,
+        "std_dev": 4872.948396788943
+>>>>>>> Stashed changes
       }
     },
     "medium_Gradient.frm": {
@@ -17147,6 +18319,7 @@
           "std_dev": 3574.3423959162565
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 375103.7094117647,
           "median": 372845.2150735294,
@@ -17161,6 +18334,22 @@
         "mean": 375103.7094117647,
         "median": 372845.2150735294,
         "std_dev": 12666.689555552162
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 713517.2041134753,
+          "median": 714611.3191489362,
+          "std_dev": 3830.8047668205922
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.24
+      },
+      "latest": {
+        "mean": 713517.2041134753,
+        "median": 714611.3191489362,
+        "std_dev": 3830.8047668205922
+>>>>>>> Stashed changes
       }
     },
     "medium_HistogramsAdv_Main.frm": {
@@ -17220,6 +18409,7 @@
           "std_dev": 2889.760622669941
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 398527.1278099174,
           "median": 394973.4855371901,
@@ -17234,6 +18424,22 @@
         "mean": 398527.1278099174,
         "median": 394973.4855371901,
         "std_dev": 12313.011599731612
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 747582.184962963,
+          "median": 747998.3222222222,
+          "std_dev": 3458.2752711184276
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.47
+      },
+      "latest": {
+        "mean": 747582.184962963,
+        "median": 747998.3222222222,
+        "std_dev": 3458.2752711184276
+>>>>>>> Stashed changes
       }
     },
     "medium_HistogramsAdv_mod_PublicVars.bas": {
@@ -17293,6 +18499,7 @@
           "std_dev": 842.2354627844234
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 150406.02018673776,
           "median": 149932.44642857142,
@@ -17307,6 +18514,22 @@
         "mean": 150406.02018673776,
         "median": 149932.44642857142,
         "std_dev": 1758.4076231140252
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 268957.6156820992,
+          "median": 268558.2120037221,
+          "std_dev": 2900.17584639288
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 1.84
+      },
+      "latest": {
+        "mean": 268957.6156820992,
+        "median": 268558.2120037221,
+        "std_dev": 2900.17584639288
+>>>>>>> Stashed changes
       }
     },
     "medium_Histograms_Histogram.frm": {
@@ -17366,6 +18589,7 @@
           "std_dev": 5320.993484132626
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 611331.9787116565,
           "median": 609781.5521472392,
@@ -17380,6 +18604,22 @@
         "mean": 611331.9787116565,
         "median": 609781.5521472392,
         "std_dev": 7039.521749702537
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1150163.9787500002,
+          "median": 1148867.7443181816,
+          "std_dev": 3671.5476113449427
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.32
+      },
+      "latest": {
+        "mean": 1150163.9787500002,
+        "median": 1148867.7443181816,
+        "std_dev": 3671.5476113449427
+>>>>>>> Stashed changes
       }
     },
     "medium_Histograms_Main.frm": {
@@ -17439,6 +18679,7 @@
           "std_dev": 2582.4766615647536
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 260753.61157068075,
           "median": 259934.09685863875,
@@ -17453,6 +18694,22 @@
         "mean": 260753.61157068075,
         "median": 259934.09685863875,
         "std_dev": 3861.615427587902
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 490748.677609756,
+          "median": 490322.30975609756,
+          "std_dev": 4562.335882614894
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.23
+      },
+      "latest": {
+        "mean": 490748.677609756,
+        "median": 490322.30975609756,
+        "std_dev": 4562.335882614894
+>>>>>>> Stashed changes
       }
     },
     "medium_Histograms_mod_PublicVars.bas": {
@@ -17512,6 +18769,7 @@
           "std_dev": 1579.2913185344087
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 150713.32546051175,
           "median": 150301.55841269842,
@@ -17526,6 +18784,22 @@
         "mean": 150713.32546051175,
         "median": 150301.55841269842,
         "std_dev": 2168.232408749417
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 268696.2542023698,
+          "median": 268312.49861111114,
+          "std_dev": 1900.9310497141598
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 2.09
+      },
+      "latest": {
+        "mean": 268696.2542023698,
+        "median": 268312.49861111114,
+        "std_dev": 1900.9310497141598
+>>>>>>> Stashed changes
       }
     },
     "medium_Levels_Histogram.frm": {
@@ -17585,6 +18859,7 @@
           "std_dev": 7286.355567388679
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 601629.0263636366,
           "median": 601151.7,
@@ -17599,6 +18874,22 @@
         "mean": 601629.0263636366,
         "median": 601151.7,
         "std_dev": 6988.365204555619
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1145846.2943181817,
+          "median": 1145231.5568181816,
+          "std_dev": 5258.915153472649
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.45
+      },
+      "latest": {
+        "mean": 1145846.2943181817,
+        "median": 1145231.5568181816,
+        "std_dev": 5258.915153472649
+>>>>>>> Stashed changes
       }
     },
     "medium_Mandelbrot.frm": {
@@ -17658,6 +18949,7 @@
           "std_dev": 5981.376744797071
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 744901.8293333332,
           "median": 741958.737037037,
@@ -17672,6 +18964,22 @@
         "mean": 744901.8293333332,
         "median": 741958.737037037,
         "std_dev": 8735.869536716587
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1395836.386388889,
+          "median": 1392422.388888889,
+          "std_dev": 10551.103990415375
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.26
+      },
+      "latest": {
+        "mean": 1395836.386388889,
+        "median": 1392422.388888889,
+        "std_dev": 10551.103990415375
+>>>>>>> Stashed changes
       }
     },
     "medium_MapEditor_Declarations.bas": {
@@ -17731,20 +19039,36 @@
           "std_dev": 1023.5797256292461
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 93003.71683651906,
           "median": 92778.6261072261,
           "std_dev": 828.307556876191
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 151418.82385500622,
+          "median": 151436.62724117987,
+          "std_dev": 817.3746390401404
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -39.87
       },
       "latest": {
         "mean": 432768.8499017739,
         "median": 427349.9100995025,
         "std_dev": 19086.84324650767
+=======
+        "change_percent": -2.1
+      },
+      "latest": {
+        "mean": 762938.5095517463,
+        "median": 762513.9528779254,
+        "std_dev": 2615.173768700037
+>>>>>>> Stashed changes
       }
     },
     "medium_MapEditor_FrmResize.frm": {
@@ -17804,6 +19128,7 @@
           "std_dev": 2806.9472479255783
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 299919.4765269462,
           "median": 296749.92664670653,
@@ -17818,6 +19143,22 @@
         "mean": 299919.4765269462,
         "median": 296749.92664670653,
         "std_dev": 7017.938386137614
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 568601.5147727273,
+          "median": 568139.7414772727,
+          "std_dev": 2148.2916038526378
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.22
+      },
+      "latest": {
+        "mean": 568601.5147727273,
+        "median": 568139.7414772727,
+        "std_dev": 2148.2916038526378
+>>>>>>> Stashed changes
       }
     },
     "medium_MapEditor_Main Editor.frm": {
@@ -17877,6 +19218,7 @@
           "std_dev": 16687.535143624926
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 509746.9883333332,
           "median": 507774.5364583334,
@@ -17891,6 +19233,22 @@
         "mean": 509746.9883333332,
         "median": 507774.5364583334,
         "std_dev": 6747.539288702035
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 987836.1690196075,
+          "median": 987373.6862745099,
+          "std_dev": 5776.2090092312765
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.23
+      },
+      "latest": {
+        "mean": 987836.1690196075,
+        "median": 987373.6862745099,
+        "std_dev": 5776.2090092312765
+>>>>>>> Stashed changes
       }
     },
     "medium_Physics_Logic.bas": {
@@ -17950,6 +19308,7 @@
           "std_dev": 873.5596743106876
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 120692.54196273368,
           "median": 121439.62846677133,
@@ -17964,6 +19323,22 @@
         "mean": 572769.2910766102,
         "median": 570781.7746031745,
         "std_dev": 6982.241282235758
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 208457.91247422647,
+          "median": 207806.40370370372,
+          "std_dev": 4545.155699605202
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.69
+      },
+      "latest": {
+        "mean": 1024156.7299501895,
+        "median": 1023638.5381152461,
+        "std_dev": 4533.117622642487
+>>>>>>> Stashed changes
       }
     },
     "medium_RandomizationFX.frm": {
@@ -18023,6 +19398,7 @@
           "std_dev": 6601.661292719516
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 794008.8865079363,
           "median": 790083.996031746,
@@ -18037,6 +19413,22 @@
         "mean": 794008.8865079363,
         "median": 790083.996031746,
         "std_dev": 10437.379989309795
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1513006.2811940303,
+          "median": 1512717.8656716417,
+          "std_dev": 3623.908791991241
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.46
+      },
+      "latest": {
+        "mean": 1513006.2811940303,
+        "median": 1512717.8656716417,
+        "std_dev": 3623.908791991241
+>>>>>>> Stashed changes
       }
     },
     "medium_Sepia.frm": {
@@ -18096,6 +19488,7 @@
           "std_dev": 3575.8379111522618
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 454898.26365740737,
           "median": 452960.74074074073,
@@ -18110,6 +19503,22 @@
         "mean": 454898.26365740737,
         "median": 452960.74074074073,
         "std_dev": 5170.575680177855
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 856388.9799145301,
+          "median": 855888.9957264957,
+          "std_dev": 3357.5684468109835
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.07
+      },
+      "latest": {
+        "mean": 856388.9799145301,
+        "median": 855888.9957264957,
+        "std_dev": 3357.5684468109835
+>>>>>>> Stashed changes
       }
     },
     "medium_ShiftColors.frm": {
@@ -18169,6 +19578,7 @@
           "std_dev": 3872.287784330612
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 380257.69617977535,
           "median": 377440.1310861423,
@@ -18183,6 +19593,22 @@
         "mean": 380257.69617977535,
         "median": 377440.1310861423,
         "std_dev": 10712.967040789508
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 716333.3737142858,
+          "median": 716662.6607142857,
+          "std_dev": 4096.01182103356
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.42
+      },
+      "latest": {
+        "mean": 716333.3737142858,
+        "median": 716662.6607142857,
+        "std_dev": 4096.01182103356
+>>>>>>> Stashed changes
       }
     },
     "medium_cSystemColorDialog.cls": {
@@ -18242,6 +19668,7 @@
           "std_dev": 996.0104512301161
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 167568.10613827987,
           "median": 166811.22849915683,
@@ -18256,6 +19683,22 @@
         "mean": 167568.10613827987,
         "median": 166811.22849915683,
         "std_dev": 3872.6148624360244
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 298555.10488095245,
+          "median": 298390.9776785715,
+          "std_dev": 905.4904252716001
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.14
+      },
+      "latest": {
+        "mean": 298555.10488095245,
+        "median": 298390.9776785715,
+        "std_dev": 905.4904252716001
+>>>>>>> Stashed changes
       }
     },
     "medium_frmFill.frm": {
@@ -18315,6 +19758,7 @@
           "std_dev": 1691.5550779269183
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 193004.0753667954,
           "median": 192820.66602316604,
@@ -18329,6 +19773,22 @@
         "mean": 193004.0753667954,
         "median": 192820.66602316604,
         "std_dev": 1376.5391924032258
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 361326.17212996393,
+          "median": 361098.22563176893,
+          "std_dev": 1859.2241923703577
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.39
+      },
+      "latest": {
+        "mean": 361326.17212996393,
+        "median": 361098.22563176893,
+        "std_dev": 1859.2241923703577
+>>>>>>> Stashed changes
       }
     },
     "medium_frmFire.frm": {
@@ -18388,6 +19848,7 @@
           "std_dev": 8312.856621077612
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 698297.6304166669,
           "median": 695974.0659722222,
@@ -18402,6 +19863,22 @@
         "mean": 698297.6304166669,
         "median": 695974.0659722222,
         "std_dev": 8803.64869988571
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 1361351.4067567566,
+          "median": 1356249.7432432433,
+          "std_dev": 14971.801824556669
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.35
+      },
+      "latest": {
+        "mean": 1361351.4067567566,
+        "median": 1356249.7432432433,
+        "std_dev": 14971.801824556669
+>>>>>>> Stashed changes
       }
     },
     "medium_frmFire.frx": {
@@ -18461,20 +19938,36 @@
           "std_dev": 1.9671838110481652
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 154.40497444579262,
           "median": 152.38210495621556,
           "std_dev": 3.3243906897810245
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 243.48326822204714,
+          "median": 241.0198574815334,
+          "std_dev": 5.22736502142968
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -40.0
       },
       "latest": {
         "mean": 154.40497444579262,
         "median": 152.38210495621556,
         "std_dev": 3.3243906897810245
+=======
+        "change_percent": -5.38
+      },
+      "latest": {
+        "mean": 243.48326822204714,
+        "median": 241.0198574815334,
+        "std_dev": 5.22736502142968
+>>>>>>> Stashed changes
       }
     },
     "medium_frmScanner.frm": {
@@ -18534,20 +20027,36 @@
           "std_dev": 5898.832497256464
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 424126.60119148926,
           "median": 422067.90212765953,
           "std_dev": 7005.233525931238
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 812296.8037903229,
+          "median": 810478.3588709678,
+          "std_dev": 12248.604526125022
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -48.28
       },
       "latest": {
         "mean": 424126.60119148926,
         "median": 422067.90212765953,
         "std_dev": 7005.233525931238
+=======
+        "change_percent": -0.95
+      },
+      "latest": {
+        "mean": 812296.8037903229,
+        "median": 810478.3588709678,
+        "std_dev": 12248.604526125022
+>>>>>>> Stashed changes
       }
     },
     "medium_frmTransparency.frm": {
@@ -18607,20 +20116,36 @@
           "std_dev": 3777.6901457505564
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 307646.36812883423,
           "median": 305785.14417177916,
           "std_dev": 8907.405894920277
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 577077.9970689657,
+          "median": 576573.7155172414,
+          "std_dev": 5032.289935902085
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -47.07
       },
       "latest": {
         "mean": 307646.36812883423,
         "median": 305785.14417177916,
         "std_dev": 8907.405894920277
+=======
+        "change_percent": -0.72
+      },
+      "latest": {
+        "mean": 577077.9970689657,
+        "median": 576573.7155172414,
+        "std_dev": 5032.289935902085
+>>>>>>> Stashed changes
       }
     },
     "small_Advanced Histograms.vbp": {
@@ -18680,6 +20205,7 @@
           "std_dev": 77.76422645605022
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15558.31126073221,
           "median": 15489.56328125,
@@ -18694,6 +20220,22 @@
         "mean": 15558.31126073221,
         "median": 15489.56328125,
         "std_dev": 177.1860836470952
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 27424.561784568876,
+          "median": 27382.01786036036,
+          "std_dev": 164.35150830383532
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.34
+      },
+      "latest": {
+        "mean": 27424.561784568876,
+        "median": 27382.01786036036,
+        "std_dev": 164.35150830383532
+>>>>>>> Stashed changes
       }
     },
     "small_Artificial Life.vbp": {
@@ -18753,20 +20295,36 @@
           "std_dev": 157.82345174244864
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 16781.571274340455,
           "median": 16801.156944444447,
           "std_dev": 250.00402499762353
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 28092.01808442716,
+          "median": 28063.727831279553,
+          "std_dev": 179.84537649705504
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -40.64
       },
       "latest": {
         "mean": 16781.571274340455,
         "median": 16801.156944444447,
         "std_dev": 250.00402499762353
+=======
+        "change_percent": -0.63
+      },
+      "latest": {
+        "mean": 28092.01808442716,
+        "median": 28063.727831279553,
+        "std_dev": 179.84537649705504
+>>>>>>> Stashed changes
       }
     },
     "small_ArtificialLife_Declarations.bas": {
@@ -18826,6 +20384,7 @@
           "std_dev": 759.7738145791176
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 83293.06332402019,
           "median": 83102.21099950396,
@@ -18840,6 +20399,22 @@
         "mean": 83293.06332402019,
         "median": 83102.21099950396,
         "std_dev": 1059.84219519042
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 146372.32848507693,
+          "median": 146420.08519659805,
+          "std_dev": 786.772553730795
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 2.06
+      },
+      "latest": {
+        "mean": 146372.32848507693,
+        "median": 146420.08519659805,
+        "std_dev": 786.772553730795
+>>>>>>> Stashed changes
       }
     },
     "small_Basic Histograms.vbp": {
@@ -18899,6 +20474,7 @@
           "std_dev": 45.051538298552565
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15591.794375271938,
           "median": 15496.442042824074,
@@ -18913,6 +20489,22 @@
         "mean": 15591.794375271938,
         "median": 15496.442042824074,
         "std_dev": 267.0704416855691
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 27444.30499489938,
+          "median": 27416.22765102765,
+          "std_dev": 133.24538362967314
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.56
+      },
+      "latest": {
+        "mean": 27444.30499489938,
+        "median": 27416.22765102765,
+        "std_dev": 133.24538362967314
+>>>>>>> Stashed changes
       }
     },
     "small_Blacklight.vbp": {
@@ -18972,6 +20564,7 @@
           "std_dev": 72.81750327363233
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15181.987309984088,
           "median": 15137.2894238437,
@@ -18986,6 +20579,22 @@
         "mean": 15181.987309984088,
         "median": 15137.2894238437,
         "std_dev": 271.69502401417435
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25331.192549472304,
+          "median": 25307.14807170543,
+          "std_dev": 92.06878517500937
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.07
+      },
+      "latest": {
+        "mean": 25331.192549472304,
+        "median": 25307.14807170543,
+        "std_dev": 92.06878517500937
+>>>>>>> Stashed changes
       }
     },
     "small_Brightness.vbp": {
@@ -19045,6 +20654,7 @@
           "std_dev": 80.96333409396111
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14706.583669313215,
           "median": 14672.39777992278,
@@ -19059,6 +20669,22 @@
         "mean": 14706.583669313215,
         "median": 14672.39777992278,
         "std_dev": 272.01610810811775
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 24802.20961326333,
+          "median": 24792.83274453941,
+          "std_dev": 46.0448780326352
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.23
+      },
+      "latest": {
+        "mean": 24802.20961326333,
+        "median": 24792.83274453941,
+        "std_dev": 46.0448780326352
+>>>>>>> Stashed changes
       }
     },
     "small_Brightness2.vbp": {
@@ -19118,6 +20744,7 @@
           "std_dev": 122.9203071801389
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14777.647736905245,
           "median": 14750.216859814578,
@@ -19132,6 +20759,22 @@
         "mean": 14777.647736905245,
         "median": 14750.216859814578,
         "std_dev": 350.18685141519387
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 24874.309435512492,
+          "median": 24861.69294507576,
+          "std_dev": 66.71887118467761
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.13
+      },
+      "latest": {
+        "mean": 24874.309435512492,
+        "median": 24861.69294507576,
+        "std_dev": 66.71887118467761
+>>>>>>> Stashed changes
       }
     },
     "small_Brightness3.vbp": {
@@ -19191,20 +20834,36 @@
           "std_dev": 148.2835812324713
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15488.47054318546,
           "median": 15423.143877551021,
           "std_dev": 326.2357344820139
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25764.17563024839,
+          "median": 25739.41272079772,
+          "std_dev": 97.90226775039069
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -40.79
       },
       "latest": {
         "mean": 15488.47054318546,
         "median": 15423.143877551021,
         "std_dev": 326.2357344820139
+=======
+        "change_percent": -1.51
+      },
+      "latest": {
+        "mean": 25764.17563024839,
+        "median": 25739.41272079772,
+        "std_dev": 97.90226775039069
+>>>>>>> Stashed changes
       }
     },
     "small_Colorize.vbp": {
@@ -19264,6 +20923,7 @@
           "std_dev": 74.9909345704122
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15148.94414344781,
           "median": 15028.948717948719,
@@ -19278,6 +20938,22 @@
         "mean": 15148.94414344781,
         "median": 15028.948717948719,
         "std_dev": 266.4120277391444
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26359.09468064788,
+          "median": 26349.44618197378,
+          "std_dev": 126.38796303269544
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.4
+      },
+      "latest": {
+        "mean": 26359.09468064788,
+        "median": 26349.44618197378,
+        "std_dev": 126.38796303269544
+>>>>>>> Stashed changes
       }
     },
     "small_Contrast.vbp": {
@@ -19337,6 +21013,7 @@
           "std_dev": 51.16922449280868
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14801.77978781904,
           "median": 14742.664461838365,
@@ -19351,6 +21028,22 @@
         "mean": 14801.77978781904,
         "median": 14742.664461838365,
         "std_dev": 209.83438502954087
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26027.037212943207,
+          "median": 26008.018331084124,
+          "std_dev": 135.6028325488966
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.2
+      },
+      "latest": {
+        "mean": 26027.037212943207,
+        "median": 26008.018331084124,
+        "std_dev": 135.6028325488966
+>>>>>>> Stashed changes
       }
     },
     "small_Curves.vbp": {
@@ -19410,20 +21103,36 @@
           "std_dev": 35.58304186125226
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 13999.956364009158,
           "median": 13933.720369386128,
           "std_dev": 168.66792790614633
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 24588.637614320647,
+          "median": 24582.332012195122,
+          "std_dev": 34.84332591588718
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -43.44
       },
       "latest": {
         "mean": 13999.956364009158,
         "median": 13933.720369386128,
         "std_dev": 168.66792790614633
+=======
+        "change_percent": -0.67
+      },
+      "latest": {
+        "mean": 24588.637614320647,
+        "median": 24582.332012195122,
+        "std_dev": 34.84332591588718
+>>>>>>> Stashed changes
       }
     },
     "small_CustomFilters.vbp": {
@@ -19483,6 +21192,7 @@
           "std_dev": 55.26581736830799
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15323.193203976389,
           "median": 15144.99633365743,
@@ -19497,6 +21207,22 @@
         "mean": 15323.193203976389,
         "median": 15144.99633365743,
         "std_dev": 680.2210967653054
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26788.69380698503,
+          "median": 26703.553161750533,
+          "std_dev": 156.57456425769215
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.35
+      },
+      "latest": {
+        "mean": 26788.69380698503,
+        "median": 26703.553161750533,
+        "std_dev": 156.57456425769215
+>>>>>>> Stashed changes
       }
     },
     "small_Declarations.bas": {
@@ -19556,6 +21282,7 @@
           "std_dev": 285.2455386804207
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14609.301078286573,
           "median": 14446.266863846988,
@@ -19570,6 +21297,22 @@
         "mean": 46164.64969264106,
         "median": 46377.940862708725,
         "std_dev": 730.9132293148599
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 23376.10932587741,
+          "median": 23371.41034226191,
+          "std_dev": 238.33449491210806
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.26
+      },
+      "latest": {
+        "mean": 82347.94756662063,
+        "median": 82289.35147058824,
+        "std_dev": 427.8117584188917
+>>>>>>> Stashed changes
       }
     },
     "small_Diffuse.vbp": {
@@ -19629,6 +21372,7 @@
           "std_dev": 63.27952192354144
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14913.377072174379,
           "median": 14854.877352368592,
@@ -19643,6 +21387,22 @@
         "mean": 14913.377072174379,
         "median": 14854.877352368592,
         "std_dev": 171.61775571771904
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26272.208843930868,
+          "median": 26259.755070730185,
+          "std_dev": 53.11833098381897
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.04
+      },
+      "latest": {
+        "mean": 26272.208843930868,
+        "median": 26259.755070730185,
+        "std_dev": 53.11833098381897
+>>>>>>> Stashed changes
       }
     },
     "small_EdgeDetection.vbp": {
@@ -19702,6 +21462,7 @@
           "std_dev": 68.83669382441511
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15268.73867525151,
           "median": 15247.889270749241,
@@ -19716,6 +21477,22 @@
         "mean": 15268.73867525151,
         "median": 15247.889270749241,
         "std_dev": 229.11694760910927
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26638.45954603347,
+          "median": 26604.515528250777,
+          "std_dev": 130.89447948860177
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.09
+      },
+      "latest": {
+        "mean": 26638.45954603347,
+        "median": 26604.515528250777,
+        "std_dev": 130.89447948860177
+>>>>>>> Stashed changes
       }
     },
     "small_EmbossEngrave.vbp": {
@@ -19775,6 +21552,7 @@
           "std_dev": 37.960119258399985
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 16203.020717317995,
           "median": 16125.683305017432,
@@ -19789,6 +21567,22 @@
         "mean": 16203.020717317995,
         "median": 16125.683305017432,
         "std_dev": 353.4015506357385
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 27905.36473835172,
+          "median": 27887.670060970857,
+          "std_dev": 72.7979273254215
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.02
+      },
+      "latest": {
+        "mean": 27905.36473835172,
+        "median": 27887.670060970857,
+        "std_dev": 72.7979273254215
+>>>>>>> Stashed changes
       }
     },
     "small_Fill_Region.vbp": {
@@ -19848,6 +21642,7 @@
           "std_dev": 38.057437806150574
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 13397.678229406101,
           "median": 13305.045966420967,
@@ -19862,6 +21657,22 @@
         "mean": 13397.678229406101,
         "median": 13305.045966420967,
         "std_dev": 353.692334264333
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 23494.53755491638,
+          "median": 23456.738372093023,
+          "std_dev": 184.58684071029657
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 0.65
+      },
+      "latest": {
+        "mean": 23494.53755491638,
+        "median": 23456.738372093023,
+        "std_dev": 184.58684071029657
+>>>>>>> Stashed changes
       }
     },
     "small_FlameTest.vbp": {
@@ -19921,6 +21732,7 @@
           "std_dev": 38.61096392330066
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 13546.430036620071,
           "median": 13509.094129158513,
@@ -19935,6 +21747,22 @@
         "mean": 13546.430036620071,
         "median": 13509.094129158513,
         "std_dev": 149.74353129886427
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 23829.27990048221,
+          "median": 23817.971645021644,
+          "std_dev": 51.1054146109959
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.16
+      },
+      "latest": {
+        "mean": 23829.27990048221,
+        "median": 23817.971645021644,
+        "std_dev": 51.1054146109959
+>>>>>>> Stashed changes
       }
     },
     "small_FormScreenCapture.frm": {
@@ -19994,20 +21822,36 @@
           "std_dev": 830.7475478730703
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 156615.90970031545,
           "median": 155897.5283911672,
           "std_dev": 2581.8500961232794
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 293122.79540935665,
+          "median": 292791.3771929825,
+          "std_dev": 1135.4298386281848
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -46.86
       },
       "latest": {
         "mean": 156615.90970031545,
         "median": 155897.5283911672,
         "std_dev": 2581.8500961232794
+=======
+        "change_percent": -0.54
+      },
+      "latest": {
+        "mean": 293122.79540935665,
+        "median": 292791.3771929825,
+        "std_dev": 1135.4298386281848
+>>>>>>> Stashed changes
       }
     },
     "small_Gradient.frx": {
@@ -20067,6 +21911,7 @@
           "std_dev": 0.37342737130729536
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 88.39047612636314,
           "median": 86.01735760384575,
@@ -20081,6 +21926,22 @@
         "mean": 88.39047612636314,
         "median": 86.01735760384575,
         "std_dev": 4.07797147447177
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 157.45450918595176,
+          "median": 156.82220567097323,
+          "std_dev": 1.5097636880387222
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.22
+      },
+      "latest": {
+        "mean": 157.45450918595176,
+        "median": 156.82220567097323,
+        "std_dev": 1.5097636880387222
+>>>>>>> Stashed changes
       }
     },
     "small_Gradient.vbp": {
@@ -20140,20 +22001,36 @@
           "std_dev": 156.8045622084094
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 13891.016938622874,
           "median": 13834.031346450618,
           "std_dev": 181.9785470478905
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 24300.717788513764,
+          "median": 24290.110310421285,
+          "std_dev": 44.61389001821477
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -43.33
       },
       "latest": {
         "mean": 13891.016938622874,
         "median": 13834.031346450618,
         "std_dev": 181.9785470478905
+=======
+        "change_percent": -0.86
+      },
+      "latest": {
+        "mean": 24300.717788513764,
+        "median": 24290.110310421285,
+        "std_dev": 44.61389001821477
+>>>>>>> Stashed changes
       }
     },
     "small_Grayscale.vbp": {
@@ -20213,6 +22090,7 @@
           "std_dev": 52.62787648452978
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15002.816608772173,
           "median": 14976.149446316802,
@@ -20227,6 +22105,22 @@
         "mean": 15002.816608772173,
         "median": 14976.149446316802,
         "std_dev": 127.2424879502906
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26532.901683790988,
+          "median": 26525.074088288966,
+          "std_dev": 48.41424282792228
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.22
+      },
+      "latest": {
+        "mean": 26532.901683790988,
+        "median": 26525.074088288966,
+        "std_dev": 48.41424282792228
+>>>>>>> Stashed changes
       }
     },
     "small_HMM.vbp": {
@@ -20286,6 +22180,7 @@
           "std_dev": 62.07514631399934
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 13637.967105014597,
           "median": 13586.689826857906,
@@ -20300,6 +22195,22 @@
         "mean": 13637.967105014597,
         "median": 13586.689826857906,
         "std_dev": 183.9921242735719
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 23969.06922721859,
+          "median": 23964.43225516622,
+          "std_dev": 34.41185099901629
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.18
+      },
+      "latest": {
+        "mean": 23969.06922721859,
+        "median": 23964.43225516622,
+        "std_dev": 34.41185099901629
+>>>>>>> Stashed changes
       }
     },
     "small_Image Levels.vbp": {
@@ -20359,6 +22270,7 @@
           "std_dev": 38.88347371838876
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15940.168810402662,
           "median": 15941.673304805794,
@@ -20373,6 +22285,22 @@
         "mean": 15940.168810402662,
         "median": 15941.673304805794,
         "std_dev": 243.0709278733347
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 27087.262834921185,
+          "median": 27065.522920997922,
+          "std_dev": 118.07364417932597
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.31
+      },
+      "latest": {
+        "mean": 27087.262834921185,
+        "median": 27065.522920997922,
+        "std_dev": 118.07364417932597
+>>>>>>> Stashed changes
       }
     },
     "small_Levels_mod_PublicVars.bas": {
@@ -20432,6 +22360,7 @@
           "std_dev": 2792.632590557989
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 142154.71420020287,
           "median": 141774.84098589583,
@@ -20446,6 +22375,22 @@
         "mean": 142154.71420020287,
         "median": 141774.84098589583,
         "std_dev": 1780.151039354791
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 251371.09267904144,
+          "median": 251184.13022875815,
+          "std_dev": 1715.6997935750182
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 1.15
+      },
+      "latest": {
+        "mean": 251371.09267904144,
+        "median": 251184.13022875815,
+        "std_dev": 1715.6997935750182
+>>>>>>> Stashed changes
       }
     },
     "small_Mandelbrot.vbp": {
@@ -20505,6 +22450,7 @@
           "std_dev": 42.439374535975595
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14936.588548048654,
           "median": 14805.297725657427,
@@ -20519,6 +22465,22 @@
         "mean": 14936.588548048654,
         "median": 14805.297725657427,
         "std_dev": 319.1095931396251
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25944.95478551653,
+          "median": 25874.36847855513,
+          "std_dev": 473.73752925801216
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.09
+      },
+      "latest": {
+        "mean": 25944.95478551653,
+        "median": 25874.36847855513,
+        "std_dev": 473.73752925801216
+>>>>>>> Stashed changes
       }
     },
     "small_Map Editor.vbp": {
@@ -20578,6 +22540,7 @@
           "std_dev": 78.22242882841641
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15627.520717073674,
           "median": 15797.5908203125,
@@ -20592,6 +22555,22 @@
         "mean": 15627.520717073674,
         "median": 15797.5908203125,
         "std_dev": 361.0563532141322
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26463.852657094194,
+          "median": 26445.26828687673,
+          "std_dev": 124.03226368351254
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.3
+      },
+      "latest": {
+        "mean": 26463.852657094194,
+        "median": 26445.26828687673,
+        "std_dev": 124.03226368351254
+>>>>>>> Stashed changes
       }
     },
     "small_MapEditor_Subs.bas": {
@@ -20651,6 +22630,7 @@
           "std_dev": 681.4723635803023
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 65053.71286206915,
           "median": 64829.5902997449,
@@ -20665,6 +22645,22 @@
         "mean": 65053.71286206915,
         "median": 64829.5902997449,
         "std_dev": 762.4771145717366
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 114451.3105022578,
+          "median": 114484.82714493727,
+          "std_dev": 600.3073921870408
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 2.11
+      },
+      "latest": {
+        "mean": 114451.3105022578,
+        "median": 114484.82714493727,
+        "std_dev": 600.3073921870408
+>>>>>>> Stashed changes
       }
     },
     "small_NatureFilters.vbp": {
@@ -20724,6 +22720,7 @@
           "std_dev": 53.44036141362098
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14967.585714928096,
           "median": 15066.509154040405,
@@ -20738,6 +22735,22 @@
         "mean": 14967.585714928096,
         "median": 15066.509154040405,
         "std_dev": 309.0357577076309
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25911.773557743043,
+          "median": 25871.539467979685,
+          "std_dev": 261.97611156605103
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.12
+      },
+      "latest": {
+        "mean": 25911.773557743043,
+        "median": 25871.539467979685,
+        "std_dev": 261.97611156605103
+>>>>>>> Stashed changes
       }
     },
     "small_Physics.vbp": {
@@ -20797,6 +22810,7 @@
           "std_dev": 101.80968730875672
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14174.010969247118,
           "median": 14155.558690476191,
@@ -20811,6 +22825,22 @@
         "mean": 14174.010969247118,
         "median": 14155.558690476191,
         "std_dev": 82.80480150417404
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 24998.896571803507,
+          "median": 24984.248756105007,
+          "std_dev": 50.737089488205044
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.03
+      },
+      "latest": {
+        "mean": 24998.896571803507,
+        "median": 24984.248756105007,
+        "std_dev": 50.737089488205044
+>>>>>>> Stashed changes
       }
     },
     "small_RandomizationFX.vbp": {
@@ -20870,6 +22900,7 @@
           "std_dev": 71.29844956228135
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15181.51404874928,
           "median": 15162.196343247575,
@@ -20884,6 +22915,22 @@
         "mean": 15181.51404874928,
         "median": 15162.196343247575,
         "std_dev": 92.08306688510581
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26888.632671034295,
+          "median": 26873.19187044187,
+          "std_dev": 58.09110930986436
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.28
+      },
+      "latest": {
+        "mean": 26888.632671034295,
+        "median": 26873.19187044187,
+        "std_dev": 58.09110930986436
+>>>>>>> Stashed changes
       }
     },
     "small_ScreenCapture.vbp": {
@@ -20943,6 +22990,7 @@
           "std_dev": 42.953463647994106
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14882.503669255744,
           "median": 14789.679319090821,
@@ -20957,6 +23005,22 @@
         "mean": 14882.503669255744,
         "median": 14789.679319090821,
         "std_dev": 282.82462704183223
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26269.706632960715,
+          "median": 26245.73761609907,
+          "std_dev": 94.33681612677088
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.21
+      },
+      "latest": {
+        "mean": 26269.706632960715,
+        "median": 26245.73761609907,
+        "std_dev": 94.33681612677088
+>>>>>>> Stashed changes
       }
     },
     "small_Sepia.vbp": {
@@ -21016,6 +23080,7 @@
           "std_dev": 88.474610558513
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14160.242488878204,
           "median": 14137.319224228153,
@@ -21030,6 +23095,22 @@
         "mean": 14160.242488878204,
         "median": 14137.319224228153,
         "std_dev": 91.09073604597287
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25164.435609140837,
+          "median": 25138.175000000003,
+          "std_dev": 127.94907220686132
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.07
+      },
+      "latest": {
+        "mean": 25164.435609140837,
+        "median": 25138.175000000003,
+        "std_dev": 127.94907220686132
+>>>>>>> Stashed changes
       }
     },
     "small_ShiftColor.vbp": {
@@ -21089,6 +23170,7 @@
           "std_dev": 68.67888235110821
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14562.394281914365,
           "median": 14418.788319810683,
@@ -21103,6 +23185,22 @@
         "mean": 14562.394281914365,
         "median": 14418.788319810683,
         "std_dev": 378.52406580290335
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 25286.10496439866,
+          "median": 25278.131416666667,
+          "std_dev": 37.09863379482336
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.07
+      },
+      "latest": {
+        "mean": 25286.10496439866,
+        "median": 25278.131416666667,
+        "std_dev": 37.09863379482336
+>>>>>>> Stashed changes
       }
     },
     "small_Subs.bas": {
@@ -21162,20 +23260,36 @@
           "std_dev": 212.48316324162641
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 11446.288659974123,
           "median": 11425.201728602253,
           "std_dev": 81.3814068560541
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 18368.44970741512,
+          "median": 18402.07075471698,
+          "std_dev": 231.03567002260107
+>>>>>>> Stashed changes
         }
       ],
       "trend": {
         "direction": "improving",
+<<<<<<< Updated upstream
         "change_percent": -41.63
       },
       "latest": {
         "mean": 36053.217707005766,
         "median": 35674.79320864122,
         "std_dev": 973.6251525463731
+=======
+        "change_percent": -6.34
+      },
+      "latest": {
+        "mean": 64196.11705751331,
+        "median": 64168.595758442265,
+        "std_dev": 182.5042215135196
+>>>>>>> Stashed changes
       }
     },
     "small_Threshold.vbp": {
@@ -21235,6 +23349,7 @@
           "std_dev": 42.2243498474392
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 15315.063404165721,
           "median": 15245.755254154448,
@@ -21249,6 +23364,22 @@
         "mean": 15315.063404165721,
         "median": 15245.755254154448,
         "std_dev": 226.775082956808
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26508.522890762775,
+          "median": 26492.322078173376,
+          "std_dev": 58.17881550712983
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": 0.18
+      },
+      "latest": {
+        "mean": 26508.522890762775,
+        "median": 26492.322078173376,
+        "std_dev": 58.17881550712983
+>>>>>>> Stashed changes
       }
     },
     "small_Transparency.vbp": {
@@ -21308,6 +23439,7 @@
           "std_dev": 62.447792140795556
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 14999.900406746629,
           "median": 14888.805798197951,
@@ -21322,6 +23454,22 @@
         "mean": 14999.900406746629,
         "median": 14888.805798197951,
         "std_dev": 413.16786923186726
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 26523.00875380452,
+          "median": 26507.682622504537,
+          "std_dev": 46.7552239578205
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 1.61
+      },
+      "latest": {
+        "mean": 26523.00875380452,
+        "median": 26507.682622504537,
+        "std_dev": 46.7552239578205
+>>>>>>> Stashed changes
       }
     },
     "small_VB_Scanner_Support.vbp": {
@@ -21381,6 +23529,7 @@
           "std_dev": 40.68334912060087
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 12878.678907597872,
           "median": 12813.370504385965,
@@ -21395,6 +23544,22 @@
         "mean": 12878.678907597872,
         "median": 12813.370504385965,
         "std_dev": 168.2509121940526
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 22586.422676918246,
+          "median": 22567.11710858586,
+          "std_dev": 71.1748218654196
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.11
+      },
+      "latest": {
+        "mean": 22586.422676918246,
+        "median": 22567.11710858586,
+        "std_dev": 71.1748218654196
+>>>>>>> Stashed changes
       }
     },
     "small_frmHMM.frx": {
@@ -21454,6 +23619,7 @@
           "std_dev": 0.587250766604055
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 86.92378093842801,
           "median": 84.95162455832629,
@@ -21468,6 +23634,22 @@
         "mean": 86.92378093842801,
         "median": 84.95162455832629,
         "std_dev": 3.102535461925232
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 153.31196997264337,
+          "median": 153.25791868706847,
+          "std_dev": 1.1815330506034432
+        }
+      ],
+      "trend": {
+        "direction": "stable",
+        "change_percent": -0.21
+      },
+      "latest": {
+        "mean": 153.31196997264337,
+        "median": 153.25791868706847,
+        "std_dev": 1.1815330506034432
+>>>>>>> Stashed changes
       }
     },
     "small_mod_PublicVars.bas": {
@@ -21527,6 +23709,7 @@
           "std_dev": 157.36266671404283
         },
         {
+<<<<<<< Updated upstream
           "timestamp": "2026-07-06T02:35:05Z",
           "mean": 30647.132658854072,
           "median": 30348.743916437095,
@@ -21541,6 +23724,22 @@
         "mean": 68265.30286231946,
         "median": 67846.04428571428,
         "std_dev": 1102.1141494720173
+=======
+          "timestamp": "2026-07-06T02:37:12Z",
+          "mean": 49615.43542206876,
+          "median": 49605.631632653065,
+          "std_dev": 197.32684212196406
+        }
+      ],
+      "trend": {
+        "direction": "degrading",
+        "change_percent": 1.35
+      },
+      "latest": {
+        "mean": 122644.5093474543,
+        "median": 122450.13373356203,
+        "std_dev": 1076.2265484209217
+>>>>>>> Stashed changes
       }
     }
   }
