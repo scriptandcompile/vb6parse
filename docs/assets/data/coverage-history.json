@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-05T07:09:34Z",
+  "last_updated": "2026-07-06T00:28:11Z",
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -987,13 +987,47 @@
           "percent": 95.99
         }
       }
+    },
+    {
+      "timestamp": "2026-07-06T00:28:11Z",
+      "commit_sha": "a44653eeda71346f8e7bbc885230774479bb1d1a",
+      "commit_message": "Update benchmark data [skip ci]",
+      "coverage": {
+        "line_coverage": 95.86,
+        "function_coverage": 92.97,
+        "region_coverage": 95.99
+      },
+      "tests": {
+        "total": 6231,
+        "lib_tests": 5523,
+        "doc_tests": 119,
+        "integration_tests": 589,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97146,
+          "total": 101343,
+          "percent": 95.86
+        },
+        "functions": {
+          "covered": 6240,
+          "total": 6712,
+          "percent": 92.97
+        },
+        "regions": {
+          "covered": 155268,
+          "total": 161755,
+          "percent": 95.99
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.86,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 95.9,
       "worst": 95.13,
       "average": 95.8
@@ -1004,12 +1038,12 @@
       "change_percent": 0.0,
       "best": 93.76,
       "worst": 92.87,
-      "average": 93.0
+      "average": 92.99
     },
     "region_coverage": {
       "latest": 95.99,
       "trend": "stable",
-      "change_percent": 0.02,
+      "change_percent": 0.0,
       "best": 96.07,
       "worst": 95.39,
       "average": 95.96
@@ -1017,8 +1051,8 @@
     "test_count": {
       "latest": 6231,
       "trend": "stable",
-      "change_count": 2,
-      "growth_rate": 0.03
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
