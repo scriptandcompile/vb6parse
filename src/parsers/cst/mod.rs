@@ -432,7 +432,40 @@ impl ConcreteSyntaxTree {
     /// ```
     #[must_use]
     pub fn without_kinds(&self, kinds_to_remove: &[SyntaxKind]) -> Self {
+        // Fast path: no requested removals means the tree is unchanged.
+        if kinds_to_remove.is_empty() {
+            return self.clone();
+        }
+
+        // Build a raw-kind lookup table so membership checks are O(1).
+        let mut remove_lookup = vec![false; SyntaxKind::Unknown as usize + 1];
+        for kind in kinds_to_remove {
+            remove_lookup[*kind as usize] = true;
+        }
+
+        let is_removed_kind = |kind: SyntaxKind| {
+            remove_lookup
+            .get(kind as usize)
+                .copied()
+                .unwrap_or(false)
+        };
+
         let syntax_node = rowan::SyntaxNode::<VB6Language>::new_root(self.root.clone());
+
+        // Fast path: if none of the root children match, avoid rebuilding.
+        let has_matching_root_child = syntax_node.children_with_tokens().any(|child| {
+            let child_kind = match &child {
+                rowan::NodeOrToken::Node(node) => node.kind(),
+                rowan::NodeOrToken::Token(token) => token.kind(),
+            };
+
+            is_removed_kind(child_kind)
+        });
+
+        if !has_matching_root_child {
+            return self.clone();
+        }
+
         let mut builder = GreenNodeBuilder::new();
 
         builder.start_node(SyntaxKind::Root.to_raw());
@@ -445,7 +478,7 @@ impl ConcreteSyntaxTree {
             };
 
             // Skip if this kind should be removed
-            if kinds_to_remove.contains(&child_kind) {
+            if is_removed_kind(child_kind) {
                 continue;
             }
 
