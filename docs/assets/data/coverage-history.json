@@ -1,6 +1,10 @@
 {
   "version": "1.0",
+<<<<<<< Updated upstream
   "last_updated": "2026-07-06T02:13:24Z",
+=======
+  "last_updated": "2026-07-06T02:14:38Z",
+>>>>>>> Stashed changes
   "snapshots": [
     {
       "timestamp": "2026-02-06T21:29:13Z",
@@ -1023,8 +1027,13 @@
       }
     },
     {
+<<<<<<< Updated upstream
       "timestamp": "2026-07-06T02:13:24Z",
       "commit_sha": "e570c2a89d62d406e8c243b284eeffab347675c3",
+=======
+      "timestamp": "2026-07-06T02:14:38Z",
+      "commit_sha": "c0cdac9cb19d36864baa25fd1e00f5a3fffacb1e",
+>>>>>>> Stashed changes
       "commit_message": "Merge branch 'master' of https://github.com/scriptandcompile/vb6parse",
       "coverage": {
         "line_coverage": 95.87,
@@ -1040,8 +1049,13 @@
       },
       "details": {
         "lines": {
+<<<<<<< Updated upstream
           "covered": 97169,
           "total": 101358,
+=======
+          "covered": 97164,
+          "total": 101353,
+>>>>>>> Stashed changes
           "percent": 95.87
         },
         "functions": {
@@ -1050,8 +1064,13 @@
           "percent": 92.97
         },
         "regions": {
+<<<<<<< Updated upstream
           "covered": 155301,
           "total": 161785,
+=======
+          "covered": 155299,
+          "total": 161783,
+>>>>>>> Stashed changes
           "percent": 95.99
         }
       }
