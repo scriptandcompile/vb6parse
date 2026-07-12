@@ -126,8 +126,9 @@ async function loadBenchmarks() {
         
         displayBenchmarks(data, history);
         
-        // Render historical trends chart if history is available
-        if (history && history.snapshots && history.snapshots.length >= 2) {
+        // Render historical trends chart whenever history exists.
+        // The renderer handles 0/1-point cases by showing a no-data message.
+        if (history && history.snapshots && history.snapshots.length >= 1) {
             renderTrendsChart(history, 30); // Default to 30 days
             setupTimeRangeSelector(history);
         }
@@ -466,7 +467,7 @@ function renderTrendsChart(history, daysRange) {
     const canvas = document.getElementById('trends-chart');
     const noDataMessage = document.getElementById('trends-no-data');
     
-    if (!canvas || !history || !history.snapshots || history.snapshots.length < 2) {
+    if (!canvas || !history || !history.snapshots) {
         if (trendsSection) trendsSection.style.display = 'none';
         return;
     }
@@ -494,6 +495,36 @@ function renderTrendsChart(history, daysRange) {
         return;
     }
 
+    // Show explicit note when the selected range includes historical snapshots
+    // that intentionally have no benchmark payload (pre-benchmark era).
+    const missingSnapshots = snapshots.filter(s => {
+        const hasBenchmarks = Array.isArray(s.benchmarks) && s.benchmarks.length > 0;
+        return !hasBenchmarks || s.benchmark_status === 'no_data_pre_benchmark';
+    });
+
+    let missingNote = document.getElementById('trends-missing-note');
+    if (!missingNote) {
+        missingNote = document.createElement('p');
+        missingNote.id = 'trends-missing-note';
+        missingNote.style.margin = '0.5rem 0 0';
+        missingNote.style.fontSize = '0.85rem';
+        missingNote.style.color = 'var(--text-secondary)';
+
+        const legend = trendsSection.querySelector('.chart-legend');
+        if (legend) {
+            legend.appendChild(missingNote);
+        }
+    }
+
+    if (missingNote) {
+        if (missingSnapshots.length > 0) {
+            missingNote.textContent = `${missingSnapshots.length} historical snapshot(s) in this range have no benchmark data (pre-benchmark era).`;
+            missingNote.style.display = 'block';
+        } else {
+            missingNote.style.display = 'none';
+        }
+    }
+
     canvas.style.display = 'block';
     if (noDataMessage) {
         noDataMessage.style.display = 'none';
@@ -513,7 +544,8 @@ function renderTrendsChart(history, daysRange) {
     
     fileTypes.forEach(fileType => {
         const data = snapshots.map(snapshot => {
-            const benchmarks = snapshot.benchmarks.filter(b => {
+            const snapshotBenchmarks = Array.isArray(snapshot.benchmarks) ? snapshot.benchmarks : [];
+            const benchmarks = snapshotBenchmarks.filter(b => {
                 const parsed = parseBenchmarkName(b.name);
                 return getFileTypeCategory(parsed.extension) === fileType;
             });

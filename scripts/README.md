@@ -15,6 +15,9 @@ Pure Python3 script that generates test coverage data and test statistics. Works
 ### `generate-benchmarks.py`
 Pure Python3 script that generates performance benchmark data from Criterion results. Works on both Windows and Linux.
 
+### `backfill-benchmark-history.py`
+Pure Python3 script that backfills `docs/assets/data/benchmarks-history.json` from real non-CI commits using clustered time windows (last 30 days, around 90 days, around 6 months, and all-time older history).
+
 ---
 
 ## Library Documentation Generation (`generate-library-docs.py`)
@@ -229,6 +232,56 @@ Open `docs/benchmarks.html` in a browser or visit the GitHub Pages site. The pag
 - Rust with cargo
 - Python 3.6+ (no external dependencies beyond standard library)
 - Criterion benchmarks configured in `benches/`
+
+---
+
+## Benchmark History Backfill (`backfill-benchmark-history.py`)
+
+### Usage
+
+```bash
+# Preview commit selection and output range without running benchmarks
+python3 scripts/backfill-benchmark-history.py --dry-run
+
+# Write backfilled history with defaults
+python3 scripts/backfill-benchmark-history.py
+
+# Limit commit count for faster smoke tests
+python3 scripts/backfill-benchmark-history.py --max-commits 3
+
+# Keep temporary worktree for debugging failed historical builds
+python3 scripts/backfill-benchmark-history.py --keep-worktree
+```
+
+### What it does
+
+1. Reads baseline benchmark metrics from `docs/assets/data/benchmarks.json`
+2. Scans git history and excludes CI-like commits (`ci`, `[skip ci]`, workflow updates)
+3. Selects non-CI commits with this default policy:
+  - Last 30 days: all non-CI commits
+  - Days 31-90: one non-CI commit per day (if available)
+  - Days 91-183 (~6 months): up to 3 non-CI commits per month, evenly spaced
+  - Older than 6 months: one non-CI commit per month closest to month midpoint
+4. Creates an isolated git worktree and runs `cargo bench --message-format=json` for each selected commit
+5. Aggregates real Criterion data from `target/criterion/**/new/estimates.json`
+6. Marks snapshots with statuses:
+  - `ok`
+  - `no_data_pre_benchmark`
+  - `benchmark_failed`
+  - `no_benchmark_output`
+7. Writes `docs/assets/data/benchmarks-history.json` including `benchmarks_summary` and trends
+
+### Runtime expectations
+
+- This script is intentionally slow by default because it executes benchmarks for every selected commit.
+- A large backfill may take many hours depending on commit count and benchmark duration.
+- Use `--dry-run` and `--max-commits` to validate selection logic before a full run.
+
+### Requirements
+
+- Python 3.8+
+- Git history available locally
+- Existing `docs/assets/data/benchmarks.json`
 
 ---
 
