@@ -1,36 +1,43 @@
-//! VB6 `VarType` Function
+//! # `VarType` Function
 //!
-//! The `VarType` function returns an integer constant indicating the subtype of a Variant variable or expression.
+//! Returns an integer constant indicating the subtype of a Variant variable or expression.
 //!
 //! ## Syntax
+//!
 //! ```vb6
 //! VarType(varname)
 //! ```
 //!
 //! ## Parameters
+//!
 //! - `varname`: Required. Name of a variable or expression whose Variant subtype is to be determined.
 //!
 //! ## Returns
+//!
 //! Returns an `Integer` constant representing the Variant subtype. Common return values:
-//! - 0: vbEmpty (uninitialized)
-//! - 1: vbNull (Null)
-//! - 2: vbInteger
-//! - 3: vbLong
-//! - 4: vbSingle
-//! - 5: vbDouble
-//! - 6: vbCurrency
-//! - 7: vbDate
-//! - 8: vbString
-//! - 9: vbObject
-//! - 10: vbError
-//! - 11: vbBoolean
-//! - 12: vbVariant (for arrays)
-//! - 13: vbDataObject
-//! - 17: vbByte
-//! - 8192: vbArray (bitwise OR with base type)
-//! - ...and others (see documentation)
+//! - 0 - vbEmpty (uninitialized)
+//! - 1 - vbNull (Null)
+//! - 2 - vbInteger
+//! - 3 - vbLong
+//! - 4 - vbSingle
+//! - 5 - vbDouble
+//! - 6 - vbCurrency
+//! - 7 - vbDate
+//! - 8 - vbString
+//! - 9 - vbObject
+//! - 10 - vbError
+//! - 11 - vbBoolean
+//! - 12 - vbVariant (for arrays)
+//! - 13 - vbDataObject
+//! - 14 - vbDecimal
+//! - 17 - vbByte
+//! - 20 - vbLongLong (64-bit platforms only).
+//! - 36 - vbUserDefinedType
+//! - 8192 - vbArray (bitwise OR with base type)
+//! - ...other values are possible.
 //!
 //! ## Remarks
+//!
 //! - Returns a numeric constant, not a string.
 //! - For arrays, returns vbArray (8192) bitwise OR'd with the base type (e.g., vbArray + vbInteger = 8194).
 //! - For objects, returns vbObject (9) or vbDataObject (13).
@@ -41,6 +48,7 @@
 //! - Use with `TypeName` for string representation.
 //!
 //! ## Typical Uses
+//!
 //! 1. Type checking in generic code
 //! 2. Handling Variant variables
 //! 3. Debugging and logging
@@ -53,24 +61,28 @@
 //! ## Basic Examples
 //!
 //! ### Example 1: Get `VarType` of Integer
+//!
 //! ```vb6
 //! Dim x As Integer
 //! Debug.Print VarType(x) ' 2 (vbInteger)
 //! ```
 //!
 //! ### Example 2: Get `VarType` of String
+//!
 //! ```vb6
 //! Dim s As String
 //! Debug.Print VarType(s) ' 8 (vbString)
 //! ```
 //!
 //! ### Example 3: Get `VarType` of Array
+//!
 //! ```vb6
 //! Dim arr(1 To 5) As Double
 //! Debug.Print VarType(arr) ' 8205 (vbArray + vbDouble)
 //! ```
 //!
 //! ### Example 4: Get `VarType` of Variant
+//!
 //! ```vb6
 //! Dim v As Variant
 //! v = 123
@@ -80,6 +92,7 @@
 //! ## Common Patterns
 //!
 //! ### Pattern 1: Check for array
+//!
 //! ```vb6
 //! If VarType(var) And vbArray Then
 //!     Debug.Print "It's an array!"
@@ -87,6 +100,7 @@
 //! ```
 //!
 //! ### Pattern 2: Check for string
+//!
 //! ```vb6
 //! If VarType(x) = vbString Then
 //!     ' Handle string
@@ -94,6 +108,7 @@
 //! ```
 //!
 //! ### Pattern 3: Handle Variant types
+//!
 //! ```vb6
 //! If VarType(v) = vbInteger Then
 //!     ' Handle integer
@@ -101,11 +116,13 @@
 //! ```
 //!
 //! ### Pattern 4: Log variable types
+//!
 //! ```vb6
 //! Debug.Print "VarType: " & VarType(x)
 //! ```
 //!
 //! ### Pattern 5: Validate argument type
+//!
 //! ```vb6
 //! Sub Foo(arg As Variant)
 //!     If VarType(arg) <> vbString Then Err.Raise 5
@@ -113,6 +130,7 @@
 //! ```
 //!
 //! ### Pattern 6: Reflection-like usage
+//!
 //! ```vb6
 //! Dim t As Integer
 //! t = VarType(obj)
@@ -122,6 +140,7 @@
 //! ```
 //!
 //! ### Pattern 7: Handle Null and Empty
+//!
 //! ```vb6
 //! If VarType(v) = vbNull Then
 //!     ' Handle Null
@@ -131,6 +150,7 @@
 //! ```
 //!
 //! ### Pattern 8: Array type detection
+//!
 //! ```vb6
 //! If (VarType(arr) And vbArray) Then
 //!     Debug.Print "Array base type: " & (VarType(arr) - vbArray)
@@ -138,6 +158,7 @@
 //! ```
 //!
 //! ### Pattern 9: User-defined type
+//!
 //! ```vb6
 //! Type MyType
 //!     x As Integer
@@ -147,6 +168,7 @@
 //! ```
 //!
 //! ### Pattern 10: Class type detection
+//!
 //! ```vb6
 //! If VarType(obj) = vbObject Then
 //!     ' Handle object
@@ -156,6 +178,7 @@
 //! ## Advanced Usage
 //!
 //! ### Example 1: Type checking in generic function
+//!
 //! ```vb6
 //! Function IsString(val As Variant) As Boolean
 //!     IsString = (VarType(val) = vbString)
@@ -163,6 +186,7 @@
 //! ```
 //!
 //! ### Example 2: Logging all argument types
+//!
 //! ```vb6
 //! Sub LogTypes(ParamArray args() As Variant)
 //!     Dim i As Integer
@@ -173,6 +197,7 @@
 //! ```
 //!
 //! ### Example 3: Reflection for class methods
+//!
 //! ```vb6
 //! If VarType(obj) = vbObject Then
 //!     obj.SpecialMethod
@@ -180,6 +205,7 @@
 //! ```
 //!
 //! ### Example 4: Variant array detection
+//!
 //! ```vb6
 //! Dim v As Variant
 //! v = Array(1, 2, 3)
@@ -189,16 +215,19 @@
 //! ```
 //!
 //! ## Error Handling
+//!
 //! - Returns vbError (10) for error values.
 //! - Returns vbUnknown (0) for unsupported types.
 //! - Returns vbEmpty (0) for uninitialized variables.
 //! - Returns vbNull (1) for Null values.
 //!
 //! ## Performance Notes
+//!
 //! - Fast, constant time O(1).
 //! - No side effects.
 //!
 //! ## Best Practices
+//!
 //! 1. Use for debugging and logging.
 //! 2. Use bitwise AND with vbArray to detect arrays.
 //! 3. Use with `TypeName` for string representation.
@@ -220,11 +249,13 @@
 //! | `IsArray`  | Check if is array      | variable   | Boolean        |
 //!
 //! ## Platform Notes
+//!
 //! - Available in VB6, VBA, `VBScript`
 //! - Consistent across platforms
 //! - Returns type constants in English
 //!
 //! ## Limitations
+//!
 //! - Returns only type constant as integer
 //! - Not locale-sensitive
 //! - Returns vbUnknown (0) for unsupported types

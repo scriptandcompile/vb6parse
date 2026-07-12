@@ -37,8 +37,8 @@
     <main class="container">
         
         <article class="library-item">
-            <p>VB6 VarType Function
-The <code>VarType</code> function returns an integer constant indicating the subtype of a Variant variable or expression.</p>
+            <h1 id="vartype-function">VarType Function</h1>
+<p>Returns an integer constant indicating the subtype of a Variant variable or expression.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code class="language-vbnet">VarType(varname)</code></pre>
 <h2 id="parameters">Parameters</h2>
@@ -47,23 +47,26 @@ The <code>VarType</code> function returns an integer constant indicating the sub
 </ul>
 <h2 id="returns">Returns</h2>
 <p>Returns an <code>Integer</code> constant representing the Variant subtype. Common return values:
-- 0: vbEmpty (uninitialized)
-- 1: vbNull (Null)
-- 2: vbInteger
-- 3: vbLong
-- 4: vbSingle
-- 5: vbDouble
-- 6: vbCurrency
-- 7: vbDate
-- 8: vbString
-- 9: vbObject
-- 10: vbError
-- 11: vbBoolean
-- 12: vbVariant (for arrays)
-- 13: vbDataObject
-- 17: vbByte
-- 8192: vbArray (bitwise OR with base type)
-- ...and others (see documentation)</p>
+- 0 - vbEmpty (uninitialized)
+- 1 - vbNull (Null)
+- 2 - vbInteger
+- 3 - vbLong
+- 4 - vbSingle
+- 5 - vbDouble
+- 6 - vbCurrency
+- 7 - vbDate
+- 8 - vbString
+- 9 - vbObject
+- 10 - vbError
+- 11 - vbBoolean
+- 12 - vbVariant (for arrays)
+- 13 - vbDataObject
+- 14 - vbDecimal
+- 17 - vbByte
+- 20 - vbLongLong (64-bit platforms only).
+- 36 - vbUserDefinedType
+- 8192 - vbArray (bitwise OR with base type)
+- ...other values are possible.</p>
 <h2 id="remarks">Remarks</h2>
 <ul>
 <li>Returns a numeric constant, not a string.</li>

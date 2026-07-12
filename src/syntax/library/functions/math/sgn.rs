@@ -14,32 +14,33 @@
 //!
 //! ## Return Value
 //!
-//! Returns an Integer indicating the sign of the number:
-//! - Returns **-1** if `number` is negative (less than zero)
-//! - Returns **0** if `number` is zero
-//! - Returns **1** if `number` is positive (greater than zero)
+//! - `-1` if `number` is negative (less than zero).
+//! - `0` if `number` is zero.
+//! - `1` if `number` is positive (greater than zero).
 //!
 //! ## Remarks
 //!
 //! The Sgn function is used to determine the sign (positive, negative, or zero) of a numeric expression.
-//! It is particularly useful for:
+//! It is particularly useful for the following scenarios:
+//!
 //! - Determining the direction of change in values
 //! - Implementing sign-dependent logic without complex conditionals
 //! - Comparing signs of two numbers
 //! - Normalizing values to -1, 0, or 1
 //! - Mathematical algorithms requiring sign information
 //!
-//! The sign of `number` determines the return value:
-//! - If `number` > 0, Sgn returns 1
-//! - If `number` = 0, Sgn returns 0
-//! - If `number` < 0, Sgn returns -1
+//! The sign of `number` determines the return value.
 //!
-//! If `number` is Null, Sgn returns Null.
+//! - If `number` > 0, Sgn returns 1.
+//! - If `number` = 0, Sgn returns 0.
+//! - If `number` < 0, Sgn returns -1.
+//! - If `number` is Null, Sgn returns Null.
 //!
-//! The Sgn function is often used in combination with Abs to separate magnitude from direction:
-//! - `Abs(number)` gives the magnitude (absolute value)
-//! - `Sgn(number)` gives the direction (sign)
-//! - `number = Abs(number) * Sgn(number)` (reconstruction)
+//! The Sgn function is often used in combination with `Abs` to separate magnitude from direction:
+//!
+//! * `Abs(number)` gives the magnitude (absolute value)
+//! * `Sgn(number)` gives the direction (sign)
+//! * `number = Abs(number) * Sgn(number)` (reconstruction)
 //!
 //! ## Typical Uses
 //!
@@ -54,16 +55,18 @@
 //!
 //! ## Basic Examples
 //!
+//! ### Example 1: Basic sign detection
+
 //! ```vb
-//! ' Example 1: Basic sign detection
 //! Dim result As Integer
 //! result = Sgn(10)      ' Returns 1 (positive)
 //! result = Sgn(-5.5)    ' Returns -1 (negative)
 //! result = Sgn(0)       ' Returns 0 (zero)
 //! ```
 //!
+//! ### Example 2: Determine direction of change
+//!
 //! ```vb
-//! ' Example 2: Determine direction of change
 //! Dim oldValue As Double
 //! Dim newValue As Double
 //! Dim direction As Integer
@@ -81,8 +84,9 @@
 //! End If
 //! ```
 //!
+//! ### Example 3: Compare signs of two numbers
+//!
 //! ```vb
-//! ' Example 3: Compare signs of two numbers
 //! Dim a As Double
 //! Dim b As Double
 //!
@@ -109,7 +113,9 @@
 //! ## Common Patterns
 //!
 //! ### Pattern 1: `GetChangeDirection`
-//! Determine if value increased, decreased, or stayed same
+//!
+//! Determine if a value increased, decreased, or stayed same
+//!
 //! ```vb
 //! Function GetChangeDirection(oldVal As Double, newVal As Double) As String
 //!     Dim direction As Integer
@@ -127,7 +133,9 @@
 //! ```
 //!
 //! ### Pattern 2: `SameSign`
+//!
 //! Check if two numbers have the same sign
+//!
 //! ```vb
 //! Function SameSign(a As Double, b As Double) As Boolean
 //!     ' Both zero, or both have same non-zero sign
@@ -140,7 +148,9 @@
 //! ```
 //!
 //! ### Pattern 3: `OppositeSign`
+//!
 //! Check if two numbers have opposite signs
+//!
 //! ```vb
 //! Function OppositeSign(a As Double, b As Double) As Boolean
 //!     OppositeSign = (Sgn(a) = -Sgn(b)) And (a <> 0) And (b <> 0)
@@ -148,7 +158,9 @@
 //! ```
 //!
 //! ### Pattern 4: `SignMultiplier`
+//!
 //! Get sign as multiplier for calculations
+//!
 //! ```vb
 //! Function SignMultiplier(value As Double) As Integer
 //!     SignMultiplier = Sgn(value)
@@ -157,7 +169,9 @@
 //! ```
 //!
 //! ### Pattern 5: `ClampToSign`
-//! Ensure value has specific sign
+//!
+//! Ensure a value has a specific sign
+//!
 //! ```vb
 //! Function ClampToSign(value As Double, requiredSign As Integer) As Double
 //!     If Sgn(value) <> requiredSign Then
@@ -169,7 +183,9 @@
 //! ```
 //!
 //! ### Pattern 6: `SignString`
+//!
 //! Convert sign to string representation
+//!
 //! ```vb
 //! Function SignString(value As Double) As String
 //!     Select Case Sgn(value)
@@ -184,7 +200,9 @@
 //! ```
 //!
 //! ### Pattern 7: `CompareBySign`
-//! Three-way comparison using sign
+//!
+//! Three-way comparison using the sign of the difference
+//!
 //! ```vb
 //! Function CompareBySign(a As Double, b As Double) As Integer
 //!     ' Returns: -1 if a < b, 0 if a = b, 1 if a > b
@@ -193,7 +211,9 @@
 //! ```
 //!
 //! ### Pattern 8: `CountBySign`
+//!
 //! Count positive, negative, and zero values
+//!
 //! ```vb
 //! Sub CountBySign(arr() As Double, ByRef positive As Long, _
 //!                 ByRef negative As Long, ByRef zero As Long)
@@ -216,7 +236,9 @@
 //! ```
 //!
 //! ### Pattern 9: `TrendDirection`
-//! Determine overall trend in series
+//!
+//! Determine overall trend in a series of values
+//!
 //! ```vb
 //! Function TrendDirection(values() As Double) As String
 //!     Dim i As Long
@@ -243,7 +265,9 @@
 //! ```
 //!
 //! ### Pattern 10: `ApplySignTo`
-//! Apply sign of one number to another
+//!
+//! Apply the sign of one number to another
+//!
 //! ```vb
 //! Function ApplySignTo(magnitude As Double, signSource As Double) As Double
 //!     ' Take absolute value of magnitude and apply sign from signSource
@@ -254,7 +278,9 @@
 //! ## Advanced Usage
 //!
 //! ### Example 1: `ChangeAnalyzer` Class
-//! Analyze changes in data series with trend detection
+//!
+//! Analyze changes in a data series with trend detection
+//!
 //! ```vb
 //! ' Class: ChangeAnalyzer
 //! Private m_values() As Double
@@ -363,8 +389,12 @@
 //! End Function
 //! ```
 //!
-//! ### Example 2: `SignComparator` Module
+//! ### Example 2:
+//!
+//! `SignComparator` Module
+//!
 //! Compare and analyze signs in numeric data
+//!
 //! ```vb
 //! ' Module: SignComparator
 //!
@@ -462,7 +492,9 @@
 //! ```
 //!
 //! ### Example 3: `DirectionIndicator` Class
+//!
 //! Track and display directional changes with symbols
+//!
 //! ```vb
 //! ' Class: DirectionIndicator
 //! Private m_lastValue As Double
@@ -529,7 +561,9 @@
 //! ```
 //!
 //! ### Example 4: `MathSignHelper` Module
+//!
 //! Mathematical operations using sign function
+//!
 //! ```vb
 //! ' Module: MathSignHelper
 //!

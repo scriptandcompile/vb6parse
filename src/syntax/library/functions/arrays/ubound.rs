@@ -3,18 +3,22 @@
 //! The `UBound` function returns a Long containing the largest available subscript for the indicated dimension of an array.
 //!
 //! ## Syntax
+//!
 //! ```vb6
 //! UBound(arrayname[, dimension])
 //! ```
 //!
 //! ## Parameters
+//!
 //! - `arrayname`: Required. Name of the array variable. Follows standard Visual Basic naming conventions.
 //! - `dimension`: Optional. Variant (Long). Specifies which dimension's upper bound is returned. Use 1 for the first dimension, 2 for the second, and so on. If `dimension` is omitted, 1 is assumed.
 //!
 //! ## Returns
+//!
 //! Returns a `Long` containing the largest available subscript for the specified dimension of the array.
 //!
 //! ## Remarks
+//!
 //! The `UBound` function is used to determine the upper limit of an array dimension:
 //!
 //! - **Dimension parameter**: If omitted, defaults to 1 (first dimension)
@@ -28,6 +32,7 @@
 //! - **`ParamArray`**: Works with `ParamArray` arguments to find number of elements
 //!
 //! ### Common Array Declarations
+//!
 //! ```vb6
 //! Dim arr(5)              ' LBound = 0, UBound = 5 (6 elements)
 //! Dim arr(1 To 5)         ' LBound = 1, UBound = 5 (5 elements)
@@ -37,12 +42,14 @@
 //! ```
 //!
 //! ### Option Base Impact
+//!
 //! The `Option Base` statement affects default lower bounds:
 //! - `Option Base 0`: Default lower bound is 0 (default)
 //! - `Option Base 1`: Default lower bound is 1
 //! - Explicit bounds (e.g., `1 To 5`) override Option Base
 //!
 //! ### Dynamic Arrays
+//!
 //! For dynamic arrays:
 //! - Before `ReDim`: Error 9 if accessed
 //! - After `ReDim`: Returns current upper bound
@@ -50,6 +57,7 @@
 //! - `Erase`: Makes array uninitialized again
 //!
 //! ## Typical Uses
+//!
 //! 1. **Loop Bounds**: Iterate through all array elements
 //! 2. **Array Size**: Calculate the number of elements in an array
 //! 3. **Validation**: Check if an index is within valid range
@@ -62,6 +70,7 @@
 //! ## Basic Examples
 //!
 //! ### Example 1: Simple Array Iteration
+//!
 //! ```vb6
 //! Dim values(10) As Integer
 //! Dim i As Integer
@@ -72,6 +81,7 @@
 //! ```
 //!
 //! ### Example 2: Calculate Array Size
+//!
 //! ```vb6
 //! Function GetArraySize(arr() As Variant) As Long
 //!     GetArraySize = UBound(arr) - LBound(arr) + 1
@@ -83,6 +93,7 @@
 //! ```
 //!
 //! ### Example 3: Multi-Dimensional Array
+//!
 //! ```vb6
 //! Sub ProcessMatrix()
 //!     Dim matrix(1 To 3, 1 To 4) As Double
@@ -98,6 +109,7 @@
 //! ```
 //!
 //! ### Example 4: `ParamArray` with `UBound`
+//!
 //! ```vb6
 //! Function Sum(ParamArray values() As Variant) As Double
 //!     Dim i As Integer
@@ -117,6 +129,7 @@
 //! ## Common Patterns
 //!
 //! ### Pattern 1: Safe Array Iteration
+//!
 //! ```vb6
 //! Sub IterateArray(arr() As Variant)
 //!     Dim i As Long
@@ -128,6 +141,7 @@
 //! ```
 //!
 //! ### Pattern 2: Check If Array Is Empty
+//!
 //! ```vb6
 //! Function IsArrayEmpty(arr() As Variant) As Boolean
 //!     On Error Resume Next
@@ -137,6 +151,7 @@
 //! ```
 //!
 //! ### Pattern 3: Resize Array with Data Preservation
+//!
 //! ```vb6
 //! Sub AddArrayElement(arr() As Variant, newValue As Variant)
 //!     Dim newSize As Long
@@ -156,6 +171,7 @@
 //! ```
 //!
 //! ### Pattern 4: Count Elements in `ParamArray`
+//!
 //! ```vb6
 //! Function CountArgs(ParamArray args() As Variant) As Long
 //!     On Error Resume Next
@@ -165,6 +181,7 @@
 //! ```
 //!
 //! ### Pattern 5: Validate Array Index
+//!
 //! ```vb6
 //! Function IsValidIndex(arr() As Variant, index As Long) As Boolean
 //!     On Error Resume Next
@@ -174,6 +191,7 @@
 //! ```
 //!
 //! ### Pattern 6: Copy Array
+//!
 //! ```vb6
 //! Function CopyArray(source() As Variant) As Variant()
 //!     Dim dest() As Variant
@@ -190,6 +208,7 @@
 //! ```
 //!
 //! ### Pattern 7: Reverse Array
+//!
 //! ```vb6
 //! Sub ReverseArray(arr() As Variant)
 //!     Dim i As Long
@@ -210,6 +229,7 @@
 //! ```
 //!
 //! ### Pattern 8: Find Last Element
+//!
 //! ```vb6
 //! Function GetLastElement(arr() As Variant) As Variant
 //!     GetLastElement = arr(UBound(arr))
@@ -217,6 +237,7 @@
 //! ```
 //!
 //! ### Pattern 9: Remove Last Element
+//!
 //! ```vb6
 //! Sub RemoveLastElement(arr() As Variant)
 //!     Dim newUpper As Long
@@ -229,6 +250,7 @@
 //! ```
 //!
 //! ### Pattern 10: Multi-Dimensional Size
+//!
 //! ```vb6
 //! Function GetArrayDimensions(arr As Variant) As Integer
 //!     Dim dimension As Integer
@@ -248,6 +270,7 @@
 //! ## Advanced Usage
 //!
 //! ### Example 1: Dynamic Array Manager Class
+//!
 //! ```vb6
 //! ' Class: DynamicArrayManager
 //! ' Manages a dynamic array with automatic resizing
@@ -316,6 +339,7 @@
 //! ```
 //!
 //! ### Example 2: Array Utilities Module
+//!
 //! ```vb6
 //! ' Module: ArrayUtilities
 //! ' Comprehensive array manipulation utilities
@@ -403,6 +427,7 @@
 //! ```
 //!
 //! ### Example 3: Matrix Operations Class
+//!
 //! ```vb6
 //! ' Class: MatrixOperations
 //! ' Performs operations on 2D arrays
@@ -466,6 +491,7 @@
 //! ```
 //!
 //! ### Example 4: Collection to Array Converter
+//!
 //! ```vb6
 //! ' Module: CollectionConverter
 //! ' Converts between Collections and Arrays
@@ -536,6 +562,7 @@
 //! ```
 //!
 //! ## Error Handling
+//!
 //! The `UBound` function can raise the following errors:
 //!
 //! - **Error 9 (Subscript out of range)**: If the array has not been initialized (for dynamic arrays)
@@ -544,6 +571,7 @@
 //! - **Error 5 (Invalid procedure call or argument)**: If dimension parameter is invalid
 //!
 //! ## Performance Notes
+//!
 //! - Very fast O(1) operation - directly returns array metadata
 //! - No performance difference between dimensions
 //! - Safe to call repeatedly in loops
@@ -551,6 +579,7 @@
 //! - No memory allocation or copying involved
 //!
 //! ## Best Practices
+//!
 //! 1. **Always use with `LBound`** for complete array bounds information
 //! 2. **Check for initialization** with On Error Resume Next for dynamic arrays
 //! 3. **Use in For loops** instead of hardcoding array sizes
@@ -572,6 +601,7 @@
 //! | `ReDim` | Resize array | N/A | Statement, not function |
 //!
 //! ## Platform Notes
+//!
 //! - Available in VB6, VBA, and `VBScript`
 //! - Behavior consistent across platforms
 //! - Returns Long (32-bit signed integer)
@@ -579,6 +609,7 @@
 //! - Multi-dimensional arrays limited to 60 dimensions
 //!
 //! ## Limitations
+//!
 //! - Cannot determine if array is initialized without error handling
 //! - Does not return array capacity (allocated size vs. used size)
 //! - No built-in way to get all dimensions at once

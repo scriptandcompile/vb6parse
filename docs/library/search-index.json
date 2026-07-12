@@ -60,7 +60,7 @@
     "type": "function",
     "category": "Conversion",
     "url": "functions/conversion/hex_dollar.html",
-    "description": "Hex$ Function The Hex$ function in Visual Basic 6 returns a string representing the hexadecimal (base-16) value of a number. The dollar sign ($) suffix indicates that this function always returns a St"
+    "description": "Hex$ Function Returns a string representing the hexadecimal (base-16) value of a number. Syntax vb6 Hex$(number) Parameters - number - Required. Any valid numeric expression or string expression. If n"
   },
   {
     "name": "oct",
@@ -81,7 +81,7 @@
     "type": "function",
     "category": "Conversion",
     "url": "functions/conversion/vartype.html",
-    "description": "VB6 VarType Function The VarType function returns an integer constant indicating the subtype of a Variant variable or expression. Syntax vb6 VarType(varname) Parameters - varname: Required. Name of a "
+    "description": "VarType Function Returns an integer constant indicating the subtype of a Variant variable or expression. Syntax vb6 VarType(varname) Parameters - varname: Required. Name of a variable or expression wh"
   },
   {
     "name": "date",
@@ -641,7 +641,7 @@
     "type": "function",
     "category": "Math",
     "url": "functions/math/sgn.html",
-    "description": "Sgn Function Returns an Integer indicating the sign of a number. Syntax vb Sgn(number) Parameters - number - Required. Any valid numeric expression. Return Value Returns an Integer indicating the sign"
+    "description": "Sgn Function Returns an Integer indicating the sign of a number. Syntax vb Sgn(number) Parameters - number - Required. Any valid numeric expression. Return Value - -1 if number is negative (less than "
   },
   {
     "name": "sin",

@@ -1,8 +1,6 @@
 //! # `Hex$` Function
 //!
-//! The `Hex$` function in Visual Basic 6 returns a string representing the hexadecimal (base-16)
-//! value of a number. The dollar sign (`$`) suffix indicates that this function always returns a
-//! `String` type, never a `Variant`.
+//! Returns a string representing the hexadecimal (base-16) value of a number.
 //!
 //! ## Syntax
 //!

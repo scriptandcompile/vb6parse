@@ -46,27 +46,28 @@
 <li><code>number</code> - Required. Any valid numeric expression.</li>
 </ul>
 <h2 id="return-value">Return Value</h2>
-<p>Returns an Integer indicating the sign of the number:
-- Returns <strong>-1</strong> if <code>number</code> is negative (less than zero)
-- Returns <strong>0</strong> if <code>number</code> is zero
-- Returns <strong>1</strong> if <code>number</code> is positive (greater than zero)</p>
+<ul>
+<li><code>-1</code> if <code>number</code> is negative (less than zero).</li>
+<li><code>0</code> if <code>number</code> is zero.</li>
+<li><code>1</code> if <code>number</code> is positive (greater than zero).</li>
+</ul>
 <h2 id="remarks">Remarks</h2>
 <p>The Sgn function is used to determine the sign (positive, negative, or zero) of a numeric expression.
-It is particularly useful for:
+It is particularly useful for the following scenarios:
 - Determining the direction of change in values
 - Implementing sign-dependent logic without complex conditionals
 - Comparing signs of two numbers
 - Normalizing values to -1, 0, or 1
 - Mathematical algorithms requiring sign information
-The sign of <code>number</code> determines the return value:
-- If <code>number</code> &gt; 0, Sgn returns 1
-- If <code>number</code> = 0, Sgn returns 0
-- If <code>number</code> &lt; 0, Sgn returns -1
-If <code>number</code> is Null, Sgn returns Null.
-The Sgn function is often used in combination with Abs to separate magnitude from direction:
-- <code>Abs(number)</code> gives the magnitude (absolute value)
-- <code>Sgn(number)</code> gives the direction (sign)
-- <code>number = Abs(number) * Sgn(number)</code> (reconstruction)</p>
+The sign of <code>number</code> determines the return value.
+- If <code>number</code> &gt; 0, Sgn returns 1.
+- If <code>number</code> = 0, Sgn returns 0.
+- If <code>number</code> &lt; 0, Sgn returns -1.
+- If <code>number</code> is Null, Sgn returns Null.
+The Sgn function is often used in combination with <code>Abs</code> to separate magnitude from direction:
+* <code>Abs(number)</code> gives the magnitude (absolute value)
+* <code>Sgn(number)</code> gives the direction (sign)
+* <code>number = Abs(number) * Sgn(number)</code> (reconstruction)</p>
 <h2 id="typical-uses">Typical Uses</h2>
 <ol>
 <li><strong>Direction Detection</strong>: Determine if a value is increasing or decreasing</li>
@@ -79,13 +80,13 @@ The Sgn function is often used in combination with Abs to separate magnitude fro
 <li><strong>Financial Calculations</strong>: Profit/loss direction, balance changes</li>
 </ol>
 <h2 id="basic-examples">Basic Examples</h2>
-<pre><code class="language-vbnet">&#x27; Example 1: Basic sign detection
-Dim result As Integer
+<h3 id="example-1-basic-sign-detection">Example 1: Basic sign detection</h3>
+<pre><code class="language-vbnet">Dim result As Integer
 result = Sgn(10)      &#x27; Returns 1 (positive)
 result = Sgn(-5.5)    &#x27; Returns -1 (negative)
 result = Sgn(0)       &#x27; Returns 0 (zero)</code></pre>
-<pre><code class="language-vbnet">&#x27; Example 2: Determine direction of change
-Dim oldValue As Double
+<h3 id="example-2-determine-direction-of-change">Example 2: Determine direction of change</h3>
+<pre><code class="language-vbnet">Dim oldValue As Double
 Dim newValue As Double
 Dim direction As Integer
 oldValue = 100
@@ -98,8 +99,8 @@ ElseIf direction = -1 Then
 Else
     MsgBox &quot;No change&quot;
 End If</code></pre>
-<pre><code class="language-vbnet">&#x27; Example 3: Compare signs of two numbers
-Dim a As Double
+<h3 id="example-3-compare-signs-of-two-numbers">Example 3: Compare signs of two numbers</h3>
+<pre><code class="language-vbnet">Dim a As Double
 Dim b As Double
 a = -15
 b = -20
@@ -116,7 +117,7 @@ unitSign = Sgn(value)  &#x27; Returns 1
 &#x27; Now unitSign can be used as a multiplier: 1, 0, or -1</code></pre>
 <h2 id="common-patterns">Common Patterns</h2>
 <h3 id="pattern-1-getchangedirection">Pattern 1: <code>GetChangeDirection</code></h3>
-<p>Determine if value increased, decreased, or stayed same</p>
+<p>Determine if a value increased, decreased, or stayed same</p>
 <pre><code class="language-vbnet">Function GetChangeDirection(oldVal As Double, newVal As Double) As String
     Dim direction As Integer
     direction = Sgn(newVal - oldVal)
@@ -151,7 +152,7 @@ End Function</code></pre>
     &#x27; Returns: -1, 0, or 1 which can be used in calculations
 End Function</code></pre>
 <h3 id="pattern-5-clamptosign">Pattern 5: <code>ClampToSign</code></h3>
-<p>Ensure value has specific sign</p>
+<p>Ensure a value has a specific sign</p>
 <pre><code class="language-vbnet">Function ClampToSign(value As Double, requiredSign As Integer) As Double
     If Sgn(value) &lt;&gt; requiredSign Then
         ClampToSign = Abs(value) * requiredSign
@@ -172,7 +173,7 @@ End Function</code></pre>
     End Select
 End Function</code></pre>
 <h3 id="pattern-7-comparebysign">Pattern 7: <code>CompareBySign</code></h3>
-<p>Three-way comparison using sign</p>
+<p>Three-way comparison using the sign of the difference</p>
 <pre><code class="language-vbnet">Function CompareBySign(a As Double, b As Double) As Integer
     &#x27; Returns: -1 if a &lt; b, 0 if a = b, 1 if a &gt; b
     CompareBySign = Sgn(a - b)
@@ -197,7 +198,7 @@ End Function</code></pre>
     Next i
 End Sub</code></pre>
 <h3 id="pattern-9-trenddirection">Pattern 9: <code>TrendDirection</code></h3>
-<p>Determine overall trend in series</p>
+<p>Determine overall trend in a series of values</p>
 <pre><code class="language-vbnet">Function TrendDirection(values() As Double) As String
     Dim i As Long
     Dim changes As Long
@@ -218,14 +219,14 @@ End Sub</code></pre>
     End If
 End Function</code></pre>
 <h3 id="pattern-10-applysignto">Pattern 10: <code>ApplySignTo</code></h3>
-<p>Apply sign of one number to another</p>
+<p>Apply the sign of one number to another</p>
 <pre><code class="language-vbnet">Function ApplySignTo(magnitude As Double, signSource As Double) As Double
     &#x27; Take absolute value of magnitude and apply sign from signSource
     ApplySignTo = Abs(magnitude) * Sgn(signSource)
 End Function</code></pre>
 <h2 id="advanced-usage">Advanced Usage</h2>
 <h3 id="example-1-changeanalyzer-class">Example 1: <code>ChangeAnalyzer</code> Class</h3>
-<p>Analyze changes in data series with trend detection</p>
+<p>Analyze changes in a data series with trend detection</p>
 <pre><code class="language-vbnet">&#x27; Class: ChangeAnalyzer
 Private m_values() As Double
 Private m_count As Long
@@ -314,8 +315,9 @@ Public Function GetTrendStrength() As Double
         GetTrendStrength = 0
     End If
 End Function</code></pre>
-<h3 id="example-2-signcomparator-module">Example 2: <code>SignComparator</code> Module</h3>
-<p>Compare and analyze signs in numeric data</p>
+<h3 id="example-2">Example 2:</h3>
+<p><code>SignComparator</code> Module
+Compare and analyze signs in numeric data</p>
 <pre><code class="language-vbnet">&#x27; Module: SignComparator
 Public Function AllSameSign(values() As Double) As Boolean
     &#x27; Check if all values have the same sign
