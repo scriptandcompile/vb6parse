@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-06T07:06:31Z",
+  "last_updated": "2026-07-12T22:58:05Z",
   "snapshots": [
     {
       "timestamp": "2026-07-06T07:06:31Z",
@@ -35,32 +35,72 @@
           "percent": 95.99
         }
       }
+    },
+    {
+      "timestamp": "2026-07-12T22:58:05Z",
+      "commit_sha": "515c62bd76c15ed5d4ea9aedf57240e6378653f9",
+      "commit_message": "Updated documentation and the code the documentation reads to generate it.",
+      "coverage": {
+        "line_coverage": 95.87,
+        "function_coverage": 92.97,
+        "region_coverage": 95.99
+      },
+      "tests": {
+        "total": 6231,
+        "lib_tests": 5523,
+        "doc_tests": 119,
+        "integration_tests": 589,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97164,
+          "total": 101353,
+          "percent": 95.87
+        },
+        "functions": {
+          "covered": 6243,
+          "total": 6715,
+          "percent": 92.97
+        },
+        "regions": {
+          "covered": 155299,
+          "total": 161783,
+          "percent": 95.99
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.87,
-      "trend": "no_data",
-      "change_percent": 0,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 95.87,
       "worst": 95.87,
       "average": 95.87
     },
     "function_coverage": {
       "latest": 92.97,
-      "trend": "no_data",
-      "change_percent": 0,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 92.97,
       "worst": 92.97,
       "average": 92.97
     },
     "region_coverage": {
       "latest": 95.99,
-      "trend": "no_data",
-      "change_percent": 0,
+      "trend": "stable",
+      "change_percent": 0.0,
       "best": 95.99,
       "worst": 95.99,
       "average": 95.99
+    },
+    "test_count": {
+      "latest": 6231,
+      "trend": "stable",
+      "change_count": 0,
+      "growth_rate": 0.0
     }
   }
 }
