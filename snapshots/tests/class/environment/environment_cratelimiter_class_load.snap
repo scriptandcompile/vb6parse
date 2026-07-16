@@ -915,7 +915,7 @@ cst:
             children:
               - kind: Whitespace
                 text: "    "
-              - kind: DimStatement
+              - kind: DeclareStatement
                 children:
                   - kind: PrivateKeyword
                     text: Private
@@ -949,78 +949,80 @@ cst:
                     text: "\"FindWindowExW\""
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: hWndParent
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: hWndChildAfter
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lpszClass
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lpszWindow
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ParameterList
+                    children:
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: hWndParent
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: hWndChildAfter
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lpszClass
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lpszWindow
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Whitespace
                     text: " "
                   - kind: AsKeyword
@@ -1033,7 +1035,7 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: DimStatement
+              - kind: DeclareStatement
                 children:
                   - kind: PrivateKeyword
                     text: Private
@@ -1059,38 +1061,40 @@ cst:
                     text: "\"user32\""
                   - kind: Whitespace
                     text: " "
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: hWnd
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lpdwProcessId
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ParameterList
+                    children:
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: hWnd
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lpdwProcessId
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Whitespace
                     text: " "
                   - kind: AsKeyword
@@ -1101,8 +1105,8 @@ cst:
                     text: Long
                   - kind: Newline
                     text: "\r\n"
-              - kind: Octothorpe
-                text: "#"
+          - kind: Octothorpe
+            text: "#"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -3671,8 +3675,8 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Octothorpe
-                        text: "#"
+                  - kind: Octothorpe
+                    text: "#"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
@@ -4517,8 +4521,8 @@ cst:
                                     text: "\r\n"
                               - kind: Whitespace
                                 text: "        "
-                              - kind: Octothorpe
-                                text: "#"
+                          - kind: Octothorpe
+                            text: "#"
                           - kind: EndKeyword
                             text: End
                           - kind: Whitespace
@@ -4957,8 +4961,8 @@ cst:
                             text: "\r\n"
                       - kind: Whitespace
                         text: "    "
-                      - kind: Octothorpe
-                        text: "#"
+                  - kind: Octothorpe
+                    text: "#"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace

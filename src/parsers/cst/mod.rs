@@ -2699,16 +2699,13 @@ impl<'a> Parser<'a> {
             StatementListContext::TopLevel => stop_conditions(self) || self.is_at_end(),
             StatementListContext::IfThenBody | StatementListContext::ElseIfBody => {
                 self.at_token(Token::ElseIfKeyword)
+                    || self.at_compiler_directive_keyword(Token::ElseIfKeyword)
                     || self.at_token(Token::ElseKeyword)
-                    || (self.at_token(Token::EndKeyword)
-                        && self.peek_next_keyword() == Some(Token::IfKeyword))
+                    || self.at_compiler_directive_keyword(Token::ElseKeyword)
+                    || self.at_if_block_end()
                     || self.is_at_end()
             }
-            StatementListContext::ElseBody => {
-                (self.at_token(Token::EndKeyword)
-                    && self.peek_next_keyword() == Some(Token::IfKeyword))
-                    || self.is_at_end()
-            }
+            StatementListContext::ElseBody => self.at_if_block_end() || self.is_at_end(),
             StatementListContext::ForBody => self.at_token(Token::NextKeyword) || self.is_at_end(),
             StatementListContext::SelectCaseBody => {
                 self.at_token(Token::CaseKeyword)
@@ -2725,6 +2722,70 @@ impl<'a> Parser<'a> {
                     && self.peek_next_keyword() == Some(Token::WithKeyword))
                     || self.is_at_end()
             }
+        }
+    }
+
+    fn at_if_block_end(&self) -> bool {
+        (self.at_token(Token::EndKeyword) && self.peek_next_keyword() == Some(Token::IfKeyword))
+            || self.at_compiler_end_if_directive()
+    }
+
+    fn at_compiler_directive_keyword(&self, keyword: Token) -> bool {
+        if !self.at_token(Token::Octothorpe) {
+            return false;
+        }
+
+        let mut index = self.pos + 1;
+
+        while let Some((_, token)) = self.tokens.get(index) {
+            if *token == Token::Whitespace {
+                index += 1;
+                continue;
+            }
+
+            return *token == keyword;
+        }
+
+        false
+    }
+
+    fn at_compiler_end_if_directive(&self) -> bool {
+        if !self.at_token(Token::Octothorpe) {
+            return false;
+        }
+
+        let mut index = self.pos + 1;
+
+        while let Some((_, token)) = self.tokens.get(index) {
+            if *token == Token::Whitespace {
+                index += 1;
+                continue;
+            }
+
+            if *token != Token::EndKeyword {
+                return false;
+            }
+
+            index += 1;
+            break;
+        }
+
+        while let Some((_, token)) = self.tokens.get(index) {
+            if *token == Token::Whitespace {
+                index += 1;
+                continue;
+            }
+
+            return *token == Token::IfKeyword;
+        }
+
+        false
+    }
+
+    fn consume_compiler_directive_prefix(&mut self) {
+        if self.at_token(Token::Octothorpe) {
+            self.consume_token();
+            self.consume_whitespace();
         }
     }
 
@@ -2825,15 +2886,42 @@ impl<'a> Parser<'a> {
             ) => {
                 self.consume_token();
             }
-            // Variable declarations: Dim/Private/Public/Const/Static.
+            // Variable declarations: Dim/Const.
+            Some(Token::DimKeyword | Token::ConstKeyword) => {
+                self.parse_dim();
+            }
+            // Scoped declarations may be members (Sub/Function/Property/etc.)
+            // or plain variable declarations.
             Some(
-                Token::DimKeyword
-                | Token::PrivateKeyword
+                Token::PrivateKeyword
                 | Token::PublicKeyword
-                | Token::ConstKeyword
+                | Token::FriendKeyword
                 | Token::StaticKeyword,
             ) => {
-                self.parse_dim();
+                let next_keywords: Vec<_> = self
+                    .peek_next_count_keywords(NonZeroUsize::new(2).unwrap())
+                    .collect();
+
+                match next_keywords.as_slice() {
+                    [Token::FunctionKeyword, ..] => self.parse_function_statement(),
+                    [Token::SubKeyword, ..] => self.parse_sub_statement(),
+                    [Token::PropertyKeyword, ..] => self.parse_property_statement(),
+                    [Token::DeclareKeyword, ..] => self.parse_declare_statement(),
+                    [Token::EnumKeyword, ..] => self.parse_enum_statement(),
+                    [Token::TypeKeyword, ..] => self.parse_type_statement(),
+                    [Token::EventKeyword, ..] => self.parse_event_statement(),
+                    [Token::ImplementsKeyword, ..] => self.parse_implements_statement(),
+                    [Token::StaticKeyword, Token::FunctionKeyword] => {
+                        self.parse_function_statement();
+                    }
+                    [Token::StaticKeyword, Token::SubKeyword] => {
+                        self.parse_sub_statement();
+                    }
+                    [Token::StaticKeyword, Token::PropertyKeyword] => {
+                        self.parse_property_statement();
+                    }
+                    _ => self.parse_dim(),
+                }
             }
             _ => self.parse_statement_list_fallback_non_keyword(),
         }
@@ -2950,6 +3038,7 @@ impl<'a> Parser<'a> {
         self.parsing_header = false;
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
         self.consume_whitespace();
+        self.consume_compiler_directive_prefix();
         self.consume_token(); // If
         self.consume_whitespace();
         self.parse_expression();
@@ -3090,6 +3179,10 @@ impl<'a> Parser<'a> {
     }
 
     fn handle_if_phase_check_elseif(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
+        if self.at_compiler_directive_keyword(Token::ElseIfKeyword) {
+            self.consume_compiler_directive_prefix();
+        }
+
         if self.at_token(Token::ElseIfKeyword) {
             self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
             self.consume_token(); // ElseIf
@@ -3122,6 +3215,10 @@ impl<'a> Parser<'a> {
     }
 
     fn handle_if_phase_check_else(&mut self, frame_stack: &mut Vec<ControlFlowFrame>) -> bool {
+        if self.at_compiler_directive_keyword(Token::ElseKeyword) {
+            self.consume_compiler_directive_prefix();
+        }
+
         if self.at_token(Token::ElseKeyword) {
             self.builder.start_node(SyntaxKind::ElseClause.to_raw());
             self.consume_token(); // Else
@@ -3147,6 +3244,10 @@ impl<'a> Parser<'a> {
     }
 
     fn handle_if_phase_finish(&mut self) -> bool {
+        if self.at_compiler_end_if_directive() {
+            self.consume_compiler_directive_prefix();
+        }
+
         if self.at_token(Token::EndKeyword) {
             self.consume_token();
             self.consume_whitespace();

@@ -57,8 +57,8 @@ root:
                                   text: x
                 - kind: Newline
                   text: "\n"
-            - kind: Octothorpe
-              text: "#"
+        - kind: Octothorpe
+          text: "#"
         - kind: EndKeyword
           text: End
         - kind: Whitespace

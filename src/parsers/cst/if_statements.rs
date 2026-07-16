@@ -35,6 +35,7 @@ impl Parser<'_> {
 
         self.builder.start_node(SyntaxKind::IfStatement.to_raw());
         self.consume_whitespace();
+        self.consume_compiler_directive_prefix();
         self.consume_token(); // If
         self.consume_whitespace();
         self.parse_expression();
@@ -70,12 +71,19 @@ impl Parser<'_> {
         self.parse_statement_list(|parser| {
             (parser.at_token(Token::EndKeyword)
                 && parser.peek_next_keyword() == Some(Token::IfKeyword))
+                || parser.at_compiler_end_if_directive()
                 || parser.at_token(Token::ElseIfKeyword)
+                || parser.at_compiler_directive_keyword(Token::ElseIfKeyword)
                 || parser.at_token(Token::ElseKeyword)
+                || parser.at_compiler_directive_keyword(Token::ElseKeyword)
         });
 
         // Handle ElseIf and Else clauses
         while !self.is_at_end() {
+            if self.at_compiler_directive_keyword(Token::ElseIfKeyword) {
+                self.consume_compiler_directive_prefix();
+            }
+
             if self.at_token(Token::ElseIfKeyword) {
                 self.builder.start_node(SyntaxKind::ElseIfClause.to_raw());
                 self.consume_token(); // ElseIf
@@ -95,12 +103,17 @@ impl Parser<'_> {
                 // Parse ElseIf body
                 self.parse_statement_list(|parser| {
                     parser.at_token(Token::ElseIfKeyword)
+                        || parser.at_compiler_directive_keyword(Token::ElseIfKeyword)
                         || parser.at_token(Token::ElseKeyword)
+                        || parser.at_compiler_directive_keyword(Token::ElseKeyword)
                         || (parser.at_token(Token::EndKeyword)
                             && parser.peek_next_keyword() == Some(Token::IfKeyword))
+                        || parser.at_compiler_end_if_directive()
                 });
 
                 self.builder.finish_node(); // ElseIfClause
+            } else if self.at_compiler_directive_keyword(Token::ElseKeyword) {
+                self.consume_compiler_directive_prefix();
             } else if self.at_token(Token::ElseKeyword) {
                 self.builder.start_node(SyntaxKind::ElseClause.to_raw());
                 self.consume_token(); // Else
@@ -114,6 +127,7 @@ impl Parser<'_> {
                 self.parse_statement_list(|parser| {
                     parser.at_token(Token::EndKeyword)
                         && parser.peek_next_keyword() == Some(Token::IfKeyword)
+                        || parser.at_compiler_end_if_directive()
                 });
 
                 self.builder.finish_node(); // ElseClause
@@ -123,6 +137,10 @@ impl Parser<'_> {
         }
 
         // Consume "End If"
+        if self.at_compiler_end_if_directive() {
+            self.consume_compiler_directive_prefix();
+        }
+
         if self.at_token(Token::EndKeyword) {
             self.consume_token();
             self.consume_whitespace();
@@ -599,6 +617,33 @@ End Sub
         assert!(
             !text.contains("Unknown"),
             "Should not contain Unknown tokens: single-line If must not consume past end of line"
+        );
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn compiler_if_end_if_block() {
+        let source = r"
+#If fComponent Then
+Private Sub Class_Initialize()
+    InitColors
+End Sub
+#End If
+";
+
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let text = format!("{tree:#?}");
+        assert!(
+            !text.contains("Unknown"),
+            "Compiler If blocks should parse without Unknown tokens"
         );
 
         let mut settings = insta::Settings::clone_current();

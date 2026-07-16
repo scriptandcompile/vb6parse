@@ -15082,7 +15082,7 @@ cst:
             text: "\r\n"
           - kind: StatementList
             children:
-              - kind: DimStatement
+              - kind: FunctionStatement
                 children:
                   - kind: PrivateKeyword
                     text: Private
@@ -15094,24 +15094,26 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: Peek
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lPtr
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ParameterList
+                    children:
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lPtr
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Whitespace
                     text: " "
                   - kind: AsKeyword
@@ -15122,65 +15124,67 @@ cst:
                     text: Long
                   - kind: Newline
                     text: "\r\n"
-              - kind: CallStatement
-                children:
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: CallKeyword
-                    text: Call
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: CopyMemory
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ArgumentList
+                  - kind: StatementList
                     children:
-                      - kind: Argument
+                      - kind: CallStatement
                         children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: Peek
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: ByValKeyword
-                            text: ByVal
+                          - kind: Whitespace
+                            text: "    "
+                          - kind: CallKeyword
+                            text: Call
                           - kind: Whitespace
                             text: " "
-                          - kind: IdentifierExpression
+                          - kind: Identifier
+                            text: CopyMemory
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
                             children:
-                              - kind: Identifier
-                                text: lPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Argument
-                        children:
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "4"
-                  - kind: RightParenthesis
-                    text: )
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Peek
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: ByValKeyword
+                                    text: ByVal
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: lPtr
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "4"
+                          - kind: RightParenthesis
+                            text: )
+                          - kind: Newline
+                            text: "\r\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: FunctionKeyword
+                    text: Function
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: End
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Function
               - kind: Newline
                 text: "\r\n"
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
+              - kind: FunctionStatement
                 children:
                   - kind: PrivateKeyword
                     text: Private
@@ -15192,42 +15196,44 @@ cst:
                     text: " "
                   - kind: Identifier
                     text: UnsignedAdd
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lUnsignedPtr
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: lSignedOffset
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: LongKeyword
-                    text: Long
-                  - kind: RightParenthesis
-                    text: )
+                  - kind: ParameterList
+                    children:
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lUnsignedPtr
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: Comma
+                        text: ","
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ByValKeyword
+                        text: ByVal
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Identifier
+                        text: lSignedOffset
+                      - kind: Whitespace
+                        text: " "
+                      - kind: AsKeyword
+                        text: As
+                      - kind: Whitespace
+                        text: " "
+                      - kind: LongKeyword
+                        text: Long
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Whitespace
                     text: " "
                   - kind: AsKeyword
@@ -15238,32 +15244,28 @@ cst:
                     text: Long
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: EndOfLineComment
-                text: "'--- note: safely add *signed* offset to *unsigned* ptr for *unsigned* retval w/o overflow in LARGEADDRESSAWARE processes"
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: UnsignedAdd
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
-                    children:
-                      - kind: ParenthesizedExpression
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: EndOfLineComment
+                        text: "'--- note: safely add *signed* offset to *unsigned* ptr for *unsigned* retval w/o overflow in LARGEADDRESSAWARE processes"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: AssignmentStatement
                         children:
-                          - kind: LeftParenthesis
-                            text: (
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: UnsignedAdd
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: ParenthesizedExpression
@@ -15272,56 +15274,62 @@ cst:
                                     text: (
                                   - kind: BinaryExpression
                                     children:
+                                      - kind: ParenthesizedExpression
+                                        children:
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: BinaryExpression
+                                            children:
+                                              - kind: IdentifierExpression
+                                                children:
+                                                  - kind: Identifier
+                                                    text: lUnsignedPtr
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: XorKeyword
+                                                text: Xor
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: NumericLiteralExpression
+                                                children:
+                                                  - kind: LongLiteral
+                                                    text: "&H80000000"
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: AdditionOperator
+                                        text: +
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: lUnsignedPtr
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: XorKeyword
-                                        text: Xor
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: NumericLiteralExpression
-                                        children:
-                                          - kind: LongLiteral
-                                            text: "&H80000000"
+                                            text: lSignedOffset
                                   - kind: RightParenthesis
                                     text: )
                               - kind: Whitespace
                                 text: " "
-                              - kind: AdditionOperator
-                                text: +
+                              - kind: XorKeyword
+                                text: Xor
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: NumericLiteralExpression
                                 children:
-                                  - kind: Identifier
-                                    text: lSignedOffset
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: XorKeyword
-                        text: Xor
-                      - kind: Whitespace
-                        text: " "
-                      - kind: NumericLiteralExpression
-                        children:
-                          - kind: LongLiteral
-                            text: "&H80000000"
+                                  - kind: LongLiteral
+                                    text: "&H80000000"
+                          - kind: Newline
+                            text: "\r\n"
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: FunctionKeyword
+                    text: Function
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: End
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Function
-              - kind: Newline
-                text: "\r\n"
-              - kind: Octothorpe
-                text: "#"
+          - kind: Octothorpe
+            text: "#"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

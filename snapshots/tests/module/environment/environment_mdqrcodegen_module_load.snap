@@ -615,8 +615,8 @@ cst:
                 text: "'Private Declare PtrSafe Function PolyPolygon Lib \"gdi32\" (ByVal hDC As LongPtr, lpPoint As Any, lpPolyCounts As Any, ByVal nCount As Long) As Long"
               - kind: Newline
                 text: "\r\n"
-              - kind: Octothorpe
-                text: "#"
+          - kind: Octothorpe
+            text: "#"
           - kind: ElseClause
             children:
               - kind: ElseKeyword
@@ -625,7 +625,7 @@ cst:
                 text: "\r\n"
               - kind: StatementList
                 children:
-                  - kind: DimStatement
+                  - kind: EnumStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -639,27 +639,25 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: Unknown
-                    text: "["
-                  - kind: Unknown
-                    text: _
-                  - kind: Unknown
-                    text: "]"
-                  - kind: Newline
-                    text: "\r\n"
-                  - kind: Unknown
-                    text: End
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallStatement
-                    children:
+                      - kind: Whitespace
+                        text: "    "
+                      - kind: LeftSquareBracket
+                        text: "["
+                      - kind: Unknown
+                        text: _
+                      - kind: RightSquareBracket
+                        text: "]"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: EndKeyword
+                        text: End
+                      - kind: Whitespace
+                        text: " "
                       - kind: EnumKeyword
                         text: Enum
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -693,55 +691,57 @@ cst:
                         text: "\"RtlMoveMemory\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: Destination
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Source
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Length
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: Destination
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Source
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Length
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -775,78 +775,80 @@ cst:
                         text: "\"CreateEnhMetaFileW\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hdcRef
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpFileName
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpRect
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpDescription
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hdcRef
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpFileName
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpRect
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpDescription
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -857,7 +859,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -883,24 +885,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -911,7 +915,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -937,24 +941,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nIndex
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nIndex
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -965,7 +971,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -991,66 +997,68 @@ cst:
                         text: "\"oleaut32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: lpPictDesc
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: PICTDESC
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: riid
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: fPictureOwnsHandle
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpvObj
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: IPicture
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: lpPictDesc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: PICTDESC
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: riid
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: fPictureOwnsHandle
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpvObj
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: IPicture
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1061,7 +1069,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1087,56 +1095,58 @@ cst:
                         text: "\"user32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpRect
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: RECT
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hBrush
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpRect
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: RECT
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hBrush
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1147,7 +1157,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1173,24 +1183,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: crColor
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: crColor
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1201,7 +1213,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1227,24 +1239,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hObject
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hObject
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1255,7 +1269,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1281,146 +1295,148 @@ cst:
                         text: "\"kernel32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: CodePage
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: dwFlags
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpWideCharStr
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: cchWideChar
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpMultiByteStr
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: cchMultiByte
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpDefaultChar
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpUsedDefaultChar
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: CodePage
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: dwFlags
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpWideCharStr
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cchWideChar
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpMultiByteStr
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cchMultiByte
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpDefaultChar
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpUsedDefaultChar
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1431,7 +1447,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1457,42 +1473,44 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hObject
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hObject
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1503,7 +1521,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1537,38 +1555,40 @@ cst:
                         text: "\"#12\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: Identifier
-                        text: pInit
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: cbInit
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: Identifier
+                            text: pInit
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cbInit
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1583,7 +1603,7 @@ cst:
                         text: IUnknown
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1609,138 +1629,140 @@ cst:
                         text: "\"oleaut32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: pvInstance
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: oVft
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lCc
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: vtReturn
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: VbVarType
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: cActuals
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: prgVt
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: prgpVarg
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: pvargResult
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: VariantKeyword
-                        text: Variant
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pvInstance
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: oVft
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lCc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: vtReturn
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: VbVarType
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cActuals
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: prgVt
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: prgpVarg
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: pvargResult
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: VariantKeyword
+                            text: Variant
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1751,7 +1773,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1777,24 +1799,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1805,7 +1829,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1831,24 +1855,26 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1859,7 +1885,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -1885,106 +1911,108 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpBitsInfo
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: wUsage
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpBits
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hSection
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: dwOffset
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpBitsInfo
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: wUsage
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpBits
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hSection
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: dwOffset
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -1995,7 +2023,7 @@ cst:
                         text: LongPtr
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -2021,42 +2049,44 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nStretchMode
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nStretchMode
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -2067,7 +2097,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -2093,204 +2123,206 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: X
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: y
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nWidth
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nHeight
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hdcSrc
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: xSrc
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: ySrc
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nSrcWidth
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nSrcHeight
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: dwRop
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: X
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: y
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nWidth
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nHeight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hdcSrc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: xSrc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: ySrc
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nSrcWidth
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nSrcHeight
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: dwRop
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -2301,7 +2333,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -2327,42 +2359,44 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nIndex
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nIndex
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -2373,7 +2407,7 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: DimStatement
+                  - kind: DeclareStatement
                     children:
                       - kind: PrivateKeyword
                         text: Private
@@ -2399,70 +2433,72 @@ cst:
                         text: "\"gdi32\""
                       - kind: Whitespace
                         text: " "
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: hDC
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: LongPtr
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpPoint
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: lpPolyCounts
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: Any
-                      - kind: Comma
-                        text: ","
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ByValKeyword
-                        text: ByVal
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Identifier
-                        text: nCount
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AsKeyword
-                        text: As
-                      - kind: Whitespace
-                        text: " "
-                      - kind: LongKeyword
-                        text: Long
-                      - kind: RightParenthesis
-                        text: )
+                      - kind: ParameterList
+                        children:
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: hDC
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: LongPtr
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpPoint
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: lpPolyCounts
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: Any
+                          - kind: Comma
+                            text: ","
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ByValKeyword
+                            text: ByVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: nCount
+                          - kind: Whitespace
+                            text: " "
+                          - kind: AsKeyword
+                            text: As
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LongKeyword
+                            text: Long
+                          - kind: RightParenthesis
+                            text: )
                       - kind: Whitespace
                         text: " "
                       - kind: AsKeyword
@@ -2473,8 +2509,8 @@ cst:
                         text: Long
                       - kind: Newline
                         text: "\r\n"
-                  - kind: Octothorpe
-                    text: "#"
+          - kind: Octothorpe
+            text: "#"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -42187,8 +42223,8 @@ cst:
                                 text: "8"
                           - kind: Newline
                             text: "\r\n"
-                      - kind: Octothorpe
-                        text: "#"
+                  - kind: Octothorpe
+                    text: "#"
                   - kind: ElseClause
                     children:
                       - kind: ElseKeyword
@@ -42227,8 +42263,8 @@ cst:
                                     text: "4"
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Octothorpe
-                            text: "#"
+                  - kind: Octothorpe
+                    text: "#"
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
