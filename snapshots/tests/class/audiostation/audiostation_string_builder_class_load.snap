@@ -4228,148 +4228,22 @@ cst:
                     text: "'Start < 0"
                   - kind: Newline
                     text: "\n"
-              - kind: Whitespace
-                text: "      "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: UnsignedAdd
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
-                    children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: start
                       - kind: Whitespace
-                        text: " "
-                      - kind: AdditionOperator
-                        text: +
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: Incr
-                  - kind: Newline
-                    text: "\n"
-              - kind: Whitespace
-                text: "   "
-              - kind: Unknown
-                text: ElseIf
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: (
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: start
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
+                        text: "      "
+                      - kind: AssignmentStatement
                         children:
                           - kind: IdentifierExpression
                             children:
-                              - kind: OrKeyword
-                                text: Or
-                      - kind: Whitespace
-                        text: " "
-              - kind: Unknown
-                text: "&H80000000"
-              - kind: Unknown
-                text: )
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "<"
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "-"
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Incr
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ArgumentList
-                    children:
-                      - kind: Argument
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: ThenKeyword
-                                text: Then
-                  - kind: Newline
-                    text: "\n"
-              - kind: Whitespace
-                text: "      "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: UnsignedAdd
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
-                    children:
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: start
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AdditionOperator
-                        text: +
-                      - kind: Whitespace
-                        text: " "
-                      - kind: IdentifierExpression
-                        children:
-                          - kind: Identifier
-                            text: Incr
-                  - kind: Newline
-                    text: "\n"
-              - kind: Whitespace
-                text: "   "
-              - kind: Unknown
-                text: Else
-              - kind: Newline
-                text: "\n"
-              - kind: Whitespace
-                text: "      "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: UnsignedAdd
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: BinaryExpression
-                    children:
-                      - kind: ParenthesizedExpression
-                        children:
-                          - kind: LeftParenthesis
-                            text: (
+                              - kind: Identifier
+                                text: UnsignedAdd
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
                           - kind: BinaryExpression
                             children:
                               - kind: IdentifierExpression
@@ -4382,123 +4256,255 @@ cst:
                                 text: +
                               - kind: Whitespace
                                 text: " "
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: LongLiteral
-                                    text: "&H80000000"
-                          - kind: RightParenthesis
-                            text: )
-                      - kind: Whitespace
-                        text: " "
-                      - kind: AdditionOperator
-                        text: +
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ParenthesizedExpression
-                        children:
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: BinaryExpression
-                            children:
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
                                     text: Incr
-                              - kind: Whitespace
-                                text: " "
-                              - kind: AdditionOperator
-                                text: +
-                              - kind: Whitespace
-                                text: " "
-                              - kind: NumericLiteralExpression
+                          - kind: Newline
+                            text: "\n"
+                      - kind: Whitespace
+                        text: "   "
+                  - kind: ElseIfClause
+                    children:
+                      - kind: ElseIfKeyword
+                        text: ElseIf
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: ParenthesizedExpression
+                            children:
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: LongLiteral
-                                    text: "&H80000000"
-                          - kind: RightParenthesis
-                            text: )
-                  - kind: Newline
-                    text: "\n"
-              - kind: Whitespace
-                text: "   "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: start
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: OrKeyword
+                                    text: Or
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: LongLiteral
+                                        text: "&H80000000"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: LessThanOperator
+                            text: "<"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: UnaryExpression
+                            children:
+                              - kind: SubtractionOperator
+                                text: "-"
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Incr
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ThenKeyword
+                        text: Then
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "      "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: UnsignedAdd
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: start
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: Incr
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "   "
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Newline
+                        text: "\n"
+                      - kind: StatementList
+                        children:
+                          - kind: Whitespace
+                            text: "      "
+                          - kind: AssignmentStatement
+                            children:
+                              - kind: IdentifierExpression
+                                children:
+                                  - kind: Identifier
+                                    text: UnsignedAdd
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: start
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: LongLiteral
+                                                text: "&H80000000"
+                                      - kind: RightParenthesis
+                                        text: )
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: AdditionOperator
+                                    text: +
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Incr
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: AdditionOperator
+                                            text: +
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: LongLiteral
+                                                text: "&H80000000"
+                                      - kind: RightParenthesis
+                                        text: )
+                              - kind: Newline
+                                text: "\n"
+                          - kind: Whitespace
+                            text: "   "
+                  - kind: EndKeyword
+                    text: End
                   - kind: Whitespace
                     text: " "
                   - kind: IfKeyword
                     text: If
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Newline
-                        text: "\n"
-                  - kind: Whitespace
-                    text: "   "
                   - kind: Newline
                     text: "\n"
-                  - kind: StatementList
+              - kind: Whitespace
+                text: "   "
+              - kind: Newline
+                text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: FunctionKeyword
+            text: Function
+          - kind: Newline
+            text: "\n"
+      - kind: SubStatement
+        children:
+          - kind: PrivateKeyword
+            text: Private
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: Class_Initialize
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\n"
+          - kind: StatementList
+            children:
+              - kind: Whitespace
+                text: "   "
+              - kind: EndOfLineComment
+                text: "' The default allocation: 8192 characters."
+              - kind: Newline
+                text: "\n"
+              - kind: Whitespace
+                text: "   "
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
                     children:
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Function
-                      - kind: Newline
-                        text: "\n"
-                      - kind: DimStatement
-                        children:
-                          - kind: PrivateKeyword
-                            text: Private
-                          - kind: Whitespace
-                            text: " "
-                          - kind: SubKeyword
-                            text: Sub
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Identifier
-                            text: Class_Initialize
-                          - kind: LeftParenthesis
-                            text: (
-                          - kind: RightParenthesis
-                            text: )
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Whitespace
-                        text: "   "
-                      - kind: EndOfLineComment
-                        text: "' The default allocation: 8192 characters."
-                      - kind: Newline
-                        text: "\n"
-                      - kind: Whitespace
-                        text: "   "
-                      - kind: AssignmentStatement
-                        children:
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: m_iChunkSize
-                          - kind: Whitespace
-                            text: " "
-                          - kind: EqualityOperator
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: NumericLiteralExpression
-                            children:
-                              - kind: IntegerLiteral
-                                text: "16384"
-                          - kind: Newline
-                            text: "\n"
-                      - kind: Unknown
-                        text: End
-                      - kind: Whitespace
-                        text: " "
-                      - kind: Unknown
-                        text: Sub
-                      - kind: Newline
-                        text: "\n"
-                      - kind: Newline
-                        text: "\n"
-                      - kind: Newline
-                        text: "\n"
+                      - kind: Identifier
+                        text: m_iChunkSize
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: NumericLiteralExpression
+                    children:
+                      - kind: IntegerLiteral
+                        text: "16384"
+                  - kind: Newline
+                    text: "\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\n"
+      - kind: Newline
+        text: "\n"
+      - kind: Newline
+        text: "\n"

@@ -2878,140 +2878,142 @@ cst:
                     text: "' Win95 Adds Null Terminated String..."
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: tmpVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: Left
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
                         children:
-                          - kind: Argument
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: tmpVal
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: Left
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: tmpVal
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: BinaryExpression
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: KeyValSize
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: SubtractionOperator
+                                            text: "-"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: NumericLiteralExpression
+                                            children:
+                                              - kind: IntegerLiteral
+                                                text: "1"
+                              - kind: RightParenthesis
+                                text: )
+                      - kind: Whitespace
+                        text: "               "
+                      - kind: EndOfLineComment
+                        text: "' Null Found, Extract From String"
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: ElseClause
+                    children:
+                      - kind: ElseKeyword
+                        text: Else
+                      - kind: Whitespace
+                        text: "                                                    "
+                      - kind: StatementList
+                        children:
+                          - kind: EndOfLineComment
+                            text: "' WinNT Does NOT Null Terminate String..."
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: AssignmentStatement
                             children:
                               - kind: IdentifierExpression
                                 children:
                                   - kind: Identifier
                                     text: tmpVal
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: KeyValSize
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: SubtractionOperator
-                                    text: "-"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: NumericLiteralExpression
-                                    children:
-                                      - kind: IntegerLiteral
-                                        text: "1"
-                      - kind: RightParenthesis
-                        text: )
-              - kind: Whitespace
-                text: "               "
-              - kind: EndOfLineComment
-                text: "' Null Found, Extract From String"
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: Unknown
-                text: Else
-              - kind: Whitespace
-                text: "                                                    "
-              - kind: EndOfLineComment
-                text: "' WinNT Does NOT Null Terminate String..."
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: tmpVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: Left
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: CallExpression
                                 children:
                                   - kind: Identifier
-                                    text: tmpVal
-                          - kind: Comma
-                            text: ","
+                                    text: Left
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: tmpVal
+                                      - kind: Comma
+                                        text: ","
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: KeyValSize
+                                  - kind: RightParenthesis
+                                    text: )
                           - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: KeyValSize
-                      - kind: RightParenthesis
-                        text: )
-              - kind: Whitespace
-                text: "                   "
-              - kind: EndOfLineComment
-                text: "' Null Not Found, Extract String Only"
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
+                            text: "                   "
+                          - kind: EndOfLineComment
+                            text: "' Null Not Found, Extract String Only"
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: Whitespace
+                            text: "    "
+                  - kind: EndKeyword
+                    text: End
                   - kind: Whitespace
                     text: " "
                   - kind: IfKeyword
                     text: If
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Newline
-                        text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: EndOfLineComment
-                    text: "'------------------------------------------------------------"
                   - kind: Newline
                     text: "\r\n"
+              - kind: Whitespace
+                text: "    "
+              - kind: EndOfLineComment
+                text: "'------------------------------------------------------------"
+              - kind: Newline
+                text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: EndOfLineComment

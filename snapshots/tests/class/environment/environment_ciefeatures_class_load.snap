@@ -528,640 +528,642 @@ cst:
                     text: "'in this case it is not elevated yet - and we ensure new elevated Defaults"
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: FEATURE_ENABLE_WEB_CONTROL_VISUALS
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_RESTRICT_ACTIVEXINSTALL
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_ADDON_MANAGEMENT
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_ZONE_ELEVATION
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_AJAX_CONNECTIONEVENTS
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_ENABLE_CLIPCHILDREN_OPTIMIZATION
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_MANAGE_SCRIPT_CIRCULAR_REFS
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_MIME_HANDLING
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_DOMSTORAGE
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_GPU_RENDERING
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_IVIEWOBJECTDRAW_DMLT9_WITH_GDI
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_NINPUT_LEGACYMODE
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_DISABLE_LEGACY_COMPRESSION
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_LOCALMACHINE_LOCKDOWN
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_BLOCK_LMZ_OBJECT
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_BLOCK_LMZ_SCRIPT
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_DISABLE_NAVIGATION_SOUNDS
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_SCRIPTURL_MITIGATION
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_SPELLCHECKING
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_STATUS_BAR_THROTTLING
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_TABBED_BROWSING
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_VALIDATE_NAVIGATE_URL
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_WEBOC_DOCUMENT_ZOOM
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_WEBOC_POPUPMANAGEMENT
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_WEBOC_MOVESIZECHILD
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_WEBSOCKET
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_WINDOW_RESTRICTIONS
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "0"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_XMLHTTP
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "     "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Identifier
-                        text: FEATURE_96DPI_PIXEL
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: NumericLiteralExpression
-                    children:
-                      - kind: IntegerLiteral
-                        text: "1"
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "  "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IfKeyword
-                    text: If
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_ENABLE_WEB_CONTROL_VISUALS
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_RESTRICT_ACTIVEXINSTALL
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_ADDON_MANAGEMENT
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_ZONE_ELEVATION
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_AJAX_CONNECTIONEVENTS
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_ENABLE_CLIPCHILDREN_OPTIMIZATION
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_MANAGE_SCRIPT_CIRCULAR_REFS
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_MIME_HANDLING
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_DOMSTORAGE
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_GPU_RENDERING
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_IVIEWOBJECTDRAW_DMLT9_WITH_GDI
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_NINPUT_LEGACYMODE
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_DISABLE_LEGACY_COMPRESSION
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_LOCALMACHINE_LOCKDOWN
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_BLOCK_LMZ_OBJECT
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_BLOCK_LMZ_SCRIPT
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_DISABLE_NAVIGATION_SOUNDS
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_SCRIPTURL_MITIGATION
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_SPELLCHECKING
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_STATUS_BAR_THROTTLING
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_TABBED_BROWSING
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_VALIDATE_NAVIGATE_URL
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_WEBOC_DOCUMENT_ZOOM
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_WEBOC_POPUPMANAGEMENT
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_WEBOC_MOVESIZECHILD
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_WEBSOCKET
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_WINDOW_RESTRICTIONS
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "0"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_XMLHTTP
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "     "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: FEATURE_96DPI_PIXEL
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "  "
                   - kind: EndKeyword
                     text: End
                   - kind: Whitespace
                     text: " "
-                  - kind: SubKeyword
-                    text: Sub
+                  - kind: IfKeyword
+                    text: If
                   - kind: Newline
                     text: "\r\n"
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
-                children:
-                  - kind: PublicKeyword
-                    text: Public
-                  - kind: Whitespace
-                    text: " "
-                  - kind: PropertyKeyword
-                    text: Property
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GetKeyword
-                    text: Get
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ExeName
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Newline
-                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Newline
+            text: "\r\n"
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: ExeName
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: "  "
               - kind: AssignmentStatement
@@ -1182,48 +1184,52 @@ cst:
                         text: mExeName
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: End
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: Property
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: " "
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
-                children:
-                  - kind: PublicKeyword
-                    text: Public
-                  - kind: Whitespace
-                    text: " "
-                  - kind: PropertyKeyword
-                    text: Property
-                  - kind: Whitespace
-                    text: " "
-                  - kind: GetKeyword
-                    text: Get
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: InstalledVersion
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Newline
-                    text: "\r\n"
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: " "
+      - kind: Newline
+        text: "\r\n"
+      - kind: PropertyStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Whitespace
+            text: " "
+          - kind: GetKeyword
+            text: Get
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: InstalledVersion
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: OnErrorStatement
                 children:
                   - kind: Whitespace
@@ -1452,82 +1458,88 @@ cst:
                         text: Clear
                       - kind: Newline
                         text: "\r\n"
-              - kind: Unknown
-                text: End
+          - kind: EndKeyword
+            text: End
+          - kind: Whitespace
+            text: " "
+          - kind: PropertyKeyword
+            text: Property
+          - kind: Newline
+            text: "\r\n"
+      - kind: Whitespace
+        text: " "
+      - kind: Newline
+        text: "\r\n"
+      - kind: SubStatement
+        children:
+          - kind: PublicKeyword
+            text: Public
+          - kind: Whitespace
+            text: " "
+          - kind: SubKeyword
+            text: Sub
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: WriteFeature
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: FeatureKey
               - kind: Whitespace
                 text: " "
-              - kind: Unknown
-                text: Property
-              - kind: Newline
-                text: "\r\n"
+              - kind: AsKeyword
+                text: As
               - kind: Whitespace
                 text: " "
-              - kind: Newline
-                text: "\r\n"
-              - kind: DimStatement
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: Value
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: OptionalKeyword
+                text: Optional
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: ValueType
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Whitespace
+                text: " "
+              - kind: EqualityOperator
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: StringLiteralExpression
                 children:
-                  - kind: PublicKeyword
-                    text: Public
-                  - kind: Whitespace
-                    text: " "
-                  - kind: SubKeyword
-                    text: Sub
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: WriteFeature
-                  - kind: LeftParenthesis
-                    text: (
-                  - kind: Identifier
-                    text: FeatureKey
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: ByValKeyword
-                    text: ByVal
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: Value
-                  - kind: Comma
-                    text: ","
-                  - kind: Whitespace
-                    text: " "
-                  - kind: OptionalKeyword
-                    text: Optional
-                  - kind: Whitespace
-                    text: " "
-                  - kind: Identifier
-                    text: ValueType
-                  - kind: Whitespace
-                    text: " "
-                  - kind: AsKeyword
-                    text: As
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringKeyword
-                    text: String
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
                   - kind: StringLiteral
                     text: "\"REG_DWORD\""
-                  - kind: RightParenthesis
-                    text: )
-                  - kind: Newline
-                    text: "\r\n"
+              - kind: RightParenthesis
+                text: )
+          - kind: Newline
+            text: "\r\n"
+          - kind: StatementList
+            children:
               - kind: Whitespace
                 text: "  "
               - kind: CallStatement

@@ -2960,6 +2960,13 @@ impl<'a> Parser<'a> {
         }
         self.consume_whitespace();
 
+        // Skip trailing comment on the Then line — a comment after Then
+        // does not constitute a single-line If body.
+        while self.at_token(Token::EndOfLineComment) || self.at_token(Token::RemComment) {
+            self.consume_token();
+            self.consume_whitespace();
+        }
+
         let is_single_line = !self.at_token(Token::Newline) && !self.is_at_end();
 
         if is_single_line {

@@ -13910,194 +13910,10 @@ cst:
                     text: "' lastDataSize = datasize when we change a key (the name of key)."
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: CallExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: mem
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: FirstKey
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: datasize
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: CByte
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: mem
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: Pleft
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: datasize
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: CByte
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: NumericLiteralExpression
-                                children:
-                                  - kind: IntegerLiteral
-                                    text: "0"
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: CallExpression
-                    children:
-                      - kind: Identifier
-                        text: mem
-                      - kind: LeftParenthesis
-                        text: (
-                      - kind: ArgumentList
-                        children:
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: keyArray
-                          - kind: Comma
-                            text: ","
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Argument
-                            children:
-                              - kind: IdentifierExpression
-                                children:
-                                  - kind: Identifier
-                                    text: datasize
-                      - kind: RightParenthesis
-                        text: )
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteralExpression
-                    children:
-                      - kind: StringLiteral
-                        text: "\"\""
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
-                  - kind: Whitespace
-                    text: " "
-                  - kind: IfKeyword
-                    text: If
-                  - kind: IdentifierExpression
-                    children:
-                      - kind: Newline
-                        text: "\r\n"
-                  - kind: Whitespace
-                    text: "    "
-                  - kind: IfStatement
-                    children:
-                      - kind: IfKeyword
-                        text: If
                       - kind: Whitespace
-                        text: " "
-                      - kind: UnaryExpression
-                        children:
-                          - kind: NotKeyword
-                            text: Not
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IdentifierExpression
-                            children:
-                              - kind: Identifier
-                                text: HasHandlers
-                      - kind: Whitespace
-                        text: " "
-                      - kind: ThenKeyword
-                        text: Then
-                      - kind: Whitespace
-                        text: " "
+                        text: "        "
                       - kind: AssignmentStatement
                         children:
                           - kind: CallExpression
@@ -14113,7 +13929,7 @@ cst:
                                       - kind: IdentifierExpression
                                         children:
                                           - kind: Identifier
-                                            text: DataArray
+                                            text: FirstKey
                                   - kind: Comma
                                     text: ","
                                   - kind: Whitespace
@@ -14135,21 +13951,11 @@ cst:
                           - kind: CallExpression
                             children:
                               - kind: Identifier
-                                text: mem
+                                text: CByte
                               - kind: LeftParenthesis
                                 text: (
                               - kind: ArgumentList
                                 children:
-                                  - kind: Argument
-                                    children:
-                                      - kind: IdentifierExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: DataArray
-                                  - kind: Comma
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
                                   - kind: Argument
                                     children:
                                       - kind: NumericLiteralExpression
@@ -14160,6 +13966,198 @@ cst:
                                 text: )
                           - kind: Newline
                             text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: mem
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Pleft
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: datasize
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: CByte
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: NumericLiteralExpression
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "0"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: CallExpression
+                            children:
+                              - kind: Identifier
+                                text: mem
+                              - kind: LeftParenthesis
+                                text: (
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: keyArray
+                                  - kind: Comma
+                                    text: ","
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: datasize
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"\""
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: UnaryExpression
+                    children:
+                      - kind: NotKeyword
+                        text: Not
+                      - kind: Whitespace
+                        text: " "
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: HasHandlers
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AssignmentStatement
+                    children:
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: mem
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: DataArray
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: datasize
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Whitespace
+                        text: " "
+                      - kind: EqualityOperator
+                        text: "="
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: mem
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: DataArray
+                              - kind: Comma
+                                text: ","
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "0"
+                          - kind: RightParenthesis
+                            text: )
+                      - kind: Newline
+                        text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
