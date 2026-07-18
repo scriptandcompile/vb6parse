@@ -41,6 +41,7 @@ impl Parser<'_> {
             token,
             Some(
                 Token::CallKeyword
+                    | Token::PropertyKeyword
                     | Token::RaiseEventKeyword
                     | Token::SetKeyword
                     | Token::WithKeyword
@@ -60,6 +61,9 @@ impl Parser<'_> {
         match token {
             Some(Token::CallKeyword) => {
                 self.parse_call_statement();
+            }
+            Some(Token::PropertyKeyword) => {
+                self.parse_property_statement();
             }
             Some(Token::RaiseEventKeyword) => {
                 self.parse_raiseevent_statement();

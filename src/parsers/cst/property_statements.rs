@@ -11,6 +11,46 @@ use crate::parsers::SyntaxKind;
 use super::Parser;
 
 impl Parser<'_> {
+    /// Check if the current position is at a compiler conditional Property statement.
+    ///
+    /// This includes statements like:
+    /// - #If ... Then
+    /// - #ElseIf ... Then
+    /// - #Else
+    /// - #End If
+    pub(crate) fn is_at_compiler_conditional_property_statement(&self) -> bool {
+        if !self.at_compiler_directive_keyword(Token::IfKeyword) {
+            return false;
+        }
+
+        let mut index = self.pos;
+
+        while let Some((_, token)) = self.tokens.get(index) {
+            index += 1;
+            if *token == Token::Newline {
+                break;
+            }
+        }
+
+        while let Some((_, token)) = self.tokens.get(index) {
+            match token {
+                Token::Whitespace | Token::Newline => {
+                    index += 1;
+                }
+                Token::PublicKeyword
+                | Token::PrivateKeyword
+                | Token::FriendKeyword
+                | Token::StaticKeyword => {
+                    index += 1;
+                }
+                Token::PropertyKeyword => return true,
+                _ => return false,
+            }
+        }
+
+        false
+    }
+
     /// Parse a Property statement (Property Get, Property Let, or Property Set).
     ///
     /// VB6 Property statement syntax:
@@ -21,13 +61,57 @@ impl Parser<'_> {
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-get-statement)
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-let-statement)
     /// [Reference](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/property-set-statement)
-    pub(super) fn parse_property_statement(&mut self) {
+    pub(crate) fn parse_property_statement(&mut self) {
         // if we are now parsing a property statement, we are no longer in the header.
         self.parsing_header = false;
 
         self.builder
             .start_node(SyntaxKind::PropertyStatement.to_raw());
 
+        self.consume_property_signature_line();
+
+        // Parse body until "End Property"
+        self.parse_statement_list(|parser| {
+            parser.at_token(Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(Token::PropertyKeyword)
+        });
+
+        self.consume_property_terminator();
+
+        self.builder.finish_node(); // PropertyStatement
+    }
+
+    pub(crate) fn parse_compiler_conditional_property_statement(&mut self) {
+        self.parsing_header = false;
+
+        self.builder
+            .start_node(SyntaxKind::PropertyStatement.to_raw());
+
+        self.consume_until_after(Token::Newline);
+        self.consume_property_signature_line();
+
+        while self.at_compiler_directive_keyword(Token::ElseIfKeyword)
+            || self.at_compiler_directive_keyword(Token::ElseKeyword)
+        {
+            self.consume_until_after(Token::Newline);
+            self.consume_property_signature_line();
+        }
+
+        if self.at_compiler_end_if_directive() {
+            self.consume_until_after(Token::Newline);
+        }
+
+        self.parse_statement_list(|parser| {
+            parser.at_token(Token::EndKeyword)
+                && parser.peek_next_keyword() == Some(Token::PropertyKeyword)
+        });
+
+        self.consume_property_terminator();
+
+        self.builder.finish_node(); // PropertyStatement
+    }
+
+    fn consume_property_signature_line(&mut self) {
         // Consume any leading whitespace
         self.consume_whitespace();
 
@@ -84,13 +168,9 @@ impl Parser<'_> {
 
         // Consume everything until newline (includes "As Type" if present)
         self.consume_until_after(Token::Newline);
+    }
 
-        // Parse body until "End Property"
-        self.parse_statement_list(|parser| {
-            parser.at_token(Token::EndKeyword)
-                && parser.peek_next_keyword() == Some(Token::PropertyKeyword)
-        });
-
+    fn consume_property_terminator(&mut self) {
         // Consume "End Property" and trailing tokens
         if self.at_token(Token::EndKeyword) {
             // Consume "End"
@@ -105,8 +185,6 @@ impl Parser<'_> {
             // Consume until newline (including it)
             self.consume_until_after(Token::Newline);
         }
-
-        self.builder.finish_node(); // PropertyStatement
     }
 }
 

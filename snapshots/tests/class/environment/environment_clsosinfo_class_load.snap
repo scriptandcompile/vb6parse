@@ -39641,10 +39641,10 @@ cst:
                                 text: Sub
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Unknown
-                            text: Property
-                          - kind: GetStatement
+                          - kind: PropertyStatement
                             children:
+                              - kind: PropertyKeyword
+                                text: Property
                               - kind: Whitespace
                                 text: " "
                               - kind: GetKeyword
@@ -39653,10 +39653,12 @@ cst:
                                 text: " "
                               - kind: Identifier
                                 text: CapsLock
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: RightParenthesis
-                                text: )
+                              - kind: ParameterList
+                                children:
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: RightParenthesis
+                                    text: )
                               - kind: Whitespace
                                 text: " "
                               - kind: AsKeyword
@@ -39667,40 +39669,42 @@ cst:
                                 text: Boolean
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: AssignmentStatement
-                            children:
-                              - kind: IdentifierExpression
+                              - kind: StatementList
                                 children:
-                                  - kind: Identifier
-                                    text: CapsLock
+                                  - kind: Whitespace
+                                    text: "    "
+                                  - kind: AssignmentStatement
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CapsLock
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: CallExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: CapsLockOn
+                                          - kind: LeftParenthesis
+                                            text: (
+                                          - kind: ArgumentList
+                                            children: []
+                                          - kind: RightParenthesis
+                                            text: )
+                                      - kind: Newline
+                                        text: "\r\n"
+                              - kind: EndKeyword
+                                text: End
                               - kind: Whitespace
                                 text: " "
-                              - kind: EqualityOperator
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: CapsLockOn
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
-                                    children: []
-                                  - kind: RightParenthesis
-                                    text: )
+                              - kind: PropertyKeyword
+                                text: Property
                               - kind: Newline
                                 text: "\r\n"
-                          - kind: Unknown
-                            text: End
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: Property
-                          - kind: Newline
-                            text: "\r\n"
                           - kind: Newline
                             text: "\r\n"
                           - kind: Newline
