@@ -3164,10 +3164,12 @@ cst:
                     text: Function
               - kind: Newline
                 text: "\r\n"
-              - kind: Unknown
-                text: "100"
-              - kind: Newline
-                text: "\r\n"
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "100"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: CallStatement
@@ -4916,10 +4918,12 @@ cst:
                     text: Function
               - kind: Newline
                 text: "\r\n"
-              - kind: Unknown
-                text: "400"
-              - kind: Newline
-                text: "\r\n"
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "400"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "      "
               - kind: CallStatement
@@ -31232,10 +31236,12 @@ cst:
                     text: "\r\n"
               - kind: Newline
                 text: "\r\n"
-              - kind: Unknown
-                text: "1111"
-              - kind: Newline
-                text: "\r\n"
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "1111"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: IfStatement
                 children:
                   - kind: IfKeyword

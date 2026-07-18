@@ -148,22 +148,47 @@ impl Parser<'_> {
     }
 
     /// Check if the current position is at a label.
-    /// A label is an identifier or number followed by a colon.
+    /// A label is an identifier followed by a colon, or a numeric line label.
     pub(crate) fn is_at_label(&self) -> bool {
         let next_token_is_colon = matches!(self.peek_next_token(), Some(Token::ColonOperator));
-
-        if !next_token_is_colon {
-            return false;
-        }
 
         // If we are not parsing the header, then some keywords are valid identifiers (like "Begin")
         // TODO: Consider adding a list of keywords that can be used as labels.
         // TODO: Also consider modifying tokenizer to recognize when inside header to more easily identify Identifiers vs header only keywords.
-        if !self.parsing_header && matches!(self.current_token(), Some(Token::BeginKeyword)) {
+        if next_token_is_colon
+            && !self.parsing_header
+            && matches!(self.current_token(), Some(Token::BeginKeyword))
+        {
             return true;
         }
 
-        self.is_identifier() || self.is_number()
+        (next_token_is_colon && (self.is_identifier() || self.is_number()))
+            || self.is_at_numeric_line_label()
+    }
+
+    fn is_at_numeric_line_label(&self) -> bool {
+        if !self.is_number() {
+            return false;
+        }
+
+        if !matches!(
+            self.peek_next_token(),
+            Some(Token::Whitespace | Token::Newline)
+        ) {
+            return false;
+        }
+
+        let mut index = self.pos;
+        while index > 0 {
+            index -= 1;
+            match self.tokens[index].1 {
+                Token::Whitespace => continue,
+                Token::Newline => return true,
+                _ => return false,
+            }
+        }
+
+        true
     }
 }
 
@@ -684,6 +709,27 @@ Sub Test()
     GoTo Cleanup
 Cleanup:
     Set obj = Nothing
+End Sub
+";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+
+        let tree = cst.to_serializable();
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/control_flow/jump");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn numeric_line_label_without_colon() {
+        let source = r"
+Sub Test()
+    On Error GoTo 100
+    Exit Sub
+100    Err.Raise 5
 End Sub
 ";
         let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();

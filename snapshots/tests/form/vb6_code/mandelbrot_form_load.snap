@@ -6854,10 +6854,12 @@ cst:
                     text: "\r\n"
                   - kind: StatementList
                     children:
-                      - kind: Unknown
-                        text: "1"
-                      - kind: Whitespace
-                        text: "       "
+                      - kind: LabelStatement
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Whitespace
+                            text: "       "
                       - kind: AssignmentStatement
                         children:
                           - kind: IdentifierExpression

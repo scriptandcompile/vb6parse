@@ -6850,10 +6850,12 @@ cst:
                     text: Sub
               - kind: Newline
                 text: "\r\n"
-              - kind: Unknown
-                text: "100"
-              - kind: Whitespace
-                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "100"
+                  - kind: Whitespace
+                    text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier

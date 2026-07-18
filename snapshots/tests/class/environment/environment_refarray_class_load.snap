@@ -1646,10 +1646,12 @@ cst:
                                                                     text: m
                                                               - kind: Newline
                                                                 text: "\r\n"
-                                                          - kind: Unknown
-                                                            text: "123"
-                                                          - kind: Newline
-                                                            text: "\r\n"
+                                                          - kind: LabelStatement
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "123"
+                                                              - kind: Newline
+                                                                text: "\r\n"
                                                           - kind: Whitespace
                                                             text: "                            "
                                                           - kind: CallStatement

@@ -6853,10 +6853,12 @@ cst:
                     text: "\r\n"
                   - kind: StatementList
                     children:
-                      - kind: Unknown
-                        text: "100"
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: LabelStatement
+                        children:
+                          - kind: IntegerLiteral
+                            text: "100"
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: CallStatement
@@ -8447,10 +8449,12 @@ cst:
                     text: "\r\n"
                   - kind: StatementList
                     children:
-                      - kind: Unknown
-                        text: "100"
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: LabelStatement
+                        children:
+                          - kind: IntegerLiteral
+                            text: "100"
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "        "
                       - kind: CallStatement

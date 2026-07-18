@@ -4356,10 +4356,12 @@ cst:
                                         text: "            "
                                       - kind: Newline
                                         text: "\r\n"
-                                      - kind: Unknown
-                                        text: "1"
-                                      - kind: Whitespace
-                                        text: "       "
+                                      - kind: LabelStatement
+                                        children:
+                                          - kind: IntegerLiteral
+                                            text: "1"
+                                          - kind: Whitespace
+                                            text: "       "
                                   - kind: NextKeyword
                                     text: Next
                                   - kind: Whitespace

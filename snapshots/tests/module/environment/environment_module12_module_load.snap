@@ -4639,10 +4639,12 @@ cst:
                                                         text: If
                                                       - kind: Newline
                                                         text: "\r\n"
-                                                  - kind: Unknown
-                                                    text: "1"
-                                                  - kind: Whitespace
-                                                    text: "          "
+                                                  - kind: LabelStatement
+                                                    children:
+                                                      - kind: IntegerLiteral
+                                                        text: "1"
+                                                      - kind: Whitespace
+                                                        text: "          "
                                                   - kind: CallStatement
                                                     children:
                                                       - kind: Identifier
@@ -4947,10 +4949,12 @@ cst:
                     text: If
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: "1234"
-              - kind: Whitespace
-                text: " "
+              - kind: LabelStatement
+                children:
+                  - kind: IntegerLiteral
+                    text: "1234"
+                  - kind: Whitespace
+                    text: " "
               - kind: CallStatement
                 children:
                   - kind: Identifier
@@ -8083,10 +8087,12 @@ cst:
                         text: "     "
                       - kind: Newline
                         text: "\r\n"
-                      - kind: Unknown
-                        text: "1"
-                      - kind: Whitespace
-                        text: "    "
+                      - kind: LabelStatement
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1"
+                          - kind: Whitespace
+                            text: "    "
                       - kind: AssignmentStatement
                         children:
                           - kind: IdentifierExpression

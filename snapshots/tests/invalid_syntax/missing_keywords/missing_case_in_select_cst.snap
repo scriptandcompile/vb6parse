@@ -45,10 +45,12 @@ root:
                   text: "\n"
                 - kind: Whitespace
                   text: "        "
-            - kind: Unknown
-              text: "1"
-            - kind: Newline
-              text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: IntegerLiteral
+                  text: "1"
+                - kind: Newline
+                  text: "\n"
             - kind: Whitespace
               text: "            "
             - kind: CallStatement

@@ -816,10 +816,12 @@ cst:
                         text: "\r\n"
                       - kind: StatementList
                         children:
-                          - kind: Unknown
-                            text: "1000"
-                          - kind: Newline
-                            text: "\r\n"
+                          - kind: LabelStatement
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1000"
+                              - kind: Newline
+                                text: "\r\n"
                           - kind: SetStatement
                             children:
                               - kind: Whitespace
