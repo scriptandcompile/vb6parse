@@ -34301,60 +34301,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -35615,60 +35623,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -38033,60 +38049,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -39595,60 +39619,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -42319,60 +42351,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -43061,60 +43101,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -44091,60 +44139,68 @@ cst:
                     text: $
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: er
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "\"GDI+: \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Number
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: er
+                      - kind: DollarSign
+                        text: $
                   - kind: Whitespace
                     text: " "
-                  - kind: ArgumentList
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
                     children:
-                      - kind: Argument
+                      - kind: BinaryExpression
                         children:
-                          - kind: IdentifierExpression
+                          - kind: BinaryExpression
                             children:
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"GDI+: \""
+                              - kind: Whitespace
+                                text: " "
                               - kind: Ampersand
                                 text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Err
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Number
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Ampersand
+                            text: "&"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\". \""
                       - kind: Whitespace
                         text: " "
-              - kind: Unknown
-                text: "\". \""
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "&"
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
-                children:
-                  - kind: Identifier
-                    text: Err
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: Description
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: MemberAccessExpression
+                        children:
+                          - kind: Identifier
+                            text: Err
+                          - kind: PeriodOperator
+                            text: "."
+                          - kind: Identifier
+                            text: Description
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -45101,58 +45157,72 @@ cst:
                                 text: "\r\n"
                           - kind: Whitespace
                             text: "    "
-                          - kind: Unknown
-                            text: er
-                          - kind: Unknown
-                            text: $
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "="
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "\"GDI+: \""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
+                          - kind: AssignmentStatement
                             children:
-                              - kind: Identifier
-                                text: GdiErrorString
-                              - kind: LeftParenthesis
-                                text: (
-                              - kind: ArgumentList
+                              - kind: IdentifierExpression
                                 children:
-                                  - kind: Argument
+                                  - kind: Identifier
+                                    text: er
+                                  - kind: DollarSign
+                                    text: $
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: BinaryExpression
                                         children:
-                                          - kind: Identifier
-                                            text: lReturn
-                              - kind: RightParenthesis
-                                text: )
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "\" GDI+ Error:\""
-                          - kind: Whitespace
-                            text: " "
-                          - kind: Unknown
-                            text: "&"
-                          - kind: Whitespace
-                            text: " "
-                          - kind: CallStatement
-                            children:
-                              - kind: Identifier
-                                text: lReturn
+                                          - kind: StringLiteralExpression
+                                            children:
+                                              - kind: StringLiteral
+                                                text: "\"GDI+: \""
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: Ampersand
+                                            text: "&"
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: CallExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: GdiErrorString
+                                              - kind: LeftParenthesis
+                                                text: (
+                                              - kind: ArgumentList
+                                                children:
+                                                  - kind: Argument
+                                                    children:
+                                                      - kind: IdentifierExpression
+                                                        children:
+                                                          - kind: Identifier
+                                                            text: lReturn
+                                              - kind: RightParenthesis
+                                                text: )
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\" GDI+ Error:\""
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: lReturn
                               - kind: Newline
                                 text: "\r\n"
                           - kind: Whitespace

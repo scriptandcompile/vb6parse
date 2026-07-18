@@ -1730,52 +1730,50 @@ cst:
             text: "\r\n"
           - kind: StatementList
             children:
-              - kind: Unknown
-                text: INK
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: INK
-                  - kind: ArgumentList
+                  - kind: IdentifierExpression
                     children:
-                      - kind: Argument
+                      - kind: Identifier
+                        text: INK
+                      - kind: DollarSign
+                        text: $
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
                         children:
-                          - kind: BinaryExpression
+                          - kind: Identifier
+                            text: INK
+                          - kind: DollarSign
+                            text: $
+                      - kind: Whitespace
+                        text: " "
+                      - kind: Ampersand
+                        text: "&"
+                      - kind: Whitespace
+                        text: " "
+                      - kind: CallExpression
+                        children:
+                          - kind: Identifier
+                            text: GetKeY
+                          - kind: LeftParenthesis
+                            text: (
+                          - kind: ArgumentList
                             children:
-                              - kind: IdentifierExpression
+                              - kind: Argument
                                 children:
-                                  - kind: DollarSign
-                                    text: $
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Ampersand
-                                text: "&"
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallExpression
-                                children:
-                                  - kind: Identifier
-                                    text: GetKeY
-                                  - kind: LeftParenthesis
-                                    text: (
-                                  - kind: ArgumentList
+                                  - kind: IdentifierExpression
                                     children:
-                                      - kind: Argument
-                                        children:
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: KeyAscii
-                                  - kind: RightParenthesis
-                                    text: )
+                                      - kind: Identifier
+                                        text: KeyAscii
+                          - kind: RightParenthesis
+                            text: )
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

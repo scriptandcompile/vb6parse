@@ -9158,20 +9158,24 @@ cst:
                                     text: "\r\n"
                               - kind: Whitespace
                                 text: "    "
-                              - kind: Unknown
-                                text: allkey
-                              - kind: Unknown
-                                text: $
-                              - kind: Whitespace
-                                text: " "
-                              - kind: Unknown
-                                text: "="
-                              - kind: Whitespace
-                                text: " "
-                              - kind: CallStatement
+                              - kind: AssignmentStatement
                                 children:
-                                  - kind: Identifier
-                                    text: vbNullString
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: allkey
+                                      - kind: DollarSign
+                                        text: $
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: vbNullString
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: ForStatement
@@ -9326,58 +9330,64 @@ cst:
                                             children:
                                               - kind: Whitespace
                                                 text: "        "
-                                              - kind: Unknown
-                                                text: allkey
-                                              - kind: Unknown
-                                                text: $
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: Unknown
-                                                text: "="
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: CallStatement
+                                              - kind: AssignmentStatement
                                                 children:
-                                                  - kind: Identifier
-                                                    text: indexField
-                                                  - kind: PeriodOperator
-                                                    text: "."
-                                                  - kind: Identifier
-                                                    text: Normalize
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
+                                                  - kind: IdentifierExpression
                                                     children:
-                                                      - kind: Argument
+                                                      - kind: Identifier
+                                                        text: allkey
+                                                      - kind: DollarSign
+                                                        text: $
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: Whitespace
+                                                    text: " "
+                                                  - kind: CallExpression
+                                                    children:
+                                                      - kind: MemberAccessExpression
                                                         children:
-                                                          - kind: CallExpression
+                                                          - kind: Identifier
+                                                            text: indexField
+                                                          - kind: PeriodOperator
+                                                            text: "."
+                                                          - kind: Identifier
+                                                            text: Normalize
+                                                      - kind: LeftParenthesis
+                                                        text: (
+                                                      - kind: ArgumentList
+                                                        children:
+                                                          - kind: Argument
                                                             children:
-                                                              - kind: MemberAccessExpression
+                                                              - kind: CallExpression
                                                                 children:
-                                                                  - kind: Identifier
-                                                                    text: acc
-                                                                  - kind: PeriodOperator
-                                                                    text: "."
-                                                                  - kind: Identifier
-                                                                    text: item
-                                                              - kind: LeftParenthesis
-                                                                text: (
-                                                              - kind: ArgumentList
-                                                                children:
-                                                                  - kind: Argument
+                                                                  - kind: MemberAccessExpression
                                                                     children:
-                                                                      - kind: MemberAccessExpression
+                                                                      - kind: Identifier
+                                                                        text: acc
+                                                                      - kind: PeriodOperator
+                                                                        text: "."
+                                                                      - kind: Identifier
+                                                                        text: item
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
                                                                         children:
-                                                                          - kind: Identifier
-                                                                            text: indexField
-                                                                          - kind: PeriodOperator
-                                                                            text: "."
-                                                                          - kind: Identifier
-                                                                            text: sValue
-                                                              - kind: RightParenthesis
-                                                                text: )
-                                                  - kind: RightParenthesis
-                                                    text: )
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: indexField
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: sValue
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                      - kind: RightParenthesis
+                                                        text: )
                                                   - kind: Newline
                                                     text: "\r\n"
                                               - kind: Whitespace
@@ -9392,104 +9402,102 @@ cst:
                                                 children:
                                                   - kind: Whitespace
                                                     text: "        "
-                                                  - kind: Unknown
-                                                    text: allkey
-                                                  - kind: Unknown
-                                                    text: $
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Unknown
-                                                    text: "="
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: CallStatement
+                                                  - kind: AssignmentStatement
                                                     children:
-                                                      - kind: Identifier
-                                                        text: allkey
-                                                      - kind: ArgumentList
+                                                      - kind: IdentifierExpression
                                                         children:
-                                                          - kind: Argument
+                                                          - kind: Identifier
+                                                            text: allkey
+                                                          - kind: DollarSign
+                                                            text: $
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: EqualityOperator
+                                                        text: "="
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: BinaryExpression
+                                                        children:
+                                                          - kind: BinaryExpression
                                                             children:
-                                                              - kind: BinaryExpression
+                                                              - kind: IdentifierExpression
                                                                 children:
-                                                                  - kind: BinaryExpression
+                                                                  - kind: Identifier
+                                                                    text: allkey
+                                                                  - kind: DollarSign
+                                                                    text: $
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: AdditionOperator
+                                                                text: +
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: ChrW
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
                                                                     children:
-                                                                      - kind: IdentifierExpression
+                                                                      - kind: Argument
                                                                         children:
-                                                                          - kind: DollarSign
-                                                                            text: $
-                                                                      - kind: Whitespace
-                                                                        text: " "
-                                                                      - kind: AdditionOperator
-                                                                        text: +
-                                                                      - kind: Whitespace
-                                                                        text: " "
+                                                                          - kind: NumericLiteralExpression
+                                                                            children:
+                                                                              - kind: IntegerLiteral
+                                                                                text: "1"
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: AdditionOperator
+                                                            text: +
+                                                          - kind: Whitespace
+                                                            text: " "
+                                                          - kind: CallExpression
+                                                            children:
+                                                              - kind: MemberAccessExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: indexField
+                                                                  - kind: PeriodOperator
+                                                                    text: "."
+                                                                  - kind: Identifier
+                                                                    text: Normalize
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
                                                                       - kind: CallExpression
                                                                         children:
-                                                                          - kind: Identifier
-                                                                            text: ChrW
+                                                                          - kind: MemberAccessExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: acc
+                                                                              - kind: PeriodOperator
+                                                                                text: "."
+                                                                              - kind: Identifier
+                                                                                text: item
                                                                           - kind: LeftParenthesis
                                                                             text: (
                                                                           - kind: ArgumentList
                                                                             children:
                                                                               - kind: Argument
                                                                                 children:
-                                                                                  - kind: NumericLiteralExpression
-                                                                                    children:
-                                                                                      - kind: IntegerLiteral
-                                                                                        text: "1"
-                                                                          - kind: RightParenthesis
-                                                                            text: )
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: AdditionOperator
-                                                                    text: +
-                                                                  - kind: Whitespace
-                                                                    text: " "
-                                                                  - kind: CallExpression
-                                                                    children:
-                                                                      - kind: MemberAccessExpression
-                                                                        children:
-                                                                          - kind: Identifier
-                                                                            text: indexField
-                                                                          - kind: PeriodOperator
-                                                                            text: "."
-                                                                          - kind: Identifier
-                                                                            text: Normalize
-                                                                      - kind: LeftParenthesis
-                                                                        text: (
-                                                                      - kind: ArgumentList
-                                                                        children:
-                                                                          - kind: Argument
-                                                                            children:
-                                                                              - kind: CallExpression
-                                                                                children:
                                                                                   - kind: MemberAccessExpression
                                                                                     children:
                                                                                       - kind: Identifier
-                                                                                        text: acc
+                                                                                        text: indexField
                                                                                       - kind: PeriodOperator
                                                                                         text: "."
                                                                                       - kind: Identifier
-                                                                                        text: item
-                                                                                  - kind: LeftParenthesis
-                                                                                    text: (
-                                                                                  - kind: ArgumentList
-                                                                                    children:
-                                                                                      - kind: Argument
-                                                                                        children:
-                                                                                          - kind: MemberAccessExpression
-                                                                                            children:
-                                                                                              - kind: Identifier
-                                                                                                text: indexField
-                                                                                              - kind: PeriodOperator
-                                                                                                text: "."
-                                                                                              - kind: Identifier
-                                                                                                text: sValue
-                                                                                  - kind: RightParenthesis
-                                                                                    text: )
-                                                                      - kind: RightParenthesis
-                                                                        text: )
+                                                                                        text: sValue
+                                                                          - kind: RightParenthesis
+                                                                            text: )
+                                                              - kind: RightParenthesis
+                                                                text: )
                                                       - kind: Newline
                                                         text: "\r\n"
                                                   - kind: Whitespace

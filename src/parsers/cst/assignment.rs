@@ -154,6 +154,9 @@ impl Parser<'_> {
                 // Skip tokens that could appear in the left-hand side of an assignment
                 Token::Whitespace => {}
                 Token::Identifier
+                | Token::DollarSign
+                | Token::Percent
+                | Token::AtSign
                 | Token::IntegerLiteral
                 | Token::LongLiteral
                 | Token::SingleLiteral

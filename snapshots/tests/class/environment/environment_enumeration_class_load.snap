@@ -1430,24 +1430,28 @@ cst:
                     text: Long
                   - kind: Newline
                     text: "\r\n"
-              - kind: Unknown
-                text: s
-              - kind: Unknown
-                text: $
-              - kind: Whitespace
-                text: " "
-              - kind: Unknown
-                text: "="
-              - kind: Whitespace
-                text: " "
-              - kind: CallStatement
+              - kind: AssignmentStatement
                 children:
-                  - kind: Identifier
-                    text: other
-                  - kind: PeriodOperator
-                    text: "."
-                  - kind: Identifier
-                    text: KeyToString
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: s
+                      - kind: DollarSign
+                        text: $
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: MemberAccessExpression
+                    children:
+                      - kind: Identifier
+                        text: other
+                      - kind: PeriodOperator
+                        text: "."
+                      - kind: Identifier
+                        text: KeyToString
                   - kind: Newline
                     text: "\r\n"
               - kind: ForStatement
