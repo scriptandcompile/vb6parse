@@ -118,9 +118,11 @@ impl Parser<'_> {
                     | Token::AdditionOperator
                     | Token::MultiplicationOperator
                     | Token::DivisionOperator
+                    | Token::ExponentiationOperator
                     | Token::LeftParenthesis
                     | Token::RightParenthesis
                     | Token::Ampersand
+                    | Token::Underscore
                     | Token::Comma
                     | Token::LeftSquareBracket
                     | Token::RightSquareBracket,

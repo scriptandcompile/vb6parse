@@ -643,7 +643,7 @@ cst:
                         text: "    "
                       - kind: LeftSquareBracket
                         text: "["
-                      - kind: Unknown
+                      - kind: Underscore
                         text: _
                       - kind: RightSquareBracket
                         text: "]"
