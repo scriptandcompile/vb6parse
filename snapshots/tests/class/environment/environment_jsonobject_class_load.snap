@@ -30178,7 +30178,7 @@ cst:
                                 children:
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: Identifier
+                                      - kind: LikeKeyword
                                         text: Like
                               - kind: Whitespace
                                 text: " "

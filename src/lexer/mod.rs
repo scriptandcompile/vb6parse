@@ -151,6 +151,7 @@ static KEYWORD_TOKEN_LOOKUP_TABLE: Map<&'static str, Token> = phf_map! {
     "LEN" => Token::LenKeyword,
     "LET" => Token::LetKeyword,
     "LIB" => Token::LibKeyword,
+    "LIKE" => Token::LikeKeyword,
     "LINE" => Token::LineKeyword,
     "LOCK" => Token::LockKeyword,
     "LOAD" => Token::LoadKeyword,
