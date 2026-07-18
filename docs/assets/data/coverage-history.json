@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-13T00:24:29Z",
+  "last_updated": "2026-07-16T07:19:41Z",
   "snapshots": [
     {
       "timestamp": "2026-07-06T07:06:31Z",
@@ -103,22 +103,56 @@
           "percent": 95.99
         }
       }
+    },
+    {
+      "timestamp": "2026-07-16T07:19:41Z",
+      "commit_sha": "a05a857d65df02a1a0081836faa34f4498622563",
+      "commit_message": "Added support for compiler directives and improved statement-list declaration dispatch",
+      "coverage": {
+        "line_coverage": 95.85,
+        "function_coverage": 92.98,
+        "region_coverage": 95.99
+      },
+      "tests": {
+        "total": 6232,
+        "lib_tests": 5524,
+        "doc_tests": 119,
+        "integration_tests": 589,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97266,
+          "total": 101474,
+          "percent": 95.85
+        },
+        "functions": {
+          "covered": 6248,
+          "total": 6720,
+          "percent": 92.98
+        },
+        "regions": {
+          "covered": 155479,
+          "total": 161976,
+          "percent": 95.99
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.87,
+      "latest": 95.85,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.02,
       "best": 95.87,
-      "worst": 95.87,
+      "worst": 95.85,
       "average": 95.87
     },
     "function_coverage": {
-      "latest": 92.97,
+      "latest": 92.98,
       "trend": "stable",
-      "change_percent": 0.0,
-      "best": 92.97,
+      "change_percent": 0.01,
+      "best": 92.98,
       "worst": 92.97,
       "average": 92.97
     },
@@ -131,10 +165,10 @@
       "average": 95.99
     },
     "test_count": {
-      "latest": 6231,
+      "latest": 6232,
       "trend": "stable",
-      "change_count": 0,
-      "growth_rate": 0.0
+      "change_count": 1,
+      "growth_rate": 0.02
     }
   }
 }
