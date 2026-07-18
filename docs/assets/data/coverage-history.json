@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-16T07:19:41Z",
+  "last_updated": "2026-07-18T22:22:53Z",
   "snapshots": [
     {
       "timestamp": "2026-07-06T07:06:31Z",
@@ -137,21 +137,55 @@
           "percent": 95.99
         }
       }
+    },
+    {
+      "timestamp": "2026-07-18T22:22:53Z",
+      "commit_sha": "56b215735c143210939b4749fb751dbb77470fa0",
+      "commit_message": "Added support for numeric line labels",
+      "coverage": {
+        "line_coverage": 95.85,
+        "function_coverage": 92.98,
+        "region_coverage": 95.99
+      },
+      "tests": {
+        "total": 6233,
+        "lib_tests": 5525,
+        "doc_tests": 119,
+        "integration_tests": 589,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97349,
+          "total": 101566,
+          "percent": 95.85
+        },
+        "functions": {
+          "covered": 6255,
+          "total": 6727,
+          "percent": 92.98
+        },
+        "regions": {
+          "covered": 155593,
+          "total": 162099,
+          "percent": 95.99
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
       "latest": 95.85,
       "trend": "stable",
-      "change_percent": 0.02,
+      "change_percent": 0.0,
       "best": 95.87,
       "worst": 95.85,
-      "average": 95.87
+      "average": 95.86
     },
     "function_coverage": {
       "latest": 92.98,
       "trend": "stable",
-      "change_percent": 0.01,
+      "change_percent": 0.0,
       "best": 92.98,
       "worst": 92.97,
       "average": 92.97
@@ -165,7 +199,7 @@
       "average": 95.99
     },
     "test_count": {
-      "latest": 6232,
+      "latest": 6233,
       "trend": "stable",
       "change_count": 1,
       "growth_rate": 0.02
