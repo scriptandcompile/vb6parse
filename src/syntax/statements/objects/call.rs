@@ -229,6 +229,8 @@ impl Parser<'_> {
                     self.consume_token();
                     self.consume_whitespace();
                 }
+                // Consume optional named-argument prefix: `Identifier :=`
+                let _ = self.try_consume_named_argument_prefix_for_call_argument();
                 // Parse the argument expression
                 self.parse_expression();
             }
@@ -279,6 +281,8 @@ impl Parser<'_> {
                     self.consume_token();
                     self.consume_whitespace();
                 }
+                // Consume optional named-argument prefix: `Identifier :=`
+                let _ = self.try_consume_named_argument_prefix_for_call_argument();
                 // Parse the argument expression
                 self.parse_expression();
             }
@@ -302,6 +306,45 @@ impl Parser<'_> {
         }
 
         self.builder.finish_node(); // ArgumentList
+    }
+
+    /// Try to consume a VB6 named-argument prefix (`name :=`) at the start
+    /// of a call-statement argument. Returns true if consumed.
+    fn try_consume_named_argument_prefix_for_call_argument(&mut self) -> bool {
+        let mut idx = self.pos;
+
+        let Some((_, first_token)) = self.tokens.get(idx) else {
+            return false;
+        };
+
+        if !(*first_token == Token::Identifier || first_token.is_keyword()) {
+            return false;
+        }
+
+        idx += 1;
+        while let Some((_, Token::Whitespace)) = self.tokens.get(idx) {
+            idx += 1;
+        }
+
+        if self.tokens.get(idx).map(|(_, token)| *token) != Some(Token::ColonOperator) {
+            return false;
+        }
+
+        idx += 1;
+        while let Some((_, Token::Whitespace)) = self.tokens.get(idx) {
+            idx += 1;
+        }
+
+        if self.tokens.get(idx).map(|(_, token)| *token) != Some(Token::EqualityOperator) {
+            return false;
+        }
+
+        while self.pos <= idx {
+            self.consume_token();
+        }
+
+        self.consume_whitespace();
+        true
     }
 
     /// Check if the current position is at a procedure call (without Call keyword).
@@ -355,11 +398,16 @@ impl Parser<'_> {
         // it's an assignment, not a procedure call
         let mut paren_depth: i32 = 0;
         let mut seen_other_operator = false;
+        let mut previous_non_whitespace: Option<Token> = None;
         for (_text, token) in self.tokens.iter().skip(self.pos) {
             match token {
                 Token::Newline | Token::EndOfLineComment | Token::RemComment => {
                     // Reached end of line without finding assignment - this is a procedure call
                     return true;
+                }
+                Token::Whitespace => {
+                    // Skip whitespace in lookahead analysis.
+                    continue;
                 }
                 Token::LeftParenthesis => {
                     paren_depth += 1;
@@ -368,6 +416,11 @@ impl Parser<'_> {
                     paren_depth = paren_depth.saturating_sub(1);
                 }
                 Token::EqualityOperator if paren_depth == 0 => {
+                    // Named arguments use `:=` and must not be treated as assignment.
+                    if previous_non_whitespace == Some(Token::ColonOperator) {
+                        previous_non_whitespace = Some(*token);
+                        continue;
+                    }
                     // Found = operator at depth 0
                     // If we've seen other operators (like >=, And, Or), this is part of an expression in a procedure call
                     // Otherwise, it's an assignment
@@ -398,6 +451,8 @@ impl Parser<'_> {
                 // All other tokens can appear in procedure calls, continue looking
                 _ => {}
             }
+
+            previous_non_whitespace = Some(*token);
         }
 
         // Reached end of input without finding assignment or newline - this is a procedure call
@@ -731,6 +786,20 @@ mod tests {
         assert_eq!(failure.error_offset, 20);
         assert_eq!(failure.line_start, 2);
         assert_eq!(failure.line_end, 2);
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
+
+    #[test]
+    fn procedure_call_with_named_argument() {
+        let source = "Sub Test()\n    pvRecvBody baBuffer, Flush:=True\nEnd Sub\n";
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.bas", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
 
         let mut settings = insta::Settings::clone_current();
         settings.set_snapshot_path("../../../../snapshots/syntax/statements/objects/call");
