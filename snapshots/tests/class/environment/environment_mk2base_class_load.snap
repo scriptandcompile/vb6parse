@@ -2463,7 +2463,31 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveTables_(ParamList As mStiva2) As Boolean
+            text: RemoveTables_
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: ParamList
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: mStiva2
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -2738,18 +2762,46 @@ cst:
                             text: BaseTable
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove goodlist.PopVal
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: goodlist
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: PopVal
                           - kind: Newline
                             text: "\r\n"
                   - kind: LoopKeyword
                     text: Loop
                   - kind: Newline
                     text: "\r\n"
-              - kind: RemComment
-                text: RemoveTables_ = True
-              - kind: Newline
-                text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RemoveTables_
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BooleanLiteralExpression
+                    children:
+                      - kind: TrueKeyword
+                        text: "True"
+                  - kind: Newline
+                    text: "\r\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace
@@ -5231,7 +5283,23 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveFields_(ParamList As mStiva2)
+            text: RemoveFields_
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: ParamList
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: mStiva2
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -7807,7 +7875,23 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveIndexes_(ParamList As mStiva2)
+            text: RemoveIndexes_
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: ParamList
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: mStiva2
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList

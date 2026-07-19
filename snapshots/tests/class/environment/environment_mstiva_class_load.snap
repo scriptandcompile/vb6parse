@@ -526,8 +526,18 @@ cst:
                             text: mstack
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -806,8 +816,18 @@ cst:
                             text: mstack
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove where
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: where
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -4428,8 +4448,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove where
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: where
                   - kind: Newline
                     text: "\r\n"
               - kind: Newline
@@ -6568,8 +6598,18 @@ cst:
                             text: mstack
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -6746,8 +6786,18 @@ cst:
                             text: mstack
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -8366,8 +8416,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -9680,8 +9740,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -9836,8 +9906,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -10016,8 +10096,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -10152,8 +10242,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement
@@ -10314,8 +10414,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement
@@ -10472,8 +10582,18 @@ cst:
                     text: mstack
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove 1
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: NumericLiteralExpression
+                            children:
+                              - kind: IntegerLiteral
+                                text: "1"
                   - kind: Newline
                     text: "\r\n"
               - kind: CallStatement

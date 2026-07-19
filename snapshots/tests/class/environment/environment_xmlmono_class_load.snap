@@ -4010,8 +4010,36 @@ cst:
                 text: Optional
               - kind: Whitespace
                 text: " "
-          - kind: RemComment
-            text: Remove As Boolean = False) As XmlNode
+              - kind: Identifier
+                text: Remove
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanKeyword
+                text: Boolean
+              - kind: Whitespace
+                text: " "
+              - kind: EqualityOperator
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanLiteralExpression
+                children:
+                  - kind: FalseKeyword
+                    text: "False"
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: XmlNode
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -4074,8 +4102,10 @@ cst:
                                     children:
                                       - kind: IdentifierExpression
                                         children:
-                                          - kind: RemComment
-                                            text: Remove)
+                                          - kind: Identifier
+                                            text: Remove
+                              - kind: RightParenthesis
+                                text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: SetStatement
@@ -4883,7 +4913,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveChild()
+            text: RemoveChild
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -4896,7 +4932,7 @@ cst:
                     text: oXml
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
+                  - kind: Identifier
                     text: RemoveChild
                   - kind: Newline
                     text: "\r\n"
@@ -5021,7 +5057,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveChildren()
+            text: RemoveChildren
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -5034,7 +5076,7 @@ cst:
                     text: oXml
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
+                  - kind: Identifier
                     text: RemoveChildren
                   - kind: Newline
                     text: "\r\n"
@@ -5053,7 +5095,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveAttributes()
+            text: RemoveAttributes
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -5066,7 +5114,7 @@ cst:
                     text: oXml
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
+                  - kind: Identifier
                     text: RemoveAttributes
                   - kind: Newline
                     text: "\r\n"
@@ -5085,7 +5133,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveProcess()
+            text: RemoveProcess
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -5098,7 +5152,7 @@ cst:
                     text: oXml
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
+                  - kind: Identifier
                     text: RemoveProcess
                   - kind: Newline
                     text: "\r\n"

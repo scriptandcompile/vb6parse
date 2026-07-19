@@ -3450,7 +3450,7 @@ cst:
                                 text: StaticCollection
                               - kind: PeriodOperator
                                 text: "."
-                              - kind: RemComment
+                              - kind: Identifier
                                 text: RemoveWithNoFind
                               - kind: Newline
                                 text: "\r\n"
@@ -19732,8 +19732,18 @@ cst:
                                     text: threadsnames
                                   - kind: PeriodOperator
                                     text: "."
-                                  - kind: RemComment
-                                    text: Remove Threadid
+                                  - kind: Identifier
+                                    text: Remove
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Threadid
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
@@ -21472,7 +21482,7 @@ cst:
                                                                         text: threadsnames
                                                                       - kind: PeriodOperator
                                                                         text: "."
-                                                                      - kind: RemComment
+                                                                      - kind: Identifier
                                                                         text: RemoveWithNoFind
                                                                       - kind: Newline
                                                                         text: "\r\n"
@@ -22531,7 +22541,13 @@ cst:
                   - kind: Whitespace
                     text: " "
                   - kind: Identifier
-                    text: RemoveOptionals()
+                    text: RemoveOptionals
+                  - kind: ParameterList
+                    children:
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

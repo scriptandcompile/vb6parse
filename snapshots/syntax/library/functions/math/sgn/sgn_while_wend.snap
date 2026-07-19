@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/functions/math/sgn.rs
+source: vb6parse/src/syntax/library/functions/math/sgn.rs
 expression: tree
 ---
 root:
@@ -33,30 +33,70 @@ root:
                   text: While
                 - kind: Whitespace
                   text: " "
-                - kind: CallExpression
+                - kind: BinaryExpression
                   children:
-                    - kind: Identifier
-                      text: Sgn
-                    - kind: LeftParenthesis
-                      text: (
-                    - kind: ArgumentList
+                    - kind: CallExpression
                       children:
-                        - kind: Argument
+                        - kind: Identifier
+                          text: Sgn
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
                           children:
-                            - kind: IdentifierExpression
+                            - kind: Argument
                               children:
-                                - kind: RemComment
-                                  text: remaining) > 0
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: remaining
+                        - kind: RightParenthesis
+                          text: )
+                    - kind: Whitespace
+                      text: " "
+                    - kind: GreaterThanOperator
+                      text: ">"
+                    - kind: Whitespace
+                      text: " "
+                    - kind: NumericLiteralExpression
+                      children:
+                        - kind: IntegerLiteral
+                          text: "0"
                 - kind: Newline
                   text: "\n"
                 - kind: StatementList
                   children:
                     - kind: Whitespace
                       text: "        "
-                    - kind: RemComment
-                      text: remaining = remaining - 1
-                    - kind: Newline
-                      text: "\n"
+                    - kind: AssignmentStatement
+                      children:
+                        - kind: IdentifierExpression
+                          children:
+                            - kind: Identifier
+                              text: remaining
+                        - kind: Whitespace
+                          text: " "
+                        - kind: EqualityOperator
+                          text: "="
+                        - kind: Whitespace
+                          text: " "
+                        - kind: BinaryExpression
+                          children:
+                            - kind: IdentifierExpression
+                              children:
+                                - kind: Identifier
+                                  text: remaining
+                            - kind: Whitespace
+                              text: " "
+                            - kind: SubtractionOperator
+                              text: "-"
+                            - kind: Whitespace
+                              text: " "
+                            - kind: NumericLiteralExpression
+                              children:
+                                - kind: IntegerLiteral
+                                  text: "1"
+                        - kind: Newline
+                          text: "\n"
                     - kind: Whitespace
                       text: "    "
                 - kind: WendKeyword

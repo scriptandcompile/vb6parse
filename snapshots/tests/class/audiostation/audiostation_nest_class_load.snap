@@ -1827,7 +1827,23 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: Remove(vntIndexKey As Variant)
+            text: Remove
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: vntIndexKey
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: VariantKeyword
+                text: Variant
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\n"
           - kind: StatementList
@@ -1868,8 +1884,18 @@ cst:
                     text: mCol
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove vntIndexKey
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: vntIndexKey
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword

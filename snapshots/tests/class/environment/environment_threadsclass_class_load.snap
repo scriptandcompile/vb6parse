@@ -1167,7 +1167,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveWithNoFind()
+            text: RemoveWithNoFind
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -2381,7 +2387,15 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: Remove(RHS)
+            text: Remove
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: RHS
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList

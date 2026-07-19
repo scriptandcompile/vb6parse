@@ -214,8 +214,30 @@ cst:
                 text: ByVal
               - kind: Whitespace
                 text: " "
-          - kind: RemComment
-            text: "RemoteHost$, ByVal RemotePort As Long)"
+              - kind: Identifier
+                text: RemoteHost
+          - kind: DollarSign
+            text: $
+          - kind: Comma
+            text: ","
+          - kind: Whitespace
+            text: " "
+          - kind: ByValKeyword
+            text: ByVal
+          - kind: Whitespace
+            text: " "
+          - kind: Identifier
+            text: RemotePort
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: LongKeyword
+            text: Long
+          - kind: RightParenthesis
+            text: )
           - kind: Newline
             text: "\r\n"
       - kind: EventStatement

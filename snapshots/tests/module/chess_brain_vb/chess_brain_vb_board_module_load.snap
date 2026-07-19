@@ -41186,7 +41186,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveEpPiece()
+            text: RemoveEpPiece
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -69783,10 +69789,12 @@ cst:
                                 text: "\r\n"
                               - kind: Whitespace
                                 text: "      "
-                              - kind: RemComment
-                                text: RemoveEpPiece
-                              - kind: Newline
-                                text: "\r\n"
+                              - kind: CallStatement
+                                children:
+                                  - kind: Identifier
+                                    text: RemoveEpPiece
+                                  - kind: Newline
+                                    text: "\r\n"
                               - kind: Whitespace
                                 text: "      "
                               - kind: CallStatement

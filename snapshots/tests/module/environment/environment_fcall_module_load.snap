@@ -7482,7 +7482,45 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: "RemoveDll(ByVal sLib As String, Optional noErr As Boolean)"
+            text: RemoveDll
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: ByValKeyword
+                text: ByVal
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: sLib
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: Comma
+                text: ","
+              - kind: Whitespace
+                text: " "
+              - kind: OptionalKeyword
+                text: Optional
+              - kind: Whitespace
+                text: " "
+              - kind: Identifier
+                text: noErr
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanKeyword
+                text: Boolean
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -7699,7 +7737,7 @@ cst:
                                     text: LibHdls
                                   - kind: PeriodOperator
                                     text: "."
-                                  - kind: RemComment
+                                  - kind: Identifier
                                     text: RemoveWithNoFind
                                   - kind: Newline
                                     text: "\r\n"

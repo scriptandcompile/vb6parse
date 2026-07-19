@@ -1334,8 +1334,18 @@ cst:
                                             text: myMasterList
                                           - kind: PeriodOperator
                                             text: "."
-                                          - kind: RemComment
-                                            text: Remove i
+                                          - kind: Identifier
+                                            text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -1582,8 +1592,18 @@ cst:
                                             text: myRunningList
                                           - kind: PeriodOperator
                                             text: "."
-                                          - kind: RemComment
-                                            text: Remove i
+                                          - kind: Identifier
+                                            text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -1802,8 +1822,18 @@ cst:
                                             text: myMasterList
                                           - kind: PeriodOperator
                                             text: "."
-                                          - kind: RemComment
-                                            text: Remove i
+                                          - kind: Identifier
+                                            text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -2046,8 +2076,18 @@ cst:
                                             text: myRunningList
                                           - kind: PeriodOperator
                                             text: "."
-                                          - kind: RemComment
-                                            text: Remove i
+                                          - kind: Identifier
+                                            text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
@@ -2219,7 +2259,31 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: Remove(thisid As Long) As Boolean
+            text: Remove
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: thisid
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: BooleanKeyword
+            text: Boolean
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -2384,16 +2448,40 @@ cst:
                                             text: myRunningList
                                           - kind: PeriodOperator
                                             text: "."
-                                          - kind: RemComment
-                                            text: Remove i
+                                          - kind: Identifier
+                                            text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: ArgumentList
+                                            children:
+                                              - kind: Argument
+                                                children:
+                                                  - kind: IdentifierExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: i
                                           - kind: Newline
                                             text: "\r\n"
                                       - kind: Whitespace
                                         text: "       "
-                                      - kind: RemComment
-                                        text: Remove = True
-                                      - kind: Newline
-                                        text: "\r\n"
+                                      - kind: AssignmentStatement
+                                        children:
+                                          - kind: IdentifierExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: Remove
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: EqualityOperator
+                                            text: "="
+                                          - kind: Whitespace
+                                            text: " "
+                                          - kind: BooleanLiteralExpression
+                                            children:
+                                              - kind: TrueKeyword
+                                                text: "True"
+                                          - kind: Newline
+                                            text: "\r\n"
                                       - kind: Whitespace
                                         text: "       "
                                       - kind: CallStatement
@@ -5020,8 +5108,18 @@ cst:
                             text: myMasterList
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5114,8 +5212,18 @@ cst:
                             text: myRunningList
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Whitespace
@@ -5424,8 +5532,18 @@ cst:
                             text: myMasterList
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -5912,10 +6030,30 @@ cst:
                     text: If
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: RemComment
-                        text: Remove(this.id) Then
+                      - kind: Identifier
+                        text: Remove
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: this
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: id
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -6746,8 +6884,18 @@ cst:
                             text: myMasterList
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: Newline
@@ -7200,10 +7348,30 @@ cst:
                     text: If
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: RemComment
-                        text: Remove(this.id) Then
+                      - kind: Identifier
+                        text: Remove
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: this
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: id
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -7876,8 +8044,18 @@ cst:
                             text: myMasterList
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove 1
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "1"
                           - kind: Newline
                             text: "\r\n"
                       - kind: IfStatement
@@ -8306,10 +8484,30 @@ cst:
                     text: If
                   - kind: Whitespace
                     text: " "
-                  - kind: IdentifierExpression
+                  - kind: CallExpression
                     children:
-                      - kind: RemComment
-                        text: Remove(this.id) Then
+                      - kind: Identifier
+                        text: Remove
+                      - kind: LeftParenthesis
+                        text: (
+                      - kind: ArgumentList
+                        children:
+                          - kind: Argument
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: this
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: id
+                      - kind: RightParenthesis
+                        text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList

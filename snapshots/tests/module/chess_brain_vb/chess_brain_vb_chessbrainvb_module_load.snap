@@ -25249,10 +25249,12 @@ cst:
                                             children:
                                               - kind: Whitespace
                                                 text: "          "
-                                              - kind: RemComment
-                                                text: RemoveEpPiece
-                                              - kind: Newline
-                                                text: "\r\n"
+                                              - kind: CallStatement
+                                                children:
+                                                  - kind: Identifier
+                                                    text: RemoveEpPiece
+                                                  - kind: Newline
+                                                    text: "\r\n"
                                               - kind: Whitespace
                                                 text: "          "
                                               - kind: CallStatement
@@ -41005,10 +41007,12 @@ cst:
                                                                                                                     children:
                                                                                                                       - kind: Whitespace
                                                                                                                         text: "        "
-                                                                                                                      - kind: RemComment
-                                                                                                                        text: RemoveEpPiece
-                                                                                                                      - kind: Newline
-                                                                                                                        text: "\r\n"
+                                                                                                                      - kind: CallStatement
+                                                                                                                        children:
+                                                                                                                          - kind: Identifier
+                                                                                                                            text: RemoveEpPiece
+                                                                                                                          - kind: Newline
+                                                                                                                            text: "\r\n"
                                                                                                                       - kind: Whitespace
                                                                                                                         text: "        "
                                                                                                                       - kind: CallStatement

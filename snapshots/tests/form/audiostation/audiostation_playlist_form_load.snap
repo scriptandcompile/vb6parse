@@ -5314,8 +5314,22 @@ cst:
                                 text: AdioMidiPlaylist
                               - kind: PeriodOperator
                                 text: "."
-                              - kind: RemComment
-                                text: Remove Listview_Playlist.SelectedItem
+                              - kind: Identifier
+                                text: Remove
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Listview_Playlist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: SelectedItem
                               - kind: Newline
                                 text: "\n"
                           - kind: Whitespace
@@ -5352,8 +5366,22 @@ cst:
                                 text: AdioMediaPlaylist
                               - kind: PeriodOperator
                                 text: "."
-                              - kind: RemComment
-                                text: Remove Listview_Playlist.SelectedItem
+                              - kind: Identifier
+                                text: Remove
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: Listview_Playlist
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: SelectedItem
                               - kind: Newline
                                 text: "\n"
                   - kind: EndKeyword
@@ -5376,8 +5404,28 @@ cst:
                     text: ListItems
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove Listview_Playlist.SelectedItem.Index
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: Listview_Playlist
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: SelectedItem
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: Index
                   - kind: Newline
                     text: "\n"
           - kind: EndKeyword
@@ -10508,8 +10556,24 @@ cst:
                             text: ListItems
                           - kind: PeriodOperator
                             text: "."
-                          - kind: RemComment
-                            text: Remove (I)
+                          - kind: Identifier
+                            text: Remove
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ArgumentList
+                            children:
+                              - kind: Argument
+                                children:
+                                  - kind: ParenthesizedExpression
+                                    children:
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: I
+                                      - kind: RightParenthesis
+                                        text: )
                           - kind: Newline
                             text: "\n"
                   - kind: NextKeyword

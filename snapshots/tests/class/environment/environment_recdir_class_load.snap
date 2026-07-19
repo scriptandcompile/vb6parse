@@ -24844,8 +24844,36 @@ cst:
                 text: Optional
               - kind: Whitespace
                 text: " "
-          - kind: RemComment
-            text: RemoveSstr As Boolean = True) As String
+              - kind: Identifier
+                text: RemoveSstr
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanKeyword
+                text: Boolean
+              - kind: Whitespace
+                text: " "
+              - kind: EqualityOperator
+                text: "="
+              - kind: Whitespace
+                text: " "
+              - kind: BooleanLiteralExpression
+                children:
+                  - kind: TrueKeyword
+                    text: "True"
+              - kind: RightParenthesis
+                text: )
+          - kind: Whitespace
+            text: " "
+          - kind: AsKeyword
+            text: As
+          - kind: Whitespace
+            text: " "
+          - kind: StringKeyword
+            text: String
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -25044,8 +25072,14 @@ cst:
                                     text: " "
                                   - kind: IdentifierExpression
                                     children:
-                                      - kind: RemComment
-                                        text: RemoveSstr) Then
+                                      - kind: Identifier
+                                        text: RemoveSstr
+                              - kind: RightParenthesis
+                                text: )
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -25154,8 +25188,12 @@ cst:
                                 text: " "
                               - kind: IdentifierExpression
                                 children:
-                                  - kind: RemComment
-                                    text: RemoveSstr Then
+                                  - kind: Identifier
+                                    text: RemoveSstr
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
                               - kind: Newline
                                 text: "\r\n"
                               - kind: StatementList

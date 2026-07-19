@@ -972,8 +972,20 @@ cst:
                     text: Mymutexs
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Remove Name$
+                  - kind: Identifier
+                    text: Remove
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: NameKeyword
+                                text: Name
+                              - kind: DollarSign
+                                text: $
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword

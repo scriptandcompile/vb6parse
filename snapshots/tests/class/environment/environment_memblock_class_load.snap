@@ -3209,7 +3209,23 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemovePtr(hMem As Long)
+            text: RemovePtr
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: hMem
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: LongKeyword
+                text: Long
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -12844,8 +12860,18 @@ cst:
                                 text: bb
                               - kind: PeriodOperator
                                 text: "."
-                              - kind: RemComment
-                                text: RemovePtr hMem
+                              - kind: Identifier
+                                text: RemovePtr
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ArgumentList
+                                children:
+                                  - kind: Argument
+                                    children:
+                                      - kind: IdentifierExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: hMem
                               - kind: Newline
                                 text: "\r\n"
                           - kind: SetStatement

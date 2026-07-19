@@ -1231,34 +1231,124 @@ cst:
                             children:
                               - kind: BinaryExpression
                                 children:
-                                  - kind: MemberAccessExpression
+                                  - kind: BinaryExpression
                                     children:
-                                      - kind: Identifier
-                                        text: App
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: path
+                                      - kind: MemberAccessExpression
+                                        children:
+                                          - kind: Identifier
+                                            text: App
+                                          - kind: PeriodOperator
+                                            text: "."
+                                          - kind: Identifier
+                                            text: path
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: Ampersand
+                                        text: "&"
+                                      - kind: Whitespace
+                                        text: " "
+                                      - kind: StringLiteralExpression
+                                        children:
+                                          - kind: StringLiteral
+                                            text: "\"\\\""
                                   - kind: Whitespace
                                     text: " "
                                   - kind: Ampersand
                                     text: "&"
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: StringLiteralExpression
+                                  - kind: CallExpression
                                     children:
-                                      - kind: StringLiteral
-                                        text: "\"\\\""
+                                      - kind: Identifier
+                                        text: RemoveSpecialChar
+                                      - kind: LeftParenthesis
+                                        text: (
+                                      - kind: ArgumentList
+                                        children:
+                                          - kind: Argument
+                                            children:
+                                              - kind: CallExpression
+                                                children:
+                                                  - kind: MidKeyword
+                                                    text: Mid
+                                                  - kind: LeftParenthesis
+                                                    text: (
+                                                  - kind: ArgumentList
+                                                    children:
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
+                                                              - kind: Identifier
+                                                                text: p
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "1"
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: BinaryExpression
+                                                            children:
+                                                              - kind: CallExpression
+                                                                children:
+                                                                  - kind: Identifier
+                                                                    text: InStr
+                                                                  - kind: LeftParenthesis
+                                                                    text: (
+                                                                  - kind: ArgumentList
+                                                                    children:
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: IdentifierExpression
+                                                                            children:
+                                                                              - kind: Identifier
+                                                                                text: p
+                                                                      - kind: Comma
+                                                                        text: ","
+                                                                      - kind: Whitespace
+                                                                        text: " "
+                                                                      - kind: Argument
+                                                                        children:
+                                                                          - kind: StringLiteralExpression
+                                                                            children:
+                                                                              - kind: StringLiteral
+                                                                                text: "\";\""
+                                                                  - kind: RightParenthesis
+                                                                    text: )
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: SubtractionOperator
+                                                                text: "-"
+                                                              - kind: Whitespace
+                                                                text: " "
+                                                              - kind: NumericLiteralExpression
+                                                                children:
+                                                                  - kind: IntegerLiteral
+                                                                    text: "2"
+                                                  - kind: RightParenthesis
+                                                    text: )
+                                      - kind: RightParenthesis
+                                        text: )
                               - kind: Whitespace
                                 text: " "
                               - kind: Ampersand
                                 text: "&"
                               - kind: Whitespace
                                 text: " "
-                              - kind: IdentifierExpression
+                              - kind: StringLiteralExpression
                                 children:
-                                  - kind: RemComment
-                                    text: "RemoveSpecialChar(Mid(p, 1, InStr(p, \";\") - 2)) & \".mp3\""
+                                  - kind: StringLiteral
+                                    text: "\".mp3\""
                           - kind: Newline
                             text: "\n"
                       - kind: Whitespace
@@ -2304,7 +2394,23 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveSpecialChar(strFilename As String)
+            text: RemoveSpecialChar
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: strFilename
+              - kind: Whitespace
+                text: " "
+              - kind: AsKeyword
+                text: As
+              - kind: Whitespace
+                text: " "
+              - kind: StringKeyword
+                text: String
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\n"
           - kind: StatementList
@@ -2723,10 +2829,24 @@ cst:
                 text: "\n"
               - kind: Whitespace
                 text: "    "
-              - kind: RemComment
-                text: RemoveSpecialChar = OutFileName
-              - kind: Newline
-                text: "\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: RemoveSpecialChar
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: OutFileName
+                  - kind: Newline
+                    text: "\n"
           - kind: EndKeyword
             text: End
           - kind: Whitespace

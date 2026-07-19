@@ -17645,7 +17645,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemovePreHeader()
+            text: RemovePreHeader
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\n"
           - kind: StatementList
@@ -17969,7 +17975,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveV1Tag()
+            text: RemoveV1Tag
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\n"
           - kind: StatementList

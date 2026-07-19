@@ -31214,7 +31214,15 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: Remove(item)
+            text: Remove
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: Identifier
+                text: item
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList
@@ -31281,8 +31289,18 @@ cst:
                     text: glistN
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: Removeitem item
+                  - kind: Identifier
+                    text: Removeitem
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: item
                   - kind: Newline
                     text: "\r\n"
           - kind: EndKeyword
@@ -35201,8 +35219,18 @@ cst:
                     text: Callback
                   - kind: PeriodOperator
                     text: "."
-                  - kind: RemComment
-                    text: RemoveGuiControl ctrlName
+                  - kind: Identifier
+                    text: RemoveGuiControl
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ArgumentList
+                    children:
+                      - kind: Argument
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: ctrlName
                   - kind: Newline
                     text: "\r\n"
               - kind: AssignmentStatement

@@ -22322,7 +22322,7 @@ cst:
                                             text: GetProperties
                                       - kind: PeriodOperator
                                         text: "."
-                                      - kind: RemComment
+                                      - kind: Identifier
                                         text: RemainingString
                                   - kind: Newline
                                     text: "\n"
@@ -22426,7 +22426,7 @@ cst:
                                             text: GetProperties
                                       - kind: PeriodOperator
                                         text: "."
-                                      - kind: RemComment
+                                      - kind: Identifier
                                         text: RemainingString
                                   - kind: Newline
                                     text: "\n"

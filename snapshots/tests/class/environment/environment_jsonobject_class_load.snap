@@ -1648,10 +1648,12 @@ cst:
                     children:
                       - kind: Whitespace
                         text: "        "
-                      - kind: RemComment
-                        text: RemoveOne
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: CallStatement
+                        children:
+                          - kind: Identifier
+                            text: RemoveOne
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: Whitespace
                         text: "    "
                   - kind: EndKeyword
@@ -2809,7 +2811,13 @@ cst:
           - kind: Whitespace
             text: " "
           - kind: Identifier
-            text: RemoveOne()
+            text: RemoveOne
+          - kind: ParameterList
+            children:
+              - kind: LeftParenthesis
+                text: (
+              - kind: RightParenthesis
+                text: )
           - kind: Newline
             text: "\r\n"
           - kind: StatementList

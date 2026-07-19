@@ -483,7 +483,10 @@ fn take_line_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTupl
 ///
 /// None if there is no REM comment at the current position in the stream.
 fn take_rem_comment<'a>(input: &mut SourceStream<'a>) -> Option<LineCommentTuple<'a>> {
-    input.peek_text("REM", crate::io::Comparator::CaseInsensitive)?;
+    // REM is a line-comment introducer only when followed by a delimiter.
+    // Without this guard, identifiers like `RemoteHost$` are incorrectly
+    // tokenized as a REM comment.
+    input.peek_text("REM ", crate::io::Comparator::CaseInsensitive)?;
 
     take_line_comment_with_token(input, Token::RemComment)
 }
@@ -1319,6 +1322,30 @@ mod tests {
         assert_eq!(tokens[4], ("\" \"\"\"", Token::StringLiteral));
         assert_eq!(tokens[5], (" ", Token::Whitespace));
         assert_eq!(tokens[6], ("'Also a comment", Token::EndOfLineComment));
+    }
+
+    #[test]
+    fn rem_prefix_in_identifier_is_not_a_rem_comment() {
+        let content = "RemoteHost$ = val";
+        let mut input = SourceStream::new("", content);
+        let result = tokenize(&mut input);
+
+        let (tokens_opt, failures) = result.unpack();
+
+        if !failures.is_empty() {
+            for failure in failures {
+                failure.eprint();
+            }
+        }
+
+        let tokens = tokens_opt.expect("Expected tokens");
+
+        assert_eq!(tokens[0], ("RemoteHost", Token::Identifier));
+        assert_eq!(tokens[1], ("$", Token::DollarSign));
+        assert_eq!(tokens[2], (" ", Token::Whitespace));
+        assert_eq!(tokens[3], ("=", Token::EqualityOperator));
+        assert_eq!(tokens[4], (" ", Token::Whitespace));
+        assert_eq!(tokens[5], ("val", Token::Identifier));
     }
 
     #[test]

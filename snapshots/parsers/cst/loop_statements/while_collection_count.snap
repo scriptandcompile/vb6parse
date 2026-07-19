@@ -1,5 +1,5 @@
 ---
-source: src/parsers/cst/loop_statements.rs
+source: vb6parse/src/parsers/cst/loop_statements.rs
 expression: tree
 ---
 root:
@@ -65,8 +65,18 @@ root:
                           text: col
                         - kind: PeriodOperator
                           text: "."
-                        - kind: RemComment
-                          text: Remove 1
+                        - kind: Identifier
+                          text: Remove
+                        - kind: Whitespace
+                          text: " "
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: NumericLiteralExpression
+                                  children:
+                                    - kind: IntegerLiteral
+                                      text: "1"
                         - kind: Newline
                           text: "\n"
                     - kind: Whitespace

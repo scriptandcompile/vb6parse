@@ -1,5 +1,5 @@
 ---
-source: src/syntax/library/statements/filesystem/rmdir.rs
+source: vb6parse/src/syntax/library/statements/filesystem/rmdir.rs
 expression: tree
 ---
 root:
@@ -14,7 +14,13 @@ root:
         - kind: Whitespace
           text: " "
         - kind: Identifier
-          text: RemoveDirectoryWithFiles()
+          text: RemoveDirectoryWithFiles
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
         - kind: Newline
           text: "\n"
         - kind: StatementList

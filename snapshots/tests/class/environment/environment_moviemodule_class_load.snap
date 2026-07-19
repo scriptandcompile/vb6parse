@@ -14584,8 +14584,16 @@ cst:
                     text: Dim
                   - kind: Whitespace
                     text: " "
-                  - kind: RemComment
-                    text: remTime As Long
+                  - kind: Identifier
+                    text: remTime
+                  - kind: Whitespace
+                    text: " "
+                  - kind: AsKeyword
+                    text: As
+                  - kind: Whitespace
+                    text: " "
+                  - kind: LongKeyword
+                    text: Long
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
@@ -14610,10 +14618,36 @@ cst:
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: RemComment
-                text: remTime = timein / 1000
-              - kind: Newline
-                text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: remTime
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: timein
+                      - kind: Whitespace
+                        text: " "
+                      - kind: DivisionOperator
+                        text: /
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "1000"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -14638,18 +14672,58 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: RemComment
-                                    text: remTime / 3600)
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: remTime
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: DivisionOperator
+                                    text: /
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "3600"
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: RemComment
-                text: remTime = remTime Mod 3600
-              - kind: Newline
-                text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: remTime
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: remTime
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ModKeyword
+                        text: Mod
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "3600"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -14674,18 +14748,58 @@ cst:
                         children:
                           - kind: Argument
                             children:
-                              - kind: IdentifierExpression
+                              - kind: BinaryExpression
                                 children:
-                                  - kind: RemComment
-                                    text: remTime / 60)
+                                  - kind: IdentifierExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: remTime
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: DivisionOperator
+                                    text: /
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: NumericLiteralExpression
+                                    children:
+                                      - kind: IntegerLiteral
+                                        text: "60"
+                      - kind: RightParenthesis
+                        text: )
                   - kind: Newline
                     text: "\r\n"
               - kind: Whitespace
                 text: "    "
-              - kind: RemComment
-                text: remTime = remTime Mod 60
-              - kind: Newline
-                text: "\r\n"
+              - kind: AssignmentStatement
+                children:
+                  - kind: IdentifierExpression
+                    children:
+                      - kind: Identifier
+                        text: remTime
+                  - kind: Whitespace
+                    text: " "
+                  - kind: EqualityOperator
+                    text: "="
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: IdentifierExpression
+                        children:
+                          - kind: Identifier
+                            text: remTime
+                      - kind: Whitespace
+                        text: " "
+                      - kind: ModKeyword
+                        text: Mod
+                      - kind: Whitespace
+                        text: " "
+                      - kind: NumericLiteralExpression
+                        children:
+                          - kind: IntegerLiteral
+                            text: "60"
+                  - kind: Newline
+                    text: "\r\n"
               - kind: Whitespace
                 text: "    "
               - kind: AssignmentStatement
@@ -14702,7 +14816,7 @@ cst:
                     text: " "
                   - kind: IdentifierExpression
                     children:
-                      - kind: RemComment
+                      - kind: Identifier
                         text: remTime
                   - kind: Newline
                     text: "\r\n"
