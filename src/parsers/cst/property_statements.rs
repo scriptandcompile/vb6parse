@@ -14,10 +14,10 @@ impl Parser<'_> {
     /// Check if the current position is at a compiler conditional Property statement.
     ///
     /// This includes statements like:
-    /// - #If ... Then
-    /// - #ElseIf ... Then
-    /// - #Else
-    /// - #End If
+    /// - `#If ... Then`
+    /// - `#ElseIf ... Then`
+    /// - `#Else`
+    /// - `#End If`
     pub(crate) fn is_at_compiler_conditional_property_statement(&self) -> bool {
         if !self.at_compiler_directive_keyword(Token::IfKeyword) {
             return false;
@@ -34,10 +34,9 @@ impl Parser<'_> {
 
         while let Some((_, token)) = self.tokens.get(index) {
             match token {
-                Token::Whitespace | Token::Newline => {
-                    index += 1;
-                }
-                Token::PublicKeyword
+                Token::Whitespace
+                | Token::Newline
+                | Token::PublicKeyword
                 | Token::PrivateKeyword
                 | Token::FriendKeyword
                 | Token::StaticKeyword => {
