@@ -2704,12 +2704,20 @@ impl<'a> Parser<'a> {
                     || self.at_compiler_directive_keyword(Token::ElseIfKeyword)
                     || self.at_token(Token::ElseKeyword)
                     || self.at_compiler_directive_keyword(Token::ElseKeyword)
+                    || self.at_token(Token::CaseKeyword)
+                    || (self.at_token(Token::EndKeyword)
+                        && self.peek_next_keyword() == Some(Token::SelectKeyword))
                     || self.at_if_block_end()
                     || self.at_procedure_block_end()
                     || self.is_at_end()
             }
             StatementListContext::ElseBody => {
-                self.at_if_block_end() || self.at_procedure_block_end() || self.is_at_end()
+                self.at_token(Token::CaseKeyword)
+                    || (self.at_token(Token::EndKeyword)
+                        && self.peek_next_keyword() == Some(Token::SelectKeyword))
+                    || self.at_if_block_end()
+                    || self.at_procedure_block_end()
+                    || self.is_at_end()
             }
             StatementListContext::ForBody => self.at_token(Token::NextKeyword) || self.is_at_end(),
             StatementListContext::SelectCaseBody => {

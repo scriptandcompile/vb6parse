@@ -81,23 +81,19 @@ root:
                           text: "\n"
                     - kind: Whitespace
                       text: "    "
-                    - kind: Unknown
-                      text: End
-                    - kind: SelectCaseStatement
-                      children:
-                        - kind: Whitespace
-                          text: " "
-                        - kind: SelectKeyword
-                          text: Select
-                        - kind: IdentifierExpression
-                          children:
-                            - kind: Newline
-                              text: "\n"
-                        - kind: EndKeyword
-                          text: End
-                        - kind: Whitespace
-                          text: " "
-                        - kind: SubKeyword
-                          text: Sub
-                        - kind: Newline
-                          text: "\n"
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SelectKeyword
+                  text: Select
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"
