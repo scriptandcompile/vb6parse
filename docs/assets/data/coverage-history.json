@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-07-18T22:22:53Z",
+  "last_updated": "2026-07-19T23:14:21Z",
   "snapshots": [
     {
       "timestamp": "2026-07-06T07:06:31Z",
@@ -171,38 +171,72 @@
           "percent": 95.99
         }
       }
+    },
+    {
+      "timestamp": "2026-07-19T23:14:21Z",
+      "commit_sha": "b9b5c6415678a378c3053917c4428517a132ba8a",
+      "commit_message": "Improved parsing of named arguments in call parsing.",
+      "coverage": {
+        "line_coverage": 95.84,
+        "function_coverage": 92.99,
+        "region_coverage": 95.98
+      },
+      "tests": {
+        "total": 6238,
+        "lib_tests": 5528,
+        "doc_tests": 119,
+        "integration_tests": 591,
+        "fuzz_targets": 9
+      },
+      "details": {
+        "lines": {
+          "covered": 97472,
+          "total": 101700,
+          "percent": 95.84
+        },
+        "functions": {
+          "covered": 6262,
+          "total": 6734,
+          "percent": 92.99
+        },
+        "regions": {
+          "covered": 155788,
+          "total": 162305,
+          "percent": 95.98
+        }
+      }
     }
   ],
   "coverage_summary": {
     "line_coverage": {
-      "latest": 95.85,
+      "latest": 95.84,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 95.87,
-      "worst": 95.85,
+      "worst": 95.84,
       "average": 95.86
     },
     "function_coverage": {
-      "latest": 92.98,
+      "latest": 92.99,
       "trend": "stable",
-      "change_percent": 0.0,
-      "best": 92.98,
+      "change_percent": 0.01,
+      "best": 92.99,
       "worst": 92.97,
-      "average": 92.97
+      "average": 92.98
     },
     "region_coverage": {
-      "latest": 95.99,
+      "latest": 95.98,
       "trend": "stable",
-      "change_percent": 0.0,
+      "change_percent": 0.01,
       "best": 95.99,
-      "worst": 95.99,
+      "worst": 95.98,
       "average": 95.99
     },
     "test_count": {
-      "latest": 6233,
+      "latest": 6238,
       "trend": "stable",
-      "change_count": 1,
-      "growth_rate": 0.02
+      "change_count": 5,
+      "growth_rate": 0.08
     }
   }
 }
