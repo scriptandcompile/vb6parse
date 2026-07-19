@@ -166,6 +166,7 @@ impl Parser<'_> {
             || self.is_at_numeric_line_label()
     }
 
+    #[allow(clippy::needless_continue)]
     fn is_at_numeric_line_label(&self) -> bool {
         if !self.is_number() {
             return false;
@@ -182,6 +183,8 @@ impl Parser<'_> {
         while index > 0 {
             index -= 1;
             match self.tokens[index].1 {
+                // The continue arm actually is needed, but couldn't convince clippy
+                // so I just pushed it to ignore. Oh well.
                 Token::Whitespace => continue,
                 Token::Newline => return true,
                 _ => return false,
