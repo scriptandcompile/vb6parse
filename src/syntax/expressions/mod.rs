@@ -481,20 +481,7 @@ impl Parser<'_> {
         }
 
         // Parse first argument
-        self.builder.start_node(SyntaxKind::Argument.to_raw());
-
-        // After finishing this argument, check for more
-        frame_stack.push(ExprParseFrame::NextArgument {
-            min_bp,
-            call_checkpoint,
-        });
-
-        // Parse the argument expression
-        let arg_checkpoint = self.builder.checkpoint();
-        frame_stack.push(ExprParseFrame::ParsePrefix {
-            min_bp: BindingPower::NONE,
-            lhs_checkpoint: arg_checkpoint,
-        });
+        self.parse_argument_expression(frame_stack, min_bp, call_checkpoint);
     }
 
     /// Parse the argument that follows a comma separator.
@@ -532,20 +519,76 @@ impl Parser<'_> {
             }
 
             // Non-empty argument expression.
-            self.builder.start_node(SyntaxKind::Argument.to_raw());
-
-            frame_stack.push(ExprParseFrame::NextArgument {
-                min_bp,
-                call_checkpoint,
-            });
-
-            let arg_checkpoint = self.builder.checkpoint();
-            frame_stack.push(ExprParseFrame::ParsePrefix {
-                min_bp: BindingPower::NONE,
-                lhs_checkpoint: arg_checkpoint,
-            });
+            self.parse_argument_expression(frame_stack, min_bp, call_checkpoint);
             return;
         }
+    }
+
+    /// Start parsing a non-empty argument expression.
+    ///
+    /// VB6 supports named arguments in calls using `name := value`.
+    /// The lexer emits `:` and `=` as separate tokens, so we consume that
+    /// prefix here before parsing the argument value expression.
+    fn parse_argument_expression(
+        &mut self,
+        frame_stack: &mut Vec<ExprParseFrame>,
+        min_bp: BindingPower,
+        call_checkpoint: Checkpoint,
+    ) {
+        self.builder.start_node(SyntaxKind::Argument.to_raw());
+
+        // Consume optional named-argument prefix: `Identifier :=`
+        let _ = self.try_consume_named_argument_prefix();
+
+        frame_stack.push(ExprParseFrame::NextArgument {
+            min_bp,
+            call_checkpoint,
+        });
+
+        let arg_checkpoint = self.builder.checkpoint();
+        frame_stack.push(ExprParseFrame::ParsePrefix {
+            min_bp: BindingPower::NONE,
+            lhs_checkpoint: arg_checkpoint,
+        });
+    }
+
+    /// Try to consume a VB6 named-argument prefix (`name :=`) at the start
+    /// of an argument. Returns true if consumed.
+    fn try_consume_named_argument_prefix(&mut self) -> bool {
+        let mut idx = self.pos;
+
+        let Some((_, first_token)) = self.tokens.get(idx) else {
+            return false;
+        };
+
+        if !(*first_token == Token::Identifier || first_token.is_keyword()) {
+            return false;
+        }
+
+        idx += 1;
+        while let Some((_, Token::Whitespace)) = self.tokens.get(idx) {
+            idx += 1;
+        }
+
+        if self.tokens.get(idx).map(|(_, token)| *token) != Some(Token::ColonOperator) {
+            return false;
+        }
+
+        idx += 1;
+        while let Some((_, Token::Whitespace)) = self.tokens.get(idx) {
+            idx += 1;
+        }
+
+        if self.tokens.get(idx).map(|(_, token)| *token) != Some(Token::EqualityOperator) {
+            return false;
+        }
+
+        while self.pos <= idx {
+            self.consume_token();
+        }
+
+        self.consume_whitespace();
+        true
     }
 
     fn handle_argument_next_frame(

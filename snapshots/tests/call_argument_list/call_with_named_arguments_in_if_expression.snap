@@ -1,0 +1,232 @@
+---
+source: vb6parse/tests/call_argument_list.rs
+assertion_line: 256
+expression: tree
+---
+root:
+  kind: Root
+  children:
+    - kind: Newline
+      text: "\n"
+    - kind: SubStatement
+      children:
+        - kind: SubKeyword
+          text: Sub
+        - kind: Whitespace
+          text: " "
+        - kind: Identifier
+          text: Test
+        - kind: ParameterList
+          children:
+            - kind: LeftParenthesis
+              text: (
+            - kind: RightParenthesis
+              text: )
+        - kind: Newline
+          text: "\n"
+        - kind: StatementList
+          children:
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: m_oSocket
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: create
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: Identifier
+                                  text: SocketType
+                                - kind: ColonOperator
+                                  text: ":"
+                                - kind: EqualityOperator
+                                  text: "="
+                                - kind: IdentifierExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: ucsSckStream
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: GotoStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: GotoKeyword
+                          text: GoTo
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: QH
+                    - kind: Newline
+                      text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+            - kind: IfStatement
+              children:
+                - kind: Whitespace
+                  text: "    "
+                - kind: IfKeyword
+                  text: If
+                - kind: Whitespace
+                  text: " "
+                - kind: UnaryExpression
+                  children:
+                    - kind: NotKeyword
+                      text: Not
+                    - kind: Whitespace
+                      text: " "
+                    - kind: CallExpression
+                      children:
+                        - kind: MemberAccessExpression
+                          children:
+                            - kind: Identifier
+                              text: m_oSocket
+                            - kind: PeriodOperator
+                              text: "."
+                            - kind: Identifier
+                              text: Connect
+                        - kind: LeftParenthesis
+                          text: (
+                        - kind: ArgumentList
+                          children:
+                            - kind: Argument
+                              children:
+                                - kind: MemberAccessExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: m_uRemote
+                                    - kind: PeriodOperator
+                                      text: "."
+                                    - kind: Identifier
+                                      text: Host
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: MemberAccessExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: m_uRemote
+                                    - kind: PeriodOperator
+                                      text: "."
+                                    - kind: Identifier
+                                      text: Port
+                            - kind: Comma
+                              text: ","
+                            - kind: Whitespace
+                              text: " "
+                            - kind: Argument
+                              children:
+                                - kind: Identifier
+                                  text: UseTls
+                                - kind: ColonOperator
+                                  text: ":"
+                                - kind: EqualityOperator
+                                  text: "="
+                                - kind: CallExpression
+                                  children:
+                                    - kind: Identifier
+                                      text: pvIsProtocolSecure
+                                    - kind: LeftParenthesis
+                                      text: (
+                                    - kind: ArgumentList
+                                      children:
+                                        - kind: Argument
+                                          children:
+                                            - kind: MemberAccessExpression
+                                              children:
+                                                - kind: Identifier
+                                                  text: m_uRemote
+                                                - kind: PeriodOperator
+                                                  text: "."
+                                                - kind: Identifier
+                                                  text: Protocol
+                                    - kind: RightParenthesis
+                                      text: )
+                        - kind: RightParenthesis
+                          text: )
+                - kind: Whitespace
+                  text: " "
+                - kind: ThenKeyword
+                  text: Then
+                - kind: Newline
+                  text: "\n"
+                - kind: StatementList
+                  children:
+                    - kind: GotoStatement
+                      children:
+                        - kind: Whitespace
+                          text: "        "
+                        - kind: GotoKeyword
+                          text: GoTo
+                        - kind: Whitespace
+                          text: " "
+                        - kind: Identifier
+                          text: QH
+                    - kind: Newline
+                      text: "\n"
+                    - kind: Whitespace
+                      text: "    "
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: IfKeyword
+                  text: If
+                - kind: Newline
+                  text: "\n"
+            - kind: LabelStatement
+              children:
+                - kind: Identifier
+                  text: QH
+                - kind: ColonOperator
+                  text: ":"
+                - kind: Newline
+                  text: "\n"
+        - kind: EndKeyword
+          text: End
+        - kind: Whitespace
+          text: " "
+        - kind: SubKeyword
+          text: Sub
+        - kind: Newline
+          text: "\n"

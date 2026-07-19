@@ -1253,70 +1253,104 @@ cst:
                                 text: " "
                               - kind: Argument
                                 children:
-                                  - kind: IdentifierExpression
+                                  - kind: Identifier
+                                    text: DefProtocol
+                                  - kind: ColonOperator
+                                    text: ":"
+                                  - kind: EqualityOperator
+                                    text: "="
+                                  - kind: StringLiteralExpression
                                     children:
-                                      - kind: Identifier
-                                        text: DefProtocol
-                  - kind: ColonOperator
-                    text: ":"
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: StringLiteral
-                    text: "\"https\""
-                  - kind: RightParenthesis
-                    text: )
+                                      - kind: StringLiteral
+                                        text: "\"https\""
+                          - kind: RightParenthesis
+                            text: )
                   - kind: Whitespace
                     text: " "
                   - kind: ThenKeyword
                     text: Then
                   - kind: Newline
                     text: "\r\n"
-              - kind: Whitespace
-                text: "        "
-              - kind: AssignmentStatement
-                children:
-                  - kind: IdentifierExpression
+                  - kind: StatementList
                     children:
-                      - kind: Identifier
-                        text: sError
-                  - kind: Whitespace
-                    text: " "
-                  - kind: EqualityOperator
-                    text: "="
-                  - kind: Whitespace
-                    text: " "
-                  - kind: StringLiteralExpression
-                    children:
-                      - kind: StringLiteral
-                        text: "\"Parsing Url Error\""
-                  - kind: Newline
-                    text: "\r\n"
-              - kind: ExitStatement
-                children:
-                  - kind: Whitespace
-                    text: "        "
-                  - kind: ExitKeyword
-                    text: Exit
-                  - kind: Whitespace
-                    text: " "
-                  - kind: FunctionKeyword
-                    text: Function
-              - kind: Newline
-                text: "\r\n"
-              - kind: Whitespace
-                text: "    "
-              - kind: Unknown
-                text: End
-              - kind: IfStatement
-                children:
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: sError
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: StringLiteralExpression
+                            children:
+                              - kind: StringLiteral
+                                text: "\"Parsing Url Error\""
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: ExitStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: ExitKeyword
+                            text: Exit
+                          - kind: Whitespace
+                            text: " "
+                          - kind: FunctionKeyword
+                            text: Function
+                      - kind: Newline
+                        text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
                   - kind: Whitespace
                     text: " "
                   - kind: IfKeyword
                     text: If
-                  - kind: IdentifierExpression
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: Newline
+                text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: UnaryExpression
                     children:
-                      - kind: Newline
-                        text: "\r\n"
+                      - kind: NotKeyword
+                        text: Not
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_oSocket
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IsKeyword
+                            text: Is
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: NothingKeyword
+                                text: Nothing
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
                   - kind: Newline
                     text: "\r\n"
                   - kind: StatementList
@@ -1324,209 +1358,19 @@ cst:
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
-                            text: "    "
+                            text: "        "
                           - kind: IfKeyword
                             text: If
                           - kind: Whitespace
                             text: " "
-                          - kind: UnaryExpression
+                          - kind: MemberAccessExpression
                             children:
-                              - kind: NotKeyword
-                                text: Not
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: m_oSocket
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IsKeyword
-                                    text: Is
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: NothingKeyword
-                                        text: Nothing
-                          - kind: Whitespace
-                            text: " "
-                          - kind: ThenKeyword
-                            text: Then
-                          - kind: Newline
-                            text: "\r\n"
-                          - kind: StatementList
-                            children:
-                              - kind: IfStatement
-                                children:
-                                  - kind: Whitespace
-                                    text: "        "
-                                  - kind: IfKeyword
-                                    text: If
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: MemberAccessExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: m_oSocket
-                                      - kind: PeriodOperator
-                                        text: "."
-                                      - kind: Identifier
-                                        text: IsClosed
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: ThenKeyword
-                                    text: Then
-                                  - kind: Newline
-                                    text: "\r\n"
-                                  - kind: StatementList
-                                    children:
-                                      - kind: SetStatement
-                                        children:
-                                          - kind: Whitespace
-                                            text: "            "
-                                          - kind: SetKeyword
-                                            text: Set
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Identifier
-                                            text: m_oSocket
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: NothingKeyword
-                                            text: Nothing
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "            "
-                                      - kind: AssignmentStatement
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: m_oSocket
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: EnableM2000threads
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: IdentifierExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: aWait
-                                          - kind: Newline
-                                            text: "\r\n"
-                                      - kind: Whitespace
-                                        text: "        "
-                                  - kind: EndKeyword
-                                    text: End
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IfKeyword
-                                    text: If
-                                  - kind: Newline
-                                    text: "\r\n"
-                              - kind: Whitespace
-                                text: "    "
-                          - kind: EndKeyword
-                            text: End
-                          - kind: Whitespace
-                            text: " "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Newline
-                            text: "\r\n"
-                      - kind: IfStatement
-                        children:
-                          - kind: Whitespace
-                            text: "    "
-                          - kind: IfKeyword
-                            text: If
-                          - kind: Whitespace
-                            text: " "
-                          - kind: BinaryExpression
-                            children:
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: m_sServerName
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: InequalityOperator
-                                    text: "<>"
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: BinaryExpression
-                                    children:
-                                      - kind: BinaryExpression
-                                        children:
-                                          - kind: MemberAccessExpression
-                                            children:
-                                              - kind: Identifier
-                                                text: uRemote
-                                              - kind: PeriodOperator
-                                                text: "."
-                                              - kind: Identifier
-                                                text: Host
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: Ampersand
-                                            text: "&"
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: StringLiteralExpression
-                                            children:
-                                              - kind: StringLiteral
-                                                text: "\":\""
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Ampersand
-                                        text: "&"
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: MemberAccessExpression
-                                        children:
-                                          - kind: Identifier
-                                            text: uRemote
-                                          - kind: PeriodOperator
-                                            text: "."
-                                          - kind: Identifier
-                                            text: Port
-                              - kind: Whitespace
-                                text: " "
-                              - kind: OrKeyword
-                                text: Or
-                              - kind: Whitespace
-                                text: " "
-                              - kind: BinaryExpression
-                                children:
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: Identifier
-                                        text: m_oSocket
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IsKeyword
-                                    text: Is
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: IdentifierExpression
-                                    children:
-                                      - kind: NothingKeyword
-                                        text: Nothing
+                              - kind: Identifier
+                                text: m_oSocket
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: IsClosed
                           - kind: Whitespace
                             text: " "
                           - kind: ThenKeyword
@@ -1538,7 +1382,7 @@ cst:
                               - kind: SetStatement
                                 children:
                                   - kind: Whitespace
-                                    text: "        "
+                                    text: "            "
                                   - kind: SetKeyword
                                     text: Set
                                   - kind: Whitespace
@@ -1551,16 +1395,12 @@ cst:
                                     text: "="
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: NewKeyword
-                                    text: New
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Identifier
-                                    text: cTlsSocket
+                                  - kind: NothingKeyword
+                                    text: Nothing
                                   - kind: Newline
                                     text: "\r\n"
                               - kind: Whitespace
-                                text: "        "
+                                text: "            "
                               - kind: AssignmentStatement
                                 children:
                                   - kind: MemberAccessExpression
@@ -1583,20 +1423,234 @@ cst:
                                         text: aWait
                                   - kind: Newline
                                     text: "\r\n"
+                              - kind: Whitespace
+                                text: "        "
+                          - kind: EndKeyword
+                            text: End
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "    "
+                  - kind: EndKeyword
+                    text: End
+                  - kind: Whitespace
+                    text: " "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Newline
+                    text: "\r\n"
+              - kind: IfStatement
+                children:
+                  - kind: Whitespace
+                    text: "    "
+                  - kind: IfKeyword
+                    text: If
+                  - kind: Whitespace
+                    text: " "
+                  - kind: BinaryExpression
+                    children:
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_sServerName
+                          - kind: Whitespace
+                            text: " "
+                          - kind: InequalityOperator
+                            text: "<>"
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: BinaryExpression
+                                children:
+                                  - kind: MemberAccessExpression
+                                    children:
+                                      - kind: Identifier
+                                        text: uRemote
+                                      - kind: PeriodOperator
+                                        text: "."
+                                      - kind: Identifier
+                                        text: Host
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: Ampersand
+                                    text: "&"
+                                  - kind: Whitespace
+                                    text: " "
+                                  - kind: StringLiteralExpression
+                                    children:
+                                      - kind: StringLiteral
+                                        text: "\":\""
+                              - kind: Whitespace
+                                text: " "
+                              - kind: Ampersand
+                                text: "&"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: MemberAccessExpression
+                                children:
+                                  - kind: Identifier
+                                    text: uRemote
+                                  - kind: PeriodOperator
+                                    text: "."
+                                  - kind: Identifier
+                                    text: Port
+                      - kind: Whitespace
+                        text: " "
+                      - kind: OrKeyword
+                        text: Or
+                      - kind: Whitespace
+                        text: " "
+                      - kind: BinaryExpression
+                        children:
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: m_oSocket
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IsKeyword
+                            text: Is
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: NothingKeyword
+                                text: Nothing
+                  - kind: Whitespace
+                    text: " "
+                  - kind: ThenKeyword
+                    text: Then
+                  - kind: Newline
+                    text: "\r\n"
+                  - kind: StatementList
+                    children:
+                      - kind: SetStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: SetKeyword
+                            text: Set
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: m_oSocket
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: NewKeyword
+                            text: New
+                          - kind: Whitespace
+                            text: " "
+                          - kind: Identifier
+                            text: cTlsSocket
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: Whitespace
+                        text: "        "
+                      - kind: AssignmentStatement
+                        children:
+                          - kind: MemberAccessExpression
+                            children:
+                              - kind: Identifier
+                                text: m_oSocket
+                              - kind: PeriodOperator
+                                text: "."
+                              - kind: Identifier
+                                text: EnableM2000threads
+                          - kind: Whitespace
+                            text: " "
+                          - kind: EqualityOperator
+                            text: "="
+                          - kind: Whitespace
+                            text: " "
+                          - kind: IdentifierExpression
+                            children:
+                              - kind: Identifier
+                                text: aWait
+                          - kind: Newline
+                            text: "\r\n"
+                      - kind: IfStatement
+                        children:
+                          - kind: Whitespace
+                            text: "        "
+                          - kind: IfKeyword
+                            text: If
+                          - kind: Whitespace
+                            text: " "
+                          - kind: BinaryExpression
+                            children:
+                              - kind: CallExpression
+                                children:
+                                  - kind: Identifier
+                                    text: LCase
+                                  - kind: LeftParenthesis
+                                    text: (
+                                  - kind: ArgumentList
+                                    children:
+                                      - kind: Argument
+                                        children:
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: uRemote
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: Protocol
+                                  - kind: RightParenthesis
+                                    text: )
+                              - kind: Whitespace
+                                text: " "
+                              - kind: EqualityOperator
+                                text: "="
+                              - kind: Whitespace
+                                text: " "
+                              - kind: StringLiteralExpression
+                                children:
+                                  - kind: StringLiteral
+                                    text: "\"http\""
+                          - kind: Whitespace
+                            text: " "
+                          - kind: ThenKeyword
+                            text: Then
+                          - kind: Newline
+                            text: "\r\n"
+                          - kind: StatementList
+                            children:
                               - kind: IfStatement
                                 children:
                                   - kind: Whitespace
-                                    text: "        "
+                                    text: "            "
                                   - kind: IfKeyword
                                     text: If
                                   - kind: Whitespace
                                     text: " "
-                                  - kind: BinaryExpression
+                                  - kind: UnaryExpression
                                     children:
+                                      - kind: NotKeyword
+                                        text: Not
+                                      - kind: Whitespace
+                                        text: " "
                                       - kind: CallExpression
                                         children:
-                                          - kind: Identifier
-                                            text: LCase
+                                          - kind: MemberAccessExpression
+                                            children:
+                                              - kind: Identifier
+                                                text: m_oSocket
+                                              - kind: PeriodOperator
+                                                text: "."
+                                              - kind: Identifier
+                                                text: SyncConnect
                                           - kind: LeftParenthesis
                                             text: (
                                           - kind: ArgumentList
@@ -1610,19 +1664,67 @@ cst:
                                                       - kind: PeriodOperator
                                                         text: "."
                                                       - kind: Identifier
-                                                        text: Protocol
+                                                        text: Host
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: MemberAccessExpression
+                                                    children:
+                                                      - kind: Identifier
+                                                        text: uRemote
+                                                      - kind: PeriodOperator
+                                                        text: "."
+                                                      - kind: Identifier
+                                                        text: Port
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: Identifier
+                                                    text: UseTls
+                                                  - kind: ColonOperator
+                                                    text: ":"
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: BooleanLiteralExpression
+                                                    children:
+                                                      - kind: FalseKeyword
+                                                        text: "False"
+                                              - kind: Comma
+                                                text: ","
+                                              - kind: Whitespace
+                                                text: " "
+                                              - kind: Underscore
+                                                text: _
+                                              - kind: Newline
+                                                text: "\r\n"
+                                              - kind: Whitespace
+                                                text: "                    "
+                                              - kind: Argument
+                                                children:
+                                                  - kind: Identifier
+                                                    text: AlpnProtocols
+                                                  - kind: ColonOperator
+                                                    text: ":"
+                                                  - kind: EqualityOperator
+                                                    text: "="
+                                                  - kind: StringLiteralExpression
+                                                    children:
+                                                      - kind: StringLiteral
+                                                        text: "\"http/1.1\""
                                           - kind: RightParenthesis
                                             text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: EqualityOperator
-                                        text: "="
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: StringLiteralExpression
-                                        children:
-                                          - kind: StringLiteral
-                                            text: "\"http\""
                                   - kind: Whitespace
                                     text: " "
                                   - kind: ThenKeyword
@@ -1631,116 +1733,6 @@ cst:
                                     text: "\r\n"
                                   - kind: StatementList
                                     children:
-                                      - kind: IfStatement
-                                        children:
-                                          - kind: Whitespace
-                                            text: "            "
-                                          - kind: IfKeyword
-                                            text: If
-                                          - kind: Whitespace
-                                            text: " "
-                                          - kind: UnaryExpression
-                                            children:
-                                              - kind: NotKeyword
-                                                text: Not
-                                              - kind: Whitespace
-                                                text: " "
-                                              - kind: CallExpression
-                                                children:
-                                                  - kind: MemberAccessExpression
-                                                    children:
-                                                      - kind: Identifier
-                                                        text: m_oSocket
-                                                      - kind: PeriodOperator
-                                                        text: "."
-                                                      - kind: Identifier
-                                                        text: SyncConnect
-                                                  - kind: LeftParenthesis
-                                                    text: (
-                                                  - kind: ArgumentList
-                                                    children:
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: uRemote
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Host
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: MemberAccessExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: uRemote
-                                                              - kind: PeriodOperator
-                                                                text: "."
-                                                              - kind: Identifier
-                                                                text: Port
-                                                      - kind: Comma
-                                                        text: ","
-                                                      - kind: Whitespace
-                                                        text: " "
-                                                      - kind: Underscore
-                                                        text: _
-                                                      - kind: Newline
-                                                        text: "\r\n"
-                                                      - kind: Whitespace
-                                                        text: "                    "
-                                                      - kind: Argument
-                                                        children:
-                                                          - kind: IdentifierExpression
-                                                            children:
-                                                              - kind: Identifier
-                                                                text: UseTls
-                                          - kind: ColonOperator
-                                            text: ":"
-                                          - kind: EqualityOperator
-                                            text: "="
-                                          - kind: CallStatement
-                                            children:
-                                              - kind: FalseKeyword
-                                                text: "False"
-                                              - kind: ArgumentList
-                                                children:
-                                                  - kind: Argument
-                                                    children: []
-                                                  - kind: Comma
-                                                    text: ","
-                                                  - kind: Whitespace
-                                                    text: " "
-                                                  - kind: Underscore
-                                                    text: _
-                                                  - kind: Newline
-                                                    text: "\r\n"
-                                                  - kind: Whitespace
-                                                    text: "                    "
-                                                  - kind: Argument
-                                                    children:
-                                                      - kind: IdentifierExpression
-                                                        children:
-                                                          - kind: Identifier
-                                                            text: AlpnProtocols
-                                      - kind: ColonOperator
-                                        text: ":"
-                                      - kind: Unknown
-                                        text: "="
-                                      - kind: Unknown
-                                        text: "\"http/1.1\""
-                                      - kind: Unknown
-                                        text: )
-                                      - kind: Whitespace
-                                        text: " "
-                                      - kind: Unknown
-                                        text: Then
-                                      - kind: Newline
-                                        text: "\r\n"
                                       - kind: Whitespace
                                         text: "                "
                                       - kind: AssignmentStatement
@@ -1859,110 +1851,112 @@ cst:
                                             text: "                "
                                           - kind: Argument
                                             children:
-                                              - kind: IdentifierExpression
-                                                children:
-                                                  - kind: Identifier
-                                                    text: LocalFeatures
-                              - kind: StatementList
-                                children:
-                                  - kind: ColonOperator
-                                    text: ":"
-                                  - kind: Unknown
-                                    text: "="
-                                  - kind: CallStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: IIf
-                                      - kind: LeftParenthesis
-                                        text: (
-                                      - kind: ArgumentList
-                                        children:
-                                          - kind: Argument
-                                            children:
+                                              - kind: Identifier
+                                                text: LocalFeatures
+                                              - kind: ColonOperator
+                                                text: ":"
+                                              - kind: EqualityOperator
+                                                text: "="
                                               - kind: CallExpression
                                                 children:
                                                   - kind: Identifier
-                                                    text: pvIsKnownBadCertificate
+                                                    text: IIf
                                                   - kind: LeftParenthesis
                                                     text: (
                                                   - kind: ArgumentList
                                                     children:
                                                       - kind: Argument
                                                         children:
-                                                          - kind: MemberAccessExpression
+                                                          - kind: CallExpression
                                                             children:
                                                               - kind: Identifier
-                                                                text: uRemote
-                                                              - kind: PeriodOperator
-                                                                text: "."
+                                                                text: pvIsKnownBadCertificate
+                                                              - kind: LeftParenthesis
+                                                                text: (
+                                                              - kind: ArgumentList
+                                                                children:
+                                                                  - kind: Argument
+                                                                    children:
+                                                                      - kind: MemberAccessExpression
+                                                                        children:
+                                                                          - kind: Identifier
+                                                                            text: uRemote
+                                                                          - kind: PeriodOperator
+                                                                            text: "."
+                                                                          - kind: Identifier
+                                                                            text: Host
+                                                              - kind: RightParenthesis
+                                                                text: )
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: IdentifierExpression
+                                                            children:
                                                               - kind: Identifier
-                                                                text: Host
+                                                                text: ucsTlsIgnoreServerCertificateErrors
+                                                      - kind: Comma
+                                                        text: ","
+                                                      - kind: Whitespace
+                                                        text: " "
+                                                      - kind: Argument
+                                                        children:
+                                                          - kind: NumericLiteralExpression
+                                                            children:
+                                                              - kind: IntegerLiteral
+                                                                text: "0"
                                                   - kind: RightParenthesis
                                                     text: )
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
                                             text: " "
+                                          - kind: Underscore
+                                            text: _
+                                          - kind: Newline
+                                            text: "\r\n"
+                                          - kind: Whitespace
+                                            text: "                "
                                           - kind: Argument
                                             children:
+                                              - kind: Identifier
+                                                text: RootCa
+                                              - kind: ColonOperator
+                                                text: ":"
+                                              - kind: EqualityOperator
+                                                text: "="
                                               - kind: IdentifierExpression
                                                 children:
                                                   - kind: Identifier
-                                                    text: ucsTlsIgnoreServerCertificateErrors
+                                                    text: m_oRootCa
                                           - kind: Comma
                                             text: ","
                                           - kind: Whitespace
                                             text: " "
                                           - kind: Argument
                                             children:
-                                              - kind: NumericLiteralExpression
+                                              - kind: Identifier
+                                                text: AlpnProtocols
+                                              - kind: ColonOperator
+                                                text: ":"
+                                              - kind: EqualityOperator
+                                                text: "="
+                                              - kind: StringLiteralExpression
                                                 children:
-                                                  - kind: IntegerLiteral
-                                                    text: "0"
+                                                  - kind: StringLiteral
+                                                    text: "\"http/1.1\""
                                       - kind: RightParenthesis
                                         text: )
-                                  - kind: Unknown
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: _
-                                  - kind: Newline
-                                    text: "\r\n"
-                                  - kind: Whitespace
-                                    text: "                "
-                                  - kind: LabelStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: RootCa
-                                      - kind: ColonOperator
-                                        text: ":"
-                                  - kind: Unknown
-                                    text: "="
-                                  - kind: Unknown
-                                    text: m_oRootCa
-                                  - kind: Unknown
-                                    text: ","
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: LabelStatement
-                                    children:
-                                      - kind: Identifier
-                                        text: AlpnProtocols
-                                      - kind: ColonOperator
-                                        text: ":"
-                                  - kind: Unknown
-                                    text: "="
-                                  - kind: Unknown
-                                    text: "\"http/1.1\""
-                                  - kind: Unknown
-                                    text: )
-                                  - kind: Whitespace
-                                    text: " "
-                                  - kind: Unknown
-                                    text: Then
-                                  - kind: Newline
-                                    text: "\r\n"
+                              - kind: Whitespace
+                                text: " "
+                              - kind: ThenKeyword
+                                text: Then
+                              - kind: Newline
+                                text: "\r\n"
+                              - kind: StatementList
+                                children:
                                   - kind: Whitespace
                                     text: "            "
                                   - kind: AssignmentStatement
@@ -2443,20 +2437,20 @@ cst:
                                     text: " "
                                   - kind: Argument
                                     children:
-                                      - kind: IdentifierExpression
+                                      - kind: Identifier
+                                        text: Timeout
+                                      - kind: ColonOperator
+                                        text: ":"
+                                      - kind: EqualityOperator
+                                        text: "="
+                                      - kind: NumericLiteralExpression
                                         children:
-                                          - kind: Identifier
-                                            text: Timeout
-                      - kind: ColonOperator
-                        text: ":"
-                      - kind: Unknown
-                        text: "="
-                      - kind: Unknown
-                        text: "5000"
-                      - kind: Unknown
-                        text: )
-                      - kind: Newline
-                        text: "\r\n"
+                                          - kind: IntegerLiteral
+                                            text: "5000"
+                              - kind: RightParenthesis
+                                text: )
+                          - kind: Newline
+                            text: "\r\n"
                       - kind: IfStatement
                         children:
                           - kind: Whitespace
