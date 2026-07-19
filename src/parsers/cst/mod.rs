@@ -2705,9 +2705,12 @@ impl<'a> Parser<'a> {
                     || self.at_token(Token::ElseKeyword)
                     || self.at_compiler_directive_keyword(Token::ElseKeyword)
                     || self.at_if_block_end()
+                    || self.at_procedure_block_end()
                     || self.is_at_end()
             }
-            StatementListContext::ElseBody => self.at_if_block_end() || self.is_at_end(),
+            StatementListContext::ElseBody => {
+                self.at_if_block_end() || self.at_procedure_block_end() || self.is_at_end()
+            }
             StatementListContext::ForBody => self.at_token(Token::NextKeyword) || self.is_at_end(),
             StatementListContext::SelectCaseBody => {
                 self.at_token(Token::CaseKeyword)
@@ -2730,6 +2733,14 @@ impl<'a> Parser<'a> {
     fn at_if_block_end(&self) -> bool {
         (self.at_token(Token::EndKeyword) && self.peek_next_keyword() == Some(Token::IfKeyword))
             || self.at_compiler_end_if_directive()
+    }
+
+    fn at_procedure_block_end(&self) -> bool {
+        self.at_token(Token::EndKeyword)
+            && matches!(
+                self.peek_next_keyword(),
+                Some(Token::SubKeyword | Token::FunctionKeyword | Token::PropertyKeyword)
+            )
     }
 
     fn at_compiler_directive_keyword(&self, keyword: Token) -> bool {

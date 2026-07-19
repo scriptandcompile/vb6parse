@@ -79,11 +79,11 @@ root:
                                       text: x
                         - kind: Newline
                           text: "\n"
-                    - kind: Unknown
-                      text: End
-                    - kind: Whitespace
-                      text: " "
-                    - kind: Unknown
-                      text: Sub
-                    - kind: Newline
-                      text: "\n"
+                - kind: EndKeyword
+                  text: End
+                - kind: Whitespace
+                  text: " "
+                - kind: SubKeyword
+                  text: Sub
+                - kind: Newline
+                  text: "\n"

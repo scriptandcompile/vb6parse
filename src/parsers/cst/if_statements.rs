@@ -652,4 +652,44 @@ End Sub
         let _guard = settings.bind_to_scope();
         insta::assert_yaml_snapshot!(tree);
     }
+
+    #[test]
+    fn compiler_conditional_if_branches_do_not_consume_end_sub() {
+        let source = r#"
+Private Sub Test()
+#If ImplUseTls Then
+    If Not m_oSocket.Connect(m_uRemote.Host, m_uRemote.Port, UseTls:=pvIsProtocolSecure(m_uRemote.Protocol)) Then
+#Else
+    If Not m_oSocket.Connect(m_uRemote.Host, m_uRemote.Port) Then
+#End If
+        On Error GoTo 0
+        Err.Raise vbObjectError, , m_oSocket.GetErrorDescription(m_oSocket.LastError)
+    End If
+    RaiseEvent OperationStart
+    Exit Sub
+EH:
+    PrintError FUNC_NAME
+End Sub
+"#;
+
+        let (cst_opt, _failures) = ConcreteSyntaxTree::from_text("test.cls", source).unpack();
+        let cst = cst_opt.expect("CST should be parsed");
+        let tree = cst.to_serializable();
+
+        let text = format!("{tree:#?}");
+        assert!(
+            !text.contains("Unknown"),
+            "Compiler conditional If branches should not produce Unknown tokens"
+        );
+        assert!(
+            text.contains("SubStatement"),
+            "The enclosing Sub should remain intact"
+        );
+
+        let mut settings = insta::Settings::clone_current();
+        settings.set_snapshot_path("../../../snapshots/parsers/cst/if_statements");
+        settings.set_prepend_module_to_snapshot(false);
+        let _guard = settings.bind_to_scope();
+        insta::assert_yaml_snapshot!(tree);
+    }
 }
